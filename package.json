@@ -1,26 +1,16 @@
 {
-  "name": "t1b4lt.github.io",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "@example/portfolio",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/T1b4lt/T1b4lt.github.io.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/T1b4lt/T1b4lt.github.io/issues"
-  },
-  "homepage": "https://github.com/T1b4lt/T1b4lt.github.io#readme",
   "dependencies": {
-    "@wkocjan/gatsby-theme-intro": "^2.0.1",
-    "gatsby": "^3.14.6",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "astro": "^1.5.0"
   }
 }
