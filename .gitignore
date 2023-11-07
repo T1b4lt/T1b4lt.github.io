@@ -1,4 +1,4 @@
-# build folder
+# build output
 dist/
 
 # dependencies
@@ -10,8 +10,6 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-#vscode
-.vscode
 
 # environment variables
 .env
@@ -19,3 +17,12 @@ pnpm-debug.log*
 
 # macOS-specific files
 .DS_Store
+
+# yarn
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
