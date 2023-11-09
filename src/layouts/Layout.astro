@@ -16,7 +16,7 @@ const lang = getLangFromUrl(Astro.url);
 <html lang={lang}>
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="T1b4lt blog" />
+    <meta name="description" content="T1b4lt's blog" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
@@ -26,7 +26,7 @@ const lang = getLangFromUrl(Astro.url);
     <link href="/fontawesome/css/solid.min.css" rel="stylesheet" />
     <title>{title}</title>
   </head>
-  <body>
+  <body class="bg-slate-200 dark:bg-zinc-900 text-zinc-900 dark:text-slate-200">
     <main>
       <div class="flex flex-row justify-between p-5">
         <LanguagePicker />

@@ -1,5 +1,7 @@
 ---
 import { languages } from "../i18n/ui";
+import { getLangFromUrl } from "../i18n/utils";
+const currentLang = getLangFromUrl(Astro.url);
 ---
 
 <ul class="flex space-x-4">
@@ -8,7 +10,11 @@ import { languages } from "../i18n/ui";
       <li>
         <a
           href={`/${lang}/`}
-          class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-white hover:bg-gray-700 dark:text-white dark:hover:text-gray-700 dark:hover:bg-white"
+          class={`px-3 py-2 rounded-md text-sm font-medium hover:text-slate-200 hover:bg-zinc-900 dark:hover:text-zinc-900 dark:hover:bg-slate-200 ${
+            lang === currentLang
+              ? "text-slate-200 bg-zinc-900 dark:text-zinc-900 dark:bg-slate-200"
+              : ""
+          }`}
         >
           {label}
         </a>

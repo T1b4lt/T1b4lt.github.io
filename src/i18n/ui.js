@@ -7,11 +7,11 @@ export const defaultLang = "en";
 
 export const ui = {
   en: {
-    "lang.english": "English",
-    "lang.spanish": "Spanish",
+    "nav.home": "Home",
+    "nav.blog": "Blog",
   },
   es: {
-    "lang.english": "Inglés",
-    "lang.spanish": "Español",
+    "nav.home": "Inicio",
+    "nav.blog": "Blog",
   },
 };
