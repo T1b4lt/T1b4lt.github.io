@@ -1,10 +1,18 @@
 ---
-import { languages } from '../i18n/ui';
+import { languages } from "../i18n/ui";
 ---
+
 <ul class="flex space-x-4">
-    {Object.entries(languages).map(([lang, label]) => (
-        <li>
-            <a href={`/${lang}/`} class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-white hover:bg-gray-700">{label}</a>
-        </li>
-    ))}
+  {
+    Object.entries(languages).map(([lang, label]) => (
+      <li>
+        <a
+          href={`/${lang}/`}
+          class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-white hover:bg-gray-700 dark:text-white dark:hover:text-gray-700 dark:hover:bg-white"
+        >
+          {label}
+        </a>
+      </li>
+    ))
+  }
 </ul>

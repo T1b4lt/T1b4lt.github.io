@@ -1,10 +1,11 @@
 ---
-import '../styles/global.css';
-import { getLangFromUrl } from '../i18n/utils';
-import LanguagePicker from '../components/LanguagePicker.astro';
+import "../styles/global.css";
+import { getLangFromUrl } from "../i18n/utils";
+import LanguagePicker from "../components/LanguagePicker.astro";
+import DarkModeToggle from "../components/DarkModeToggle.astro";
 
 interface Props {
-	title: string;
+  title: string;
 }
 
 const { title } = Astro.props;
@@ -13,23 +14,25 @@ const lang = getLangFromUrl(Astro.url);
 
 <!doctype html>
 <html lang={lang}>
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="T1b4lt blog" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<link href="/fontawesome/css/fontawesome.min.css" rel="stylesheet">
-		<link href="/fontawesome/css/brands.min.css" rel="stylesheet">
-		<link href="/fontawesome/css/regular.min.css" rel="stylesheet">
-		<link href="/fontawesome/css/solid.min.css" rel="stylesheet">
-		<title>{title}</title>
-	</head>
-	<body>
-		<main>
-			<LanguagePicker />
-			<slot />
-		</main>
-		
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="T1b4lt blog" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <link href="/fontawesome/css/fontawesome.min.css" rel="stylesheet" />
+    <link href="/fontawesome/css/brands.min.css" rel="stylesheet" />
+    <link href="/fontawesome/css/regular.min.css" rel="stylesheet" />
+    <link href="/fontawesome/css/solid.min.css" rel="stylesheet" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <main>
+      <div class="flex flex-row justify-between p-5">
+        <LanguagePicker />
+        <DarkModeToggle />
+      </div>
+      <slot />
+    </main>
+  </body>
 </html>
