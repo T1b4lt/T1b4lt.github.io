@@ -1,0 +1,20 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<nav>
+    <div class="flex justify-center">
+        <div class="flex flex-row space-x-10 text-zinc-900 dark:text-slate-200 font-bold">
+            <a href={"/"+lang} class="group">
+                {t("nav.home")}
+                <span class="block max-w-0 group-hover:max-w-full transition-all duration-300 h-0.5 bg-[#4E937A]"/>
+            </a>
+            <a href={"/"+lang+"/blog"}" class="group">
+                {t("nav.blog")}
+                <span class="block max-w-0 group-hover:max-w-full transition-all duration-300 h-0.5 bg-[#4E937A]"/>
+            </a>
+        </div>
+    </div>
+</nav>

@@ -2,6 +2,17 @@
 import { languages } from "../i18n/ui";
 import { getLangFromUrl } from "../i18n/utils";
 const currentLang = getLangFromUrl(Astro.url);
+
+function changeLangFromUrl(actualUrl:string, lang:string) {
+  // change the current url to the new language in the url
+  // example:
+  // actualUrl = https://www.asd.com/es/whatever
+  // lang = en
+  // newUrl = https://www.asd.com/en/whatever
+  const url = new URL(actualUrl);
+  url.pathname = `/${lang}${url.pathname.slice(3)}`;
+  return url.toString();
+}
 ---
 
 <ul class="flex space-x-4">
@@ -9,7 +20,7 @@ const currentLang = getLangFromUrl(Astro.url);
     Object.entries(languages).map(([lang, label]) => (
       <li>
         <a
-          href={`/${lang}/`}
+          href={changeLangFromUrl(Astro.url, lang)}
           class={`px-3 py-2 rounded-md text-sm font-medium hover:text-slate-200 hover:bg-zinc-900 dark:hover:text-zinc-900 dark:hover:bg-slate-200 ${
             lang === currentLang
               ? "text-slate-200 bg-zinc-900 dark:text-zinc-900 dark:bg-slate-200"

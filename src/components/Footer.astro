@@ -1,0 +1,48 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const actualYear = new Date().getFullYear();
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<footer>
+  <div class="bg-zinc-700 py-10 px-4">
+    <div class="flex justify-center">
+      <div class="w-full lg:w-1/2 px-4">
+        <h4 class="text-3xl font-bold text-slate-200">{t("footer.title")}</h4>
+        <h5 class="text-lg text-gray-400 font-light">
+          {t("footer.subtitle")}
+        </h5>
+        <div class="flex flex-row justify-between mt-6">
+          <a
+            href="https://www.twitter.com/mrtibalt"
+            target="_blank"
+            class="text-slate-200"
+          >
+            <i class="fa-brands fa-twitter"></i>
+          </a>
+          <a
+            href="https://www.github.com/T1b4lt"
+            target="_blank"
+            class="text-slate-200"
+          >
+            <i class="fa-brands fa-github"></i>
+          </a>
+          <a
+            href="https://www.linkedin.com/in/guillermo-segovia-fernandez/"
+            target="_blank"
+            class="text-slate-200"
+          >
+            <i class="fa-brands fa-linkedin-in"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <hr class="my-6 border-slate-200" />
+    <div class="text-center text-sm text-gray-400 font-bold my-1 mx-4">
+      Guillermo Segovia 🚀 {actualYear}
+    </div>
+  </div>
+</footer>
