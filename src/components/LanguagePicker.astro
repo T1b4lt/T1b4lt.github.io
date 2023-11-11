@@ -11,7 +11,7 @@ function changeLangFromUrl(actualUrl:string, lang:string) {
   // newUrl = https://www.asd.com/en/whatever
   const url = new URL(actualUrl);
   url.pathname = `/${lang}${url.pathname.slice(3)}`;
-  return url.toString();
+  return url.pathname;
 }
 ---
 
