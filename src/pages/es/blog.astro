@@ -1,8 +1,10 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import PostList from "../../components/PostList.astro";
+
+const posts = await Astro.glob("./blog/*.md");
 ---
+
 <Layout title="T1b4lt | Blog">
-    <div class="h-screen">
-    <h1 class="text-3xl font-bold text-center mt-20">En un futuro cercano, aquí habrá un blog 😃</h1>
-    </div>
-</Layout
+  <PostList posts={posts} />
+</Layout>

@@ -1,0 +1,51 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+interface Props {
+  posts;
+}
+
+const { posts } = Astro.props;
+
+function sortPostsByIdx(posts) {
+  return posts.sort((a, b) => {
+    const aDate = new Date(a.frontmatter.idx);
+    const bDate = new Date(b.frontmatter.idx);
+    return bDate.getTime() - aDate.getTime();
+  });
+}
+
+const sortedPosts = sortPostsByIdx(posts);
+---
+
+<!-- List all posts -->
+<div class="min-h-screen">
+  <div class="flex flex-col items-center">
+    <h1 class="text-3xl font-bold text-center mt-14">
+      {t("blog.title")}
+    </h1>
+    <section class="mt-7 w-full lg:w-1/2 px-5 py-3">
+      <ul>
+        {
+          sortedPosts.map((post) => (
+            <li class="mb-5">
+              <a href={`blog/${post.frontmatter.idx}`}>
+                <div class="flex flex-col lg:flex-row lg:justify-between">
+                  <span class="lg:mr-5">
+                    <span class="fa-solid fa-angles-right mr-2" />
+                    {post.frontmatter.title}
+                  </span>
+                  <span class="text-gray-500 font-light min-w-fit">
+                    {post.frontmatter.pubDate}
+                  </span>
+                </div>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </div>
+</div>
