@@ -89,6 +89,15 @@ const subtitle =
     <div class="w-full lg:w-1/2 text-lg">
       <h1 class="text-4xl font-bold">{frontmatter.title}</h1>
       <h2 class="text-base font-light">{subtitle}</h2>
+      <div class="flex flex-row mt-5">
+        {
+          frontmatter.tags.map((tag, index) => (
+        <span class="text-xs font-thin text-zinc-900 dark:text-slate-200 bg-zinc-300 dark:bg-slate-800 px-2 py-1 rounded-xl mr-2">
+          {tag}
+        </span>
+          ))
+        }
+      </div>
       <hr class="border-gray-600 dark:border-slate-200 border-2 my-4" />
       <div class="post-content space-y-5">
         <slot />

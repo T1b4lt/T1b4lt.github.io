@@ -43,10 +43,20 @@ const sortedPosts = sortPostsByIdx(filterPostsByPubDateLogical(posts));
             <li class="mb-5">
               <a href={`/${lang}/blog/${post.frontmatter.idx}`}>
                 <div class="flex flex-col lg:flex-row lg:justify-between">
-                  <span class="lg:mr-5">
+                  <div class="lg:mr-5">
                     <span class="fa-solid fa-angles-right mr-2" />
                     {post.frontmatter.title}
-                  </span>
+                    
+                  </div>
+                    <div class="tags flex flex-row min-h-fit items-center">
+                    {
+                      post.frontmatter.tags.map((tag, index) => (
+                      <span class="text-xs font-thin text-zinc-900 dark:text-slate-200 bg-zinc-300 dark:bg-slate-800 px-2 py-1 rounded-xl mr-2">
+                        {tag}
+                      </span>
+                      ))
+                    }
+                    </div>
                   <span class="text-gray-500 font-light min-w-fit">
                     {post.frontmatter.pubDate}
                   </span>
