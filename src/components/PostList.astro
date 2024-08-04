@@ -10,6 +10,7 @@ interface Props {
 const { posts } = Astro.props;
 
 function sortPostsByIdx(posts) {
+  // Sort posts by idx
   return posts.sort((a, b) => {
     const aDate = new Date(a.frontmatter.idx);
     const bDate = new Date(b.frontmatter.idx);
@@ -17,7 +18,16 @@ function sortPostsByIdx(posts) {
   });
 }
 
-const sortedPosts = sortPostsByIdx(posts);
+function filterPostsByPubDateLogical(posts) {
+  // Filter posts by pubDateLogical (with format YYYY-MM-DD)
+  return posts.filter((post) => {
+    const postDate = new Date(post.frontmatter.pubDateLogical);
+    const today = new Date();
+    return postDate.getTime() <= today.getTime();
+  });
+}
+
+const sortedPosts = sortPostsByIdx(filterPostsByPubDateLogical(posts));
 ---
 
 <!-- List all posts -->

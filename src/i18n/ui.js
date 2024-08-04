@@ -11,7 +11,7 @@ export const ui = {
     "nav.blog": "Blog",
     "404.title": "You are lost",
     "404.button": "Go back home",
-    "blog.title": "Publications",
+    "blog.title": "Posts",
     "post.by": "Written by",
     "post.on": "on",
     "footer.title": "Stay in touch!",
