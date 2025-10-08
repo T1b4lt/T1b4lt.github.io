@@ -1,5 +1,4 @@
 ---
-layout: ../../../layouts/PostLayout.astro
 idx: 1
 title: "Mi trabajo en Telefónica aparece en el periódico"
 author: "Guillermo"

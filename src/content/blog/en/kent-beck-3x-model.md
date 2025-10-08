@@ -1,5 +1,4 @@
 ---
-layout: ../../../layouts/PostLayout.astro
 idx: 2
 title: "Kent Beck's 3X Model"
 author: "Guillermo"

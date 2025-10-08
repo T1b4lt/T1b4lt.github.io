@@ -1,14 +1,21 @@
 ---
 import { languages } from "../i18n/ui";
 import { getLangFromUrl } from "../i18n/utils";
+
+interface Props {
+  translations?: Record<string, string>;
+}
+
+const { translations } = Astro.props;
 const currentLang = getLangFromUrl(Astro.url);
 
 function changeLangFromUrl(actualUrl: URL, lang: string) {
-  // change the current url to the new language in the url
-  // example:
-  // actualUrl = https://www.asd.com/es/whatever
-  // lang = en
-  // newUrl = https://www.asd.com/en/whatever
+  // Si hay traducciones disponibles, usar la URL de traducción
+  if (translations && translations[lang]) {
+    return translations[lang];
+  }
+  
+  // Fallback: cambiar el prefijo de idioma en la URL
   const url = new URL(actualUrl);
   url.pathname = `/${lang}${url.pathname.slice(3)}`;
   return url.pathname;

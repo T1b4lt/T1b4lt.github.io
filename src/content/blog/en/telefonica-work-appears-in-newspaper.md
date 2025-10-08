@@ -1,5 +1,4 @@
 ---
-layout: ../../../layouts/PostLayout.astro
 idx: 1
 title: "My work at Telefónica appears in the newspaper"
 author: "Guillermo"

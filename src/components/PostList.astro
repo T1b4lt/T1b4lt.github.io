@@ -41,7 +41,7 @@ const sortedPosts = sortPostsByIdx(filterPostsByPubDateLogical(posts));
         {
           sortedPosts.map((post) => (
             <li class="mb-5">
-              <a href={`/${lang}/blog/${post.frontmatter.idx}`}>
+              <a href={post.url}>
                 <div class="flex flex-col lg:flex-row lg:justify-between">
                   <div class="pb-2 lg:mr-5 w-72">
                     <span class="fa-solid fa-angles-right mr-2" />

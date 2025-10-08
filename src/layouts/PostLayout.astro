@@ -5,7 +5,7 @@ import { getLangFromUrl, useTranslations } from "../i18n/utils";
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-const { frontmatter } = Astro.props;
+const { frontmatter, translations } = Astro.props;
 const subtitle =
   t("post.by") +
   " " +
@@ -16,73 +16,111 @@ const subtitle =
   frontmatter.pubDate;
 ---
 
-<Layout title={`${frontmatter.title} | T1b4lt`}>
+<Layout title={`${frontmatter.title} | T1b4lt`} translations={translations}>
   <style is:global>
     .post-content h1 {
-      @apply text-4xl font-bold;
+      font-size: 2.25rem;
+      line-height: 2.5rem;
+      font-weight: 700;
     }
     .post-content h2 {
-      @apply text-3xl font-bold;
+      font-size: 1.875rem;
+      line-height: 2.25rem;
+      font-weight: 700;
     }
     .post-content h3 {
-      @apply text-2xl font-bold;
+      font-size: 1.5rem;
+      line-height: 2rem;
+      font-weight: 700;
     }
     .post-content h4 {
-      @apply text-xl font-bold;
+      font-size: 1.25rem;
+      line-height: 1.75rem;
+      font-weight: 700;
     }
     .post-content h5 {
-      @apply text-lg font-bold;
+      font-size: 1.125rem;
+      line-height: 1.75rem;
+      font-weight: 700;
     }
     .post-content h6 {
-      @apply text-base font-bold;
+      font-size: 1rem;
+      line-height: 1.5rem;
+      font-weight: 700;
     }
     .post-content p {
-      @apply text-base;
+      font-size: 1rem;
+      line-height: 1.5rem;
     }
     .post-content ul {
-      @apply list-disc list-inside;
+      list-style-type: disc;
+      list-style-position: inside;
     }
     .post-content ol {
-      @apply list-decimal list-inside;
+      list-style-type: decimal;
+      list-style-position: inside;
     }
     .post-content li {
-      @apply text-base;
+      font-size: 1rem;
+      line-height: 1.5rem;
     }
     .post-content a {
-      @apply underline decoration-[#3E78B2] decoration-2;
+      text-decoration: underline;
+      text-decoration-color: #3E78B2;
+      text-decoration-thickness: 2px;
     }
     .post-content a:hover {
-      @apply text-[#3E78B2];
+      color: #3E78B2;
     }
     .post-content blockquote {
-      @apply border-l-4 border-gray-400 pl-4;
+      border-left-width: 4px;
+      border-color: rgb(156 163 175);
+      padding-left: 1rem;
     }
     .post-content blockquote p {
-      @apply text-base;
+      font-size: 1rem;
+      line-height: 1.5rem;
     }
     .post-content pre {
-      @apply overflow-x-auto rounded p-4;
+      overflow-x: auto;
+      border-radius: 0.25rem;
+      padding: 1rem;
     }
     .post-content code {
-      @apply text-base;
+      font-size: 1rem;
+      line-height: 1.5rem;
     }
     .post-content table {
-      @apply w-full border-collapse;
+      width: 100%;
+      border-collapse: collapse;
     }
     .post-content table th {
-      @apply text-base font-bold border border-gray-400 p-2;
+      font-size: 1rem;
+      line-height: 1.5rem;
+      font-weight: 700;
+      border: 1px solid rgb(156 163 175);
+      padding: 0.5rem;
     }
     .post-content table td {
-      @apply text-base border border-gray-400 p-2;
+      font-size: 1rem;
+      line-height: 1.5rem;
+      border: 1px solid rgb(156 163 175);
+      padding: 0.5rem;
     }
     .post-content img {
-      @apply mx-auto;
+      margin-left: auto;
+      margin-right: auto;
     }
     .post-content hr {
-      @apply border-gray-600 dark:border-slate-200 my-4;
+      border-color: rgb(75 85 99);
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+    :root.dark .post-content hr {
+      border-color: rgb(226 232 240);
     }
     .post-content mark {
-      @apply bg-[#D0E562];
+      background-color: #D0E562;
     }
   </style>
   <div class="flex justify-center p-10">

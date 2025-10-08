@@ -1,10 +1,25 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import PostList from "../../components/PostList.astro";
+import { getCollection } from 'astro:content';
 
-const posts = await Astro.glob("./blog/*.md");
+const posts = await getCollection('blog', ({ id }) => {
+  return id.startsWith('en/');
+});
+
+// Ordenar por idx
+const sortedPosts = posts.sort((a, b) => b.data.idx - a.data.idx);
+
+// Convertir al formato esperado por PostList
+const formattedPosts = sortedPosts.map(entry => {
+  const slug = entry.id.replace('en/', '').replace('.md', '');
+  return {
+    url: `/en/blog/${slug}`,
+    frontmatter: entry.data
+  };
+});
 ---
 
 <Layout title="T1b4lt | Blog">
-  <PostList posts={posts} />
+  <PostList posts={formattedPosts} />
 </Layout>

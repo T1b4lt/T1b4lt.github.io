@@ -2,11 +2,17 @@
 import LanguagePicker from "./LanguagePicker.astro";
 import DarkModeToggle from "./DarkModeToggle.astro";
 import NavBar from "./NavBar.astro";
+
+interface Props {
+  translations?: Record<string, string>;
+}
+
+const { translations } = Astro.props;
 ---
 
 <header>
   <div class="flex flex-row justify-between p-5">
-    <LanguagePicker />
+    <LanguagePicker translations={translations} />
     <DarkModeToggle />
   </div>
   <NavBar />
