@@ -2,176 +2,6 @@
 
 Audit of the current codebase with concrete suggestions. The project is sound and the decisions in [`3-design-decisions.md`](./3-design-decisions.md) are respected in practice — the items below are refinements, not blockers.
 
-## Critical
-
-### Eliminate the root redirect flash — EN-at-root with client-side language detection
-
-**Problem.** Root `/` currently generates an Astro-built meta-refresh redirect to `/es/` (driven by `i18n.routing.redirectToDefaultLocale: true` in `astro.config.mjs`). On GitHub Pages there is no server, so that redirect is delivered as an HTML document that briefly paints white before the browser follows the refresh. The flash is visible to the user and it is unavoidable with the current configuration.
-
-**Fundamental constraint.** True HTTP `Accept-Language` negotiation requires an edge runtime (Cloudflare Pages, Netlify Edge, Vercel, etc.). GitHub Pages cannot inspect request headers. The best available approach is to **serve real content at `/`** and, if the client happens to prefer another language, redirect client-side **before the first paint** using the same inline-script technique already used to prevent the dark-mode FOUC.
-
-**Target architecture.**
-
-| URL | Serves | Default for |
-|-----|--------|-------------|
-| `/` | English | EN and all other languages (no redirect) |
-| `/es/` | Spanish | ES browsers (detected client-side, one-time) |
-
-Authoring order does not change. Spanish remains written first, English stays a translation. What changes is the routing convention: authoring is "ES first", the web is "EN first".
-
-**Config changes — `astro.config.mjs`.**
-
-```js
-export default defineConfig({
-  site: "https://t1b4lt.github.io",      // required for sitemap + hreflang URLs
-  i18n: {
-    defaultLocale: "en",
-    locales: ["en", "es"],
-    routing: {
-      prefixDefaultLocale: false,        // EN has no prefix → served at /
-      redirectToDefaultLocale: false,    // no server-side redirect
-    },
-  },
-  vite: { plugins: [tailwindcss()] },
-});
-```
-
-**File layout changes.**
-
-With `prefixDefaultLocale: false`, default-locale pages must sit at `src/pages/*` without a language prefix. The non-default locale keeps its prefix.
-
-```
-src/pages/
-├── index.astro            ← was src/pages/en/index.astro
-├── blog.astro             ← was src/pages/en/blog.astro
-├── blog/
-│   └── [slug].astro       ← was src/pages/en/blog/[slug].astro
-├── 404.astro              (unchanged)
-└── es/                    (unchanged)
-    ├── index.astro
-    ├── blog.astro
-    └── blog/[slug].astro
-```
-
-The existing `src/pages/index.astro` placeholder is overwritten by the moved English home. The `src/pages/en/` directory is deleted.
-
-**Client-side language detection script.**
-
-Add this to `src/layouts/Layout.astro` inside `<head>`, as a sibling to the dark-mode script. Must run before any rendered content so the redirect happens before paint:
-
-```astro
-<script is:inline>
-  (function () {
-    try {
-      const path = location.pathname;
-      const isSpanishPath = path === "/es" || path.startsWith("/es/");
-      const stored = localStorage.getItem("lang");
-
-      // Explicit user preference always wins — it can even undo the auto-detect.
-      if (stored === "es" && !isSpanishPath) {
-        location.replace("/es" + (path === "/" ? "/" : path));
-        return;
-      }
-      if (stored === "en" && isSpanishPath) {
-        location.replace(path.replace(/^\/es/, "") || "/");
-        return;
-      }
-
-      // Auto-detection only on the root path. Deep links never bounce.
-      if (stored === null && path === "/") {
-        const langs = navigator.languages && navigator.languages.length
-          ? navigator.languages
-          : [navigator.language];
-        const prefersSpanish = langs.some((l) => (l || "").toLowerCase().startsWith("es"));
-        if (prefersSpanish) location.replace("/es/");
-      }
-    } catch (_) {
-      // localStorage unavailable (private mode, SSR, etc.) → serve whatever the URL says.
-    }
-  })();
-</script>
-```
-
-**Rules encoded in the script.**
-
-1. **Only `/` triggers auto-detection.** Deep links like `/blog/foo` never bounce to `/es/blog/foo`. A link the user clicked should render what was linked, regardless of browser language.
-2. **Explicit preference always wins.** If the user clicked the language picker before, their choice overrides `navigator.language` and even re-routes on direct visits.
-3. **One-shot detection.** Once `localStorage.lang` is set (either by the picker or implicitly after the first auto-redirect), no further auto-redirects happen.
-4. **`location.replace`, not assignment to `location.href`.** Keeps the redirect out of the browser's Back history, preventing a loop between `/` and `/es/` when the user presses Back.
-
-**`LanguagePicker.astro` update.**
-
-The picker must persist the user's choice so that subsequent visits respect it:
-
-```astro
-<a
-  href={changeLangFromUrl(Astro.url, lang)}
-  data-lang={lang}
-  onclick="localStorage.setItem('lang', this.dataset.lang)"
-  class={...}
->
-  {label}
-</a>
-```
-
-**`changeLangFromUrl` must handle the unprefixed EN path.**
-
-The current implementation (`src/components/LanguagePicker.astro:20`) assumes every URL starts with `/{lang}/`. That no longer holds for EN:
-
-```js
-function changeLangFromUrl(actualUrl, lang) {
-  if (translations && translations[lang]) return translations[lang];
-
-  const path = actualUrl.pathname;
-  const stripped = path.startsWith("/es/")
-    ? path.slice(3)
-    : path === "/es"
-      ? "/"
-      : path;
-
-  return lang === "en" ? stripped : `/es${stripped === "/" ? "/" : stripped}`;
-}
-```
-
-**`getPostTranslations` in `src/i18n/utils.js` must also drop the EN prefix.**
-
-Currently line 44 returns `/${lang}/blog/${slug}` for every language:
-
-```js
-translations[lang] = lang === "en" ? `/blog/${slug}` : `/${lang}/blog/${slug}`;
-```
-
-**`getLangFromUrl` in `src/i18n/utils.js` needs to treat "no prefix" as EN.**
-
-Currently it falls back to `defaultLang` (which was `es`). After switching `defaultLocale` to `en` in `ui.js`, the helper works correctly without changes — but `defaultLang` in `src/i18n/ui.js` must also be updated to `"en"` to stay consistent.
-
-**SEO and crawl implications.**
-
-- `hreflang` becomes essential (already a Critical item below). With EN served at `/`, set `x-default` to `/` as well.
-- `@astrojs/sitemap` auto-emits both trees once `site` is configured.
-- Google executes JavaScript when crawling but does **not** reliably follow JS-based redirects, so crawlers landing on `/` will index the real English page (correct). The Spanish tree is discovered via `hreflang` and the sitemap.
-- The auto-generated redirect page used to carry `<meta name="robots" content="noindex">`. That is now a real page and **should** be indexed. Remove any carry-over `noindex` if present.
-
-**Edge cases to verify after implementation.**
-
-- [ ] `/` → EN content renders instantly for an EN browser (no redirect, no flash).
-- [ ] `/` → redirects to `/es/` before paint for a fresh ES browser.
-- [ ] `/blog/some-post` → does **not** bounce to `/es/blog/some-post` even for an ES browser.
-- [ ] After clicking ES in the picker, future visits to `/` land on `/es/` even from an EN browser.
-- [ ] After clicking EN in the picker while on `/es/foo`, future visits stay on `/foo`.
-- [ ] Private mode / `localStorage` disabled → the script silently no-ops, EN is served.
-- [ ] Back button after auto-redirect does not loop.
-- [ ] `npm run build` produces both `/index.html` (English home) and `/es/index.html`.
-- [ ] `sitemap.xml` lists both language trees.
-- [ ] `hreflang` attributes resolve to the new unprefixed EN URLs.
-
-**Follow-up documentation.**
-
-Update `docs/3-design-decisions.md`:
-
-- **Rewrite** the "`output: "static"` and meta-refresh-free root" decision — the rationale about Astro's built-in `/` → `/es/` redirect is now obsolete. Replace with a decision titled "EN served at `/`, ES at `/es/`, language auto-detected client-side" explaining the GitHub Pages constraint and why the inline-script approach was chosen.
-- **Edit** the "English as a translation of Spanish" decision to clarify the authoring-vs-routing distinction: ES-first in authoring, EN-first in routing.
-
 ## Urgent (dependency hygiene)
 
 ### Migrate icons and fonts from hand-copied files in `public/` to npm-managed packages
@@ -315,7 +145,7 @@ Also update `docs/1-tech-stack.md` to list the new dependencies.
 
 ## Critical (SEO / a11y)
 
-*These remain high priority but are blocked behind the routing change above — `hreflang` and the sitemap must reflect the new URL shape, so do them together.*
+*Now that EN is served at `/` and ES at `/es/`, these tags and the sitemap can reflect the final URL shape.*
 
 ### Missing `canonical` and `hreflang`
 
@@ -353,7 +183,7 @@ Neither `Layout.astro` nor `PostLayout.astro` emit `og:*` or `twitter:*` tags. L
 
 ### Duplicated sorting logic
 
-`posts.sort((a, b) => b.data.idx - a.data.idx)` appears in `src/components/PostList.astro`, `src/pages/es/blog.astro` and `src/pages/en/blog.astro`. Extract into `src/i18n/utils.ts` (or a new `src/lib/posts.ts`) alongside a `filterFuturePosts(posts)` helper that uses `pubDateLogical`.
+`posts.sort((a, b) => b.data.idx - a.data.idx)` appears in `src/components/PostList.astro`, `src/pages/es/blog.astro` and `src/pages/blog.astro`. Extract into `src/i18n/utils.ts` (or a new `src/lib/posts.ts`) alongside a `filterFuturePosts(posts)` helper that uses `pubDateLogical`.
 
 ### Post-body CSS hard-coded in `PostLayout.astro`
 
@@ -368,7 +198,7 @@ The `<style is:global>` block (~125 lines) repeats hex values (`#3E78B2`, etc.) 
 
 ### Duplicated `[slug].astro` pages
 
-`src/pages/es/blog/[slug].astro` and `src/pages/en/blog/[slug].astro` are identical except for the language filter. A `getBlogEntriesByLang(lang)` helper in `utils.ts` would collapse the duplication.
+`src/pages/es/blog/[slug].astro` and `src/pages/blog/[slug].astro` are nearly identical except for the language filter. A `getBlogEntriesByLang(lang)` helper in `utils.ts` would collapse the duplication.
 
 ### Tailwind v4 `@theme` unused
 
@@ -399,12 +229,11 @@ Posts embed remote images with plain markdown syntax — no `loading="lazy"`, no
 
 | # | Change | Effort | Impact |
 |---|--------|--------|--------|
-| 1 | **EN-at-root routing + client-side language detection** (eliminates the root-redirect flash; reshapes all URLs) | ~2–3 h | UX (high) |
-| 2 | `canonical` + `hreflang` + `x-default` in `Layout.astro` — do together with #1 so tags reflect the new URL shape | ~30 min | SEO (high) |
-| 3 | `robots.txt` + `@astrojs/sitemap` — also gated behind #1 so the sitemap carries the new URLs | ~15 min | SEO (medium) |
-| 4 | Migrate icons to `astro-icon` and fonts to `@fontsource/roboto` | ~1 h | Bundle / a11y / dep hygiene (high) |
-| 5 | Open Graph + Twitter Card + `BlogPosting` JSON-LD in `PostLayout.astro` | ~30 min | Social / SEO (high) |
-| 6 | Extract post CSS and lift colors into `@theme` | ~45 min | Maintainability (medium) |
-| 7 | Shared `utils.ts` (sort, filter, per-language collection) + typed `Props` | ~30 min | Code quality (medium) |
+| 1 | `canonical` + `hreflang` + `x-default` in `Layout.astro` | ~30 min | SEO (high) |
+| 2 | `robots.txt` + `@astrojs/sitemap` | ~15 min | SEO (medium) |
+| 3 | Migrate icons to `astro-icon` and fonts to `@fontsource/roboto` | ~1 h | Bundle / a11y / dep hygiene (high) |
+| 4 | Open Graph + Twitter Card + `BlogPosting` JSON-LD in `PostLayout.astro` | ~30 min | Social / SEO (high) |
+| 5 | Extract post CSS and lift colors into `@theme` | ~45 min | Maintainability (medium) |
+| 6 | Shared `utils.ts` (sort, filter, per-language collection) + typed `Props` | ~30 min | Code quality (medium) |
 
-Items 1, 2 and 3 should land in a single PR — they all touch URL shape, and splitting them risks a window where `hreflang`, the sitemap, and the actual routing disagree. Items 4–7 are independent and can ship in any order.
+Items 1 and 2 should land together — they both touch SEO metadata and should reflect the same URL shape. Items 3–6 are independent and can ship in any order.

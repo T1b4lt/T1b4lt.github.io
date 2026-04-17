@@ -4,7 +4,7 @@ How to add, translate, and schedule a blog post.
 
 ## 1. Create the Markdown files
 
-The **filename is the slug** — it becomes the URL at `/<lang>/blog/<slug>`. Create both language versions:
+The **filename is the slug** — it becomes the URL at `/blog/<slug>` (EN) or `/es/blog/<slug>` (ES). Create both language versions:
 
 ```
 src/content/blog/es/<spanish-slug>.md
@@ -54,7 +54,7 @@ Two implications:
 ## 6. Verify locally
 
 ```bash
-npm run dev     # check both /es/blog/<slug> and /en/blog/<slug>
+npm run dev     # check both /blog/<slug> (EN) and /es/blog/<slug> (ES)
 npm run build   # catches schema errors and broken references
 ```
 
