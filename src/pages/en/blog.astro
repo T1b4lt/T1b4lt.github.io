@@ -12,7 +12,7 @@ const sortedPosts = posts.sort((a, b) => b.data.idx - a.data.idx);
 
 // Convertir al formato esperado por PostList
 const formattedPosts = sortedPosts.map(entry => {
-  const slug = entry.id.replace('en/', '').replace('.md', '');
+  const slug = entry.id.replace('en/', '');
   return {
     url: `/en/blog/${slug}`,
     frontmatter: entry.data
