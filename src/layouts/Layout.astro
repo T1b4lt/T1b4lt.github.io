@@ -40,7 +40,10 @@ const lang = getLangFromUrl(Astro.url);
               ? navigator.languages
               : [navigator.language];
             const prefersSpanish = langs.some((l) => (l || "").toLowerCase().startsWith("es"));
-            if (prefersSpanish) location.replace("/es/");
+            if (prefersSpanish) {
+              localStorage.setItem("lang", "es");
+              location.replace("/es/");
+            }
           }
         } catch (_) {
           // localStorage unavailable (private mode, SSR, etc.) → serve whatever the URL says.
