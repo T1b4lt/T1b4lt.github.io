@@ -9,5 +9,6 @@ Project documentation for the T1b4lt.github.io portfolio site.
 3. [Architecture](./2-architecture.md) — how the pieces fit: routing, content pipeline, i18n, build, deploy.
 4. [Design Decisions](./3-design-decisions.md) — non-obvious choices and their rationale.
 5. [Content Authoring](./4-content-authoring.md) — how to write, translate, and schedule blog posts.
+6. [Improvements](./5-improvements.md) — audit of the current codebase with concrete refinements.
 
 See the root [`README.md`](../README.md) for setup instructions and project structure.
