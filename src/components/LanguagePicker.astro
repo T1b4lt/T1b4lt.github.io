@@ -10,15 +10,18 @@ const { translations } = Astro.props;
 const currentLang = getLangFromUrl(Astro.url);
 
 function changeLangFromUrl(actualUrl: URL, lang: string) {
-  // Si hay traducciones disponibles, usar la URL de traducción
   if (translations && translations[lang]) {
     return translations[lang];
   }
-  
-  // Fallback: cambiar el prefijo de idioma en la URL
-  const url = new URL(actualUrl);
-  url.pathname = `/${lang}${url.pathname.slice(3)}`;
-  return url.pathname;
+
+  const path = actualUrl.pathname;
+  const stripped = path.startsWith("/es/")
+    ? path.slice(3)
+    : path === "/es"
+      ? "/"
+      : path;
+
+  return lang === "en" ? stripped : `/es${stripped === "/" ? "/" : stripped}`;
 }
 ---
 
@@ -28,6 +31,8 @@ function changeLangFromUrl(actualUrl: URL, lang: string) {
       <li>
         <a
           href={changeLangFromUrl(Astro.url, lang)}
+          data-lang={lang}
+          onclick="localStorage.setItem('lang', this.dataset.lang)"
           class={`px-3 py-2 rounded-md text-sm font-medium hover:text-slate-200 hover:bg-zinc-900 dark:hover:text-zinc-900 dark:hover:bg-slate-200 ${
             lang === currentLang
               ? "text-slate-200 bg-zinc-900 dark:text-zinc-900 dark:bg-slate-200"
