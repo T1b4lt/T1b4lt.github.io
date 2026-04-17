@@ -26,22 +26,20 @@ export function getRouteFromUrl(url) {
 }
 
 /**
- * Obtiene las URLs de las traducciones de un post dado basándose en el idx
+ * Obtiene las URLs de las traducciones de un post dado basándose en el idx.
  * @param {number} idx - El índice del post actual
- * @param {string} currentLang - El idioma actual (opcional, para excluirlo si es necesario)
+ * @param {string} currentLang - El idioma actual (opcional)
  * @returns {Promise<Object>} Objeto con las URLs por idioma
  */
 export async function getPostTranslations(idx, currentLang) {
   const allPosts = await getCollection("blog");
   const translations = {};
 
-  // Buscar posts con el mismo idx en todos los idiomas
   const relatedPosts = allPosts.filter((post) => post.data.idx === idx);
 
   for (const post of relatedPosts) {
-    // Extraer el idioma y slug del id
     const [lang, ...slugParts] = post.id.split("/");
-    const slug = slugParts.join("/").replace(".md", "");
+    const slug = slugParts.join("/");
 
     translations[lang] = `/${lang}/blog/${slug}`;
   }

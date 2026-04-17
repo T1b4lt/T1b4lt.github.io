@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import PostLayout from '../../../layouts/PostLayout.astro';
 import { getPostTranslations } from '../../../i18n/utils';
 
@@ -7,10 +7,9 @@ export async function getStaticPaths() {
   const blogEntries = await getCollection('blog', ({ id }) => {
     return id.startsWith('en/');
   });
-  
+
   return blogEntries.map(entry => {
-    // Extraer el slug del id (formato: "en/nombre-archivo")
-    const slug = entry.id.replace('en/', '').replace('.md', '');
+    const slug = entry.id.replace('en/', '');
     return {
       params: { slug },
       props: { entry },
@@ -19,9 +18,8 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 
-// Obtener las traducciones del post usando el idx
 const translations = await getPostTranslations(entry.data.idx, 'en');
 ---
 
