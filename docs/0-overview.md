@@ -21,10 +21,12 @@
 | Blog post routes   | `src/pages/{es,en}/blog/[slug].astro` |
 | Post content       | `src/content/blog/{es,en}/*.md` |
 | i18n routing       | `astro.config.mjs` (`i18n`) + `src/i18n/` |
-| Translation links  | `getPostTranslations()` in `src/i18n/utils.js` |
+| Translation links  | `getPostTranslations()` in `src/i18n/utils.ts` |
 | Dark mode          | `src/components/DarkModeToggle.astro` + `@variant dark (.dark &)` in `src/styles/global.css` |
+| SEO metadata       | `canonical`, `hreflang`, Open Graph, Twitter Card in `Layout.astro`; `BlogPosting` JSON-LD in `PostLayout.astro` |
+| Sitemap / robots   | `@astrojs/sitemap` + `public/robots.txt` |
 | 404 page           | `src/pages/404.astro` |
-| Scheduled posts    | `pubDateLogical` field, filtered in `src/components/PostList.astro` |
+| Scheduled posts    | `pubDateLogical` field, filtered via `filterFuturePosts()` in `src/i18n/utils.ts` |
 
 ## Non-goals
 

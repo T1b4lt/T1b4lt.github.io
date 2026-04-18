@@ -30,17 +30,17 @@ tags: ["astro", "blog"]
 
 - `idx` — a number that (a) determines listing order (higher = shown first) and (b) must match across translations so `getPostTranslations` can link them. It does *not* appear in URLs.
 - `pubDate` — shown in the post header; localize it to the target language.
-- `pubDateLogical` — ISO date (`YYYY-MM-DD`). Posts with a `pubDateLogical` in the future are hidden from `PostList` until that date.
+- `pubDateLogical` — ISO date (`YYYY-MM-DD`), validated at build time with a regex. Posts with a `pubDateLogical` in the future are hidden from listings until that date.
 
 ## 3. Body
 
-Standard Markdown. Headings, lists, links, blockquotes, tables, and images all have dedicated styles in `src/layouts/PostLayout.astro` (`.post-content …`). `<mark>` is supported and renders with a highlight color.
+Standard Markdown. Headings, lists, links, blockquotes, tables, and images all have dedicated styles in `src/styles/post.css` (`.post-content …`). `<mark>` is supported and renders with the theme highlight color.
 
 For images, place the file under `public/images/` and reference it with `/images/…`. For images that should go through Astro's image optimizer, import them from `src/` in a page/component and pass them to `<Image>` from `astro:assets` (see `src/pages/404.astro` for an example).
 
 ## 4. Translations
 
-Each post in `src/content/blog/es/` should have a counterpart in `src/content/blog/en/` with the same `idx`. The `LanguagePicker` in the header uses `getPostTranslations(idx, currentLang)` (in `src/i18n/utils.js`) to find the counterpart and link to it. If no translation exists, the picker falls back to a naive path swap — so *always* ship both languages.
+Each post in `src/content/blog/es/` should have a counterpart in `src/content/blog/en/` with the same `idx`. The `LanguagePicker` in the header uses `getPostTranslations(idx, currentLang)` (in `src/i18n/utils.ts`) to find the counterpart and link to it. The same translations map drives the `hreflang` alternate links in `<head>`. If no translation exists, the picker falls back to a naive path swap — so *always* ship both languages.
 
 ## 5. Scheduling
 

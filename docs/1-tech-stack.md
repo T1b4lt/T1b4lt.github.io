@@ -11,6 +11,7 @@
 | `@tailwindcss/vite` | `^4.2.2`  | Official Vite plugin that wires Tailwind 4 into Astro's Vite build. |
 | `@iconify-json/fa6-brands` | `^1.2.6` | FontAwesome 6 brand icons (GitHub, LinkedIn) for astro-icon. |
 | `@iconify-json/fa6-solid`  | `^1.2.4` | FontAwesome 6 solid icons (angles-right) for astro-icon. |
+| `@astrojs/sitemap`         | `^6.x`   | Generates `sitemap-index.xml` at build time with i18n hreflang support. |
 
 ## Tooling
 

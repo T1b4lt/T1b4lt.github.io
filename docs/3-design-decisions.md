@@ -38,11 +38,17 @@ Non-obvious choices made in this project, and the reasoning behind each.
 
 **Why.** The author no longer actively uses the platform.
 
-## Post CSS scoped in `PostLayout.astro`
+## Post CSS extracted to `src/styles/post.css`
 
-**Decision.** Post-body styles (`.post-content h1 { … }`, etc.) live in a `<style is:global>` block inside `PostLayout.astro`, not in `global.css` and not via `@tailwindcss/typography`.
+**Decision.** Post-body styles (`.post-content h1 { … }`, etc.) live in `src/styles/post.css`, imported by `PostLayout.astro`. Brand colors reference CSS custom properties defined in `global.css`'s `@theme` block rather than hard-coded hex values.
 
-**Why.** Markdown-rendered HTML has no class hooks to apply utility classes to, and the typography plugin adds opinionated defaults that conflict with the rest of the page. A small hand-written block keeps the visual language consistent with the surrounding layout.
+**Why.** Markdown-rendered HTML has no class hooks to apply utility classes to, and the typography plugin adds opinionated defaults that conflict with the rest of the page. Extracting the styles to a dedicated file keeps `PostLayout.astro` focused on layout and makes the styles reusable. Centralizing colors in `@theme` (`--color-primary`, `--color-highlight`) eliminates scattered hex literals and lets Tailwind utilities like `bg-primary` work across all components.
+
+## SEO metadata computed from the translations map
+
+**Decision.** `Layout.astro` generates `canonical`, `hreflang` (en, es, x-default), Open Graph, and Twitter Card tags for every page. Alternate URLs are derived from the `translations` prop when available, or computed from the current path as a fallback. `PostLayout.astro` adds `BlogPosting` JSON-LD for posts.
+
+**Why.** Without `canonical` and `hreflang`, search engines treat the EN and ES versions as duplicates. Open Graph and Twitter Cards ensure rich link previews on social platforms. Computing alternates from the same `translations` map used by the language picker guarantees consistency between the UI and the metadata.
 
 ## EN served at `/`, ES at `/es/`, language auto-detected client-side
 
