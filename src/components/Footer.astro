@@ -1,5 +1,6 @@
 ---
 import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import { Icon } from "astro-icon/components";
 
 const actualYear = new Date().getFullYear();
 
@@ -17,25 +18,20 @@ const t = useTranslations(lang);
         </h5>
         <div class="flex flex-row justify-between mt-6">
           <a
-            href="https://www.twitter.com/mrtibalt"
-            target="_blank"
-            class="text-slate-200"
-          >
-            <i class="fa-brands fa-twitter"></i>
-          </a>
-          <a
             href="https://www.github.com/T1b4lt"
             target="_blank"
+            rel="noopener noreferrer"
             class="text-slate-200"
           >
-            <i class="fa-brands fa-github"></i>
+            <Icon name="fa6-brands:github" aria-label="GitHub" />
           </a>
           <a
             href="https://www.linkedin.com/in/guillermo-segovia-fernandez/"
             target="_blank"
+            rel="noopener noreferrer"
             class="text-slate-200"
           >
-            <i class="fa-brands fa-linkedin-in"></i>
+            <Icon name="fa6-brands:linkedin-in" aria-label="LinkedIn" />
           </a>
         </div>
       </div>

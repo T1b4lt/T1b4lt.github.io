@@ -28,9 +28,15 @@ Non-obvious choices made in this project, and the reasoning behind each.
 
 ## Self-hosted fonts and icons
 
-**Decision.** Roboto and FontAwesome are copied into `public/` rather than pulled from a CDN.
+**Decision.** Roboto is managed via `@fontsource/roboto` and icons via `astro-icon` with Iconify JSON packs (`@iconify-json/fa6-brands`, `@iconify-json/fa6-solid`). Assets are bundled into the build output — no CDN requests at runtime.
 
-**Why.** Determinism (no network dependency at request time), privacy (no third-party hits from visitors), and offline-friendly dev.
+**Why.** Determinism (no network dependency at request time), privacy (no third-party hits from visitors), and offline-friendly dev. npm management adds versioning, automated updates, and smaller bundles (`.woff2` instead of `.ttf`, tree-shaken inline SVG instead of full CSS+webfont sets).
+
+## Social links limited to GitHub and LinkedIn
+
+**Decision.** The footer links to GitHub and LinkedIn only. The Twitter/X link was removed.
+
+**Why.** The author no longer actively uses the platform.
 
 ## Post CSS scoped in `PostLayout.astro`
 

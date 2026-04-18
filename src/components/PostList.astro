@@ -1,5 +1,6 @@
 ---
 import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import { Icon } from "astro-icon/components";
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
@@ -44,7 +45,7 @@ const sortedPosts = sortPostsByIdx(filterPostsByPubDateLogical(posts));
               <a href={post.url}>
                 <div class="flex flex-col lg:flex-row lg:justify-between">
                   <div class="pb-2 lg:mr-5 w-72">
-                    <span class="fa-solid fa-angles-right mr-2" />
+                    <Icon name="fa6-solid:angles-right" class="inline mr-2" aria-hidden="true" />
                     {post.frontmatter.title}
                   </div>
                     <div class="tags pb-2 flex flex-row min-h-fit items-center">
