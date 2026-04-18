@@ -31,10 +31,9 @@
 
 ## CI / CD
 
-- **GitHub Actions** — `.github/workflows/deploy.yml` runs on push to `main`.
-- **Lint job** — runs before the build: `npm run format:check`, `npm run lint`, and `npx astro check`. Uses `actions/setup-node@v4` with Node 22 and npm cache.
-- **Build job** — depends on the lint job passing. Uses `withastro/action@v6` (installs deps, builds, uploads artifact).
-- **Deploy job** — `actions/deploy-pages@v5` publishes the artifact to GitHub Pages.
+- **GitHub Actions** — two workflows in `.github/workflows/`.
+- **Lint workflow** (`lint.yml`) — runs on push to `main` and on every pull request. Checks formatting (`prettier --check`), runs ESLint, and runs `astro check` for TypeScript diagnostics. Uses `actions/setup-node@v4` with Node 22 and npm cache.
+- **Deploy workflow** (`deploy.yml`) — runs on push to `main` only. Uses `withastro/action@v6` to build and `actions/deploy-pages@v5` to publish to GitHub Pages.
 
 ## Why these choices
 
