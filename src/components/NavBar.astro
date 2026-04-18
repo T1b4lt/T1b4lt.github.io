@@ -3,7 +3,9 @@ import { getLangFromUrl, useTranslations } from "../i18n/utils";
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-const isBlog = Astro.url.pathname.includes("/blog");
+const pathname = Astro.url.pathname;
+const isHome = pathname === "/" || pathname === "/es" || pathname === "/es/";
+const isBlog = pathname.includes("/blog");
 ---
 
 <nav>
@@ -11,7 +13,7 @@ const isBlog = Astro.url.pathname.includes("/blog");
     <div
       class="flex flex-row space-x-10 text-zinc-900 dark:text-slate-200 font-bold"
     >
-      <a href={lang === "en" ? "/" : `/${lang}`} class="group" aria-current={!isBlog ? "page" : undefined}>
+      <a href={lang === "en" ? "/" : `/${lang}`} class="group" aria-current={isHome ? "page" : undefined}>
         {t("nav.home")}
         <span
           class=`${

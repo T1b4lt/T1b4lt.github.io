@@ -25,7 +25,8 @@ const {
 } = Astro.props;
 
 const lang = getLangFromUrl(Astro.url);
-const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+const canonicalPath = getAlternatePath(Astro.url.pathname, lang, translations);
+const canonicalUrl = new URL(canonicalPath, Astro.site);
 const enUrl = new URL(getAlternatePath(Astro.url.pathname, "en", translations), Astro.site);
 const esUrl = new URL(getAlternatePath(Astro.url.pathname, "es", translations), Astro.site);
 ---

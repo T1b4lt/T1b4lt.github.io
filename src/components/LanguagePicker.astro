@@ -1,5 +1,5 @@
 ---
-import { languages } from "../i18n/ui";
+import { languages, type Lang } from "../i18n/ui";
 import { getLangFromUrl, getAlternatePath } from "../i18n/utils";
 
 interface Props {
@@ -12,7 +12,7 @@ const currentLang = getLangFromUrl(Astro.url);
 
 <ul class="flex space-x-4">
   {
-    Object.entries(languages).map(([lang, label]) => (
+    (Object.keys(languages) as Lang[]).map((lang) => (
       <li>
         <a
           href={getAlternatePath(Astro.url.pathname, lang, translations)}
@@ -24,7 +24,7 @@ const currentLang = getLangFromUrl(Astro.url);
               : ""
           }`}
         >
-          {label}
+          {languages[lang]}
         </a>
       </li>
     ))
