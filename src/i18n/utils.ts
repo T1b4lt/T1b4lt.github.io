@@ -19,6 +19,20 @@ export function useTranslations(lang: Lang) {
   };
 }
 
+export function getAlternatePath(
+  pathname: string,
+  targetLang: Lang,
+  translations?: Record<string, string>,
+): string {
+  if (translations?.[targetLang]) return translations[targetLang];
+  const stripped = pathname.startsWith("/es/")
+    ? pathname.slice(3)
+    : pathname === "/es"
+      ? "/"
+      : pathname;
+  return targetLang === "en" ? stripped : `/es${stripped === "/" ? "/" : stripped}`;
+}
+
 export function getRouteFromUrl(url: string): string | undefined {
   const pathname = new URL(url).pathname;
   const parts = pathname?.split("/");

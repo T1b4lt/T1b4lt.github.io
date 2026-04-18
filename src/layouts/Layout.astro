@@ -1,6 +1,6 @@
 ---
 import "../styles/global.css";
-import { getLangFromUrl } from "../i18n/utils";
+import { getLangFromUrl, getAlternatePath } from "../i18n/utils";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 
@@ -26,20 +26,8 @@ const {
 
 const lang = getLangFromUrl(Astro.url);
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
-
-function getAlternatePath(targetLang: string): string {
-  if (translations?.[targetLang]) return translations[targetLang];
-  const path = Astro.url.pathname;
-  const stripped = path.startsWith("/es/")
-    ? path.slice(3)
-    : path === "/es"
-      ? "/"
-      : path;
-  return targetLang === "en" ? stripped : `/es${stripped === "/" ? "/" : stripped}`;
-}
-
-const enUrl = new URL(getAlternatePath("en"), Astro.site);
-const esUrl = new URL(getAlternatePath("es"), Astro.site);
+const enUrl = new URL(getAlternatePath(Astro.url.pathname, "en", translations), Astro.site);
+const esUrl = new URL(getAlternatePath(Astro.url.pathname, "es", translations), Astro.site);
 ---
 
 <!doctype html>
