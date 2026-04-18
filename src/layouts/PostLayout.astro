@@ -2,7 +2,7 @@
 import Layout from "./Layout.astro";
 import "../styles/post.css";
 
-import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import { getLangFromUrl, useTranslations, getAlternatePath } from "../i18n/utils";
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
@@ -16,7 +16,8 @@ const subtitle =
   " " +
   frontmatter.pubDate;
 
-const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+const canonicalPath = getAlternatePath(Astro.url.pathname, lang, translations);
+const canonicalUrl = new URL(canonicalPath, Astro.site);
 
 const jsonLd = {
   "@context": "https://schema.org",
