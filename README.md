@@ -17,7 +17,7 @@ The site is a static, content-driven blog with a landing page, bilingual content
 
 ### Prerequisites
 
-- Node.js `>= 22` (Astro 6 requirement).
+- Node.js `>= 24` (CI pins Node 24).
 - npm (ships with Node).
 
 ### Install and run locally
@@ -34,7 +34,7 @@ npm run format:check # check formatting (used in CI)
 
 ### Deploy
 
-Deployment is fully automated. On every push to `main`, the workflow at `.github/workflows/deploy.yml` runs a lint gate (format check, ESLint, type check via `astro check`), then builds the site with `withastro/action@v6` and publishes the `dist/` output to GitHub Pages.
+Deployment is fully automated. On every push to `main`, two workflows run: `lint.yml` checks formatting, linting, and types; `deploy.yml` builds the site with `withastro/action@v6` and publishes the `dist/` output to GitHub Pages. The lint workflow also runs on every pull request.
 
 ## Project Structure
 
@@ -72,12 +72,10 @@ Deployment is fully automated. On every push to `main`, the workflow at `.github
 │   │   └── PostLayout.astro  # Post-specific layout
 │   ├── pages/
 │   │   ├── 404.astro
-│   │   ├── index.astro       # Placeholder; Astro redirects / → /es/
-│   │   ├── en/               # English routes
-│   │   │   ├── index.astro
-│   │   │   ├── blog.astro
-│   │   │   └── blog/[slug].astro
-│   │   └── es/               # Spanish routes (default locale)
+│   │   ├── index.astro       # English home (default locale, no prefix)
+│   │   ├── blog.astro        # English blog index
+│   │   ├── blog/[slug].astro # English blog post
+│   │   └── es/               # Spanish routes (/es/ prefix)
 │   │       ├── index.astro
 │   │       ├── blog.astro
 │   │       └── blog/[slug].astro
@@ -89,7 +87,7 @@ Deployment is fully automated. On every push to `main`, the workflow at `.github
 
 ### How blog posts work
 
-Posts live under `src/content/blog/<lang>/<slug>.md`. The filename slug is the identifier: it becomes the URL (`/<lang>/blog/<slug>`). Each post declares the following frontmatter (validated by `src/content.config.ts`):
+Posts live under `src/content/blog/<lang>/<slug>.md`. The filename slug is the identifier: it becomes the URL (`/blog/<slug>` for EN, `/es/blog/<slug>` for ES). Each post declares the following frontmatter (validated by `src/content.config.ts`):
 
 ```yaml
 idx: 1 # Sort key (higher = shown first) and translation-link key
@@ -100,7 +98,7 @@ pubDateLogical: "YYYY-MM-DD" # Used to hide future-dated posts
 tags: ["tag1", "tag2"]
 ```
 
-Two posts in different languages with the same `idx` are treated as translations of each other; see `src/i18n/utils.js` (`getPostTranslations`). The slugs themselves are independent per language.
+Two posts in different languages with the same `idx` are treated as translations of each other; see `src/i18n/utils.ts` (`getPostTranslations`). The slugs themselves are independent per language.
 
 ## Documentation
 
