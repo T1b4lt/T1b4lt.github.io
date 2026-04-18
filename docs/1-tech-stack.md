@@ -5,8 +5,12 @@
 | Dependency          | Version   | Role |
 |---------------------|-----------|------|
 | `astro`             | `^6.1.7`  | Static site generator, content collections, i18n routing, image pipeline. |
+| `astro-icon`        | *         | Inline SVG icon component powered by Iconify. |
+| `@fontsource/roboto`| *         | Self-hosted Roboto font files (`.woff2`) managed via npm. |
 | `tailwindcss`       | `^4.2.2`  | Utility-first CSS framework. |
 | `@tailwindcss/vite` | `^4.2.2`  | Official Vite plugin that wires Tailwind 4 into Astro's Vite build. |
+| `@iconify-json/fa6-brands` | *      | FontAwesome 6 brand icons (GitHub, LinkedIn) for astro-icon. |
+| `@iconify-json/fa6-solid`  | *      | FontAwesome 6 solid icons (angles-right) for astro-icon. |
 
 ## Tooling
 
@@ -17,8 +21,8 @@
 
 ## Assets (self-hosted)
 
-- **Roboto** — `public/fonts/Roboto-{Light,Regular,Medium,Bold}.ttf` loaded as `@font-face` in `src/styles/global.css`.
-- **FontAwesome Free** — `public/fontawesome/` (CSS + webfonts) linked directly from `Layout.astro`.
+- **Roboto** — served as `.woff2` via `@fontsource/roboto`, imported in `src/styles/global.css`. Weights: 300, 400, 500, 700.
+- **Icons** — inline SVG via `astro-icon` + Iconify JSON packs. Only the icons actually used are bundled (GitHub, LinkedIn, angles-right).
 - **Images** — `public/images/` (e.g. the 404 illustration).
 
 ## CI / CD
