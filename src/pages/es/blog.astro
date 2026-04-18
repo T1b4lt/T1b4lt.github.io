@@ -1,25 +1,11 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import PostList from "../../components/PostList.astro";
-import { getCollection } from 'astro:content';
+import { getFormattedPosts } from "../../i18n/utils";
 
-const posts = await getCollection('blog', ({ id }) => {
-  return id.startsWith('es/');
-});
-
-// Ordenar por idx
-const sortedPosts = posts.sort((a, b) => b.data.idx - a.data.idx);
-
-// Convertir al formato esperado por PostList
-const formattedPosts = sortedPosts.map(entry => {
-  const slug = entry.id.replace('es/', '');
-  return {
-    url: `/es/blog/${slug}`,
-    frontmatter: entry.data
-  };
-});
+const posts = await getFormattedPosts("es");
 ---
 
-<Layout title="T1b4lt | Blog">
-  <PostList posts={formattedPosts} />
+<Layout title="T1b4lt | Blog" description="Publicaciones sobre tecnologia, innovacion y crecimiento profesional">
+  <PostList posts={posts} />
 </Layout>
