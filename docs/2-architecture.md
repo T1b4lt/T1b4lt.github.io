@@ -22,31 +22,32 @@ The entire site is prerendered at build time (`output: "static"`, which is Astro
 
 ## Routing
 
-Routing is filesystem-based under `src/pages/`:
+Routing is filesystem-based under `src/pages/`. English is the default locale with no URL prefix; Spanish lives under `/es/`:
 
-| URL                                    | File |
-|----------------------------------------|------|
-| `/`                                    | auto-generated redirect → `/es/` |
-| `/es/` (default locale)                | `src/pages/es/index.astro` |
-| `/en/`                                 | `src/pages/en/index.astro` |
-| `/es/blog`, `/en/blog`                 | `src/pages/<lang>/blog.astro` |
-| `/es/blog/<slug>`, `/en/blog/<slug>`   | `src/pages/<lang>/blog/[slug].astro` |
-| `/404`                                 | `src/pages/404.astro` |
+| URL                  | File |
+|----------------------|------|
+| `/`                  | `src/pages/index.astro` (English home) |
+| `/blog`              | `src/pages/blog.astro` |
+| `/blog/<slug>`       | `src/pages/blog/[slug].astro` |
+| `/es/`               | `src/pages/es/index.astro` |
+| `/es/blog`           | `src/pages/es/blog.astro` |
+| `/es/blog/<slug>`    | `src/pages/es/blog/[slug].astro` |
+| `/404`               | `src/pages/404.astro` |
 
-The `/` redirect is produced by Astro because `astro.config.mjs` sets:
+This is configured in `astro.config.mjs`:
 
 ```js
 i18n: {
-  defaultLocale: "es",
-  locales: ["es", "en"],
+  defaultLocale: "en",
+  locales: ["en", "es"],
   routing: {
-    prefixDefaultLocale: true,     // always emit /es/, never bare /
-    redirectToDefaultLocale: true, // / → /es/
+    prefixDefaultLocale: false,      // EN has no prefix → served at /
+    redirectToDefaultLocale: false,  // no server-side redirect
   },
 }
 ```
 
-`src/pages/index.astro` is intentionally empty — Astro 6 requires a file at `/` to hang the redirect on, but its content is not rendered.
+An inline `<script>` in `Layout.astro`'s `<head>` provides client-side language detection: it reads `localStorage.lang` (set by the language picker) and falls back to `navigator.languages` to redirect Spanish browsers from `/` to `/es/` before the first paint. Deep links are never redirected — only `/` triggers auto-detection.
 
 ## Content pipeline
 
@@ -61,12 +62,12 @@ defineCollection({
 ```
 
 - `entry.id` is the path relative to `base`, without extension (e.g. `es/modelo-3x-kent-beck`).
-- Post HTML is produced via `render(entry)` from `astro:content`, invoked inside `src/pages/<lang>/blog/[slug].astro`.
-- The language pages filter by `entry.id.startsWith("<lang>/")`, then pass entries to `PostList`/`PostLayout`.
+- Post HTML is produced via `render(entry)` from `astro:content`, invoked inside `src/pages/blog/[slug].astro` (EN) and `src/pages/es/blog/[slug].astro` (ES).
+- The page components filter by `entry.id.startsWith("<lang>/")`, then pass entries to `PostList`/`PostLayout`.
 
 ### Identifiers: slug vs. idx
 
-The **slug** is the identifier of a post. It comes from the filename (`src/content/blog/<lang>/<slug>.md`) and appears verbatim in the URL (`/<lang>/blog/<slug>`). Slugs are independent per language (e.g. `modelo-3x-kent-beck` vs `kent-beck-3x-model`) so each language gets a readable URL.
+The **slug** is the identifier of a post. It comes from the filename (`src/content/blog/<lang>/<slug>.md`) and appears verbatim in the URL (`/blog/<slug>` for EN, `/es/blog/<slug>` for ES). Slugs are independent per language (e.g. `modelo-3x-kent-beck` vs `kent-beck-3x-model`) so each language gets a readable URL.
 
 The frontmatter field **`idx`** is *not* an identifier — it is a number used only for:
 

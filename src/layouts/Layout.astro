@@ -17,6 +17,39 @@ const lang = getLangFromUrl(Astro.url);
 <html lang={lang}>
   <head>
     <meta charset="UTF-8" />
+    <script is:inline>
+      (function () {
+        try {
+          const path = location.pathname;
+          const isSpanishPath = path === "/es" || path.startsWith("/es/");
+          const stored = localStorage.getItem("lang");
+
+          // Explicit user preference always wins — it can even undo the auto-detect.
+          if (stored === "es" && !isSpanishPath) {
+            location.replace("/es" + (path === "/" ? "/" : path));
+            return;
+          }
+          if (stored === "en" && isSpanishPath) {
+            location.replace(path.replace(/^\/es/, "") || "/");
+            return;
+          }
+
+          // Auto-detection only on the root path. Deep links never bounce.
+          if (stored === null && path === "/") {
+            const langs = navigator.languages && navigator.languages.length
+              ? navigator.languages
+              : [navigator.language];
+            const prefersSpanish = langs.some((l) => (l || "").toLowerCase().startsWith("es"));
+            if (prefersSpanish) {
+              localStorage.setItem("lang", "es");
+              location.replace("/es/");
+            }
+          }
+        } catch (_) {
+          // localStorage unavailable (private mode, SSR, etc.) → serve whatever the URL says.
+        }
+      })();
+    </script>
     <meta name="description" content="T1b4lt's blog" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />

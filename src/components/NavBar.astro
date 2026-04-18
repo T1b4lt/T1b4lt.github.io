@@ -11,7 +11,7 @@ const isBlog = Astro.url.pathname.includes("/blog");
     <div
       class="flex flex-row space-x-10 text-zinc-900 dark:text-slate-200 font-bold"
     >
-      <a href={"/" + lang} class="group">
+      <a href={lang === "en" ? "/" : `/${lang}`} class="group">
         {t("nav.home")}
         <span
           class=`${
@@ -19,7 +19,7 @@ const isBlog = Astro.url.pathname.includes("/blog");
           }`
         ></span>
       </a>
-      <a href={"/" + lang + "/blog"} class="group">
+      <a href={lang === "en" ? "/blog" : `/${lang}/blog`} class="group">
         {t("nav.blog")}
         <span
           class=`${

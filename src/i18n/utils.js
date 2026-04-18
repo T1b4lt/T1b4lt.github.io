@@ -41,7 +41,7 @@ export async function getPostTranslations(idx, currentLang) {
     const [lang, ...slugParts] = post.id.split("/");
     const slug = slugParts.join("/");
 
-    translations[lang] = `/${lang}/blog/${slug}`;
+    translations[lang] = lang === "en" ? `/blog/${slug}` : `/${lang}/blog/${slug}`;
   }
 
   return translations;

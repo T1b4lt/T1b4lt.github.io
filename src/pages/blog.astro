@@ -1,20 +1,18 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import PostList from "../../components/PostList.astro";
+import Layout from "../layouts/Layout.astro";
+import PostList from "../components/PostList.astro";
 import { getCollection } from 'astro:content';
 
 const posts = await getCollection('blog', ({ id }) => {
   return id.startsWith('en/');
 });
 
-// Ordenar por idx
 const sortedPosts = posts.sort((a, b) => b.data.idx - a.data.idx);
 
-// Convertir al formato esperado por PostList
 const formattedPosts = sortedPosts.map(entry => {
   const slug = entry.id.replace('en/', '');
   return {
-    url: `/en/blog/${slug}`,
+    url: `/blog/${slug}`,
     frontmatter: entry.data
   };
 });
