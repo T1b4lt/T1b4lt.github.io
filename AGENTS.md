@@ -26,22 +26,30 @@ A bilingual (ES/EN) personal portfolio and blog, built with **Astro 6** + **Tail
 2. **Do not invent CMS-like abstractions.** Posts are Markdown files validated by a Zod schema in `src/content.config.ts`. If you need a new field, add it there.
 3. **Slug is the identifier; `idx` is only a sort/translation-link key.** The filename becomes the URL (`/<lang>/blog/<slug>`). `idx` is a frontmatter number used to order listings and to pair translations across languages — it never appears in URLs. See [3-design-decisions.md](./docs/3-design-decisions.md).
 4. **Don't fight Astro's i18n.** `/` is an auto-generated redirect to `/es/`. The empty `src/pages/index.astro` only exists to satisfy Astro's requirement that a file sit at `/` — don't add content to it.
-5. **Verify before claiming done.** Run `npm run build` after any change. Schema violations and broken references fail the build.
-6. **No tracking, no analytics, no comments.** Keep the site lean and static.
+5. **Verify before claiming done.** Run `npm run lint`, `npm run format:check`, `npx astro check`, and `npm run build` after any change. The CI gate enforces all four.
+6. **Keep code formatted.** Run `npm run format` before committing. Prettier with `prettier-plugin-astro` handles all file types.
+7. **No tracking, no analytics, no comments.** Keep the site lean and static.
 
 ## Quick commands
 
 ```bash
-npm install      # prerequisites
-npm run dev      # local dev server on http://localhost:4321
-npm run build    # produces ./dist (what gets deployed)
-npm run preview  # serve ./dist locally
+npm install         # prerequisites
+npm run dev         # local dev server on http://localhost:4321
+npm run build       # produces ./dist (what gets deployed)
+npm run preview     # serve ./dist locally
+npm run lint        # ESLint (.ts, .js, .astro)
+npm run format      # auto-format all files with Prettier
+npm run format:check # check formatting without modifying (CI uses this)
+npx astro check     # TypeScript type checking for .astro and .ts files
 ```
 
 ## Quick map
 
 ```
 astro.config.mjs           # i18n + Tailwind plugin
+eslint.config.mjs          # ESLint flat config (Astro + TypeScript)
+.prettierrc.mjs            # Prettier config (Astro plugin)
+tsconfig.json              # TypeScript strict mode (extends astro/tsconfigs/strict)
 src/content.config.ts      # Blog schema + glob loader
 src/content/blog/{es,en}/  # Markdown posts (one folder per language)
 src/pages/{es,en}/         # Per-language routes
@@ -50,6 +58,6 @@ src/components/            # Layout pieces (Header, Footer, NavBar, …)
 src/layouts/               # Page and Post layouts
 src/styles/global.css      # Tailwind entry + @font-face
 public/                    # Static assets (fonts, icons, images)
-.github/workflows/         # Pages deploy
+.github/workflows/         # CI lint gate + Pages deploy
 docs/                      # In-depth documentation (start at docs/README.md)
 ```

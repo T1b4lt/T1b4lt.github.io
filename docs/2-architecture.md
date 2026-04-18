@@ -130,6 +130,6 @@ The frontmatter field **`idx`** is _not_ an identifier — it is a number used o
   2. Renders all routes to `dist/`.
   3. Optimizes images via `astro:assets` (produces WebP variants).
 - `.github/workflows/deploy.yml` runs on every push to `main`:
-  1. `actions/checkout@v6` checks out the repo.
-  2. `withastro/action@v6` installs dependencies and runs the build.
-  3. `actions/deploy-pages@v5` publishes `dist/` to GitHub Pages.
+  1. **Lint job:** checks formatting (`prettier --check`), runs ESLint, and runs `astro check` for TypeScript diagnostics. The build is blocked until this passes.
+  2. **Build job:** `withastro/action@v6` installs dependencies and runs the build.
+  3. **Deploy job:** `actions/deploy-pages@v5` publishes `dist/` to GitHub Pages.

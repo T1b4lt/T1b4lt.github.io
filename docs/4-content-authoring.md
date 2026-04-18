@@ -54,8 +54,11 @@ Two implications:
 ## 6. Verify locally
 
 ```bash
-npm run dev     # check both /blog/<slug> (EN) and /es/blog/<slug> (ES)
-npm run build   # catches schema errors and broken references
+npm run dev          # check both /blog/<slug> (EN) and /es/blog/<slug> (ES)
+npm run format       # auto-format any new or changed files
+npm run lint         # catch linting issues
+npx astro check      # TypeScript type checking
+npm run build        # catches schema errors and broken references
 ```
 
-Schema violations (missing or mistyped frontmatter fields) fail the build with a precise error pointing at the offending file.
+Schema violations (missing or mistyped frontmatter fields) fail the build with a precise error pointing at the offending file. The CI lint gate enforces formatting, linting, and type checking before the build runs.

@@ -8,8 +8,10 @@ The site is a static, content-driven blog with a landing page, bilingual content
 
 - **Astro 6** — static site generator, content collections, built-in i18n routing.
 - **Tailwind CSS 4** — utility-first styling via the Vite plugin (`@tailwindcss/vite`).
-- **TypeScript** — used in content schema and component props.
-- **GitHub Actions + GitHub Pages** — automated build and deploy on push to `main`.
+- **TypeScript (strict mode)** — used in content schema, component props, and i18n utilities.
+- **ESLint** — linting for `.ts`, `.js`, and `.astro` files via `eslint-plugin-astro` and `typescript-eslint`.
+- **Prettier** — code formatting with `prettier-plugin-astro`.
+- **GitHub Actions + GitHub Pages** — automated lint gate + build + deploy on push to `main`.
 
 ## Setup
 
@@ -25,18 +27,24 @@ npm install          # install dependencies
 npm run dev          # start the dev server at http://localhost:4321
 npm run build        # produce a production build in ./dist
 npm run preview      # serve the production build locally
+npm run lint         # run ESLint
+npm run format       # format all files with Prettier
+npm run format:check # check formatting (used in CI)
 ```
 
 ### Deploy
 
-Deployment is fully automated. On every push to `main`, the workflow at `.github/workflows/deploy.yml` builds the site with `withastro/action@v2` and publishes the `dist/` output to GitHub Pages.
+Deployment is fully automated. On every push to `main`, the workflow at `.github/workflows/deploy.yml` runs a lint gate (format check, ESLint, type check via `astro check`), then builds the site with `withastro/action@v6` and publishes the `dist/` output to GitHub Pages.
 
 ## Project Structure
 
 ```
 .
-├── .github/workflows/        # GitHub Actions (Pages deploy)
+├── .github/workflows/        # GitHub Actions (lint gate + Pages deploy)
 ├── astro.config.mjs          # Astro config (i18n, Tailwind plugin)
+├── eslint.config.mjs         # ESLint flat config (Astro + TypeScript)
+├── .prettierrc.mjs           # Prettier config (Astro plugin)
+├── .prettierignore            # Files excluded from formatting
 ├── docs/                     # Project documentation (see docs/README.md)
 ├── public/                   # Static assets served as-is
 │   ├── favicon.svg
@@ -57,8 +65,8 @@ Deployment is fully automated. On every push to `main`, the workflow at `.github
 │   │       └── es/           # Spanish posts (Markdown)
 │   ├── content.config.ts     # Content collection schema (glob loader)
 │   ├── i18n/
-│   │   ├── ui.js             # Translation strings
-│   │   └── utils.js          # lang helpers + post translation lookup
+│   │   ├── ui.ts             # Translation strings
+│   │   └── utils.ts          # lang helpers + post translation lookup
 │   ├── layouts/
 │   │   ├── Layout.astro      # Base layout (head + Header + Footer)
 │   │   └── PostLayout.astro  # Post-specific layout
