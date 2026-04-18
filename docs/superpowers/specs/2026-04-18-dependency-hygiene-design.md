@@ -26,23 +26,23 @@ Migrate manually-copied FontAwesome and Roboto files from `public/` to npm-manag
 
 **Files modified:**
 
-| File | Change |
-|------|--------|
-| `astro.config.mjs` | Import and register `icon()` integration |
-| `src/components/Footer.astro` | Import `Icon` from `astro-icon/components`. Remove Twitter link block. Replace 2 remaining `<i class="fa-*">` with `<Icon>` components using `aria-label` |
+| File                            | Change                                                                                                                                                       |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `astro.config.mjs`              | Import and register `icon()` integration                                                                                                                     |
+| `src/components/Footer.astro`   | Import `Icon` from `astro-icon/components`. Remove Twitter link block. Replace 2 remaining `<i class="fa-*">` with `<Icon>` components using `aria-label`    |
 | `src/components/PostList.astro` | Import `Icon` from `astro-icon/components`. Replace `<span class="fa-solid fa-angles-right">` with `<Icon name="fa6-solid:angles-right" aria-hidden="true">` |
-| `src/layouts/Layout.astro` | Remove the 4 FontAwesome `<link>` tags |
+| `src/layouts/Layout.astro`      | Remove the 4 FontAwesome `<link>` tags                                                                                                                       |
 
 **Files deleted:** `public/fontawesome/` (entire directory, ~700 KB)
 
 **Icon mapping:**
 
-| Old | New | Component |
-|-----|-----|-----------|
-| `fa-brands fa-github` | `fa6-brands:github` | Footer.astro |
-| `fa-brands fa-linkedin-in` | `fa6-brands:linkedin-in` | Footer.astro |
+| Old                        | New                      | Component      |
+| -------------------------- | ------------------------ | -------------- |
+| `fa-brands fa-github`      | `fa6-brands:github`      | Footer.astro   |
+| `fa-brands fa-linkedin-in` | `fa6-brands:linkedin-in` | Footer.astro   |
 | `fa-solid fa-angles-right` | `fa6-solid:angles-right` | PostList.astro |
-| `fa-brands fa-twitter` | _(removed)_ | Footer.astro |
+| `fa-brands fa-twitter`     | _(removed)_              | Footer.astro   |
 
 ### Font migration (`@fontsource/roboto`)
 
@@ -50,19 +50,19 @@ Migrate manually-copied FontAwesome and Roboto files from `public/` to npm-manag
 
 **Files modified:**
 
-| File | Change |
-|------|--------|
+| File                    | Change                                                                                                                                     |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
 | `src/styles/global.css` | Remove 4 `@font-face` blocks. Add `@import "@fontsource/roboto/{300,400,500,700}.css"`. Keep `body { font-family: "Roboto", sans-serif; }` |
 
 **Files deleted:** `public/fonts/` (4 `.ttf` files, ~700 KB)
 
 ### Documentation updates
 
-| File | Change |
-|------|--------|
+| File                         | Change                                                                                                        |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------- |
 | `docs/3-design-decisions.md` | Update "Self-hosted fonts and icons" section: assets now managed via npm. Add note about Twitter link removal |
-| `docs/1-tech-stack.md` | Add new dependencies to Runtime table. Update "Assets (self-hosted)" section to reflect npm management |
-| `docs/5-improvements.md` | Remove the entire "Urgent (dependency hygiene)" section (lines 6-143) |
+| `docs/1-tech-stack.md`       | Add new dependencies to Runtime table. Update "Assets (self-hosted)" section to reflect npm management        |
+| `docs/5-improvements.md`     | Remove the entire "Urgent (dependency hygiene)" section (lines 6-143)                                         |
 
 ## Verification
 
@@ -73,6 +73,7 @@ grep -rn "fa-\|fontawesome\|fonts/Roboto\|/fonts/" src/ public/
 ```
 
 Additionally:
+
 - `npm run build` must succeed
 - `npm run dev` must show icons rendering correctly and fonts loading
 - No requests to `/fonts/` or `/fontawesome/` paths in the built output

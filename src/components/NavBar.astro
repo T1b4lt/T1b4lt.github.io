@@ -13,7 +13,11 @@ const isBlog = pathname.includes("/blog");
     <div
       class="flex flex-row space-x-10 text-zinc-900 dark:text-slate-200 font-bold"
     >
-      <a href={lang === "en" ? "/" : `/${lang}`} class="group" aria-current={isHome ? "page" : undefined}>
+      <a
+        href={lang === "en" ? "/" : `/${lang}`}
+        class="group"
+        aria-current={isHome ? "page" : undefined}
+      >
         {t("nav.home")}
         <span
           class=`${
@@ -21,7 +25,11 @@ const isBlog = pathname.includes("/blog");
           }`
         ></span>
       </a>
-      <a href={lang === "en" ? "/blog" : `/${lang}/blog`} class="group" aria-current={isBlog ? "page" : undefined}>
+      <a
+        href={lang === "en" ? "/blog" : `/${lang}/blog`}
+        class="group"
+        aria-current={isBlog ? "page" : undefined}
+      >
         {t("nav.blog")}
         <span
           class=`${

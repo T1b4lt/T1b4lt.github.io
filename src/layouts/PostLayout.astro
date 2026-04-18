@@ -2,7 +2,11 @@
 import Layout from "./Layout.astro";
 import "../styles/post.css";
 
-import { getLangFromUrl, useTranslations, getAlternatePath } from "../i18n/utils";
+import {
+  getLangFromUrl,
+  useTranslations,
+  getAlternatePath,
+} from "../i18n/utils";
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
@@ -45,7 +49,7 @@ const jsonLd = {
     tags: frontmatter.tags,
   }}
 >
-  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   <div class="flex justify-center p-10">
     <div class="w-full lg:w-1/2 text-lg">
       <h1 class="text-4xl font-bold">{frontmatter.title}</h1>
@@ -53,9 +57,9 @@ const jsonLd = {
       <div class="flex flex-row mt-5">
         {
           frontmatter.tags.map((tag: string) => (
-        <span class="text-xs font-thin text-zinc-900 dark:text-slate-200 bg-zinc-300 dark:bg-slate-800 px-2 py-1 rounded-xl mr-2">
-          {tag}
-        </span>
+            <span class="text-xs font-thin text-zinc-900 dark:text-slate-200 bg-zinc-300 dark:bg-slate-800 px-2 py-1 rounded-xl mr-2">
+              {tag}
+            </span>
           ))
         }
       </div>

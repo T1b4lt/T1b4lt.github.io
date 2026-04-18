@@ -2,16 +2,16 @@
 
 ## Runtime
 
-| Dependency          | Version   | Role |
-|---------------------|-----------|------|
-| `astro`             | `^6.1.7`  | Static site generator, content collections, i18n routing, image pipeline. |
-| `astro-icon`        | `^1.1.5`  | Inline SVG icon component powered by Iconify. |
-| `@fontsource/roboto`| `^5.2.10` | Self-hosted Roboto font files (`.woff2`) managed via npm. |
-| `tailwindcss`       | `^4.2.2`  | Utility-first CSS framework. |
-| `@tailwindcss/vite` | `^4.2.2`  | Official Vite plugin that wires Tailwind 4 into Astro's Vite build. |
-| `@iconify-json/fa6-brands` | `^1.2.6` | FontAwesome 6 brand icons (GitHub, LinkedIn) for astro-icon. |
-| `@iconify-json/fa6-solid`  | `^1.2.4` | FontAwesome 6 solid icons (angles-right) for astro-icon. |
-| `@astrojs/sitemap`         | `^3.7.2` | Generates `sitemap-index.xml` at build time with i18n hreflang support. |
+| Dependency                 | Version   | Role                                                                      |
+| -------------------------- | --------- | ------------------------------------------------------------------------- |
+| `astro`                    | `^6.1.7`  | Static site generator, content collections, i18n routing, image pipeline. |
+| `astro-icon`               | `^1.1.5`  | Inline SVG icon component powered by Iconify.                             |
+| `@fontsource/roboto`       | `^5.2.10` | Self-hosted Roboto font files (`.woff2`) managed via npm.                 |
+| `tailwindcss`              | `^4.2.2`  | Utility-first CSS framework.                                              |
+| `@tailwindcss/vite`        | `^4.2.2`  | Official Vite plugin that wires Tailwind 4 into Astro's Vite build.       |
+| `@iconify-json/fa6-brands` | `^1.2.6`  | FontAwesome 6 brand icons (GitHub, LinkedIn) for astro-icon.              |
+| `@iconify-json/fa6-solid`  | `^1.2.4`  | FontAwesome 6 solid icons (angles-right) for astro-icon.                  |
+| `@astrojs/sitemap`         | `^3.7.2`  | Generates `sitemap-index.xml` at build time with i18n hreflang support.   |
 
 ## Tooling
 

@@ -4,7 +4,7 @@ Non-obvious choices made in this project, and the reasoning behind each.
 
 ## Slug is the identifier; `idx` is a separate link/sort key
 
-**Decision.** The slug (filename) is the identifier of a post — it is what appears in the URL (`/blog/<slug>` for EN, `/es/blog/<slug>` for ES). The frontmatter field `idx` is *not* an identifier; it is a number used only as a sort key in listings and as the key to pair translations across languages.
+**Decision.** The slug (filename) is the identifier of a post — it is what appears in the URL (`/blog/<slug>` for EN, `/es/blog/<slug>` for ES). The frontmatter field `idx` is _not_ an identifier; it is a number used only as a sort key in listings and as the key to pair translations across languages.
 
 **Why.** Slugs are intentionally different across languages (`modelo-3x-kent-beck` vs `kent-beck-3x-model`) because each language wants its own, readable URL — so slug alone cannot link translations. A separate numeric `idx` decouples translation linking from the slug, so renaming a file never breaks the link to its translation. The same number also drives listing order (higher `idx` = shown first).
 

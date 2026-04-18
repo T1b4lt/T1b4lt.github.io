@@ -10,15 +10,15 @@ A bilingual (ES/EN) personal portfolio and blog, built with **Astro 6** + **Tail
 
 ## Where to look for what
 
-| If you need to…                                          | Read |
-|----------------------------------------------------------|------|
-| Run / build / deploy the site                            | [README.md → Setup](./README.md#setup) |
-| Understand the directory layout                          | [README.md → Project Structure](./README.md#project-structure) |
-| Get the project's goals and feature list                 | [docs/0-overview.md](./docs/0-overview.md) |
-| Know the dependency versions and why they were picked    | [docs/1-tech-stack.md](./docs/1-tech-stack.md) |
-| Understand routing, content pipeline, i18n, build, deploy| [docs/2-architecture.md](./docs/2-architecture.md) |
-| Check why a non-obvious choice was made                  | [docs/3-design-decisions.md](./docs/3-design-decisions.md) |
-| Add, translate, or schedule a blog post                  | [docs/4-content-authoring.md](./docs/4-content-authoring.md) |
+| If you need to…                                           | Read                                                           |
+| --------------------------------------------------------- | -------------------------------------------------------------- |
+| Run / build / deploy the site                             | [README.md → Setup](./README.md#setup)                         |
+| Understand the directory layout                           | [README.md → Project Structure](./README.md#project-structure) |
+| Get the project's goals and feature list                  | [docs/0-overview.md](./docs/0-overview.md)                     |
+| Know the dependency versions and why they were picked     | [docs/1-tech-stack.md](./docs/1-tech-stack.md)                 |
+| Understand routing, content pipeline, i18n, build, deploy | [docs/2-architecture.md](./docs/2-architecture.md)             |
+| Check why a non-obvious choice was made                   | [docs/3-design-decisions.md](./docs/3-design-decisions.md)     |
+| Add, translate, or schedule a blog post                   | [docs/4-content-authoring.md](./docs/4-content-authoring.md)   |
 
 ## Rules of engagement for agents
 

@@ -24,15 +24,15 @@ The entire site is prerendered at build time (`output: "static"`, which is Astro
 
 Routing is filesystem-based under `src/pages/`. English is the default locale with no URL prefix; Spanish lives under `/es/`:
 
-| URL                  | File |
-|----------------------|------|
-| `/`                  | `src/pages/index.astro` (English home) |
-| `/blog`              | `src/pages/blog.astro` |
-| `/blog/<slug>`       | `src/pages/blog/[slug].astro` |
-| `/es/`               | `src/pages/es/index.astro` |
-| `/es/blog`           | `src/pages/es/blog.astro` |
-| `/es/blog/<slug>`    | `src/pages/es/blog/[slug].astro` |
-| `/404`               | `src/pages/404.astro` |
+| URL               | File                                   |
+| ----------------- | -------------------------------------- |
+| `/`               | `src/pages/index.astro` (English home) |
+| `/blog`           | `src/pages/blog.astro`                 |
+| `/blog/<slug>`    | `src/pages/blog/[slug].astro`          |
+| `/es/`            | `src/pages/es/index.astro`             |
+| `/es/blog`        | `src/pages/es/blog.astro`              |
+| `/es/blog/<slug>` | `src/pages/es/blog/[slug].astro`       |
+| `/404`            | `src/pages/404.astro`                  |
 
 This is configured in `astro.config.mjs`:
 
@@ -69,7 +69,7 @@ defineCollection({
 
 The **slug** is the identifier of a post. It comes from the filename (`src/content/blog/<lang>/<slug>.md`) and appears verbatim in the URL (`/blog/<slug>` for EN, `/es/blog/<slug>` for ES). Slugs are independent per language (e.g. `modelo-3x-kent-beck` vs `kent-beck-3x-model`) so each language gets a readable URL.
 
-The frontmatter field **`idx`** is *not* an identifier — it is a number used only for:
+The frontmatter field **`idx`** is _not_ an identifier — it is a number used only for:
 
 1. **Sort order** in blog listings. Higher `idx` renders first (`src/pages/<lang>/blog.astro` and `PostList.astro`).
 2. **Translation linking.** Two posts in different languages with the same `idx` are treated as translations of one another.
@@ -90,7 +90,7 @@ The frontmatter field **`idx`** is *not* an identifier — it is a number used o
 
 ### Scheduled publishing
 
-`filterFuturePosts()` in `src/i18n/utils.ts` hides posts whose `pubDateLogical` is in the future. This lets you commit and deploy a post in advance and have it appear automatically on the intended date — no rebuild required *relative to the post itself*, but a build on/after that date will include it.
+`filterFuturePosts()` in `src/i18n/utils.ts` hides posts whose `pubDateLogical` is in the future. This lets you commit and deploy a post in advance and have it appear automatically on the intended date — no rebuild required _relative to the post itself_, but a build on/after that date will include it.
 
 ## Theming / dark mode
 

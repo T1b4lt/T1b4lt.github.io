@@ -22,13 +22,13 @@ Every post must declare the fields defined in `src/content.config.ts`:
 idx: 3
 title: "Título del post"
 author: "Guillermo Segovia"
-pubDate: "8 de abril de 2026"      # Free-form display string (localized)
-pubDateLogical: "2026-04-08"       # Machine-comparable, used for scheduling
+pubDate: "8 de abril de 2026" # Free-form display string (localized)
+pubDateLogical: "2026-04-08" # Machine-comparable, used for scheduling
 tags: ["astro", "blog"]
 ---
 ```
 
-- `idx` — a number that (a) determines listing order (higher = shown first) and (b) must match across translations so `getPostTranslations` can link them. It does *not* appear in URLs.
+- `idx` — a number that (a) determines listing order (higher = shown first) and (b) must match across translations so `getPostTranslations` can link them. It does _not_ appear in URLs.
 - `pubDate` — shown in the post header; localize it to the target language.
 - `pubDateLogical` — ISO date (`YYYY-MM-DD`), validated at build time with a regex. Posts with a `pubDateLogical` in the future are hidden from listings until that date.
 
@@ -40,7 +40,7 @@ For images, place the file under `public/images/` and reference it with `/images
 
 ## 4. Translations
 
-Each post in `src/content/blog/es/` should have a counterpart in `src/content/blog/en/` with the same `idx`. The `LanguagePicker` in the header uses `getPostTranslations(idx, currentLang)` (in `src/i18n/utils.ts`) to find the counterpart and link to it. The same translations map drives the `hreflang` alternate links in `<head>`. If no translation exists, the picker falls back to a naive path swap — so *always* ship both languages.
+Each post in `src/content/blog/es/` should have a counterpart in `src/content/blog/en/` with the same `idx`. The `LanguagePicker` in the header uses `getPostTranslations(idx, currentLang)` (in `src/i18n/utils.ts`) to find the counterpart and link to it. The same translations map drives the `hreflang` alternate links in `<head>`. If no translation exists, the picker falls back to a naive path swap — so _always_ ship both languages.
 
 ## 5. Scheduling
 

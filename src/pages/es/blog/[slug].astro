@@ -1,7 +1,7 @@
 ---
-import { render } from 'astro:content';
-import PostLayout from '../../../layouts/PostLayout.astro';
-import { getBlogStaticPaths, getPostTranslations } from '../../../i18n/utils';
+import { render } from "astro:content";
+import PostLayout from "../../../layouts/PostLayout.astro";
+import { getBlogStaticPaths, getPostTranslations } from "../../../i18n/utils";
 
 export async function getStaticPaths() {
   return getBlogStaticPaths("es");
@@ -9,7 +9,7 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
-const translations = await getPostTranslations(entry.data.idx, 'es');
+const translations = await getPostTranslations(entry.data.idx, "es");
 ---
 
 <PostLayout frontmatter={entry.data} translations={translations}>

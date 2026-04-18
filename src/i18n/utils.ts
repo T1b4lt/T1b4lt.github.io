@@ -30,7 +30,9 @@ export function getAlternatePath(
     : pathname === "/es"
       ? "/"
       : pathname;
-  return targetLang === "en" ? stripped : `/es${stripped === "/" ? "/" : stripped}`;
+  return targetLang === "en"
+    ? stripped
+    : `/es${stripped === "/" ? "/" : stripped}`;
 }
 
 export function getRouteFromUrl(url: string): string | undefined {
@@ -52,7 +54,8 @@ export async function getPostTranslations(
   for (const post of relatedPosts) {
     const [lang, ...slugParts] = post.id.split("/");
     const slug = slugParts.join("/");
-    translations[lang] = lang === "en" ? `/blog/${slug}` : `/${lang}/blog/${slug}`;
+    translations[lang] =
+      lang === "en" ? `/blog/${slug}` : `/${lang}/blog/${slug}`;
   }
 
   return translations;

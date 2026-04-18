@@ -84,11 +84,11 @@ Deployment is fully automated. On every push to `main`, the workflow at `.github
 Posts live under `src/content/blog/<lang>/<slug>.md`. The filename slug is the identifier: it becomes the URL (`/<lang>/blog/<slug>`). Each post declares the following frontmatter (validated by `src/content.config.ts`):
 
 ```yaml
-idx: 1                        # Sort key (higher = shown first) and translation-link key
+idx: 1 # Sort key (higher = shown first) and translation-link key
 title: "..."
 author: "..."
-pubDate: "..."                # Display date
-pubDateLogical: "YYYY-MM-DD"  # Used to hide future-dated posts
+pubDate: "..." # Display date
+pubDateLogical: "YYYY-MM-DD" # Used to hide future-dated posts
 tags: ["tag1", "tag2"]
 ```
 
