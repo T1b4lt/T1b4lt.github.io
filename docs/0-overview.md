@@ -16,9 +16,9 @@
 
 | Feature           | Where it lives                                                                                                   |
 | ----------------- | ---------------------------------------------------------------------------------------------------------------- |
-| Landing page      | `src/pages/{es,en}/index.astro`                                                                                  |
-| Blog index        | `src/pages/{es,en}/blog.astro`                                                                                   |
-| Blog post routes  | `src/pages/{es,en}/blog/[slug].astro`                                                                            |
+| Landing page      | `src/pages/index.astro` (EN), `src/pages/es/index.astro` (ES)                                                    |
+| Blog index        | `src/pages/blog.astro` (EN), `src/pages/es/blog.astro` (ES)                                                      |
+| Blog post routes  | `src/pages/blog/[slug].astro` (EN), `src/pages/es/blog/[slug].astro` (ES)                                        |
 | Post content      | `src/content/blog/{es,en}/*.md`                                                                                  |
 | i18n routing      | `astro.config.mjs` (`i18n`) + `src/i18n/`                                                                        |
 | Translation links | `getPostTranslations()` in `src/i18n/utils.ts`                                                                   |

@@ -7,7 +7,6 @@ export default [
   js.configs.recommended,
   ...tseslint.configs.recommended,
   ...astro.configs.recommended,
-  prettier,
   {
     rules: {
       "@typescript-eslint/no-unused-vars": [
@@ -20,6 +19,7 @@ export default [
       ],
     },
   },
+  prettier,
   {
     ignores: ["dist/", ".astro/", "node_modules/"],
   },

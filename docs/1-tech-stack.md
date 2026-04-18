@@ -15,7 +15,7 @@
 
 ## Tooling
 
-- **Node.js ≥ 22** — required by Astro 6.
+- **Node.js ≥ 24** — CI pins Node 24; Astro 6 requires ≥ 22.
 - **TypeScript (strict mode)** — `tsconfig.json` extends `astro/tsconfigs/strict`. Used for the content schema (`src/content.config.ts`), typed component props, and i18n utilities.
 - **ESLint** — flat config in `eslint.config.mjs`. Uses `@eslint/js` (recommended rules), `typescript-eslint` (TS-aware rules), `eslint-plugin-astro` (`.astro` file support), and `eslint-config-prettier` (disables formatting rules that conflict with Prettier).
 - **Prettier** — config in `.prettierrc.mjs`. Uses `prettier-plugin-astro` to format `.astro` files. Ignored paths in `.prettierignore`.
@@ -32,7 +32,7 @@
 ## CI / CD
 
 - **GitHub Actions** — two workflows in `.github/workflows/`.
-- **Lint workflow** (`lint.yml`) — runs on push to `main` and on every pull request. Checks formatting (`prettier --check`), runs ESLint, and runs `astro check` for TypeScript diagnostics. Uses `actions/setup-node@v4` with Node 22 and npm cache.
+- **Lint workflow** (`lint.yml`) — runs on push to `main` and on every pull request. Checks formatting (`prettier --check`), runs ESLint, and runs `astro check` for TypeScript diagnostics. Uses `actions/setup-node@v4` with Node 24 and npm cache.
 - **Deploy workflow** (`deploy.yml`) — runs on push to `main` only. Uses `withastro/action@v6` to build and `actions/deploy-pages@v5` to publish to GitHub Pages.
 
 ## Why these choices

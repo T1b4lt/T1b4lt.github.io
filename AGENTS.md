@@ -25,7 +25,7 @@ A bilingual (ES/EN) personal portfolio and blog, built with **Astro 6** + **Tail
 1. **English in code and docs, Spanish in conversation.** User preference (see global `CLAUDE.md`).
 2. **Do not invent CMS-like abstractions.** Posts are Markdown files validated by a Zod schema in `src/content.config.ts`. If you need a new field, add it there.
 3. **Slug is the identifier; `idx` is only a sort/translation-link key.** The filename becomes the URL (`/<lang>/blog/<slug>`). `idx` is a frontmatter number used to order listings and to pair translations across languages — it never appears in URLs. See [3-design-decisions.md](./docs/3-design-decisions.md).
-4. **Don't fight Astro's i18n.** `/` is an auto-generated redirect to `/es/`. The empty `src/pages/index.astro` only exists to satisfy Astro's requirement that a file sit at `/` — don't add content to it.
+4. **Don't fight Astro's i18n.** English is the default locale served at `/` (no prefix); Spanish lives under `/es/`. A client-side script in `Layout.astro` auto-detects Spanish browsers and redirects from `/` to `/es/` on first visit.
 5. **Verify before claiming done.** Run `npm run lint`, `npm run format:check`, `npx astro check`, and `npm run build` after any change. The CI gate enforces all four.
 6. **Keep code formatted.** Run `npm run format` before committing. Prettier with `prettier-plugin-astro` handles all file types.
 7. **No tracking, no analytics, no comments.** Keep the site lean and static.
