@@ -12,24 +12,25 @@
 
 ## File Map
 
-| File | Action | Responsibility |
-|------|--------|----------------|
-| `astro.config.mjs` | Modify | Register `icon()` integration |
-| `src/components/Footer.astro` | Modify | Remove Twitter link, replace 2 icon elements with `<Icon>` |
-| `src/components/PostList.astro` | Modify | Replace 1 icon element with `<Icon>` |
-| `src/layouts/Layout.astro` | Modify | Remove 4 FontAwesome `<link>` tags |
-| `src/styles/global.css` | Modify | Replace 4 `@font-face` blocks with 4 `@import` lines |
-| `public/fontawesome/` | Delete | Entire directory |
-| `public/fonts/` | Delete | Entire directory |
-| `docs/3-design-decisions.md` | Modify | Update "Self-hosted fonts and icons" section |
-| `docs/1-tech-stack.md` | Modify | Add new deps, update assets section |
-| `docs/5-improvements.md` | Modify | Remove "Urgent" section (lines 5-144) |
+| File                            | Action | Responsibility                                             |
+| ------------------------------- | ------ | ---------------------------------------------------------- |
+| `astro.config.mjs`              | Modify | Register `icon()` integration                              |
+| `src/components/Footer.astro`   | Modify | Remove Twitter link, replace 2 icon elements with `<Icon>` |
+| `src/components/PostList.astro` | Modify | Replace 1 icon element with `<Icon>`                       |
+| `src/layouts/Layout.astro`      | Modify | Remove 4 FontAwesome `<link>` tags                         |
+| `src/styles/global.css`         | Modify | Replace 4 `@font-face` blocks with 4 `@import` lines       |
+| `public/fontawesome/`           | Delete | Entire directory                                           |
+| `public/fonts/`                 | Delete | Entire directory                                           |
+| `docs/3-design-decisions.md`    | Modify | Update "Self-hosted fonts and icons" section               |
+| `docs/1-tech-stack.md`          | Modify | Add new deps, update assets section                        |
+| `docs/5-improvements.md`        | Modify | Remove "Urgent" section (lines 5-144)                      |
 
 ---
 
 ### Task 1: Create branch and install dependencies
 
 **Files:**
+
 - Modify: `package.json`
 - Modify: `astro.config.mjs`
 
@@ -102,6 +103,7 @@ to replace manually-copied assets in public/."
 ### Task 2: Migrate icons in Footer.astro and remove Twitter link
 
 **Files:**
+
 - Modify: `src/components/Footer.astro`
 
 - [ ] **Step 1: Replace `src/components/Footer.astro` with migrated version**
@@ -154,6 +156,7 @@ const t = useTranslations(lang);
 ```
 
 Changes from original:
+
 - Added `import { Icon } from "astro-icon/components";`
 - Removed the entire Twitter `<a>` block (lines 19-25 of original)
 - Replaced `<i class="fa-brands fa-github">` with `<Icon name="fa6-brands:github" aria-label="GitHub" />`
@@ -174,6 +177,7 @@ Remove the Twitter/X social link, keeping only GitHub and LinkedIn."
 ### Task 3: Migrate icon in PostList.astro
 
 **Files:**
+
 - Modify: `src/components/PostList.astro`
 
 - [ ] **Step 1: Update `src/components/PostList.astro`**
@@ -181,13 +185,13 @@ Remove the Twitter/X social link, keeping only GitHub and LinkedIn."
 Add the Icon import to the frontmatter (after the existing imports, line 2):
 
 ```astro
-import { Icon } from "astro-icon/components";
+import {Icon} from "astro-icon/components";
 ```
 
 Replace line 47:
 
 ```astro
-<span class="fa-solid fa-angles-right mr-2" />
+<span class="fa-solid fa-angles-right mr-2"></span>
 ```
 
 with:
@@ -211,6 +215,7 @@ Mark as aria-hidden since it is purely decorative."
 ### Task 4: Remove FontAwesome from Layout.astro and delete old assets
 
 **Files:**
+
 - Modify: `src/layouts/Layout.astro`
 - Delete: `public/fontawesome/` (entire directory)
 
@@ -219,10 +224,10 @@ Mark as aria-hidden since it is purely decorative."
 Delete lines 57-60:
 
 ```html
-    <link href="/fontawesome/css/fontawesome.min.css" rel="stylesheet" />
-    <link href="/fontawesome/css/brands.min.css" rel="stylesheet" />
-    <link href="/fontawesome/css/regular.min.css" rel="stylesheet" />
-    <link href="/fontawesome/css/solid.min.css" rel="stylesheet" />
+<link href="/fontawesome/css/fontawesome.min.css" rel="stylesheet" />
+<link href="/fontawesome/css/brands.min.css" rel="stylesheet" />
+<link href="/fontawesome/css/regular.min.css" rel="stylesheet" />
+<link href="/fontawesome/css/solid.min.css" rel="stylesheet" />
 ```
 
 - [ ] **Step 2: Delete the `public/fontawesome/` directory**
@@ -255,6 +260,7 @@ Removes ~700 KB of CSS and webfont files."
 ### Task 5: Migrate fonts to @fontsource/roboto and delete old assets
 
 **Files:**
+
 - Modify: `src/styles/global.css`
 - Delete: `public/fonts/` (entire directory)
 
@@ -278,6 +284,7 @@ body {
 ```
 
 Changes from original:
+
 - Removed the 4 `@font-face` blocks (lines 5-32)
 - Added 4 `@import "@fontsource/roboto/*.css"` lines
 - Kept `@variant dark` and `body` rule unchanged
@@ -335,6 +342,7 @@ npm run dev
 ```
 
 Check in browser:
+
 - Home page loads with Roboto font
 - Blog listing shows `angles-right` icon before each post title
 - Footer shows GitHub and LinkedIn icons (no Twitter)
@@ -346,6 +354,7 @@ Check in browser:
 ### Task 7: Update documentation
 
 **Files:**
+
 - Modify: `docs/3-design-decisions.md`
 - Modify: `docs/1-tech-stack.md`
 - Modify: `docs/5-improvements.md`
@@ -383,25 +392,25 @@ with:
 Replace the Runtime table (lines 4-9):
 
 ```markdown
-| Dependency          | Version   | Role |
-|---------------------|-----------|------|
-| `astro`             | `^6.1.7`  | Static site generator, content collections, i18n routing, image pipeline. |
-| `tailwindcss`       | `^4.2.2`  | Utility-first CSS framework. |
-| `@tailwindcss/vite` | `^4.2.2`  | Official Vite plugin that wires Tailwind 4 into Astro's Vite build. |
+| Dependency          | Version  | Role                                                                      |
+| ------------------- | -------- | ------------------------------------------------------------------------- |
+| `astro`             | `^6.1.7` | Static site generator, content collections, i18n routing, image pipeline. |
+| `tailwindcss`       | `^4.2.2` | Utility-first CSS framework.                                              |
+| `@tailwindcss/vite` | `^4.2.2` | Official Vite plugin that wires Tailwind 4 into Astro's Vite build.       |
 ```
 
 with:
 
 ```markdown
-| Dependency          | Version   | Role |
-|---------------------|-----------|------|
-| `astro`             | `^6.1.7`  | Static site generator, content collections, i18n routing, image pipeline. |
-| `astro-icon`        | *         | Inline SVG icon component powered by Iconify. |
-| `@fontsource/roboto`| *         | Self-hosted Roboto font files (`.woff2`) managed via npm. |
-| `tailwindcss`       | `^4.2.2`  | Utility-first CSS framework. |
-| `@tailwindcss/vite` | `^4.2.2`  | Official Vite plugin that wires Tailwind 4 into Astro's Vite build. |
-| `@iconify-json/fa6-brands` | *      | FontAwesome 6 brand icons (GitHub, LinkedIn) for astro-icon. |
-| `@iconify-json/fa6-solid`  | *      | FontAwesome 6 solid icons (angles-right) for astro-icon. |
+| Dependency                 | Version  | Role                                                                      |
+| -------------------------- | -------- | ------------------------------------------------------------------------- |
+| `astro`                    | `^6.1.7` | Static site generator, content collections, i18n routing, image pipeline. |
+| `astro-icon`               | \*       | Inline SVG icon component powered by Iconify.                             |
+| `@fontsource/roboto`       | \*       | Self-hosted Roboto font files (`.woff2`) managed via npm.                 |
+| `tailwindcss`              | `^4.2.2` | Utility-first CSS framework.                                              |
+| `@tailwindcss/vite`        | `^4.2.2` | Official Vite plugin that wires Tailwind 4 into Astro's Vite build.       |
+| `@iconify-json/fa6-brands` | \*       | FontAwesome 6 brand icons (GitHub, LinkedIn) for astro-icon.              |
+| `@iconify-json/fa6-solid`  | \*       | FontAwesome 6 solid icons (angles-right) for astro-icon.                  |
 ```
 
 Replace the "Assets (self-hosted)" section (lines 19-22):
@@ -436,7 +445,9 @@ The file should go from:
 Audit of the current codebase with concrete suggestions. The project is sound and the decisions in [`3-design-decisions.md`](./3-design-decisions.md) are respected in practice — the items below are refinements, not blockers.
 
 ## Urgent (dependency hygiene)
+
 ...
+
 ## Critical (SEO / a11y)
 ```
 
@@ -496,6 +507,7 @@ git log --oneline feat/dependency-hygiene --not main
 ```
 
 Expected: 6 commits in order:
+
 1. `feat: install astro-icon, fontsource, and iconify packages`
 2. `feat(footer): migrate icons to astro-icon and remove Twitter link`
 3. `feat(post-list): migrate angles-right icon to astro-icon`

@@ -11,6 +11,7 @@
 **Spec:** `docs/5-improvements.md` section "Critical: Eliminate the root redirect flash — EN-at-root with client-side language detection" (lines 7–174). This plan implements that section verbatim.
 
 **Out of scope (do NOT touch):**
+
 - `hreflang` / `canonical` / `x-default` tags in `Layout.astro` (item #2 in improvements doc)
 - `@astrojs/sitemap` and `robots.txt` (item #3)
 - Follow-up documentation updates to `docs/3-design-decisions.md` (spec lines 168–173)
@@ -20,6 +21,7 @@
 ## File Structure
 
 **Modified:**
+
 - `astro.config.mjs` — flip i18n config + add `site`
 - `src/i18n/ui.js` — change `defaultLang` from `"es"` to `"en"`
 - `src/i18n/utils.js` — `getPostTranslations` drops EN prefix
@@ -27,13 +29,16 @@
 - `src/layouts/Layout.astro` — add inline language-detection script in `<head>`
 
 **Created:**
+
 - `src/pages/blog.astro` — EN blog index (was `src/pages/en/blog.astro`)
 - `src/pages/blog/[slug].astro` — EN blog post (was `src/pages/en/blog/[slug].astro`)
 
 **Overwritten:**
+
 - `src/pages/index.astro` — EN home content (was a placeholder comment)
 
 **Deleted:**
+
 - `src/pages/en/index.astro`
 - `src/pages/en/blog.astro`
 - `src/pages/en/blog/[slug].astro`
@@ -47,6 +52,7 @@
 This task is atomic: config, page relocation, helpers and picker all land in a single commit because any intermediate state leaves the site broken (cross-language navigation depends on every piece).
 
 **Files:**
+
 - Modify: `astro.config.mjs`
 - Modify: `src/i18n/ui.js:6`
 - Overwrite: `src/pages/index.astro`
@@ -114,18 +120,23 @@ import Layout from "../layouts/Layout.astro";
   <div class="flex justify-center p-10">
     <div class="w-full lg:w-1/2 space-y-5 text-lg">
       <hr class="border-zinc-900 dark:border-slate-200" />
-      <h1 class="text-3xl font-bold">Guillermo: Innovation, Technology and Constant Growth</h1>
+      <h1 class="text-3xl font-bold">
+        Guillermo: Innovation, Technology and Constant Growth
+      </h1>
       <hr class="my-6 border-zinc-900 dark:border-slate-200" />
       <p>
-        Welcome to my blog, Guillermo's blog!
-        I'm Guillermo, a passionate IT professional with a background in innovation and digital development.
+        Welcome to my blog, Guillermo's blog! I'm Guillermo, a passionate IT
+        professional with a background in innovation and digital development.
         Let me introduce you to my story and interests.
       </p>
       <h2 class="text-3xl font-bold">About me</h2>
       <p>
-        Currently working in the CDO innovation area at Telefónica, in a position that allows me to participate in the rapid prototyping of digital products.
-        My team is specialized in applying emerging technologies to improve existing products and develop new ones.
-        My job is to carry out the rapid prototyping of digital products, applying these emerging technologies to:
+        Currently working in the CDO innovation area at Telefónica, in a
+        position that allows me to participate in the rapid prototyping of
+        digital products. My team is specialized in applying emerging
+        technologies to improve existing products and develop new ones. My job
+        is to carry out the rapid prototyping of digital products, applying
+        these emerging technologies to:
         <ul class="space-y-4 ml-4">
           <li>1. improve existing solutions,</li>
           <li>2. create new experiences for our users and</li>
@@ -134,32 +145,69 @@ import Layout from "../layouts/Layout.astro";
       </p>
       <h2 class="text-3xl font-bold">My areas of interest</h2>
       <p>
-        As a professional, my curiosity and passion lead me to explore diverse areas:
+        As a professional, my curiosity and passion lead me to explore diverse
+        areas:
         <ul class="space-y-4 ml-4">
-          <li><b>• Machine Learning:</b> I am fascinated by the potential of machine learning techniques to transform the way we interact with technology. From traditional classification algorithms and neural networks to new Generative AI trends, which are giving us so many opportunities. I am always looking to learn more and apply this knowledge in innovative projects.</li>
-          <li><b>• Software and Application Development:</b> Programming was my gateway to the world of technology. I love building solutions from scratch, whether it's developing web, mobile, backend systems or all at once for a single solution. Creativity, problem solving and creating tangible solutions are my driving force.</li>
-          <li><b>• Data Analysis:</b> Data is the new oil, and I am a passionate geologist. Exploring data sets, extracting insights and making evidence-based decisions is something I am passionate about. From SQL to visualization tools, I am always honing my analytical skills.</li>
+          <li>
+            <b>• Machine Learning:</b> I am fascinated by the potential of machine
+            learning techniques to transform the way we interact with technology.
+            From traditional classification algorithms and neural networks to new
+            Generative AI trends, which are giving us so many opportunities. I am
+            always looking to learn more and apply this knowledge in innovative projects.
+          </li>
+          <li>
+            <b>• Software and Application Development:</b> Programming was my gateway
+            to the world of technology. I love building solutions from scratch, whether
+            it's developing web, mobile, backend systems or all at once for a single
+            solution. Creativity, problem solving and creating tangible solutions
+            are my driving force.
+          </li>
+          <li>
+            <b>• Data Analysis:</b> Data is the new oil, and I am a passionate geologist.
+            Exploring data sets, extracting insights and making evidence-based decisions
+            is something I am passionate about. From SQL to visualization tools, I
+            am always honing my analytical skills.
+          </li>
         </ul>
       </p>
       <h2 class="text-3xl font-bold">My professional goals</h2>
       <p>
         My professional path is focused on continuous growth. I aspire to:
         <ul class="space-y-4 ml-4">
-          <li><b>• Keep Learning:</b> Never stop learning. I feel, <i>and hope</i>, that this curiosity that technology and innovation arouses in me will not cease. Courses, conferences, books... any source of knowledge is welcome.</li>
-          <li><b>• Contribute to the Community:</b> Share what I know and learn from others. Collaboration in the technological field is key to achieving unimaginable goals. I really believe in the power and philosophy of Open Source</li>
-          <li><b>• Innovate:</b> Always look for new ways to solve problems and create disruptive solutions. Keeping up to date with what is happening in this world and fitting the pieces together in ways that have not been done before.</li>
-          <li><b>• Create:</b> Build tangible solutions that have a positive impact. From mobile applications to artificial intelligence systems, I am always looking to create solutions that reach people.</li>
+          <li>
+            <b>• Keep Learning:</b> Never stop learning. I feel, <i>and hope</i
+            >, that this curiosity that technology and innovation arouses in me
+            will not cease. Courses, conferences, books... any source of
+            knowledge is welcome.
+          </li>
+          <li>
+            <b>• Contribute to the Community:</b> Share what I know and learn from
+            others. Collaboration in the technological field is key to achieving unimaginable
+            goals. I really believe in the power and philosophy of Open Source
+          </li>
+          <li>
+            <b>• Innovate:</b> Always look for new ways to solve problems and create
+            disruptive solutions. Keeping up to date with what is happening in this
+            world and fitting the pieces together in ways that have not been done
+            before.
+          </li>
+          <li>
+            <b>• Create:</b> Build tangible solutions that have a positive impact.
+            From mobile applications to artificial intelligence systems, I am always
+            looking to create solutions that reach people.
+          </li>
         </ul>
       </p>
       <h2 class="text-3xl font-bold">Visit my blog</h2>
       <p>
-        In this blog, I will share my experiences, knowledge and opinions on topics related to technology, innovation and professional growth.
-        I hope you enjoy reading it!
+        In this blog, I will share my experiences, knowledge and opinions on
+        topics related to technology, innovation and professional growth. I hope
+        you enjoy reading it!
       </p>
-      <p>
-        See you soon!
-      </p>
-</Layout>
+      <p>See you soon!</p>
+    </div>
+  </div></Layout
+>
 ```
 
 ### Step 1.4: Create `src/pages/blog.astro`
@@ -170,21 +218,21 @@ import Layout from "../layouts/Layout.astro";
 ---
 import Layout from "../layouts/Layout.astro";
 import PostList from "../components/PostList.astro";
-import { getCollection } from 'astro:content';
+import { getCollection } from "astro:content";
 
-const posts = await getCollection('blog', ({ id }) => {
-  return id.startsWith('en/');
+const posts = await getCollection("blog", ({ id }) => {
+  return id.startsWith("en/");
 });
 
 // Ordenar por idx
 const sortedPosts = posts.sort((a, b) => b.data.idx - a.data.idx);
 
 // Convertir al formato esperado por PostList
-const formattedPosts = sortedPosts.map(entry => {
-  const slug = entry.id.replace('en/', '');
+const formattedPosts = sortedPosts.map((entry) => {
+  const slug = entry.id.replace("en/", "");
   return {
     url: `/blog/${slug}`,
-    frontmatter: entry.data
+    frontmatter: entry.data,
   };
 });
 ---
@@ -200,17 +248,17 @@ const formattedPosts = sortedPosts.map(entry => {
 
 ```astro
 ---
-import { getCollection, render } from 'astro:content';
-import PostLayout from '../../layouts/PostLayout.astro';
-import { getPostTranslations } from '../../i18n/utils';
+import { getCollection, render } from "astro:content";
+import PostLayout from "../../layouts/PostLayout.astro";
+import { getPostTranslations } from "../../i18n/utils";
 
 export async function getStaticPaths() {
-  const blogEntries = await getCollection('blog', ({ id }) => {
-    return id.startsWith('en/');
+  const blogEntries = await getCollection("blog", ({ id }) => {
+    return id.startsWith("en/");
   });
 
-  return blogEntries.map(entry => {
-    const slug = entry.id.replace('en/', '');
+  return blogEntries.map((entry) => {
+    const slug = entry.id.replace("en/", "");
     return {
       params: { slug },
       props: { entry },
@@ -221,7 +269,7 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 
-const translations = await getPostTranslations(entry.data.idx, 'en');
+const translations = await getPostTranslations(entry.data.idx, "en");
 ---
 
 <PostLayout frontmatter={entry.data} translations={translations}>
@@ -315,6 +363,7 @@ function changeLangFromUrl(actualUrl: URL, lang: string) {
 ```
 
 What changed:
+
 - `changeLangFromUrl` no longer assumes every URL starts with `/<lang>/`. It strips the `/es` prefix when present and, when going back to Spanish, prepends `/es`.
 - Anchor now has `data-lang={lang}` and `onclick="localStorage.setItem('lang', this.dataset.lang)"` so clicking the picker persists the user's choice for future visits.
 
@@ -339,7 +388,6 @@ Expected: neither command errors; blog directory listings have the same entries.
 ### Step 1.10: Verify in the dev server
 
 - [ ] Run `npm run dev` and open the site. Confirm manually:
-
   - `/` renders the English home (no redirect, no flash).
   - `/es/` renders the Spanish home.
   - `/blog` renders the English blog index; each link points to `/blog/<slug>` (no `/en/` prefix).
@@ -386,6 +434,7 @@ Expected: commit created.
 Adds a redirect-before-paint for Spanish browsers landing on `/` and for users with an explicit preference stored from a previous visit. Independent of Task 1 — the site works correctly without this script; this only makes the language choice auto-apply.
 
 **Files:**
+
 - Modify: `src/layouts/Layout.astro`
 
 ### Step 2.1: Add the inline script to `Layout.astro`
@@ -394,47 +443,50 @@ Adds a redirect-before-paint for Spanish browsers landing on `/` and for users w
 
 ```astro
 <head>
-    <meta charset="UTF-8" />
-    <script is:inline>
-      (function () {
-        try {
-          const path = location.pathname;
-          const isSpanishPath = path === "/es" || path.startsWith("/es/");
-          const stored = localStorage.getItem("lang");
+  <meta charset="UTF-8" />
+  <script is:inline>
+    (function () {
+      try {
+        const path = location.pathname;
+        const isSpanishPath = path === "/es" || path.startsWith("/es/");
+        const stored = localStorage.getItem("lang");
 
-          // Explicit user preference always wins — it can even undo the auto-detect.
-          if (stored === "es" && !isSpanishPath) {
-            location.replace("/es" + (path === "/" ? "/" : path));
-            return;
-          }
-          if (stored === "en" && isSpanishPath) {
-            location.replace(path.replace(/^\/es/, "") || "/");
-            return;
-          }
+        // Explicit user preference always wins — it can even undo the auto-detect.
+        if (stored === "es" && !isSpanishPath) {
+          location.replace("/es" + (path === "/" ? "/" : path));
+          return;
+        }
+        if (stored === "en" && isSpanishPath) {
+          location.replace(path.replace(/^\/es/, "") || "/");
+          return;
+        }
 
-          // Auto-detection only on the root path. Deep links never bounce.
-          if (stored === null && path === "/") {
-            const langs = navigator.languages && navigator.languages.length
+        // Auto-detection only on the root path. Deep links never bounce.
+        if (stored === null && path === "/") {
+          const langs =
+            navigator.languages && navigator.languages.length
               ? navigator.languages
               : [navigator.language];
-            const prefersSpanish = langs.some((l) => (l || "").toLowerCase().startsWith("es"));
-            if (prefersSpanish) location.replace("/es/");
-          }
-        } catch (_) {
-          // localStorage unavailable (private mode, SSR, etc.) → serve whatever the URL says.
+          const prefersSpanish = langs.some((l) =>
+            (l || "").toLowerCase().startsWith("es"),
+          );
+          if (prefersSpanish) location.replace("/es/");
         }
-      })();
-    </script>
-    <meta name="description" content="T1b4lt's blog" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <link href="/fontawesome/css/fontawesome.min.css" rel="stylesheet" />
-    <link href="/fontawesome/css/brands.min.css" rel="stylesheet" />
-    <link href="/fontawesome/css/regular.min.css" rel="stylesheet" />
-    <link href="/fontawesome/css/solid.min.css" rel="stylesheet" />
-    <title>{title}</title>
-  </head>
+      } catch (_) {
+        // localStorage unavailable (private mode, SSR, etc.) → serve whatever the URL says.
+      }
+    })();
+  </script>
+  <meta name="description" content="T1b4lt's blog" />
+  <meta name="viewport" content="width=device-width" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="generator" content={Astro.generator} />
+  <link href="/fontawesome/css/fontawesome.min.css" rel="stylesheet" />
+  <link href="/fontawesome/css/brands.min.css" rel="stylesheet" />
+  <link href="/fontawesome/css/regular.min.css" rel="stylesheet" />
+  <link href="/fontawesome/css/solid.min.css" rel="stylesheet" />
+  <title>{title}</title>
+</head>
 ```
 
 Leave the rest of the file (imports, the outer `<html>` tag, `<body>` contents) exactly as it is.
@@ -460,7 +512,6 @@ Expected: both files print `1`.
 - [ ] Run `npm run dev` and walk through each scenario. Use the browser devtools console to set/clear `localStorage` between runs (`localStorage.clear()` and `localStorage.setItem('lang', 'es')`).
 
   Run every check from the spec's edge-case list:
-
   - [ ] **EN browser, empty localStorage, visit `/`** → renders English home instantly. No redirect.
   - [ ] **ES browser, empty localStorage, visit `/`** → redirects to `/es/` before paint. No visible flash of the English page.
   - [ ] **ES browser, empty localStorage, visit `/blog/<slug>`** → does **not** bounce. English post renders. (Deep links never auto-redirect.)

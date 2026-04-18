@@ -8,8 +8,8 @@
 @variant dark (.dark &);
 
 @theme {
-  --color-primary: #3E78B2;
-  --color-highlight: #D0E562;
+  --color-primary: #3e78b2;
+  --color-highlight: #d0e562;
 }
 
 body {

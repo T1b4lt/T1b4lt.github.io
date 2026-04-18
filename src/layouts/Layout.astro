@@ -27,8 +27,14 @@ const {
 const lang = getLangFromUrl(Astro.url);
 const canonicalPath = getAlternatePath(Astro.url.pathname, lang, translations);
 const canonicalUrl = new URL(canonicalPath, Astro.site);
-const enUrl = new URL(getAlternatePath(Astro.url.pathname, "en", translations), Astro.site);
-const esUrl = new URL(getAlternatePath(Astro.url.pathname, "es", translations), Astro.site);
+const enUrl = new URL(
+  getAlternatePath(Astro.url.pathname, "en", translations),
+  Astro.site,
+);
+const esUrl = new URL(
+  getAlternatePath(Astro.url.pathname, "es", translations),
+  Astro.site,
+);
 ---
 
 <!doctype html>
@@ -54,10 +60,13 @@ const esUrl = new URL(getAlternatePath(Astro.url.pathname, "es", translations), 
 
           // Auto-detection only on the root path. Deep links never bounce.
           if (stored === null && path === "/") {
-            const langs = navigator.languages && navigator.languages.length
-              ? navigator.languages
-              : [navigator.language];
-            const prefersSpanish = langs.some((l) => (l || "").toLowerCase().startsWith("es"));
+            const langs =
+              navigator.languages && navigator.languages.length
+                ? navigator.languages
+                : [navigator.language];
+            const prefersSpanish = langs.some((l) =>
+              (l || "").toLowerCase().startsWith("es"),
+            );
             if (prefersSpanish) {
               localStorage.setItem("lang", "es");
               location.replace("/es/");
@@ -83,17 +92,25 @@ const esUrl = new URL(getAlternatePath(Astro.url.pathname, "es", translations), 
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:type" content={ogType} />
     <meta property="og:locale" content={lang === "es" ? "es_ES" : "en_US"} />
-    <meta property="og:locale:alternate" content={lang === "es" ? "en_US" : "es_ES"} />
+    <meta
+      property="og:locale:alternate"
+      content={lang === "es" ? "en_US" : "es_ES"}
+    />
     <meta property="og:site_name" content="T1b4lt" />
-    {article?.publishedTime && (
-      <meta property="article:published_time" content={article.publishedTime} />
-    )}
-    {article?.author && (
-      <meta property="article:author" content={article.author} />
-    )}
-    {article?.tags?.map((tag) => (
-      <meta property="article:tag" content={tag} />
-    ))}
+    {
+      article?.publishedTime && (
+        <meta
+          property="article:published_time"
+          content={article.publishedTime}
+        />
+      )
+    }
+    {
+      article?.author && (
+        <meta property="article:author" content={article.author} />
+      )
+    }
+    {article?.tags?.map((tag) => <meta property="article:tag" content={tag} />)}
 
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={title} />

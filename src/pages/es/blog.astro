@@ -6,6 +6,9 @@ import { getFormattedPosts } from "../../i18n/utils";
 const posts = await getFormattedPosts("es");
 ---
 
-<Layout title="T1b4lt | Blog" description="Publicaciones sobre tecnología, innovación y crecimiento profesional">
+<Layout
+  title="T1b4lt | Blog"
+  description="Publicaciones sobre tecnología, innovación y crecimiento profesional"
+>
   <PostList posts={posts} />
 </Layout>
