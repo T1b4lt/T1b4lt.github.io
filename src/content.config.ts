@@ -9,7 +9,7 @@ const blog = defineCollection({
     title: z.string(),
     author: z.string(),
     pubDate: z.string(),
-    pubDateLogical: z.string(),
+    pubDateLogical: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
     tags: z.array(z.string()),
   }),
 });

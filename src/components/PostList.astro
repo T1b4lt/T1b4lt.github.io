@@ -1,37 +1,17 @@
 ---
 import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import type { FormattedPost } from "../i18n/utils";
 import { Icon } from "astro-icon/components";
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 interface Props {
-  posts;
+  posts: FormattedPost[];
 }
 
 const { posts } = Astro.props;
-
-function sortPostsByIdx(posts) {
-  // Sort posts by idx
-  return posts.sort((a, b) => {
-    const aDate = new Date(a.frontmatter.idx);
-    const bDate = new Date(b.frontmatter.idx);
-    return bDate.getTime() - aDate.getTime();
-  });
-}
-
-function filterPostsByPubDateLogical(posts) {
-  // Filter posts by pubDateLogical (with format YYYY-MM-DD)
-  return posts.filter((post) => {
-    const postDate = new Date(post.frontmatter.pubDateLogical);
-    const today = new Date();
-    return postDate.getTime() <= today.getTime();
-  });
-}
-
-const sortedPosts = sortPostsByIdx(filterPostsByPubDateLogical(posts));
 ---
 
-<!-- List all posts -->
 <div class="min-h-screen">
   <div class="flex flex-col items-center">
     <h1 class="text-3xl font-bold text-center mt-14">
@@ -40,7 +20,7 @@ const sortedPosts = sortPostsByIdx(filterPostsByPubDateLogical(posts));
     <section class="mt-7 w-full lg:w-1/2 px-5 py-3">
       <ul>
         {
-          sortedPosts.map((post) => (
+          posts.map((post) => (
             <li class="mb-5">
               <a href={post.url}>
                 <div class="flex flex-col lg:flex-row lg:justify-between">
@@ -50,7 +30,7 @@ const sortedPosts = sortPostsByIdx(filterPostsByPubDateLogical(posts));
                   </div>
                     <div class="tags pb-2 flex flex-row min-h-fit items-center">
                     {
-                      post.frontmatter.tags.map((tag, index) => (
+                      post.frontmatter.tags.map((tag) => (
                       <span class="text-xs font-thin text-zinc-900 dark:text-slate-200 bg-zinc-300 dark:bg-slate-800 px-2 py-1 rounded-xl mr-2">
                         {tag}
                       </span>

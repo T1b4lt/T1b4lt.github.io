@@ -1,9 +1,11 @@
 export const languages = {
   es: "Español",
   en: "English",
-};
+} as const;
 
-export const defaultLang = "en";
+export const defaultLang = "en" as const;
+
+export type Lang = keyof typeof languages;
 
 export const ui = {
   en: {
@@ -29,4 +31,6 @@ export const ui = {
     "footer.subtitle":
       "Sígueme en redes sociales para estar al tanto de las novedades.",
   },
-};
+} as const;
+
+export type UIKey = keyof (typeof ui)[typeof defaultLang];

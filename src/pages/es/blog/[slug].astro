@@ -1,25 +1,14 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { render } from 'astro:content';
 import PostLayout from '../../../layouts/PostLayout.astro';
-import { getPostTranslations } from '../../../i18n/utils';
+import { getBlogStaticPaths, getPostTranslations } from '../../../i18n/utils';
 
 export async function getStaticPaths() {
-  const blogEntries = await getCollection('blog', ({ id }) => {
-    return id.startsWith('es/');
-  });
-
-  return blogEntries.map(entry => {
-    const slug = entry.id.replace('es/', '');
-    return {
-      params: { slug },
-      props: { entry },
-    };
-  });
+  return getBlogStaticPaths("es");
 }
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
-
 const translations = await getPostTranslations(entry.data.idx, 'es');
 ---
 
