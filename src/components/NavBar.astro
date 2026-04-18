@@ -11,19 +11,19 @@ const isBlog = Astro.url.pathname.includes("/blog");
     <div
       class="flex flex-row space-x-10 text-zinc-900 dark:text-slate-200 font-bold"
     >
-      <a href={lang === "en" ? "/" : `/${lang}`} class="group">
+      <a href={lang === "en" ? "/" : `/${lang}`} class="group" aria-current={!isBlog ? "page" : undefined}>
         {t("nav.home")}
         <span
           class=`${
-            !isBlog ? "block max-w-full h-0.5 bg-[#3E78B2]" : "block max-w-0 group-hover:max-w-full transition-all duration-300 h-0.5 bg-[#3E78B2]"
+            !isBlog ? "block max-w-full h-0.5 bg-primary" : "block max-w-0 group-hover:max-w-full transition-all duration-300 h-0.5 bg-primary"
           }`
         ></span>
       </a>
-      <a href={lang === "en" ? "/blog" : `/${lang}/blog`} class="group">
+      <a href={lang === "en" ? "/blog" : `/${lang}/blog`} class="group" aria-current={isBlog ? "page" : undefined}>
         {t("nav.blog")}
         <span
           class=`${
-            !isBlog ? "block max-w-0 group-hover:max-w-full transition-all duration-300 h-0.5 bg-[#3E78B2]" : "block max-w-full h-0.5 bg-[#3E78B2]"
+            !isBlog ? "block max-w-0 group-hover:max-w-full transition-all duration-300 h-0.5 bg-primary" : "block max-w-full h-0.5 bg-primary"
           }`
         ></span>
       </a>
