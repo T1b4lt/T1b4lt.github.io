@@ -1,5 +1,6 @@
 ---
 import Layout from "./Layout.astro";
+import "../styles/post.css";
 
 import { getLangFromUrl, useTranslations } from "../i18n/utils";
 const lang = getLangFromUrl(Astro.url);
@@ -14,122 +15,43 @@ const subtitle =
   t("post.on") +
   " " +
   frontmatter.pubDate;
+
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: frontmatter.title,
+  author: {
+    "@type": "Person",
+    name: frontmatter.author,
+  },
+  datePublished: frontmatter.pubDateLogical,
+  url: canonicalUrl.href,
+  inLanguage: lang,
+  keywords: frontmatter.tags,
+};
 ---
 
-<Layout title={`${frontmatter.title} | T1b4lt`} translations={translations}>
-  <style is:global>
-    .post-content h1 {
-      font-size: 2.25rem;
-      line-height: 2.5rem;
-      font-weight: 700;
-    }
-    .post-content h2 {
-      font-size: 1.875rem;
-      line-height: 2.25rem;
-      font-weight: 700;
-    }
-    .post-content h3 {
-      font-size: 1.5rem;
-      line-height: 2rem;
-      font-weight: 700;
-    }
-    .post-content h4 {
-      font-size: 1.25rem;
-      line-height: 1.75rem;
-      font-weight: 700;
-    }
-    .post-content h5 {
-      font-size: 1.125rem;
-      line-height: 1.75rem;
-      font-weight: 700;
-    }
-    .post-content h6 {
-      font-size: 1rem;
-      line-height: 1.5rem;
-      font-weight: 700;
-    }
-    .post-content p {
-      font-size: 1rem;
-      line-height: 1.5rem;
-    }
-    .post-content ul {
-      list-style-type: disc;
-      list-style-position: inside;
-    }
-    .post-content ol {
-      list-style-type: decimal;
-      list-style-position: inside;
-    }
-    .post-content li {
-      font-size: 1rem;
-      line-height: 1.5rem;
-    }
-    .post-content a {
-      text-decoration: underline;
-      text-decoration-color: #3E78B2;
-      text-decoration-thickness: 2px;
-    }
-    .post-content a:hover {
-      color: #3E78B2;
-    }
-    .post-content blockquote {
-      border-left-width: 4px;
-      border-color: rgb(156 163 175);
-      padding-left: 1rem;
-    }
-    .post-content blockquote p {
-      font-size: 1rem;
-      line-height: 1.5rem;
-    }
-    .post-content pre {
-      overflow-x: auto;
-      border-radius: 0.25rem;
-      padding: 1rem;
-    }
-    .post-content code {
-      font-size: 1rem;
-      line-height: 1.5rem;
-    }
-    .post-content table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    .post-content table th {
-      font-size: 1rem;
-      line-height: 1.5rem;
-      font-weight: 700;
-      border: 1px solid rgb(156 163 175);
-      padding: 0.5rem;
-    }
-    .post-content table td {
-      font-size: 1rem;
-      line-height: 1.5rem;
-      border: 1px solid rgb(156 163 175);
-      padding: 0.5rem;
-    }
-    .post-content img {
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .post-content hr {
-      border-color: rgb(75 85 99);
-      margin-top: 1rem;
-      margin-bottom: 1rem;
-    }
-    :root.dark .post-content hr {
-      border-color: rgb(226 232 240);
-    }
-    .post-content mark {
-      background-color: #D0E562;
-    }
-  </style>
+<Layout
+  title={`${frontmatter.title} | T1b4lt`}
+  description={frontmatter.title}
+  translations={translations}
+  ogType="article"
+  article={{
+    author: frontmatter.author,
+    publishedTime: frontmatter.pubDateLogical,
+    tags: frontmatter.tags,
+  }}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   <div class="flex justify-center p-10">
     <div class="w-full lg:w-1/2 text-lg">
       <h1 class="text-4xl font-bold">{frontmatter.title}</h1>
       <h2 class="text-base font-light">{subtitle}</h2>
       <div class="flex flex-row mt-5">
         {
-          frontmatter.tags.map((tag, index) => (
+          frontmatter.tags.map((tag: string) => (
         <span class="text-xs font-thin text-zinc-900 dark:text-slate-200 bg-zinc-300 dark:bg-slate-800 px-2 py-1 rounded-xl mr-2">
           {tag}
         </span>
