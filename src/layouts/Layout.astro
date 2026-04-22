@@ -80,7 +80,7 @@ const esUrl = new URL(
     <script is:inline>
       (function () {
         try {
-          var theme =
+          const theme =
             localStorage.getItem("theme") ||
             (window.matchMedia("(prefers-color-scheme: dark)").matches
               ? "dark"
@@ -91,7 +91,9 @@ const esUrl = new URL(
             document.documentElement.classList.remove("dark");
           }
           localStorage.setItem("theme", theme);
-        } catch (_) {}
+        } catch (_) {
+          // localStorage unavailable
+        }
       })();
     </script>
     <meta name="description" content={description} />
