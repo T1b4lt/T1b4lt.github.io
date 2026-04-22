@@ -1229,9 +1229,9 @@ const t = useTranslations("en");
           <p
             class="text-sm text-olive-gray dark:text-warm-silver mt-2 leading-relaxed"
           >
-            End-to-end prototyping in the AI Product Discovery team. Building
-            and presenting prototypes to business units for evaluation and
-            potential production rollout. Azure, Android, Web, AI, LLMs, Python.
+            End-to-end prototyping in the Future AI Lab team. Building and
+            presenting prototypes to business units for evaluation and potential
+            production rollout. Azure, Android, Web, AI, LLMs, Python.
           </p>
         </div>
         <div class="relative">
@@ -1290,12 +1290,12 @@ const t = useTranslations("en");
           <div class="flex flex-wrap gap-2 mt-2">
             {
               [
-                "LLMs",
                 "Generative AI",
                 "PyTorch",
-                "SpeechBrain",
-                "NLP",
-                "Prompting",
+                "Langchain",
+                "Agno",
+                "Hugginface",
+                "Finetuning",
               ].map((s) => (
                 <span class="text-sm text-charcoal-warm dark:text-warm-silver bg-warm-sand dark:bg-dark-surface px-3 py-1 rounded-lg">
                   {s}
@@ -1315,10 +1315,11 @@ const t = useTranslations("en");
               [
                 "Python",
                 "Node.js",
-                "Kafka",
-                "Flink",
+                "FastAPI",
+                "Nginx",
+                "Sqlite",
+                "Websocket",
                 "Redis",
-                "Apache Solr",
               ].map((s) => (
                 <span class="text-sm text-charcoal-warm dark:text-warm-silver bg-warm-sand dark:bg-dark-surface px-3 py-1 rounded-lg">
                   {s}
@@ -1358,7 +1359,14 @@ const t = useTranslations("en");
           </h3>
           <div class="flex flex-wrap gap-2 mt-2">
             {
-              ["Azure", "SQL", "Big Data", "Data Analysis"].map((s) => (
+              [
+                "Azure",
+                "Firebase",
+                "Supabase",
+                "SQL",
+                "Big Data",
+                "Data Analysis",
+              ].map((s) => (
                 <span class="text-sm text-charcoal-warm dark:text-warm-silver bg-warm-sand dark:bg-dark-surface px-3 py-1 rounded-lg">
                   {s}
                 </span>
@@ -1537,10 +1545,9 @@ const t = useTranslations("es");
           <p
             class="text-sm text-olive-gray dark:text-warm-silver mt-2 leading-relaxed"
           >
-            Prototipado end-to-end en el equipo de Discovery de Producto IA.
-            Construcción y presentación de prototipos a unidades de negocio para
-            evaluación y posible paso a producción. Azure, Android, Web, IA,
-            LLMs, Python.
+            Prototipado end-to-end en el equipo de Future AI Lab. Construcción y
+            presentación de prototipos a unidades de negocio para evaluación y
+            posible paso a producción. Azure, Android, Web, IA, LLMs, Python.
           </p>
         </div>
         <div class="relative">
@@ -1599,12 +1606,12 @@ const t = useTranslations("es");
           <div class="flex flex-wrap gap-2 mt-2">
             {
               [
-                "LLMs",
-                "IA Generativa",
+                "Generative AI",
                 "PyTorch",
-                "SpeechBrain",
-                "NLP",
-                "Prompting",
+                "Langchain",
+                "Agno",
+                "Hugginface",
+                "Finetuning",
               ].map((s) => (
                 <span class="text-sm text-charcoal-warm dark:text-warm-silver bg-warm-sand dark:bg-dark-surface px-3 py-1 rounded-lg">
                   {s}
@@ -1624,10 +1631,11 @@ const t = useTranslations("es");
               [
                 "Python",
                 "Node.js",
-                "Kafka",
-                "Flink",
+                "FastAPI",
+                "Nginx",
+                "Sqlite",
+                "Websocket",
                 "Redis",
-                "Apache Solr",
               ].map((s) => (
                 <span class="text-sm text-charcoal-warm dark:text-warm-silver bg-warm-sand dark:bg-dark-surface px-3 py-1 rounded-lg">
                   {s}
@@ -1667,7 +1675,14 @@ const t = useTranslations("es");
           </h3>
           <div class="flex flex-wrap gap-2 mt-2">
             {
-              ["Azure", "SQL", "Big Data", "Análisis de Datos"].map((s) => (
+              [
+                "Azure",
+                "Firebase",
+                "Supabase",
+                "SQL",
+                "Big Data",
+                "Análisis de Datos",
+              ].map((s) => (
                 <span class="text-sm text-charcoal-warm dark:text-warm-silver bg-warm-sand dark:bg-dark-surface px-3 py-1 rounded-lg">
                   {s}
                 </span>

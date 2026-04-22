@@ -77,6 +77,23 @@ const esUrl = new URL(
         }
       })();
     </script>
+    <script is:inline>
+      (function () {
+        try {
+          var theme =
+            localStorage.getItem("theme") ||
+            (window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light");
+          if (theme === "dark") {
+            document.documentElement.classList.add("dark");
+          } else {
+            document.documentElement.classList.remove("dark");
+          }
+          localStorage.setItem("theme", theme);
+        } catch (_) {}
+      })();
+    </script>
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
