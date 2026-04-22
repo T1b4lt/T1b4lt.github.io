@@ -1,105 +1,104 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import { useTranslations, getFormattedPosts } from "../../i18n/utils";
+import { getFeaturedProjects } from "../../i18n/utils";
+
+const lang = "es";
+const t = useTranslations(lang);
+const featuredProjects = await getFeaturedProjects(lang);
+const latestPosts = (await getFormattedPosts(lang)).slice(0, 2);
 ---
 
 <Layout
-  title="T1b4lt | Inicio"
-  description="Guillermo Segovia - Profesional IT enfocado en innovación, machine learning y desarrollo de software en Telefónica"
+  title="Guillermo Segovia | Product & AI Prototyper"
+  description="Guillermo Segovia - Product & AI Prototyper en Telefónica. Creando prototipos de IA que conectan innovación y producto."
 >
-  <div class="flex justify-center p-10">
-    <div class="w-full lg:w-1/2 space-y-5 text-lg">
-      <hr class="border-zinc-900 dark:border-slate-200" />
-      <h1 class="text-3xl font-bold">
-        Guillermo: Innovación, Tecnología y Crecimiento Constante
+  <div class="max-w-3xl mx-auto px-5 py-16">
+
+    <section>
+      <h1 class="text-4xl lg:text-6xl text-near-black dark:text-ivory leading-tight" style="font-family: var(--font-serif);">
+        Guillermo Segovia
       </h1>
-      <hr class="my-6 border-zinc-900 dark:border-slate-200" />
-      <p>
-        ¡Bienvenidos a mi blog, el blog de Guillermo! Soy Guillermo, un
-        profesional (<i>apasionado</i>) de la informática con una trayectoria en
-        el área de innovación y desarrollo digital. Permíteme presentarte mi
-        historia y mis intereses.
+      <p class="text-xl text-olive-gray dark:text-warm-silver mt-4">
+        Product & AI Prototyper @ Telefónica
       </p>
-      <h2 class="text-3xl font-bold">Sobre mí</h2>
-      <p>
-        Actualmente trabajando en el área de innovación CDO en Telefónica, en
-        una posición que me permite participar en el prototipado rápido de
-        productos digitales. Mi equipo está especializado en aplicar tecnologías
-        emergentes para mejorar los productos existentes y desarrollar otros
-        nuevos. Mi trabajo consiste en llevar a cabo el prototipado rápido de
-        productos digitales, aplicando estas tecnologías emergentes para:
+      <p class="text-lg text-olive-gray dark:text-warm-silver mt-4 leading-relaxed">
+        {t("home.tagline")}
       </p>
-      <ul class="space-y-4 ml-4">
-        <li>1. mejorar las soluciones existentes,</li>
-        <li>2. crear nuevas experiencias para nuestros usuarios y</li>
-        <li>
-          3. deshacer la incertidumbre que rodea a estas nuevas tecnologías.
-        </li>
-      </ul>
-      <h2 class="text-3xl font-bold">Mis áreas de interés</h2>
-      <p>
-        Como profesional, mi curiosidad y pasión me llevan a explorar diversas
-        áreas:
-      </p>
-      <ul class="space-y-4 ml-4">
-        <li>
-          <b>• Machine Learning:</b> Me fascina el potencial de las técnicas de aprendizaje
-          automático para transformar la forma en que interactuamos con la tecnología.
-          Desde los tradicionales algoritmos de clasificación y redes neuronales hasta
-          las nuevas corrientes de IA Generativa, que tantas oportunidades nos está
-          dando. Siempre estoy buscando aprender más y aplicar estos conocimientos
-          en proyectos innovadores.
-        </li>
-        <li>
-          <b>• Desarrollo de Software y Aplicaciones:</b> La programación fue mi puerta
-          de entrada al mundo de la tecnología. Me encanta construir soluciones desde
-          cero, ya sea desarrollando aplicaciones web, móviles, sistemas backend o
-          todo a la vez para una única solución. La creatividad, la resolución de
-          problemas y crear soluciones tangibles son mi motor.
-        </li>
-        <li>
-          <b>• Análisis de Datos:</b> Los datos son el nuevo petróleo, y yo soy un
-          apasionado geólogo. Explorar conjuntos de datos, extraer conocimientos y
-          tomar decisiones basadas en evidencia es algo que me apasiona. Desde SQL
-          hasta herramientas de visualización, siempre estoy afinando mis habilidades
-          analíticas.
-        </li>
-      </ul>
-      <h2 class="text-3xl font-bold">Mis metas profesionales</h2>
-      <p>
-        Mi camino profesional está enfocado hacia el crecimiento continuo.
-        Aspiro a:
-      </p>
-      <ul class="space-y-4 ml-4">
-        <li>
-          <b>• Seguir Aprendiendo:</b> Nunca dejar de aprender. Siento, <i
-            >y espero</i
-          >, que esta curiosidad que me suscita todo lo relacionado con la
-          tecnología y la innovación no va cesar. Cursos, conferencias, libros…
-          cualquier fuente de conocimiento es bienvenida.
-        </li>
-        <li>
-          <b>• Contribuir a la Comunidad:</b> Compartir lo que sé y aprender de otros.
-          La colaboración en el ámbito tecnológico es clave para alcanzar metas inimaginables.
-          Realmente creo en el poder y la filosofía del Open Source
-        </li>
-        <li>
-          <b>• Innovar:</b> Siempre buscar nuevas formas de resolver problemas y crear
-          soluciones disruptivas. Mantenerme al día de lo que ocurre en este mundo
-          y encajar las piezas de formas que no se han encajado antes.
-        </li>
-        <li>
-          <b>• Crear:</b> Construir soluciones tangibles que tengan un impacto positivo.
-          Desde aplicaciones móviles hasta sistemas de inteligencia artificial, siempre
-          estoy buscando crear soluciones que lleguen a las personas.
-        </li>
-      </ul>
-      <h2 class="text-3xl font-bold">Visita mi blog</h2>
-      <p>
-        En este blog, compartiré mis experiencias, conocimientos y opiniones
-        sobre temas relacionados con la tecnología, la innovación y el
-        crecimiento profesional. ¡Espero que disfrutes de la lectura!
-      </p>
-      <p>¡Hasta pronto!</p>
-    </div>
+      <a
+        href="/es/about"
+        class="inline-block mt-6 px-6 py-3 bg-terracotta dark:bg-coral text-ivory rounded-xl font-medium hover:opacity-90 transition-opacity"
+      >
+        {t("home.cta")}
+      </a>
+    </section>
+
+    {
+      featuredProjects.length > 0 && (
+        <section class="mt-20">
+          <h2 class="text-2xl lg:text-3xl text-near-black dark:text-ivory" style="font-family: var(--font-serif);">
+            {t("projects.latest")}
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+            {featuredProjects.slice(0, 3).map((project) => (
+              <ProjectCard
+                title={project.data.title}
+                description={project.data.description}
+                tags={project.data.tags}
+                github={project.data.github}
+                web={project.data.web}
+              />
+            ))}
+          </div>
+          <a
+            href="/es/projects"
+            class="inline-block mt-6 text-terracotta dark:text-coral hover:underline font-medium"
+          >
+            {t("home.moreProjects")} →
+          </a>
+        </section>
+      )
+    }
+
+    {
+      latestPosts.length > 0 && (
+        <section class="mt-20 mb-8">
+          <h2 class="text-2xl lg:text-3xl text-near-black dark:text-ivory" style="font-family: var(--font-serif);">
+            {t("home.latestPosts")}
+          </h2>
+          <div class="mt-8 space-y-6">
+            {latestPosts.map((post) => (
+              <a href={post.url} class="block group">
+                <article class="py-4 border-b border-border-cream dark:border-border-dark">
+                  <h3 class="text-lg text-near-black dark:text-ivory group-hover:text-terracotta dark:group-hover:text-coral transition-colors" style="font-family: var(--font-serif);">
+                    {post.frontmatter.title}
+                  </h3>
+                  <div class="flex items-center gap-3 mt-2">
+                    <span class="text-sm text-stone-gray dark:text-warm-silver">
+                      {post.frontmatter.pubDate}
+                    </span>
+                    <div class="flex gap-1.5">
+                      {post.frontmatter.tags.map((tag) => (
+                        <span class="text-xs text-stone-gray dark:text-warm-silver bg-warm-sand dark:bg-dark-surface px-2 py-0.5 rounded-md">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </article>
+              </a>
+            ))}
+          </div>
+          <a
+            href="/es/blog"
+            class="inline-block mt-6 text-terracotta dark:text-coral hover:underline font-medium"
+          >
+            {t("home.morePosts")} →
+          </a>
+        </section>
+      )
+    }
+
   </div>
 </Layout>
