@@ -2,18 +2,38 @@
 import LanguagePicker from "./LanguagePicker.astro";
 import DarkModeToggle from "./DarkModeToggle.astro";
 import NavBar from "./NavBar.astro";
+import { getLangFromUrl } from "../i18n/utils";
 
 interface Props {
   translations?: Record<string, string>;
 }
 
 const { translations } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const homeHref = lang === "en" ? "/" : `/${lang}`;
 ---
 
-<header>
-  <div class="flex flex-row justify-between p-5">
-    <LanguagePicker translations={translations} />
-    <DarkModeToggle />
+<header class="sticky top-0 z-50 bg-parchment/95 dark:bg-deep-dark/95 backdrop-blur-sm border-b border-border-cream dark:border-border-dark">
+  {/* Mobile layout: two rows */}
+  <div class="lg:hidden">
+    <div class="flex flex-row justify-between items-center px-5 pt-4 pb-2">
+      <LanguagePicker translations={translations} />
+      <DarkModeToggle />
+    </div>
+    <div class="pb-4">
+      <NavBar />
+    </div>
   </div>
-  <NavBar />
+
+  {/* Desktop layout: single row */}
+  <div class="hidden lg:flex flex-row justify-between items-center px-8 py-4 max-w-5xl mx-auto">
+    <a href={homeHref} class="font-serif text-xl text-near-black dark:text-ivory hover:text-terracotta dark:hover:text-coral transition-colors" style="font-family: var(--font-serif);">
+      Guillermo Segovia
+    </a>
+    <NavBar />
+    <div class="flex items-center space-x-4">
+      <LanguagePicker translations={translations} />
+      <DarkModeToggle />
+    </div>
+  </div>
 </header>

@@ -21,19 +21,28 @@
   #themeToggle {
     border: 0;
     background: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+  }
+  #themeToggle:hover {
+    background-color: var(--color-warm-sand);
+  }
+  :global(.dark) #themeToggle:hover {
+    background-color: var(--color-dark-surface);
   }
   .sun {
-    fill: black;
+    fill: var(--color-near-black);
   }
   .moon {
     fill: transparent;
   }
-
   :global(.dark) .sun {
     fill: transparent;
   }
   :global(.dark) .moon {
-    fill: white;
+    fill: var(--color-ivory);
   }
 </style>
 

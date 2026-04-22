@@ -6,37 +6,40 @@ const t = useTranslations(lang);
 const pathname = Astro.url.pathname;
 const isHome = pathname === "/" || pathname === "/es" || pathname === "/es/";
 const isBlog = pathname.includes("/blog");
+const isProjects = pathname.includes("/projects");
+const isAbout = pathname.includes("/about");
+
+const prefix = lang === "en" ? "" : `/${lang}`;
+
+const links = [
+  { href: prefix || "/", label: t("nav.home"), active: isHome },
+  { href: `${prefix}/blog`, label: t("nav.blog"), active: isBlog },
+  { href: `${prefix}/projects`, label: t("nav.projects"), active: isProjects },
+  { href: `${prefix}/about`, label: t("nav.about"), active: isAbout },
+];
 ---
 
 <nav>
   <div class="flex justify-center">
-    <div
-      class="flex flex-row space-x-10 text-zinc-900 dark:text-slate-200 font-bold"
-    >
-      <a
-        href={lang === "en" ? "/" : `/${lang}`}
-        class="group"
-        aria-current={isHome ? "page" : undefined}
-      >
-        {t("nav.home")}
-        <span
-          class=`${
-            !isBlog ? "block max-w-full h-0.5 bg-primary" : "block max-w-0 group-hover:max-w-full transition-all duration-300 h-0.5 bg-primary"
-          }`
-        ></span>
-      </a>
-      <a
-        href={lang === "en" ? "/blog" : `/${lang}/blog`}
-        class="group"
-        aria-current={isBlog ? "page" : undefined}
-      >
-        {t("nav.blog")}
-        <span
-          class=`${
-            !isBlog ? "block max-w-0 group-hover:max-w-full transition-all duration-300 h-0.5 bg-primary" : "block max-w-full h-0.5 bg-primary"
-          }`
-        ></span>
-      </a>
+    <div class="flex flex-row space-x-6 lg:space-x-10 font-medium">
+      {
+        links.map((link) => (
+          <a
+            href={link.href}
+            class="group text-near-black dark:text-ivory"
+            aria-current={link.active ? "page" : undefined}
+          >
+            {link.label}
+            <span
+              class={
+                link.active
+                  ? "block max-w-full h-0.5 bg-terracotta"
+                  : "block max-w-0 group-hover:max-w-full transition-all duration-300 h-0.5 bg-terracotta"
+              }
+            />
+          </a>
+        ))
+      }
     </div>
   </div>
 </nav>
