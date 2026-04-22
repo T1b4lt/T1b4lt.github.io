@@ -10,7 +10,7 @@ interface Props {
 
 const { translations } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
-const homeHref = lang === "en" ? "/" : `/${lang}`;
+const homeHref = lang === "en" ? "/" : `/${lang}/`;
 ---
 
 <header
