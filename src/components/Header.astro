@@ -13,7 +13,9 @@ const lang = getLangFromUrl(Astro.url);
 const homeHref = lang === "en" ? "/" : `/${lang}`;
 ---
 
-<header class="sticky top-0 z-50 bg-parchment/95 dark:bg-deep-dark/95 backdrop-blur-sm border-b border-border-cream dark:border-border-dark">
+<header
+  class="sticky top-0 z-50 bg-parchment/95 dark:bg-deep-dark/95 backdrop-blur-sm border-b border-border-cream dark:border-border-dark"
+>
   {/* Mobile layout: two rows */}
   <div class="lg:hidden">
     <div class="flex flex-row justify-between items-center px-5 pt-4 pb-2">
@@ -26,8 +28,14 @@ const homeHref = lang === "en" ? "/" : `/${lang}`;
   </div>
 
   {/* Desktop layout: single row */}
-  <div class="hidden lg:flex flex-row justify-between items-center px-8 py-4 max-w-5xl mx-auto">
-    <a href={homeHref} class="font-serif text-xl text-near-black dark:text-ivory hover:text-terracotta dark:hover:text-coral transition-colors" style="font-family: var(--font-serif);">
+  <div
+    class="hidden lg:flex flex-row justify-between items-center px-8 py-4 max-w-5xl mx-auto"
+  >
+    <a
+      href={homeHref}
+      class="font-serif text-xl text-near-black dark:text-ivory hover:text-terracotta dark:hover:text-coral transition-colors"
+      style="font-family: var(--font-serif);"
+    >
       Guillermo Segovia
     </a>
     <NavBar />

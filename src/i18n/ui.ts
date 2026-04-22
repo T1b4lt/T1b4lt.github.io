@@ -28,7 +28,8 @@ export const ui = {
     "about.education": "Education",
     "about.awards": "Awards",
     "about.interests": "Areas of Interest",
-    "home.tagline": "Building AI prototypes that bridge innovation and product at Telefónica.",
+    "home.tagline":
+      "Building AI prototypes that bridge innovation and product at Telefónica.",
     "home.cta": "About me",
     "home.latestPosts": "Latest from the blog",
     "home.morePosts": "Read more posts",
@@ -56,7 +57,8 @@ export const ui = {
     "about.education": "Formación",
     "about.awards": "Reconocimientos",
     "about.interests": "Áreas de Interés",
-    "home.tagline": "Creando prototipos de IA que conectan innovación y producto en Telefónica.",
+    "home.tagline":
+      "Creando prototipos de IA que conectan innovación y producto en Telefónica.",
     "home.cta": "Sobre mí",
     "home.latestPosts": "Últimas publicaciones",
     "home.morePosts": "Leer más publicaciones",

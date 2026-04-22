@@ -15,15 +15,19 @@ const latestPosts = (await getFormattedPosts(lang)).slice(0, 2);
   description="Guillermo Segovia - Product & AI Prototyper at Telefónica. Building AI prototypes that bridge innovation and product."
 >
   <div class="max-w-3xl mx-auto px-5 py-16">
-
     <section>
-      <h1 class="text-4xl lg:text-6xl text-near-black dark:text-ivory leading-tight" style="font-family: var(--font-serif);">
+      <h1
+        class="text-4xl lg:text-6xl text-near-black dark:text-ivory leading-tight"
+        style="font-family: var(--font-serif);"
+      >
         Guillermo Segovia
       </h1>
       <p class="text-xl text-olive-gray dark:text-warm-silver mt-4">
         Product & AI Prototyper @ Telefónica
       </p>
-      <p class="text-lg text-olive-gray dark:text-warm-silver mt-4 leading-relaxed">
+      <p
+        class="text-lg text-olive-gray dark:text-warm-silver mt-4 leading-relaxed"
+      >
         {t("home.tagline")}
       </p>
       <a
@@ -37,7 +41,10 @@ const latestPosts = (await getFormattedPosts(lang)).slice(0, 2);
     {
       featuredProjects.length > 0 && (
         <section class="mt-20">
-          <h2 class="text-2xl lg:text-3xl text-near-black dark:text-ivory" style="font-family: var(--font-serif);">
+          <h2
+            class="text-2xl lg:text-3xl text-near-black dark:text-ivory"
+            style="font-family: var(--font-serif);"
+          >
             {t("projects.latest")}
           </h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
@@ -64,14 +71,20 @@ const latestPosts = (await getFormattedPosts(lang)).slice(0, 2);
     {
       latestPosts.length > 0 && (
         <section class="mt-20 mb-8">
-          <h2 class="text-2xl lg:text-3xl text-near-black dark:text-ivory" style="font-family: var(--font-serif);">
+          <h2
+            class="text-2xl lg:text-3xl text-near-black dark:text-ivory"
+            style="font-family: var(--font-serif);"
+          >
             {t("home.latestPosts")}
           </h2>
           <div class="mt-8 space-y-6">
             {latestPosts.map((post) => (
               <a href={post.url} class="block group">
                 <article class="py-4 border-b border-border-cream dark:border-border-dark">
-                  <h3 class="text-lg text-near-black dark:text-ivory group-hover:text-terracotta dark:group-hover:text-coral transition-colors" style="font-family: var(--font-serif);">
+                  <h3
+                    class="text-lg text-near-black dark:text-ivory group-hover:text-terracotta dark:group-hover:text-coral transition-colors"
+                    style="font-family: var(--font-serif);"
+                  >
                     {post.frontmatter.title}
                   </h3>
                   <div class="flex items-center gap-3 mt-2">
@@ -99,6 +112,5 @@ const latestPosts = (await getFormattedPosts(lang)).slice(0, 2);
         </section>
       )
     }
-
   </div>
 </Layout>

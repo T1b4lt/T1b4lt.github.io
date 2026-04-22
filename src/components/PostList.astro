@@ -12,7 +12,10 @@ const { posts } = Astro.props;
 ---
 
 <div class="max-w-3xl mx-auto px-5 py-16">
-  <h1 class="text-4xl lg:text-5xl text-near-black dark:text-ivory" style="font-family: var(--font-serif);">
+  <h1
+    class="text-4xl lg:text-5xl text-near-black dark:text-ivory"
+    style="font-family: var(--font-serif);"
+  >
     {t("blog.title")}
   </h1>
   <div class="mt-12 space-y-2">
@@ -20,7 +23,10 @@ const { posts } = Astro.props;
       posts.map((post) => (
         <a href={post.url} class="block group">
           <article class="py-4 border-b border-border-cream dark:border-border-dark">
-            <h2 class="text-lg text-near-black dark:text-ivory group-hover:text-terracotta dark:group-hover:text-coral transition-colors" style="font-family: var(--font-serif);">
+            <h2
+              class="text-lg text-near-black dark:text-ivory group-hover:text-terracotta dark:group-hover:text-coral transition-colors"
+              style="font-family: var(--font-serif);"
+            >
               {post.frontmatter.title}
             </h2>
             <div class="flex flex-wrap items-center gap-3 mt-2">

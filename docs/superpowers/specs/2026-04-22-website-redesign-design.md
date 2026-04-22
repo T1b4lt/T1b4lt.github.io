@@ -14,18 +14,19 @@ Total redesign of T1b4lt.github.io (personal blog/portfolio for Guillermo Segovi
 
 ### Typography
 
-| Role | Font | Weight | Size (desktop) | Line Height |
-|------|------|--------|-----------------|-------------|
-| Display/Hero | Georgia (serif) | 700 | 48-64px | 1.10 |
-| Section Heading | Georgia (serif) | 500-700 | 36px | 1.20 |
-| Sub-heading | Georgia (serif) | 500 | 25-32px | 1.20-1.30 |
-| Body | Inter / system-ui (sans) | 400 | 16-17px | 1.60 |
-| Body Large | Inter / system-ui (sans) | 400 | 20px | 1.60 |
-| Caption/Meta | Inter / system-ui (sans) | 400 | 14px | 1.43 |
-| Label/Tag | Inter / system-ui (sans) | 500 | 12px | 1.25 |
-| Code | JetBrains Mono / monospace | 400 | 15px | 1.60 |
+| Role            | Font                       | Weight  | Size (desktop) | Line Height |
+| --------------- | -------------------------- | ------- | -------------- | ----------- |
+| Display/Hero    | Georgia (serif)            | 700     | 48-64px        | 1.10        |
+| Section Heading | Georgia (serif)            | 500-700 | 36px           | 1.20        |
+| Sub-heading     | Georgia (serif)            | 500     | 25-32px        | 1.20-1.30   |
+| Body            | Inter / system-ui (sans)   | 400     | 16-17px        | 1.60        |
+| Body Large      | Inter / system-ui (sans)   | 400     | 20px           | 1.60        |
+| Caption/Meta    | Inter / system-ui (sans)   | 400     | 14px           | 1.43        |
+| Label/Tag       | Inter / system-ui (sans)   | 500     | 12px           | 1.25        |
+| Code            | JetBrains Mono / monospace | 400     | 15px           | 1.60        |
 
 **Principles:**
+
 - Serif for content headings (authority), sans for UI and body (utility)
 - Generous body line-height (1.60) for editorial reading experience
 - Tight heading line-heights (1.10-1.30)
@@ -35,45 +36,46 @@ Total redesign of T1b4lt.github.io (personal blog/portfolio for Guillermo Segovi
 
 **Light mode:**
 
-| Role | Color | Hex |
-|------|-------|-----|
-| Page background | Parchment | `#f5f4ed` |
-| Card surface | Ivory | `#faf9f5` |
-| Primary text | Near Black | `#141413` |
-| Secondary text | Olive Gray | `#5e5d59` |
-| Tertiary text | Stone Gray | `#87867f` |
-| Accent / CTA | Terracotta | `#c96442` |
-| Borders | Border Cream | `#f0eee6` |
-| Prominent borders | Border Warm | `#e8e6dc` |
-| Button surface | Warm Sand | `#e8e6dc` |
-| Button text | Charcoal Warm | `#4d4c48` |
-| Ring shadow | Ring Warm | `#d1cfc5` |
-| Focus ring | Focus Blue | `#3898ec` |
+| Role              | Color         | Hex       |
+| ----------------- | ------------- | --------- |
+| Page background   | Parchment     | `#f5f4ed` |
+| Card surface      | Ivory         | `#faf9f5` |
+| Primary text      | Near Black    | `#141413` |
+| Secondary text    | Olive Gray    | `#5e5d59` |
+| Tertiary text     | Stone Gray    | `#87867f` |
+| Accent / CTA      | Terracotta    | `#c96442` |
+| Borders           | Border Cream  | `#f0eee6` |
+| Prominent borders | Border Warm   | `#e8e6dc` |
+| Button surface    | Warm Sand     | `#e8e6dc` |
+| Button text       | Charcoal Warm | `#4d4c48` |
+| Ring shadow       | Ring Warm     | `#d1cfc5` |
+| Focus ring        | Focus Blue    | `#3898ec` |
 
 **Dark mode:**
 
-| Role | Color | Hex |
-|------|-------|-----|
-| Page background | Deep Dark | `#141413` |
-| Card surface | Dark Surface | `#30302e` |
-| Primary text | Ivory | `#faf9f5` |
-| Secondary text | Warm Silver | `#b0aea5` |
-| Accent / CTA | Coral | `#d97757` |
-| Borders | Dark Border | `#30302e` |
+| Role            | Color        | Hex       |
+| --------------- | ------------ | --------- |
+| Page background | Deep Dark    | `#141413` |
+| Card surface    | Dark Surface | `#30302e` |
+| Primary text    | Ivory        | `#faf9f5` |
+| Secondary text  | Warm Silver  | `#b0aea5` |
+| Accent / CTA    | Coral        | `#d97757` |
+| Borders         | Dark Border  | `#30302e` |
 
 **Rules:**
+
 - No cool blue-grays anywhere — all neutrals have warm yellow-brown undertone
 - Focus Blue (`#3898ec`) is the only cool color, used solely for accessibility focus rings
 - Terracotta/Coral is reserved for primary CTAs and high-signal brand moments
 
 ### Depth & Shadows
 
-| Level | Treatment | Use |
-|-------|-----------|-----|
-| Flat | No shadow, no border | Page background, inline text |
-| Contained | `1px solid #f0eee6` (light) / `1px solid #30302e` (dark) | Cards, sections |
-| Ring | `0px 0px 0px 1px` warm ring shadow | Interactive states, buttons |
-| Whisper | `rgba(0,0,0,0.05) 0px 4px 24px` | Elevated cards, featured content |
+| Level     | Treatment                                                | Use                              |
+| --------- | -------------------------------------------------------- | -------------------------------- |
+| Flat      | No shadow, no border                                     | Page background, inline text     |
+| Contained | `1px solid #f0eee6` (light) / `1px solid #30302e` (dark) | Cards, sections                  |
+| Ring      | `0px 0px 0px 1px` warm ring shadow                       | Interactive states, buttons      |
+| Whisper   | `rgba(0,0,0,0.05) 0px 4px 24px`                          | Elevated cards, featured content |
 
 ### Border Radius Scale
 
@@ -116,18 +118,21 @@ Total redesign of T1b4lt.github.io (personal blog/portfolio for Guillermo Segovi
 ### Home
 
 **Hero:**
+
 - Name "Guillermo Segovia" in large serif (48-64px desktop, ~32px mobile)
 - Role: "Product & AI Prototyper @ Telefónica" in sans, secondary text color
 - Personal tagline — one line, essence of professional identity
 - Terracotta CTA button linking to About Me
 
 **Featured Projects:**
+
 - Section title "Featured Projects" in serif
 - 2-3 project cards (projects with `featured: true` in frontmatter)
 - Each card: title, short description, tech tags, GitHub/web links
 - "View all projects →" link in terracotta at end
 
 **Latest Blog Post:**
+
 - Section title "Latest from the blog" in serif
 - 1-2 most recent posts in compact format: title, date, tags
 - "Read more posts →" link in terracotta
@@ -137,6 +142,7 @@ Total redesign of T1b4lt.github.io (personal blog/portfolio for Guillermo Segovi
 ### Projects
 
 **Section 1 — "My Projects":**
+
 - Grid of cards: 1 column mobile, 2 columns desktop
 - Each card defined by markdown file with frontmatter:
   ```yaml
@@ -144,14 +150,15 @@ Total redesign of T1b4lt.github.io (personal blog/portfolio for Guillermo Segovi
   description: "One-liner description"
   tags: ["Python", "LLM", "Azure"]
   github: "https://github.com/..."
-  web: "https://..."        # optional
-  featured: true             # appears on home
-  order: 1                   # sort order
+  web: "https://..." # optional
+  featured: true # appears on home
+  order: 1 # sort order
   ```
 - Card visual: title in serif, description in sans, tech tags as pills (Warm Sand), GitHub/web icon links
 - Ordered by `order` field
 
 **Section 2 — "Open Source Contributions":**
+
 - Visually separated with serif heading + subtle divider (Border Cream)
 - Compact list format — each entry is a row:
   - Project name (link to repo)
@@ -222,15 +229,15 @@ Built as Astro component (not markdown) — content changes infrequently and ben
 
 **Mobile-first approach.** Base styles target mobile; desktop adapts via `lg:` breakpoint.
 
-| Element | Mobile | Desktop (lg+) |
-|---------|--------|----------------|
-| Header | Two rows: controls top, nav bottom | Single row: wordmark + nav + controls |
-| Hero text | ~32px | 48-64px |
-| Content width | Full width with padding | Max ~720px centered |
-| Project grid | 1 column | 2 columns |
-| Featured projects on home | 1 column stacked | 2-3 column cards |
-| Nav links | Horizontal, compact text | Horizontal with more spacing |
-| Section spacing | 48-64px | 80-120px |
+| Element                   | Mobile                             | Desktop (lg+)                         |
+| ------------------------- | ---------------------------------- | ------------------------------------- |
+| Header                    | Two rows: controls top, nav bottom | Single row: wordmark + nav + controls |
+| Hero text                 | ~32px                              | 48-64px                               |
+| Content width             | Full width with padding            | Max ~720px centered                   |
+| Project grid              | 1 column                           | 2 columns                             |
+| Featured projects on home | 1 column stacked                   | 2-3 column cards                      |
+| Nav links                 | Horizontal, compact text           | Horizontal with more spacing          |
+| Section spacing           | 48-64px                            | 80-120px                              |
 
 **Touch targets:** Minimum 44x44px for all interactive elements.
 
@@ -241,9 +248,11 @@ Built as Astro component (not markdown) — content changes infrequently and ben
 ## 5. Content Collections (Astro)
 
 ### Existing (unchanged)
+
 - `src/content/blog/{en,es}/*.md` — blog posts with idx, title, author, pubDate, pubDateLogical, tags
 
 ### New
+
 - `src/content/projects/*.md` — personal projects with title, description, tags, github, web (optional), featured, order
 - `src/content/oss/*.md` — open source contributions with project, description, tags, repo
 
@@ -251,23 +260,24 @@ Built as Astro component (not markdown) — content changes infrequently and ben
 
 ## 6. Structural Changes Summary
 
-| Current | Redesigned |
-|---------|------------|
-| Pages: Home, Blog, Blog/[slug], 404 | Pages: Home, Blog, Blog/[slug], Projects, About, 404 |
-| Home: long about-me text | Home: hero + featured projects + latest post |
-| About: doesn't exist | About: CV-integrated page (Astro component) |
-| Projects: doesn't exist | Projects: cards from markdown + OS contributions list |
-| Font: Roboto (sans only) | Fonts: Georgia (serif headlines) + Inter/system-ui (sans body) |
-| Colors: slate/zinc cool grays, blue accent | Colors: warm parchment palette, terracotta accent |
-| Nav: Home, Blog | Nav: Home, Blog, Projects, About |
-| Footer: zinc-700 | Footer: Dark Surface #30302e with warm tones |
-| 404: astronaut GIF + gradient button | 404: minimal serif + terracotta button |
+| Current                                    | Redesigned                                                     |
+| ------------------------------------------ | -------------------------------------------------------------- |
+| Pages: Home, Blog, Blog/[slug], 404        | Pages: Home, Blog, Blog/[slug], Projects, About, 404           |
+| Home: long about-me text                   | Home: hero + featured projects + latest post                   |
+| About: doesn't exist                       | About: CV-integrated page (Astro component)                    |
+| Projects: doesn't exist                    | Projects: cards from markdown + OS contributions list          |
+| Font: Roboto (sans only)                   | Fonts: Georgia (serif headlines) + Inter/system-ui (sans body) |
+| Colors: slate/zinc cool grays, blue accent | Colors: warm parchment palette, terracotta accent              |
+| Nav: Home, Blog                            | Nav: Home, Blog, Projects, About                               |
+| Footer: zinc-700                           | Footer: Dark Surface #30302e with warm tones                   |
+| 404: astronaut GIF + gradient button       | 404: minimal serif + terracotta button                         |
 
 ---
 
 ## 7. Internationalization
 
 All new pages (Projects, About) follow the same i18n pattern as existing pages:
+
 - English at root (`/projects`, `/about`)
 - Spanish at `/es/projects`, `/es/about`
 - Nav labels added to `src/i18n/ui.ts` for both languages

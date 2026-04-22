@@ -13,7 +13,10 @@ const ossEntries = await getOSSByLang(lang);
 
 <Layout title={`${t("projects.title")} | Guillermo Segovia`}>
   <div class="max-w-5xl mx-auto px-5 py-16">
-    <h1 class="text-4xl lg:text-5xl text-near-black dark:text-ivory" style="font-family: var(--font-serif);">
+    <h1
+      class="text-4xl lg:text-5xl text-near-black dark:text-ivory"
+      style="font-family: var(--font-serif);"
+    >
       {t("projects.title")}
     </h1>
 
@@ -34,7 +37,10 @@ const ossEntries = await getOSSByLang(lang);
     {
       ossEntries.length > 0 && (
         <section class="mt-20">
-          <h2 class="text-2xl lg:text-3xl text-near-black dark:text-ivory" style="font-family: var(--font-serif);">
+          <h2
+            class="text-2xl lg:text-3xl text-near-black dark:text-ivory"
+            style="font-family: var(--font-serif);"
+          >
             {t("projects.oss")}
           </h2>
           <div class="mt-8">
