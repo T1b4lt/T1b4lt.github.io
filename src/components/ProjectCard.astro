@@ -1,0 +1,53 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  title: string;
+  description: string;
+  tags: string[];
+  github: string;
+  web?: string;
+}
+
+const { title, description, tags, github, web } = Astro.props;
+---
+
+<article class="bg-ivory dark:bg-dark-surface border border-border-cream dark:border-border-dark rounded-xl p-6 shadow-[rgba(0,0,0,0.05)_0px_4px_24px]">
+  <h3 class="text-xl text-near-black dark:text-ivory" style="font-family: var(--font-serif);">
+    {title}
+  </h3>
+  <p class="text-olive-gray dark:text-warm-silver mt-2 text-sm leading-relaxed">
+    {description}
+  </p>
+  <div class="flex flex-wrap gap-2 mt-4">
+    {
+      tags.map((tag) => (
+        <span class="text-xs font-medium text-charcoal-warm dark:text-warm-silver bg-warm-sand dark:bg-near-black px-2.5 py-1 rounded-lg">
+          {tag}
+        </span>
+      ))
+    }
+  </div>
+  <div class="flex space-x-4 mt-4">
+    <a
+      href={github}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="text-olive-gray dark:text-warm-silver hover:text-terracotta dark:hover:text-coral transition-colors"
+    >
+      <Icon name="fa6-brands:github" class="w-5 h-5" aria-label="GitHub" />
+    </a>
+    {
+      web && (
+        <a
+          href={web}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-olive-gray dark:text-warm-silver hover:text-terracotta dark:hover:text-coral transition-colors"
+        >
+          <Icon name="fa6-solid:arrow-up-right-from-square" class="w-5 h-5" aria-label="Website" />
+        </a>
+      )
+    }
+  </div>
+</article>
