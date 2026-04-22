@@ -81,7 +81,8 @@ const esUrl = new URL(
       (function () {
         try {
           const stored = localStorage.getItem("theme");
-          const theme = stored ||
+          const theme =
+            stored ||
             (window.matchMedia("(prefers-color-scheme: dark)").matches
               ? "dark"
               : "light");
