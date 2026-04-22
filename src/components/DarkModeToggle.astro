@@ -60,6 +60,8 @@
     };
 
     document.querySelectorAll(".theme-toggle").forEach((btn) => {
+      if (btn.hasAttribute("data-bound")) return;
+      btn.setAttribute("data-bound", "");
       btn.addEventListener("click", handleToggleClick);
     });
   }

@@ -87,11 +87,11 @@ const latestPosts = (await getFormattedPosts(lang)).slice(0, 2);
                   >
                     {post.frontmatter.title}
                   </h3>
-                  <div class="flex items-center gap-3 mt-2">
+                  <div class="flex flex-wrap items-center gap-3 mt-2">
                     <span class="text-sm text-stone-gray dark:text-warm-silver">
                       {post.frontmatter.pubDate}
                     </span>
-                    <div class="flex gap-1.5">
+                    <div class="flex flex-wrap gap-1.5">
                       {post.frontmatter.tags.map((tag) => (
                         <span class="text-xs text-stone-gray dark:text-warm-silver bg-warm-sand dark:bg-dark-surface px-2 py-0.5 rounded-md">
                           {tag}

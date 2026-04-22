@@ -80,8 +80,8 @@ const esUrl = new URL(
     <script is:inline>
       (function () {
         try {
-          const theme =
-            localStorage.getItem("theme") ||
+          const stored = localStorage.getItem("theme");
+          const theme = stored ||
             (window.matchMedia("(prefers-color-scheme: dark)").matches
               ? "dark"
               : "light");
@@ -90,7 +90,7 @@ const esUrl = new URL(
           } else {
             document.documentElement.classList.remove("dark");
           }
-          localStorage.setItem("theme", theme);
+          if (!stored) localStorage.setItem("theme", theme);
         } catch (_) {
           // localStorage unavailable
         }
