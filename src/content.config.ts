@@ -14,4 +14,28 @@ const blog = defineCollection({
   }),
 });
 
-export const collections = { blog };
+const projects = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/projects" }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    tags: z.array(z.string()),
+    github: z.string().url(),
+    web: z.string().url().optional(),
+    featured: z.boolean().default(false),
+    order: z.number(),
+  }),
+});
+
+const oss = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/oss" }),
+  schema: z.object({
+    project: z.string(),
+    description: z.string(),
+    tags: z.array(z.string()),
+    repo: z.string().url(),
+    order: z.number().default(0),
+  }),
+});
+
+export const collections = { blog, projects, oss };

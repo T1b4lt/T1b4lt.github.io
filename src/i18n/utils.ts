@@ -105,3 +105,22 @@ export async function getBlogStaticPaths(lang: Lang) {
     return { params: { slug }, props: { entry } };
   });
 }
+
+export async function getProjectsByLang(lang: Lang) {
+  const allProjects = await getCollection("projects");
+  return allProjects
+    .filter(({ id }) => id.startsWith(`${lang}/`))
+    .sort((a, b) => a.data.order - b.data.order);
+}
+
+export async function getFeaturedProjects(lang: Lang) {
+  const projects = await getProjectsByLang(lang);
+  return projects.filter((p) => p.data.featured);
+}
+
+export async function getOSSByLang(lang: Lang) {
+  const allOSS = await getCollection("oss");
+  return allOSS
+    .filter(({ id }) => id.startsWith(`${lang}/`))
+    .sort((a, b) => a.data.order - b.data.order);
+}

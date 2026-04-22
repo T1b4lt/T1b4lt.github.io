@@ -10,7 +10,7 @@ const { translations } = Astro.props;
 const currentLang = getLangFromUrl(Astro.url);
 ---
 
-<ul class="flex space-x-4">
+<ul class="flex space-x-2">
   {
     (Object.keys(languages) as Lang[]).map((lang) => (
       <li>
@@ -18,10 +18,10 @@ const currentLang = getLangFromUrl(Astro.url);
           href={getAlternatePath(Astro.url.pathname, lang, translations)}
           data-lang={lang}
           onclick="try { localStorage.setItem('lang', this.dataset.lang) } catch (_) {}"
-          class={`px-3 py-2 rounded-md text-sm font-medium hover:text-slate-200 hover:bg-zinc-900 dark:hover:text-zinc-900 dark:hover:bg-slate-200 ${
+          class={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
             lang === currentLang
-              ? "text-slate-200 bg-zinc-900 dark:text-zinc-900 dark:bg-slate-200"
-              : ""
+              ? "bg-near-black text-ivory dark:bg-ivory dark:text-near-black"
+              : "text-olive-gray hover:bg-warm-sand dark:text-warm-silver dark:hover:bg-dark-surface"
           }`}
         >
           {languages[lang]}

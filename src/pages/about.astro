@@ -1,0 +1,311 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { useTranslations } from "../i18n/utils";
+
+const t = useTranslations("en");
+---
+
+<Layout title={`${t("about.title")} | Guillermo Segovia`}>
+  <div class="max-w-3xl mx-auto px-5 py-16">
+    <section>
+      <h1
+        class="text-4xl lg:text-5xl text-near-black dark:text-ivory"
+        style="font-family: var(--font-serif);"
+      >
+        Guillermo Segovia
+      </h1>
+      <p class="text-xl text-olive-gray dark:text-warm-silver mt-3">
+        Product &amp; AI Prototyper @ Telefónica
+      </p>
+      <p class="text-near-black dark:text-ivory mt-6 leading-relaxed">
+        IT professional focused on innovation and digital development. I build
+        end-to-end prototypes applying emerging technologies — from generative
+        AI and LLMs to mobile and web applications — to improve existing
+        products and create new ones.
+      </p>
+    </section>
+
+    <section class="mt-16">
+      <h2
+        class="text-2xl lg:text-3xl text-near-black dark:text-ivory"
+        style="font-family: var(--font-serif);"
+      >
+        {t("about.experience")}
+      </h2>
+      <div
+        class="mt-8 relative border-l-2 border-border-warm dark:border-border-dark pl-8 space-y-10"
+      >
+        <div class="relative">
+          <span
+            class="absolute -left-[41px] top-1.5 w-4 h-4 rounded-full bg-terracotta dark:bg-coral border-4 border-parchment dark:border-deep-dark"
+          ></span>
+          <h3 class="font-medium text-near-black dark:text-ivory">
+            Product &amp; AI Prototyper
+          </h3>
+          <p class="text-sm text-olive-gray dark:text-warm-silver">
+            Telefónica Innovación Digital &middot; Jul 2022 – Present
+          </p>
+          <p
+            class="text-sm text-olive-gray dark:text-warm-silver mt-2 leading-relaxed"
+          >
+            End-to-end prototyping in the Future AI Lab team. Building and
+            presenting prototypes to business units for evaluation and potential
+            production rollout. Azure, Android, Web, AI, LLMs, Python.
+          </p>
+        </div>
+        <div class="relative">
+          <span
+            class="absolute -left-[41px] top-1.5 w-4 h-4 rounded-full bg-terracotta dark:bg-coral border-4 border-parchment dark:border-deep-dark"
+          ></span>
+          <h3 class="font-medium text-near-black dark:text-ivory">
+            Beca Talentum AI &amp; Full Stack
+          </h3>
+          <p class="text-sm text-olive-gray dark:text-warm-silver">
+            Telefónica Innovación Digital &middot; Jul 2021 – Jul 2022
+          </p>
+          <p
+            class="text-sm text-olive-gray dark:text-warm-silver mt-2 leading-relaxed"
+          >
+            NLP document processing with Apache Solr, conversational bot
+            integration, ML research for Voice Activity Detection, and frontend
+            development in React and Kotlin.
+          </p>
+        </div>
+        <div class="relative">
+          <span
+            class="absolute -left-[41px] top-1.5 w-4 h-4 rounded-full bg-terracotta dark:bg-coral border-4 border-parchment dark:border-deep-dark"
+          ></span>
+          <h3 class="font-medium text-near-black dark:text-ivory">
+            Big Data Software Developer Intern
+          </h3>
+          <p class="text-sm text-olive-gray dark:text-warm-silver">
+            Accenture &middot; Sep 2019 – May 2020
+          </p>
+          <p
+            class="text-sm text-olive-gray dark:text-warm-silver mt-2 leading-relaxed"
+          >
+            Big Data project for a major telco. Kafka, Flink, Flume, Quarkus,
+            GraalVM, Redis.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-16">
+      <h2
+        class="text-2xl lg:text-3xl text-near-black dark:text-ivory"
+        style="font-family: var(--font-serif);"
+      >
+        {t("about.skills")}
+      </h2>
+      <div class="mt-8 space-y-4">
+        <div>
+          <h3
+            class="text-sm font-medium text-stone-gray dark:text-warm-silver uppercase tracking-wide"
+          >
+            AI / ML
+          </h3>
+          <div class="flex flex-wrap gap-2 mt-2">
+            {
+              [
+                "Generative AI",
+                "PyTorch",
+                "LangChain",
+                "Agno",
+                "Hugging Face",
+                "Fine-tuning",
+              ].map((s) => (
+                <span class="text-sm text-charcoal-warm dark:text-warm-silver bg-warm-sand dark:bg-dark-surface px-3 py-1 rounded-lg">
+                  {s}
+                </span>
+              ))
+            }
+          </div>
+        </div>
+        <div>
+          <h3
+            class="text-sm font-medium text-stone-gray dark:text-warm-silver uppercase tracking-wide"
+          >
+            Backend
+          </h3>
+          <div class="flex flex-wrap gap-2 mt-2">
+            {
+              [
+                "Python",
+                "Node.js",
+                "FastAPI",
+                "Nginx",
+                "SQLite",
+                "WebSocket",
+                "Redis",
+              ].map((s) => (
+                <span class="text-sm text-charcoal-warm dark:text-warm-silver bg-warm-sand dark:bg-dark-surface px-3 py-1 rounded-lg">
+                  {s}
+                </span>
+              ))
+            }
+          </div>
+        </div>
+        <div>
+          <h3
+            class="text-sm font-medium text-stone-gray dark:text-warm-silver uppercase tracking-wide"
+          >
+            Frontend &amp; Mobile
+          </h3>
+          <div class="flex flex-wrap gap-2 mt-2">
+            {
+              [
+                "React",
+                "Astro",
+                "Tailwind CSS",
+                "TypeScript",
+                "Kotlin",
+                "Android",
+              ].map((s) => (
+                <span class="text-sm text-charcoal-warm dark:text-warm-silver bg-warm-sand dark:bg-dark-surface px-3 py-1 rounded-lg">
+                  {s}
+                </span>
+              ))
+            }
+          </div>
+        </div>
+        <div>
+          <h3
+            class="text-sm font-medium text-stone-gray dark:text-warm-silver uppercase tracking-wide"
+          >
+            Cloud &amp; Data
+          </h3>
+          <div class="flex flex-wrap gap-2 mt-2">
+            {
+              [
+                "Azure",
+                "Firebase",
+                "Supabase",
+                "SQL",
+                "Big Data",
+                "Data Analysis",
+              ].map((s) => (
+                <span class="text-sm text-charcoal-warm dark:text-warm-silver bg-warm-sand dark:bg-dark-surface px-3 py-1 rounded-lg">
+                  {s}
+                </span>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-16">
+      <h2
+        class="text-2xl lg:text-3xl text-near-black dark:text-ivory"
+        style="font-family: var(--font-serif);"
+      >
+        {t("about.education")}
+      </h2>
+      <div class="mt-8 space-y-6">
+        <div>
+          <h3 class="font-medium text-near-black dark:text-ivory">
+            Master of Science — Computer Engineering
+          </h3>
+          <p class="text-sm text-olive-gray dark:text-warm-silver">
+            Universidad Carlos III de Madrid &middot; 2020 – 2022
+          </p>
+          <p class="text-sm text-olive-gray dark:text-warm-silver mt-1">
+            Thesis: <em
+              >Robustness against adversarial attacks in reinforcement learning</em
+            > (9.6/10)
+          </p>
+        </div>
+        <div>
+          <h3 class="font-medium text-near-black dark:text-ivory">
+            Bachelor's Degree — Computer Engineering
+          </h3>
+          <p class="text-sm text-olive-gray dark:text-warm-silver">
+            Universidad Autónoma de Madrid &middot; 2015 – 2020
+          </p>
+          <p class="text-sm text-olive-gray dark:text-warm-silver mt-1">
+            Thesis: <em>Acoustic event recognition using attention layers</em> (8.6/10)
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-16">
+      <h2
+        class="text-2xl lg:text-3xl text-near-black dark:text-ivory"
+        style="font-family: var(--font-serif);"
+      >
+        {t("about.awards")}
+      </h2>
+      <ul class="mt-8 space-y-3">
+        <li class="text-olive-gray dark:text-warm-silver">
+          Excellence Scholarship — Comunidad de Madrid
+        </li>
+        <li class="text-olive-gray dark:text-warm-silver">
+          First Year Academic Award
+        </li>
+        <li class="text-olive-gray dark:text-warm-silver">Hackathon Winners</li>
+        <li class="text-olive-gray dark:text-warm-silver">
+          SEDEA National Ranking 2021 — Computer Engineering Graduates
+        </li>
+        <li class="text-olive-gray dark:text-warm-silver">
+          Master's Study Scholarship
+        </li>
+      </ul>
+    </section>
+
+    <section class="mt-16 mb-8">
+      <h2
+        class="text-2xl lg:text-3xl text-near-black dark:text-ivory"
+        style="font-family: var(--font-serif);"
+      >
+        {t("about.interests")}
+      </h2>
+      <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div>
+          <h3
+            class="font-medium text-near-black dark:text-ivory"
+            style="font-family: var(--font-serif);"
+          >
+            Machine Learning
+          </h3>
+          <p
+            class="text-sm text-olive-gray dark:text-warm-silver mt-2 leading-relaxed"
+          >
+            From classification algorithms and neural networks to generative AI
+            — always exploring how ML can transform the way we interact with
+            technology.
+          </p>
+        </div>
+        <div>
+          <h3
+            class="font-medium text-near-black dark:text-ivory"
+            style="font-family: var(--font-serif);"
+          >
+            Fullstack Software Development
+          </h3>
+          <p
+            class="text-sm text-olive-gray dark:text-warm-silver mt-2 leading-relaxed"
+          >
+            Building solutions from scratch — web, mobile, backend, or all at
+            once. Creativity and problem-solving are the driving force.
+          </p>
+        </div>
+        <div>
+          <h3
+            class="font-medium text-near-black dark:text-ivory"
+            style="font-family: var(--font-serif);"
+          >
+            Data Analysis
+          </h3>
+          <p
+            class="text-sm text-olive-gray dark:text-warm-silver mt-2 leading-relaxed"
+          >
+            Exploring datasets, extracting insights, making evidence-based
+            decisions. From SQL to visualization tools.
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>

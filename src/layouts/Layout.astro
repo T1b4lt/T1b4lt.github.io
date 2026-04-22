@@ -77,6 +77,26 @@ const esUrl = new URL(
         }
       })();
     </script>
+    <script is:inline>
+      (function () {
+        try {
+          const stored = localStorage.getItem("theme");
+          const theme =
+            stored ||
+            (window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light");
+          if (theme === "dark") {
+            document.documentElement.classList.add("dark");
+          } else {
+            document.documentElement.classList.remove("dark");
+          }
+          if (!stored) localStorage.setItem("theme", theme);
+        } catch (_) {
+          // localStorage unavailable
+        }
+      })();
+    </script>
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -118,7 +138,7 @@ const esUrl = new URL(
 
     <title>{title}</title>
   </head>
-  <body class="bg-slate-200 dark:bg-zinc-900 text-zinc-900 dark:text-slate-200">
+  <body class="bg-parchment dark:bg-deep-dark text-near-black dark:text-ivory">
     <Header translations={translations} />
     <main>
       <slot />

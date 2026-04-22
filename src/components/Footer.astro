@@ -8,36 +8,36 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
-<footer>
-  <div class="bg-zinc-700 py-10 px-4">
-    <div class="flex justify-center">
-      <div class="w-full lg:w-1/2 px-4">
-        <h4 class="text-3xl font-bold text-slate-200">{t("footer.title")}</h4>
-        <h5 class="text-lg text-gray-400 font-light">
-          {t("footer.subtitle")}
-        </h5>
-        <div class="flex flex-row justify-between mt-6">
-          <a
-            href="https://www.github.com/T1b4lt"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-slate-200"
-          >
-            <Icon name="fa6-brands:github" aria-label="GitHub" />
-          </a>
-          <a
-            href="https://www.linkedin.com/in/guillermo-segovia-fernandez/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-slate-200"
-          >
-            <Icon name="fa6-brands:linkedin-in" aria-label="LinkedIn" />
-          </a>
-        </div>
+<footer class="bg-dark-surface dark:bg-near-black">
+  <div class="max-w-5xl mx-auto px-6 py-12">
+    <div class="max-w-2xl">
+      <h4 class="text-2xl text-ivory" style="font-family: var(--font-serif);">
+        {t("footer.title")}
+      </h4>
+      <p class="text-warm-silver mt-2">
+        {t("footer.subtitle")}
+      </p>
+      <div class="flex flex-row space-x-6 mt-6">
+        <a
+          href="https://www.github.com/T1b4lt"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-warm-silver hover:text-ivory transition-colors"
+        >
+          <Icon name="fa6-brands:github" aria-label="GitHub" />
+        </a>
+        <a
+          href="https://www.linkedin.com/in/guillermo-segovia-fernandez/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-warm-silver hover:text-ivory transition-colors"
+        >
+          <Icon name="fa6-brands:linkedin-in" aria-label="LinkedIn" />
+        </a>
       </div>
     </div>
-    <hr class="my-6 border-slate-200" />
-    <div class="text-center text-sm text-gray-400 font-bold my-1 mx-4">
+    <hr class="my-8 border-border-dark" />
+    <div class="text-center text-sm text-warm-silver">
       Guillermo Segovia &middot; {actualYear}
     </div>
   </div>
