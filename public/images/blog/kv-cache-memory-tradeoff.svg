@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" font-family="system-ui, -apple-system, sans-serif">
+  <defs>
+    <linearGradient id="barModel" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#6366f1"/>
+      <stop offset="100%" style="stop-color:#818cf8"/>
+    </linearGradient>
+    <linearGradient id="barCache" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#f59e0b"/>
+      <stop offset="100%" style="stop-color:#fbbf24"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="400" rx="16" fill="#1a1a2e"/>
+
+  <!-- Title -->
+  <text x="450" y="35" text-anchor="middle" fill="#e2e8f0" font-size="18" font-weight="700">KV Cache Memory: The Hidden Cost of Long Contexts</text>
+  <text x="450" y="55" text-anchor="middle" fill="#94a3b8" font-size="12">GPU VRAM usage comparison at different sequence lengths (Llama 3 70B, FP16)</text>
+
+  <!-- Legend -->
+  <rect x="310" y="68" width="14" height="14" rx="3" fill="url(#barModel)"/>
+  <text x="330" y="80" fill="#a5b4fc" font-size="12">Model parameters</text>
+  <rect x="470" y="68" width="14" height="14" rx="3" fill="url(#barCache)"/>
+  <text x="490" y="80" fill="#fcd34d" font-size="12">KV Cache</text>
+
+  <!-- Y axis labels -->
+  <text x="80" y="125" text-anchor="end" fill="#94a3b8" font-size="12">2K tokens</text>
+  <text x="80" y="190" text-anchor="end" fill="#94a3b8" font-size="12">8K tokens</text>
+  <text x="80" y="255" text-anchor="end" fill="#94a3b8" font-size="12">32K tokens</text>
+  <text x="80" y="320" text-anchor="end" fill="#94a3b8" font-size="12">128K tokens</text>
+
+  <!-- Bars: 2K tokens -->
+  <rect x="95" y="110" width="500" height="12" rx="4" fill="url(#barModel)"/>
+  <rect x="595" y="110" width="20" height="12" rx="4" fill="url(#barCache)"/>
+  <text x="625" y="122" fill="#fcd34d" font-size="10">~1.2 GB</text>
+  <text x="730" y="122" fill="#94a3b8" font-size="10">Total: ~141 GB</text>
+
+  <!-- Scale reference line for model size -->
+  <line x1="595" y1="100" x2="595" y2="340" stroke="#4b5563" stroke-width="1" stroke-dasharray="4"/>
+  <text x="595" y="365" text-anchor="middle" fill="#6b7280" font-size="10">Model: 140 GB</text>
+
+  <!-- Bars: 8K tokens -->
+  <rect x="95" y="175" width="500" height="12" rx="4" fill="url(#barModel)"/>
+  <rect x="595" y="175" width="70" height="12" rx="4" fill="url(#barCache)"/>
+  <text x="675" y="187" fill="#fcd34d" font-size="10">~5 GB</text>
+  <text x="730" y="187" fill="#94a3b8" font-size="10">Total: ~145 GB</text>
+
+  <!-- Bars: 32K tokens -->
+  <rect x="95" y="240" width="500" height="12" rx="4" fill="url(#barModel)"/>
+  <rect x="595" y="240" width="180" height="12" rx="4" fill="url(#barCache)"/>
+  <text x="785" y="252" fill="#fcd34d" font-size="10">~20 GB</text>
+  <text x="842" y="252" fill="#94a3b8" font-size="10">160 GB</text>
+
+  <!-- Bars: 128K tokens - cache exceeds model -->
+  <rect x="95" y="305" width="500" height="12" rx="4" fill="url(#barModel)"/>
+  <rect x="595" y="305" width="280" height="12" rx="4" fill="url(#barCache)"/>
+  <text x="845" y="317" fill="#fca5a5" font-size="10" font-weight="600">~80 GB!</text>
+
+  <!-- Warning callout -->
+  <rect x="95" y="335" width="780" height="32" rx="6" fill="#7f1d1d" opacity="0.4" stroke="#ef4444" stroke-width="1" stroke-dasharray="4"/>
+  <text x="485" y="356" text-anchor="middle" fill="#fca5a5" font-size="12" font-weight="600">At 128K tokens, KV cache consumes ~57% of model VRAM -- the dominant memory bottleneck</text>
+
+  <!-- Arrow showing growth -->
+  <path d="M 860 120 Q 880 220 860 310" stroke="#ef4444" stroke-width="2" fill="none" marker-end="url(#arrowRed)"/>
+  <defs>
+    <marker id="arrowRed" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#ef4444"/>
+    </marker>
+  </defs>
+  <text x="878" y="220" fill="#fca5a5" font-size="10" font-weight="600" transform="rotate(90, 878, 220)">Linear growth</text>
+</svg>

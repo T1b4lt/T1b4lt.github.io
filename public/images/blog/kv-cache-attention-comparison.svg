@@ -1,0 +1,205 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" font-family="system-ui, -apple-system, sans-serif">
+  <defs>
+    <linearGradient id="qGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#8b5cf6"/>
+      <stop offset="100%" style="stop-color:#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="kvGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#f59e0b"/>
+      <stop offset="100%" style="stop-color:#d97706"/>
+    </linearGradient>
+    <linearGradient id="latentGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#06b6d4"/>
+      <stop offset="100%" style="stop-color:#0891b2"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="500" rx="16" fill="#1a1a2e"/>
+
+  <!-- Title -->
+  <text x="450" y="35" text-anchor="middle" fill="#e2e8f0" font-size="18" font-weight="700">Attention Mechanism Variants: KV Cache Memory Comparison</text>
+
+  <!-- Legend -->
+  <rect x="250" y="48" width="14" height="14" rx="3" fill="url(#qGrad)"/>
+  <text x="270" y="60" fill="#c4b5fd" font-size="12">Query (Q) heads</text>
+  <rect x="400" y="48" width="14" height="14" rx="3" fill="url(#kvGrad)"/>
+  <text x="420" y="60" fill="#fcd34d" font-size="12">Key-Value (K,V) pairs</text>
+  <rect x="570" y="48" width="14" height="14" rx="3" fill="url(#latentGrad)"/>
+  <text x="590" y="60" fill="#67e8f9" font-size="12">Latent vector (compressed)</text>
+
+  <!-- ========== MHA ========== -->
+  <rect x="20" y="80" width="200" height="400" rx="12" fill="#1e1e36" stroke="#374151" stroke-width="1"/>
+  <text x="120" y="105" text-anchor="middle" fill="#e2e8f0" font-size="15" font-weight="700">MHA</text>
+  <text x="120" y="120" text-anchor="middle" fill="#94a3b8" font-size="10">Multi-Head Attention</text>
+
+  <!-- MHA: 8 Q heads, each with own KV -->
+  <g transform="translate(40, 140)">
+    <rect x="0" y="0" width="28" height="28" rx="5" fill="url(#qGrad)"/><text x="14" y="19" text-anchor="middle" fill="white" font-size="10" font-weight="600">Q1</text>
+    <rect x="0" y="33" width="28" height="28" rx="5" fill="url(#kvGrad)"/><text x="14" y="52" text-anchor="middle" fill="white" font-size="9" font-weight="600">KV1</text>
+
+    <rect x="40" y="0" width="28" height="28" rx="5" fill="url(#qGrad)"/><text x="54" y="19" text-anchor="middle" fill="white" font-size="10" font-weight="600">Q2</text>
+    <rect x="40" y="33" width="28" height="28" rx="5" fill="url(#kvGrad)"/><text x="54" y="52" text-anchor="middle" fill="white" font-size="9" font-weight="600">KV2</text>
+
+    <rect x="80" y="0" width="28" height="28" rx="5" fill="url(#qGrad)"/><text x="94" y="19" text-anchor="middle" fill="white" font-size="10" font-weight="600">Q3</text>
+    <rect x="80" y="33" width="28" height="28" rx="5" fill="url(#kvGrad)"/><text x="94" y="52" text-anchor="middle" fill="white" font-size="9" font-weight="600">KV3</text>
+
+    <rect x="120" y="0" width="28" height="28" rx="5" fill="url(#qGrad)"/><text x="134" y="19" text-anchor="middle" fill="white" font-size="10" font-weight="600">Q4</text>
+    <rect x="120" y="33" width="28" height="28" rx="5" fill="url(#kvGrad)"/><text x="134" y="52" text-anchor="middle" fill="white" font-size="9" font-weight="600">KV4</text>
+  </g>
+
+  <g transform="translate(40, 215)">
+    <rect x="0" y="0" width="28" height="28" rx="5" fill="url(#qGrad)"/><text x="14" y="19" text-anchor="middle" fill="white" font-size="10" font-weight="600">Q5</text>
+    <rect x="0" y="33" width="28" height="28" rx="5" fill="url(#kvGrad)"/><text x="14" y="52" text-anchor="middle" fill="white" font-size="9" font-weight="600">KV5</text>
+
+    <rect x="40" y="0" width="28" height="28" rx="5" fill="url(#qGrad)"/><text x="54" y="19" text-anchor="middle" fill="white" font-size="10" font-weight="600">Q6</text>
+    <rect x="40" y="33" width="28" height="28" rx="5" fill="url(#kvGrad)"/><text x="54" y="52" text-anchor="middle" fill="white" font-size="9" font-weight="600">KV6</text>
+
+    <rect x="80" y="0" width="28" height="28" rx="5" fill="url(#qGrad)"/><text x="94" y="19" text-anchor="middle" fill="white" font-size="10" font-weight="600">Q7</text>
+    <rect x="80" y="33" width="28" height="28" rx="5" fill="url(#kvGrad)"/><text x="94" y="52" text-anchor="middle" fill="white" font-size="9" font-weight="600">KV7</text>
+
+    <rect x="120" y="0" width="28" height="28" rx="5" fill="url(#qGrad)"/><text x="134" y="19" text-anchor="middle" fill="white" font-size="10" font-weight="600">Q8</text>
+    <rect x="120" y="33" width="28" height="28" rx="5" fill="url(#kvGrad)"/><text x="134" y="52" text-anchor="middle" fill="white" font-size="9" font-weight="600">KV8</text>
+  </g>
+
+  <!-- MHA stats -->
+  <rect x="35" y="310" width="160" height="55" rx="8" fill="#292948"/>
+  <text x="115" y="330" text-anchor="middle" fill="#fcd34d" font-size="12" font-weight="600">8 KV pairs cached</text>
+  <text x="115" y="348" text-anchor="middle" fill="#94a3b8" font-size="11">Memory: 100% (baseline)</text>
+
+  <rect x="35" y="375" width="160" height="55" rx="8" fill="#292948" stroke="#6366f1" stroke-width="1"/>
+  <text x="115" y="395" text-anchor="middle" fill="#a5b4fc" font-size="11" font-weight="600">Best quality</text>
+  <text x="115" y="413" text-anchor="middle" fill="#94a3b8" font-size="10">Highest memory cost</text>
+
+  <!-- ========== MQA ========== -->
+  <rect x="235" y="80" width="200" height="400" rx="12" fill="#1e1e36" stroke="#374151" stroke-width="1"/>
+  <text x="335" y="105" text-anchor="middle" fill="#e2e8f0" font-size="15" font-weight="700">MQA</text>
+  <text x="335" y="120" text-anchor="middle" fill="#94a3b8" font-size="10">Multi-Query Attention</text>
+
+  <!-- MQA: 8 Q heads, 1 shared KV -->
+  <g transform="translate(255, 140)">
+    <rect x="0" y="0" width="28" height="28" rx="5" fill="url(#qGrad)"/><text x="14" y="19" text-anchor="middle" fill="white" font-size="10" font-weight="600">Q1</text>
+    <rect x="40" y="0" width="28" height="28" rx="5" fill="url(#qGrad)"/><text x="54" y="19" text-anchor="middle" fill="white" font-size="10" font-weight="600">Q2</text>
+    <rect x="80" y="0" width="28" height="28" rx="5" fill="url(#qGrad)"/><text x="94" y="19" text-anchor="middle" fill="white" font-size="10" font-weight="600">Q3</text>
+    <rect x="120" y="0" width="28" height="28" rx="5" fill="url(#qGrad)"/><text x="134" y="19" text-anchor="middle" fill="white" font-size="10" font-weight="600">Q4</text>
+  </g>
+  <g transform="translate(255, 175)">
+    <rect x="0" y="0" width="28" height="28" rx="5" fill="url(#qGrad)"/><text x="14" y="19" text-anchor="middle" fill="white" font-size="10" font-weight="600">Q5</text>
+    <rect x="40" y="0" width="28" height="28" rx="5" fill="url(#qGrad)"/><text x="54" y="19" text-anchor="middle" fill="white" font-size="10" font-weight="600">Q6</text>
+    <rect x="80" y="0" width="28" height="28" rx="5" fill="url(#qGrad)"/><text x="94" y="19" text-anchor="middle" fill="white" font-size="10" font-weight="600">Q7</text>
+    <rect x="120" y="0" width="28" height="28" rx="5" fill="url(#qGrad)"/><text x="134" y="19" text-anchor="middle" fill="white" font-size="10" font-weight="600">Q8</text>
+  </g>
+
+  <!-- Arrows to single KV -->
+  <line x1="269" y1="210" x2="320" y2="235" stroke="#fbbf24" stroke-width="1" opacity="0.5"/>
+  <line x1="309" y1="210" x2="320" y2="235" stroke="#fbbf24" stroke-width="1" opacity="0.5"/>
+  <line x1="349" y1="210" x2="340" y2="235" stroke="#fbbf24" stroke-width="1" opacity="0.5"/>
+  <line x1="389" y1="210" x2="340" y2="235" stroke="#fbbf24" stroke-width="1" opacity="0.5"/>
+
+  <!-- Single shared KV -->
+  <rect x="295" y="235" width="80" height="35" rx="6" fill="url(#kvGrad)"/>
+  <text x="335" y="257" text-anchor="middle" fill="white" font-size="12" font-weight="600">KV (shared)</text>
+
+  <!-- MQA stats -->
+  <rect x="250" y="310" width="160" height="55" rx="8" fill="#292948"/>
+  <text x="330" y="330" text-anchor="middle" fill="#fcd34d" font-size="12" font-weight="600">1 KV pair cached</text>
+  <text x="330" y="348" text-anchor="middle" fill="#94a3b8" font-size="11">Memory: 12.5% of MHA</text>
+
+  <rect x="250" y="375" width="160" height="55" rx="8" fill="#292948" stroke="#ef4444" stroke-width="1"/>
+  <text x="330" y="395" text-anchor="middle" fill="#fca5a5" font-size="11" font-weight="600">Quality degradation</text>
+  <text x="330" y="413" text-anchor="middle" fill="#94a3b8" font-size="10">Mostly superseded</text>
+
+  <!-- ========== GQA ========== -->
+  <rect x="450" y="80" width="200" height="400" rx="12" fill="#1e1e36" stroke="#374151" stroke-width="1"/>
+  <text x="550" y="105" text-anchor="middle" fill="#e2e8f0" font-size="15" font-weight="700">GQA</text>
+  <text x="550" y="120" text-anchor="middle" fill="#94a3b8" font-size="10">Grouped-Query Attention</text>
+
+  <!-- GQA: 8 Q heads, 2 groups with 2 KV -->
+  <!-- Group 1 -->
+  <rect x="467" y="137" width="82" height="130" rx="8" fill="#374151" opacity="0.3" stroke="#4b5563" stroke-dasharray="3"/>
+  <text x="508" y="152" text-anchor="middle" fill="#6b7280" font-size="9">Group 1</text>
+  <g transform="translate(475, 158)">
+    <rect x="0" y="0" width="28" height="28" rx="5" fill="url(#qGrad)"/><text x="14" y="19" text-anchor="middle" fill="white" font-size="10" font-weight="600">Q1</text>
+    <rect x="35" y="0" width="28" height="28" rx="5" fill="url(#qGrad)"/><text x="49" y="19" text-anchor="middle" fill="white" font-size="10" font-weight="600">Q2</text>
+    <rect x="0" y="33" width="28" height="28" rx="5" fill="url(#qGrad)"/><text x="14" y="52" text-anchor="middle" fill="white" font-size="10" font-weight="600">Q3</text>
+    <rect x="35" y="33" width="28" height="28" rx="5" fill="url(#qGrad)"/><text x="49" y="52" text-anchor="middle" fill="white" font-size="10" font-weight="600">Q4</text>
+  </g>
+  <rect x="483" y="230" width="50" height="25" rx="5" fill="url(#kvGrad)"/><text x="508" y="247" text-anchor="middle" fill="white" font-size="9" font-weight="600">KV 1</text>
+
+  <!-- Group 2 -->
+  <rect x="555" y="137" width="82" height="130" rx="8" fill="#374151" opacity="0.3" stroke="#4b5563" stroke-dasharray="3"/>
+  <text x="596" y="152" text-anchor="middle" fill="#6b7280" font-size="9">Group 2</text>
+  <g transform="translate(563, 158)">
+    <rect x="0" y="0" width="28" height="28" rx="5" fill="url(#qGrad)"/><text x="14" y="19" text-anchor="middle" fill="white" font-size="10" font-weight="600">Q5</text>
+    <rect x="35" y="0" width="28" height="28" rx="5" fill="url(#qGrad)"/><text x="49" y="19" text-anchor="middle" fill="white" font-size="10" font-weight="600">Q6</text>
+    <rect x="0" y="33" width="28" height="28" rx="5" fill="url(#qGrad)"/><text x="14" y="52" text-anchor="middle" fill="white" font-size="10" font-weight="600">Q7</text>
+    <rect x="35" y="33" width="28" height="28" rx="5" fill="url(#qGrad)"/><text x="49" y="52" text-anchor="middle" fill="white" font-size="10" font-weight="600">Q8</text>
+  </g>
+  <rect x="571" y="230" width="50" height="25" rx="5" fill="url(#kvGrad)"/><text x="596" y="247" text-anchor="middle" fill="white" font-size="9" font-weight="600">KV 2</text>
+
+  <!-- GQA stats -->
+  <rect x="465" y="310" width="160" height="55" rx="8" fill="#292948"/>
+  <text x="545" y="330" text-anchor="middle" fill="#fcd34d" font-size="12" font-weight="600">2 KV pairs cached</text>
+  <text x="545" y="348" text-anchor="middle" fill="#94a3b8" font-size="11">Memory: 25% of MHA</text>
+
+  <rect x="465" y="375" width="160" height="55" rx="8" fill="#292948" stroke="#22c55e" stroke-width="1"/>
+  <text x="545" y="395" text-anchor="middle" fill="#86efac" font-size="11" font-weight="600">Industry standard</text>
+  <text x="545" y="413" text-anchor="middle" fill="#94a3b8" font-size="10">Llama 3, Mistral, Gemma</text>
+
+  <!-- ========== MLA ========== -->
+  <rect x="665" y="80" width="215" height="400" rx="12" fill="#1e1e36" stroke="#374151" stroke-width="1"/>
+  <text x="772" y="105" text-anchor="middle" fill="#e2e8f0" font-size="15" font-weight="700">MLA</text>
+  <text x="772" y="120" text-anchor="middle" fill="#94a3b8" font-size="10">Multi-Head Latent Attention</text>
+
+  <!-- MLA: 8 Q heads, single compressed latent -->
+  <g transform="translate(690, 140)">
+    <rect x="0" y="0" width="28" height="28" rx="5" fill="url(#qGrad)"/><text x="14" y="19" text-anchor="middle" fill="white" font-size="10" font-weight="600">Q1</text>
+    <rect x="40" y="0" width="28" height="28" rx="5" fill="url(#qGrad)"/><text x="54" y="19" text-anchor="middle" fill="white" font-size="10" font-weight="600">Q2</text>
+    <rect x="80" y="0" width="28" height="28" rx="5" fill="url(#qGrad)"/><text x="94" y="19" text-anchor="middle" fill="white" font-size="10" font-weight="600">Q3</text>
+    <rect x="120" y="0" width="28" height="28" rx="5" fill="url(#qGrad)"/><text x="134" y="19" text-anchor="middle" fill="white" font-size="10" font-weight="600">Q4</text>
+  </g>
+  <g transform="translate(690, 175)">
+    <rect x="0" y="0" width="28" height="28" rx="5" fill="url(#qGrad)"/><text x="14" y="19" text-anchor="middle" fill="white" font-size="10" font-weight="600">Q5</text>
+    <rect x="40" y="0" width="28" height="28" rx="5" fill="url(#qGrad)"/><text x="54" y="19" text-anchor="middle" fill="white" font-size="10" font-weight="600">Q6</text>
+    <rect x="80" y="0" width="28" height="28" rx="5" fill="url(#qGrad)"/><text x="94" y="19" text-anchor="middle" fill="white" font-size="10" font-weight="600">Q7</text>
+    <rect x="120" y="0" width="28" height="28" rx="5" fill="url(#qGrad)"/><text x="134" y="19" text-anchor="middle" fill="white" font-size="10" font-weight="600">Q8</text>
+  </g>
+
+  <!-- Compression arrows -->
+  <line x1="720" y1="210" x2="760" y2="230" stroke="#06b6d4" stroke-width="1.5" opacity="0.6"/>
+  <line x1="760" y1="210" x2="760" y2="230" stroke="#06b6d4" stroke-width="1.5" opacity="0.6"/>
+  <line x1="800" y1="210" x2="775" y2="230" stroke="#06b6d4" stroke-width="1.5" opacity="0.6"/>
+
+  <!-- Latent vector (small compressed) -->
+  <rect x="735" y="230" width="55" height="28" rx="6" fill="url(#latentGrad)"/>
+  <text x="762" y="249" text-anchor="middle" fill="white" font-size="9" font-weight="700">c_t</text>
+
+  <!-- Decompression arrow -->
+  <text x="762" y="275" text-anchor="middle" fill="#67e8f9" font-size="10">decompress on-demand</text>
+  <line x1="762" y1="260" x2="730" y2="285" stroke="#06b6d4" stroke-width="1" stroke-dasharray="3" opacity="0.6"/>
+  <line x1="762" y1="260" x2="795" y2="285" stroke="#06b6d4" stroke-width="1" stroke-dasharray="3" opacity="0.6"/>
+  <rect x="705" y="285" width="50" height="18" rx="4" fill="url(#kvGrad)" opacity="0.5"/>
+  <text x="730" y="298" text-anchor="middle" fill="white" font-size="8">K</text>
+  <rect x="770" y="285" width="50" height="18" rx="4" fill="url(#kvGrad)" opacity="0.5"/>
+  <text x="795" y="298" text-anchor="middle" fill="white" font-size="8">V</text>
+
+  <!-- MLA stats -->
+  <rect x="680" y="310" width="180" height="55" rx="8" fill="#292948"/>
+  <text x="770" y="330" text-anchor="middle" fill="#67e8f9" font-size="12" font-weight="600">1 latent vector cached</text>
+  <text x="770" y="348" text-anchor="middle" fill="#94a3b8" font-size="11">Memory: ~6.7% of MHA</text>
+
+  <rect x="680" y="375" width="180" height="55" rx="8" fill="#292948" stroke="#06b6d4" stroke-width="1"/>
+  <text x="770" y="395" text-anchor="middle" fill="#67e8f9" font-size="11" font-weight="600">State of the art</text>
+  <text x="770" y="413" text-anchor="middle" fill="#94a3b8" font-size="10">DeepSeek V3, Kimi K2</text>
+
+  <!-- Bottom comparison bar -->
+  <text x="450" y="460" text-anchor="middle" fill="#e2e8f0" font-size="13" font-weight="600">KV Cache Memory Footprint (relative to MHA)</text>
+  <rect x="40" y="470" width="160" height="10" rx="3" fill="#ef4444" opacity="0.8"/>
+  <rect x="255" y="470" width="20" height="10" rx="3" fill="#f59e0b" opacity="0.8"/>
+  <rect x="470" y="470" width="40" height="10" rx="3" fill="#22c55e" opacity="0.8"/>
+  <rect x="690" y="470" width="11" height="10" rx="3" fill="#06b6d4" opacity="0.8"/>
+  <text x="120" y="495" text-anchor="middle" fill="#94a3b8" font-size="10">100%</text>
+  <text x="335" y="495" text-anchor="middle" fill="#94a3b8" font-size="10">12.5%</text>
+  <text x="550" y="495" text-anchor="middle" fill="#94a3b8" font-size="10">25%</text>
+  <text x="772" y="495" text-anchor="middle" fill="#94a3b8" font-size="10">~6.7%</text>
+</svg>
