@@ -21,7 +21,7 @@ At each generation step, the attention mechanism needs to compute three vectors 
 - **Key (K):** What each past token "offers" as an identifier.
 - **Value (V):** The information each past token contributes if found relevant.
 
-Without any optimization, every time the model generates a new token it must **recompute K and V for all previous tokens from scratch**. At step 1 it computes 1 KV pair. At step 2, it recomputes 2 pairs. At step 100, it recomputes 100 pairs. The total cost grows quadratically: O(n**2).
+Without any optimization, every time the model generates a new token it must **recompute K and V for all previous tokens from scratch**. At step 1 it computes 1 KV pair. At step 2, it recomputes 2 pairs. At step 100, it recomputes 100 pairs. The total cost grows quadratically: O(n\*\*2).
 
 ![Autoregressive generation: the redundancy problem](/images/blog/kv-cache-redundancy.svg)
 
@@ -129,16 +129,16 @@ Notable approaches:
 
 ## Summary table
 
-| Technique | Type | Memory savings | Status |
-|-----------|------|---------------|--------|
-| MQA | Architecture | ~87.5% | Superseded |
-| GQA | Architecture | ~75% | Industry standard |
-| MLA | Architecture | ~93% | State of the art |
-| KIVI (2-bit) | Quantization | ~87.5% | In production |
-| TurboQuant | Quantization | ~75-81% | Active research |
-| H2O/StreamingLLM | Eviction | Variable | In production |
-| SnapKV/PyramidKV | Eviction | Variable | Active research |
-| Ada-KV/FastKV | Eviction | Variable | Active research |
+| Technique        | Type         | Memory savings | Status            |
+| ---------------- | ------------ | -------------- | ----------------- |
+| MQA              | Architecture | ~87.5%         | Superseded        |
+| GQA              | Architecture | ~75%           | Industry standard |
+| MLA              | Architecture | ~93%           | State of the art  |
+| KIVI (2-bit)     | Quantization | ~87.5%         | In production     |
+| TurboQuant       | Quantization | ~75-81%        | Active research   |
+| H2O/StreamingLLM | Eviction     | Variable       | In production     |
+| SnapKV/PyramidKV | Eviction     | Variable       | Active research   |
+| Ada-KV/FastKV    | Eviction     | Variable       | Active research   |
 
 ## Conclusion
 

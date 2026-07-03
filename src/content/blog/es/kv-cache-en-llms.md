@@ -21,7 +21,7 @@ En cada paso de generacion, el mecanismo de atencion necesita calcular tres vect
 - **Key (K):** Lo que cada token pasado "ofrece" como identificador.
 - **Value (V):** La informacion que cada token pasado aporta si resulta relevante.
 
-Sin ninguna optimizacion, cada vez que el modelo genera un nuevo token tiene que **recalcular K y V para todos los tokens anteriores desde cero**. En el paso 1 calcula 1 par KV. En el paso 2, recalcula 2 pares. En el paso 100, recalcula 100 pares. El coste total crece de forma cuadratica: O(n**2).
+Sin ninguna optimizacion, cada vez que el modelo genera un nuevo token tiene que **recalcular K y V para todos los tokens anteriores desde cero**. En el paso 1 calcula 1 par KV. En el paso 2, recalcula 2 pares. En el paso 100, recalcula 100 pares. El coste total crece de forma cuadratica: O(n\*\*2).
 
 ![Generacion autorregresiva: el problema de la redundancia](/images/blog/kv-cache-redundancy.svg)
 
@@ -129,16 +129,16 @@ Enfoques destacados:
 
 ## Tabla resumen
 
-| Tecnica | Tipo | Ahorro de memoria | Estado |
-|---------|------|-------------------|--------|
-| MQA | Arquitectura | ~87.5% | Superada |
-| GQA | Arquitectura | ~75% | Estandar de la industria |
-| MLA | Arquitectura | ~93% | Estado del arte |
-| KIVI (2-bit) | Cuantizacion | ~87.5% | En produccion |
-| TurboQuant | Cuantizacion | ~75-81% | Investigacion activa |
-| H2O/StreamingLLM | Eviccion | Variable | En produccion |
-| SnapKV/PyramidKV | Eviccion | Variable | Investigacion activa |
-| Ada-KV/FastKV | Eviccion | Variable | Investigacion activa |
+| Tecnica          | Tipo         | Ahorro de memoria | Estado                   |
+| ---------------- | ------------ | ----------------- | ------------------------ |
+| MQA              | Arquitectura | ~87.5%            | Superada                 |
+| GQA              | Arquitectura | ~75%              | Estandar de la industria |
+| MLA              | Arquitectura | ~93%              | Estado del arte          |
+| KIVI (2-bit)     | Cuantizacion | ~87.5%            | En produccion            |
+| TurboQuant       | Cuantizacion | ~75-81%           | Investigacion activa     |
+| H2O/StreamingLLM | Eviccion     | Variable          | En produccion            |
+| SnapKV/PyramidKV | Eviccion     | Variable          | Investigacion activa     |
+| Ada-KV/FastKV    | Eviccion     | Variable          | Investigacion activa     |
 
 ## Conclusion
 
