@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 380" font-family="system-ui, -apple-system, sans-serif">
+  <!-- Background -->
+  <rect width="900" height="380" rx="16" fill="#1a1a2e"/>
+
+  <!-- Title -->
+  <text x="450" y="38" text-anchor="middle" fill="#e2e8f0" font-size="18" font-weight="700">Anatomy of a quantized model name</text>
+  <text x="450" y="58" text-anchor="middle" fill="#94a3b8" font-size="12">every part of the file name tells you something</text>
+
+  <!-- Filename segments (monospace, fixed widths) -->
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="26" font-weight="600">
+    <text x="170" y="118" textLength="153" fill="#a5b4fc">Llama-3.1</text>
+    <text x="323" y="118" textLength="17" fill="#64748b">-</text>
+    <text x="340" y="118" textLength="34" fill="#fbbf24">8B</text>
+    <text x="374" y="118" textLength="17" fill="#64748b">-</text>
+    <text x="391" y="118" textLength="136" fill="#6ee7b7">Instruct</text>
+    <text x="527" y="118" textLength="17" fill="#64748b">-</text>
+    <text x="544" y="118" textLength="102" fill="#fca5a5">Q4_K_M</text>
+    <text x="646" y="118" textLength="85" fill="#cbd5e1">.gguf</text>
+  </g>
+
+  <!-- Underlines -->
+  <rect x="170" y="128" width="153" height="4" rx="2" fill="#6366f1"/>
+  <rect x="340" y="128" width="34" height="4" rx="2" fill="#d97706"/>
+  <rect x="391" y="128" width="136" height="4" rx="2" fill="#059669"/>
+  <rect x="544" y="128" width="102" height="4" rx="2" fill="#dc2626"/>
+  <rect x="646" y="128" width="85" height="4" rx="2" fill="#64748b"/>
+
+  <!-- Connectors -->
+  <g stroke-width="1.5" fill="none" opacity="0.7">
+    <polyline points="246,132 246,152 100,152 100,176" stroke="#6366f1"/>
+    <polyline points="357,132 357,158 275,158 275,176" stroke="#d97706"/>
+    <polyline points="459,132 459,164 450,164 450,176" stroke="#059669"/>
+    <polyline points="595,132 595,158 625,158 625,176" stroke="#dc2626"/>
+    <polyline points="688,132 688,152 800,152 800,176" stroke="#64748b"/>
+  </g>
+
+  <!-- Cards -->
+  <g>
+    <rect x="20" y="176" width="160" height="150" rx="8" fill="#232342" stroke="#6366f1" stroke-width="1.5"/>
+    <text x="100" y="202" text-anchor="middle" fill="#e2e8f0" font-size="13" font-weight="700">Family &amp; version</text>
+    <text x="100" y="228" text-anchor="middle" fill="#94a3b8" font-size="11">Which base model</text>
+    <text x="100" y="244" text-anchor="middle" fill="#94a3b8" font-size="11">this is: Meta&#8217;s Llama,</text>
+    <text x="100" y="260" text-anchor="middle" fill="#94a3b8" font-size="11">release 3.1</text>
+  </g>
+  <g>
+    <rect x="195" y="176" width="160" height="150" rx="8" fill="#232342" stroke="#d97706" stroke-width="1.5"/>
+    <text x="275" y="202" text-anchor="middle" fill="#e2e8f0" font-size="13" font-weight="700">Parameter count</text>
+    <text x="275" y="228" text-anchor="middle" fill="#94a3b8" font-size="11">8 billion weights.</text>
+    <text x="275" y="244" text-anchor="middle" fill="#94a3b8" font-size="11">Drives memory use</text>
+    <text x="275" y="260" text-anchor="middle" fill="#94a3b8" font-size="11">and capability</text>
+  </g>
+  <g>
+    <rect x="370" y="176" width="160" height="150" rx="8" fill="#232342" stroke="#059669" stroke-width="1.5"/>
+    <text x="450" y="202" text-anchor="middle" fill="#e2e8f0" font-size="13" font-weight="700">Variant</text>
+    <text x="450" y="228" text-anchor="middle" fill="#94a3b8" font-size="11">Fine-tuned to follow</text>
+    <text x="450" y="244" text-anchor="middle" fill="#94a3b8" font-size="11">instructions, not just</text>
+    <text x="450" y="260" text-anchor="middle" fill="#94a3b8" font-size="11">autocomplete text</text>
+  </g>
+  <g>
+    <rect x="545" y="176" width="160" height="150" rx="8" fill="#232342" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="625" y="202" text-anchor="middle" fill="#e2e8f0" font-size="13" font-weight="700">Quantization</text>
+    <text x="625" y="228" text-anchor="middle" fill="#94a3b8" font-size="11">4-bit k-quant,</text>
+    <text x="625" y="244" text-anchor="middle" fill="#94a3b8" font-size="11">medium mix &#8212; how the</text>
+    <text x="625" y="260" text-anchor="middle" fill="#94a3b8" font-size="11">weights are compressed.</text>
+    <text x="625" y="284" text-anchor="middle" fill="#e2e8f0" font-size="11" font-weight="600">The star of this post</text>
+  </g>
+  <g>
+    <rect x="720" y="176" width="160" height="150" rx="8" fill="#232342" stroke="#64748b" stroke-width="1.5"/>
+    <text x="800" y="202" text-anchor="middle" fill="#e2e8f0" font-size="13" font-weight="700">File format</text>
+    <text x="800" y="228" text-anchor="middle" fill="#94a3b8" font-size="11">Single-file container</text>
+    <text x="800" y="244" text-anchor="middle" fill="#94a3b8" font-size="11">used by llama.cpp,</text>
+    <text x="800" y="260" text-anchor="middle" fill="#94a3b8" font-size="11">Ollama, LM Studio</text>
+  </g>
+</svg>

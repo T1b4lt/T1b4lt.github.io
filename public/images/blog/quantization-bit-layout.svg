@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" font-family="system-ui, -apple-system, sans-serif">
+  <!-- Background -->
+  <rect width="900" height="420" rx="16" fill="#1a1a2e"/>
+
+  <!-- Title -->
+  <text x="450" y="35" text-anchor="middle" fill="#e2e8f0" font-size="18" font-weight="700">How each numeric format spends its bits</text>
+  <text x="450" y="55" text-anchor="middle" fill="#94a3b8" font-size="12">sign &#183; exponent (range: how big/small) &#183; mantissa (precision: how exact)</text>
+
+  <!-- Legend -->
+  <rect x="290" y="72" width="13" height="13" rx="3" fill="#d97706"/>
+  <text x="309" y="83" fill="#94a3b8" font-size="12">sign</text>
+  <rect x="360" y="72" width="13" height="13" rx="3" fill="#6366f1"/>
+  <text x="379" y="83" fill="#94a3b8" font-size="12">exponent</text>
+  <rect x="465" y="72" width="13" height="13" rx="3" fill="#059669"/>
+  <text x="484" y="83" fill="#94a3b8" font-size="12">mantissa</text>
+
+  <!-- FP32: 1 + 8 + 23, 20px/bit -->
+  <g>
+    <text x="138" y="122" text-anchor="end" fill="#e2e8f0" font-size="14" font-weight="700">FP32</text>
+    <text x="138" y="138" text-anchor="end" fill="#94a3b8" font-size="10">32 bits &#183; 4 bytes</text>
+    <rect x="150" y="106" width="20" height="34" rx="4" fill="#d97706"/>
+    <rect x="174" y="106" width="158" height="34" rx="4" fill="#6366f1"/>
+    <text x="253" y="128" text-anchor="middle" fill="#e2e8f0" font-size="11" font-weight="600">8 bits</text>
+    <rect x="336" y="106" width="456" height="34" rx="4" fill="#059669"/>
+    <text x="564" y="128" text-anchor="middle" fill="#e2e8f0" font-size="11" font-weight="600">23 bits</text>
+    <text x="150" y="158" fill="#64748b" font-size="11">full precision &#8212; the training default</text>
+  </g>
+
+  <!-- FP16: 1 + 5 + 10 -->
+  <g>
+    <text x="138" y="196" text-anchor="end" fill="#e2e8f0" font-size="14" font-weight="700">FP16</text>
+    <text x="138" y="212" text-anchor="end" fill="#94a3b8" font-size="10">16 bits &#183; 2 bytes</text>
+    <rect x="150" y="180" width="20" height="34" rx="4" fill="#d97706"/>
+    <rect x="174" y="180" width="98" height="34" rx="4" fill="#6366f1"/>
+    <text x="223" y="202" text-anchor="middle" fill="#e2e8f0" font-size="11" font-weight="600">5 bits</text>
+    <rect x="276" y="180" width="196" height="34" rx="4" fill="#059669"/>
+    <text x="374" y="202" text-anchor="middle" fill="#e2e8f0" font-size="11" font-weight="600">10 bits</text>
+    <text x="490" y="202" fill="#64748b" font-size="11">precise, but small range &#8212; large values can overflow</text>
+  </g>
+
+  <!-- BF16: 1 + 8 + 7 -->
+  <g>
+    <text x="138" y="270" text-anchor="end" fill="#e2e8f0" font-size="14" font-weight="700">BF16</text>
+    <text x="138" y="286" text-anchor="end" fill="#94a3b8" font-size="10">16 bits &#183; 2 bytes</text>
+    <rect x="150" y="254" width="20" height="34" rx="4" fill="#d97706"/>
+    <rect x="174" y="254" width="158" height="34" rx="4" fill="#6366f1"/>
+    <text x="253" y="276" text-anchor="middle" fill="#e2e8f0" font-size="11" font-weight="600">8 bits</text>
+    <rect x="336" y="254" width="136" height="34" rx="4" fill="#059669"/>
+    <text x="404" y="276" text-anchor="middle" fill="#e2e8f0" font-size="11" font-weight="600">7 bits</text>
+    <text x="490" y="276" fill="#64748b" font-size="11">same range as FP32, less precision &#8212; deep learning&#8217;s favourite</text>
+  </g>
+
+  <!-- INT8: 1 + 7 -->
+  <g>
+    <text x="138" y="344" text-anchor="end" fill="#e2e8f0" font-size="14" font-weight="700">INT8</text>
+    <text x="138" y="360" text-anchor="end" fill="#94a3b8" font-size="10">8 bits &#183; 1 byte</text>
+    <rect x="150" y="328" width="20" height="34" rx="4" fill="#d97706"/>
+    <rect x="174" y="328" width="136" height="34" rx="4" fill="#059669"/>
+    <text x="242" y="350" text-anchor="middle" fill="#e2e8f0" font-size="11" font-weight="600">7 bits</text>
+    <text x="330" y="350" fill="#64748b" font-size="11">no exponent, no decimals: just an integer from &#8722;128 to 127</text>
+  </g>
+
+  <!-- Footnote -->
+  <text x="450" y="400" text-anchor="middle" fill="#64748b" font-size="11">INT4 (not shown) squeezes this down to 4 bits: only 16 possible values per weight</text>
+</svg>

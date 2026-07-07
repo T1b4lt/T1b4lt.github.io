@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" font-family="system-ui, -apple-system, sans-serif">
+  <!-- Background -->
+  <rect width="900" height="400" rx="16" fill="#1a1a2e"/>
+
+  <!-- Title -->
+  <text x="450" y="35" text-anchor="middle" fill="#e2e8f0" font-size="18" font-weight="700">Memory needed to load a 7B-parameter model</text>
+  <text x="450" y="55" text-anchor="middle" fill="#94a3b8" font-size="12">bytes per weight &#215; 7 billion weights (weights only, no KV cache or activations)</text>
+
+  <!-- Consumer GPU reference line (8 GB) -->
+  <line x1="368.6" y1="85" x2="368.6" y2="315" stroke="#d97706" stroke-width="1.5" stroke-dasharray="5,4" opacity="0.9"/>
+  <text x="376" y="97" fill="#fbbf24" font-size="11">8 GB &#8212; typical consumer GPU VRAM</text>
+
+  <!-- Bars -->
+  <g>
+    <text x="165" y="130" text-anchor="end" fill="#e2e8f0" font-size="13" font-weight="600">FP32</text>
+    <text x="165" y="145" text-anchor="end" fill="#94a3b8" font-size="10">4 bytes/param</text>
+    <rect x="180" y="115" width="660" height="30" rx="4" fill="#6366f1"/>
+    <text x="832" y="135" text-anchor="end" fill="#e2e8f0" font-size="13" font-weight="700">28 GB</text>
+  </g>
+  <g>
+    <text x="165" y="185" text-anchor="end" fill="#e2e8f0" font-size="13" font-weight="600">FP16 / BF16</text>
+    <text x="165" y="200" text-anchor="end" fill="#94a3b8" font-size="10">2 bytes/param</text>
+    <rect x="180" y="170" width="330" height="30" rx="4" fill="#6366f1"/>
+    <text x="518" y="190" fill="#e2e8f0" font-size="13" font-weight="700">14 GB</text>
+  </g>
+  <g>
+    <text x="165" y="240" text-anchor="end" fill="#e2e8f0" font-size="13" font-weight="600">INT8</text>
+    <text x="165" y="255" text-anchor="end" fill="#94a3b8" font-size="10">1 byte/param</text>
+    <rect x="180" y="225" width="165" height="30" rx="4" fill="#6366f1"/>
+    <text x="353" y="245" fill="#e2e8f0" font-size="13" font-weight="700">7 GB</text>
+  </g>
+  <g>
+    <text x="165" y="295" text-anchor="end" fill="#e2e8f0" font-size="13" font-weight="600">INT4 / NF4</text>
+    <text x="165" y="310" text-anchor="end" fill="#94a3b8" font-size="10">0.5 bytes/param</text>
+    <rect x="180" y="280" width="82.5" height="30" rx="4" fill="#059669"/>
+    <text x="270" y="300" fill="#e2e8f0" font-size="13" font-weight="700">3.5 GB</text>
+    <text x="330" y="300" fill="#94a3b8" font-size="11" font-style="italic">fits comfortably on a laptop</text>
+  </g>
+
+  <!-- Footnote -->
+  <text x="450" y="360" text-anchor="middle" fill="#64748b" font-size="11">1 parameter in FP32 = 32 bits = 4 bytes &#8594; 7B &#215; 4 B &#8776; 28 GB. Halve the bits, halve the memory.</text>
+</svg>
