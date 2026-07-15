@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" font-family="system-ui, -apple-system, sans-serif">
+  <!-- Background -->
+  <rect width="900" height="420" rx="16" fill="#1a1a2e"/>
+
+  <!-- Title -->
+  <text x="450" y="35" text-anchor="middle" fill="#e2e8f0" font-size="18" font-weight="700">A 70% compressor applied to 1% of your tokens</text>
+  <text x="450" y="55" text-anchor="middle" fill="#94a3b8" font-size="12">compression only helps where the tokens actually are</text>
+
+  <!-- Full session bar -->
+  <text x="60" y="100" fill="#e2e8f0" font-size="13" font-weight="600">All input tokens in a session</text>
+  <g>
+    <rect x="60" y="112" width="770" height="44" rx="4" fill="#6366f1"/>
+    <rect x="832" y="112" width="8" height="44" rx="2" fill="#d97706"/>
+    <text x="445" y="139" text-anchor="middle" fill="#e2e8f0" font-size="13" font-weight="700">everything else the agent reads &#8212; ~99%</text>
+  </g>
+  <text x="836" y="104" text-anchor="end" fill="#fbbf24" font-size="11" font-weight="600">shell output ~1%</text>
+
+  <!-- Zoom lines -->
+  <line x1="832" y1="156" x2="500" y2="230" stroke="#d97706" stroke-width="1" stroke-dasharray="4,3" opacity="0.7"/>
+  <line x1="840" y1="156" x2="820" y2="230" stroke="#d97706" stroke-width="1" stroke-dasharray="4,3" opacity="0.7"/>
+
+  <!-- Magnified slice -->
+  <text x="500" y="222" fill="#e2e8f0" font-size="13" font-weight="600">That slice, magnified</text>
+  <g>
+    <rect x="500" y="230" width="94" height="36" rx="4" fill="#d97706"/>
+    <rect x="596" y="230" width="224" height="36" rx="4" fill="#d97706" opacity="0.25"/>
+    <text x="547" y="253" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="700">kept</text>
+    <text x="708" y="253" text-anchor="middle" fill="#fbbf24" font-size="12">removed by the compressor (~70%)</text>
+  </g>
+
+  <!-- Net effect -->
+  <text x="60" y="250" fill="#e2e8f0" font-size="14" font-weight="700">Net effect on the session:</text>
+  <text x="60" y="272" fill="#34d399" font-size="20" font-weight="700">&#8804; 0.7% saved</text>
+
+  <!-- Footnote -->
+  <text x="450" y="330" text-anchor="middle" fill="#94a3b8" font-size="12" font-style="italic">The 70% headline is real. It just applies to a very small slice of the bill.</text>
+  <text x="450" y="360" text-anchor="middle" fill="#64748b" font-size="11">From my own tests: RTK compressed shell output by 60&#8211;70%, but shell output was under 1% of my sessions' input.</text>
+  <text x="450" y="378" text-anchor="middle" fill="#64748b" font-size="11">Before optimizing anything, measure how big that slice is in YOUR pipeline.</text>
+</svg>

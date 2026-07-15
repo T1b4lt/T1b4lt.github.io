@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440" font-family="system-ui, -apple-system, sans-serif">
+  <!-- Background -->
+  <rect width="900" height="440" rx="16" fill="#1a1a2e"/>
+
+  <!-- Title -->
+  <text x="450" y="35" text-anchor="middle" fill="#e2e8f0" font-size="18" font-weight="700">Exploring a codebase: grep loop vs knowledge graph</text>
+  <text x="450" y="55" text-anchor="middle" fill="#94a3b8" font-size="12">the agent pays the exploration bill on every single task &#8212; unless something remembers for it</text>
+
+  <!-- Divider -->
+  <line x1="450" y1="80" x2="450" y2="400" stroke="#64748b" stroke-width="1" stroke-dasharray="4,4" opacity="0.5"/>
+
+  <!-- Left: without graph -->
+  <text x="235" y="100" text-anchor="middle" fill="#e2e8f0" font-size="14" font-weight="700">Without a graph</text>
+  <text x="235" y="118" text-anchor="middle" fill="#94a3b8" font-size="11">every task starts from zero</text>
+
+  <g font-size="11">
+    <rect x="90" y="140" width="130" height="30" rx="6" fill="#6366f1" opacity="0.16"/>
+    <rect x="90" y="140" width="3" height="30" rx="1.5" fill="#6366f1"/>
+    <text x="155" y="159" text-anchor="middle" fill="#e2e8f0">grep &#8220;handleAuth&#8221;</text>
+
+    <rect x="250" y="140" width="130" height="30" rx="6" fill="#6366f1" opacity="0.16"/>
+    <rect x="250" y="140" width="3" height="30" rx="1.5" fill="#6366f1"/>
+    <text x="315" y="159" text-anchor="middle" fill="#e2e8f0">read auth.ts</text>
+
+    <rect x="90" y="190" width="130" height="30" rx="6" fill="#6366f1" opacity="0.16"/>
+    <rect x="90" y="190" width="3" height="30" rx="1.5" fill="#6366f1"/>
+    <text x="155" y="209" text-anchor="middle" fill="#e2e8f0">read middleware.ts</text>
+
+    <rect x="250" y="190" width="130" height="30" rx="6" fill="#6366f1" opacity="0.16"/>
+    <rect x="250" y="190" width="3" height="30" rx="1.5" fill="#6366f1"/>
+    <text x="315" y="209" text-anchor="middle" fill="#e2e8f0">grep &#8220;session&#8221;</text>
+
+    <rect x="90" y="240" width="130" height="30" rx="6" fill="#6366f1" opacity="0.16"/>
+    <rect x="90" y="240" width="3" height="30" rx="1.5" fill="#6366f1"/>
+    <text x="155" y="259" text-anchor="middle" fill="#e2e8f0">read session.ts</text>
+
+    <rect x="250" y="240" width="130" height="30" rx="6" fill="#6366f1" opacity="0.16"/>
+    <rect x="250" y="240" width="3" height="30" rx="1.5" fill="#6366f1"/>
+    <text x="315" y="259" text-anchor="middle" fill="#e2e8f0">wrong file, retry&#8230;</text>
+
+    <!-- arrows -->
+    <line x1="220" y1="155" x2="248" y2="155" stroke="#64748b" stroke-width="1.2"/>
+    <line x1="315" y1="170" x2="157" y2="188" stroke="#64748b" stroke-width="1.2"/>
+    <line x1="220" y1="205" x2="248" y2="205" stroke="#64748b" stroke-width="1.2"/>
+    <line x1="315" y1="220" x2="157" y2="238" stroke="#64748b" stroke-width="1.2"/>
+    <line x1="220" y1="255" x2="248" y2="255" stroke="#64748b" stroke-width="1.2"/>
+  </g>
+
+  <text x="235" y="310" text-anchor="middle" fill="#a5b4fc" font-size="13" font-weight="700">tens of thousands of tokens</text>
+  <text x="235" y="328" text-anchor="middle" fill="#94a3b8" font-size="11">of raw file contents per task,</text>
+  <text x="235" y="344" text-anchor="middle" fill="#94a3b8" font-size="11">paid again on the next task</text>
+
+  <!-- Right: with graph -->
+  <text x="665" y="100" text-anchor="middle" fill="#e2e8f0" font-size="14" font-weight="700">With a knowledge graph</text>
+  <text x="665" y="118" text-anchor="middle" fill="#94a3b8" font-size="11">index once (tree-sitter, local, no LLM)</text>
+
+  <g font-size="11">
+    <rect x="530" y="140" width="270" height="30" rx="6" fill="#059669" opacity="0.16"/>
+    <rect x="530" y="140" width="3" height="30" rx="1.5" fill="#059669"/>
+    <text x="665" y="159" text-anchor="middle" fill="#e2e8f0">one-time: index the repo into a graph</text>
+
+    <rect x="530" y="200" width="270" height="30" rx="6" fill="#059669" opacity="0.16"/>
+    <rect x="530" y="200" width="3" height="30" rx="1.5" fill="#059669"/>
+    <text x="665" y="219" text-anchor="middle" fill="#e2e8f0">query: &#8220;who calls handleAuth?&#8221;</text>
+
+    <rect x="530" y="260" width="270" height="30" rx="6" fill="#059669" opacity="0.16"/>
+    <rect x="530" y="260" width="3" height="30" rx="1.5" fill="#059669"/>
+    <text x="665" y="279" text-anchor="middle" fill="#e2e8f0">answer: 2 exact files, right lines</text>
+
+    <line x1="665" y1="170" x2="665" y2="198" stroke="#64748b" stroke-width="1.2"/>
+    <line x1="665" y1="230" x2="665" y2="258" stroke="#64748b" stroke-width="1.2"/>
+    <polygon points="665,198 661,190 669,190" fill="#64748b"/>
+    <polygon points="665,258 661,250 669,250" fill="#64748b"/>
+  </g>
+
+  <text x="665" y="310" text-anchor="middle" fill="#34d399" font-size="13" font-weight="700">one tool call per question</text>
+  <text x="665" y="328" text-anchor="middle" fill="#94a3b8" font-size="11">the graph keeps itself in sync</text>
+  <text x="665" y="344" text-anchor="middle" fill="#94a3b8" font-size="11">as you edit files</text>
+
+  <!-- Footnote -->
+  <text x="450" y="395" text-anchor="middle" fill="#64748b" font-size="11">codegraph reports 58% fewer tool calls (median) and up to 64% fewer tokens on large repos like VS Code.</text>
+</svg>
