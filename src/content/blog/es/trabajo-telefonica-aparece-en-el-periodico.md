@@ -11,7 +11,7 @@ tags: ["Telefónica", "IA", "Trabajo"]
 
 Quiero compartir una noticia emocionante que ha aparecido recientemente en [El Confidencial](https://www.linkedin.com/company/el-confidencial/). En el artículo se habla sobre alguno de los proyectos en los que he estado trabajando en [Telefónica Innovación Digital](https://www.linkedin.com/company/telefonica-innovacion-digital/) y un pequeño juego para concienciar de lo que está por venir.
 
-![Imagen de telefonos](https://static.ecestaticos.com/file/00e/22f/3a7/00e22f3a787e0a6c5a57ac03e2f36817.png)
+![Imagen de teléfonos](https://static.ecestaticos.com/file/00e/22f/3a7/00e22f3a787e0a6c5a57ac03e2f36817.png)
 
 Es un honor para mí y para el equipo ser reconocidos por nuestro esfuerzo y dedicación. Les invito a leer el artículo para conocer más sobre nuestro trabajo.
 
