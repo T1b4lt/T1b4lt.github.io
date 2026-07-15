@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440" font-family="system-ui, -apple-system, sans-serif">
+  <!-- Background -->
+  <rect width="900" height="440" rx="16" fill="#1a1a2e"/>
+
+  <!-- Title -->
+  <text x="450" y="35" text-anchor="middle" fill="#e2e8f0" font-size="18" font-weight="700">Three strategies, three levels of commitment</text>
+  <text x="450" y="55" text-anchor="middle" fill="#94a3b8" font-size="12">from a prompt you install in minutes to infrastructure you have to maintain</text>
+
+  <!-- Step 1 -->
+  <g>
+    <rect x="60" y="270" width="240" height="110" rx="8" fill="#6366f1" opacity="0.16"/>
+    <rect x="60" y="270" width="240" height="4" rx="2" fill="#6366f1"/>
+    <text x="180" y="298" text-anchor="middle" fill="#e2e8f0" font-size="14" font-weight="700">1 &#183; Output-control skills</text>
+    <text x="180" y="318" text-anchor="middle" fill="#94a3b8" font-size="11">prompt the agent to be terse</text>
+    <text x="180" y="338" text-anchor="middle" fill="#a5b4fc" font-size="11" font-weight="600">caveman &#183; ponytail</text>
+    <text x="180" y="362" text-anchor="middle" fill="#64748b" font-size="11">minutes to install &#183; zero cost</text>
+  </g>
+
+  <!-- Step 2 -->
+  <g>
+    <rect x="330" y="200" width="240" height="180" rx="8" fill="#059669" opacity="0.16"/>
+    <rect x="330" y="200" width="240" height="4" rx="2" fill="#059669"/>
+    <text x="450" y="228" text-anchor="middle" fill="#e2e8f0" font-size="14" font-weight="700">2 &#183; Input compression</text>
+    <text x="450" y="248" text-anchor="middle" fill="#94a3b8" font-size="11">shrink what the agent reads</text>
+    <text x="450" y="268" text-anchor="middle" fill="#34d399" font-size="11" font-weight="600">RTK &#183; headroom</text>
+    <text x="450" y="292" text-anchor="middle" fill="#64748b" font-size="11">a tool or proxy in the middle</text>
+    <text x="450" y="308" text-anchor="middle" fill="#64748b" font-size="11">free, but measure your pipeline first</text>
+  </g>
+
+  <!-- Step 3 -->
+  <g>
+    <rect x="600" y="130" width="240" height="250" rx="8" fill="#d97706" opacity="0.16"/>
+    <rect x="600" y="130" width="240" height="4" rx="2" fill="#d97706"/>
+    <text x="720" y="158" text-anchor="middle" fill="#e2e8f0" font-size="14" font-weight="700">3 &#183; Codebase knowledge</text>
+    <text x="720" y="176" text-anchor="middle" fill="#e2e8f0" font-size="14" font-weight="700">graphs</text>
+    <text x="720" y="196" text-anchor="middle" fill="#94a3b8" font-size="11">index once, explore cheap</text>
+    <text x="720" y="216" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="600">graphify &#183; codegraph</text>
+    <text x="720" y="240" text-anchor="middle" fill="#64748b" font-size="11">setup + upkeep of an index</text>
+    <text x="720" y="256" text-anchor="middle" fill="#64748b" font-size="11">pays off on big repos, heavy use</text>
+  </g>
+
+  <!-- Axis -->
+  <line x1="60" y1="395" x2="840" y2="395" stroke="#64748b" stroke-width="1.5"/>
+  <polygon points="840,395 830,390 830,400" fill="#64748b"/>
+  <text x="450" y="418" text-anchor="middle" fill="#94a3b8" font-size="12" font-style="italic">implementation effort &#8594;</text>
+</svg>
