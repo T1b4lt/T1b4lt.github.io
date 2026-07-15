@@ -125,7 +125,7 @@ Con eso ya puedes leer casi cualquier nombre:
 GGUF no es la única familia. Según dónde y para qué quieras ejecutar el modelo, te encontrarás estos nombres:
 
 | Formato          | Dónde brilla                           | La idea clave                                                                                     |
-| ---------------- | --------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| ---------------- | -------------------------------------- | ------------------------------------------------------------------------------------------------- |
 | **GGUF**         | Local: CPU, Apple Silicon, GPU parcial | Fichero único para llama.cpp/Ollama/LM Studio. Permite repartir capas entre CPU y GPU             |
 | **GPTQ**         | Inferencia en GPU                      | Cuantiza capa a capa usando información de segundo orden y compensa el error en los pesos vecinos |
 | **AWQ**          | Servidores GPU (vLLM)                  | Detecta el ~1% de pesos más importantes mirando las activaciones y los protege de la cuantización |
@@ -152,7 +152,7 @@ Los datos de la gráfica (Llama-3.1-8B-Instruct evaluado sobre MMLU, GSM8K, Hell
 Si solo te llevas una tabla de este post, que sea esta:
 
 | Si...                                       | Usa...                                       |
-| ------------------------------------------- | --------------------------------------------- |
+| ------------------------------------------- | -------------------------------------------- |
 | Te sobra memoria y quieres máxima fidelidad | Q8_0 o Q6_K                                  |
 | Quieres el equilibrio estándar              | **Q4_K_M**                                   |
 | Vas justo de memoria                        | Q4_K_S o IQ4_XS                              |
