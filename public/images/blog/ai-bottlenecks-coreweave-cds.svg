@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" font-family="system-ui, -apple-system, sans-serif">
+  <style>
+    .bar, .val { transform-box: fill-box; transform-origin: 50% 100%; animation: grow 9s ease-in-out infinite both; }
+    .val { animation-name: fade; }
+    .b1 { animation-delay: 0s; } .b2 { animation-delay: 0.4s; } .b3 { animation-delay: 0.8s; }
+    .b4 { animation-delay: 1.2s; } .b5 { animation-delay: 1.6s; }
+    @keyframes grow { 0%, 78% { transform: scaleY(1); } 86% { transform: scaleY(0); } 100% { transform: scaleY(1); } }
+    @keyframes fade { 0%, 76% { opacity: 1; } 80%, 94% { opacity: 0; } 100% { opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) { .bar, .val { animation: none; } }
+  </style>
+
+  <!-- Background -->
+  <rect width="900" height="470" rx="16" fill="#1a1a2e"/>
+
+  <!-- Title -->
+  <text x="450" y="35" text-anchor="middle" fill="#e2e8f0" font-size="18" font-weight="700">The cost of insuring CoreWeave's debt</text>
+  <text x="450" y="55" text-anchor="middle" fill="#94a3b8" font-size="12">5-year credit default swap spread, basis points (100 bp = 1% of the insured debt per year)</text>
+
+  <!-- Grid -->
+  <g stroke="#334155" stroke-width="1">
+    <line x1="90" y1="330.8" x2="840" y2="330.8"/>
+    <line x1="90" y1="261.5" x2="840" y2="261.5"/>
+    <line x1="90" y1="192.3" x2="840" y2="192.3"/>
+    <line x1="90" y1="123.1" x2="840" y2="123.1"/>
+  </g>
+  <line x1="90" y1="400" x2="840" y2="400" stroke="#64748b" stroke-width="1.5"/>
+  <g fill="#94a3b8" font-size="11" text-anchor="end">
+    <text x="80" y="404">0</text>
+    <text x="80" y="334.8">300</text>
+    <text x="80" y="265.5">600</text>
+    <text x="80" y="196.3">900</text>
+    <text x="80" y="127.1">1,200</text>
+  </g>
+
+  <!-- Bars -->
+  <rect class="bar b1" x="125" y="302.8" width="80" height="97.2" rx="4" fill="#22d3ee"/>
+  <rect class="bar b2" x="275" y="295.7" width="80" height="104.3" rx="4" fill="#22d3ee"/>
+  <rect class="bar b3" x="425" y="207.3" width="80" height="192.7" rx="4" fill="#fbbf24"/>
+  <rect class="bar b4" x="575" y="130.7" width="80" height="269.3" rx="4" fill="#f97316"/>
+  <rect class="bar b5" x="725" y="135.1" width="80" height="264.9" rx="4" fill="#f97316"/>
+
+  <!-- Values -->
+  <g fill="#e2e8f0" font-size="14" font-weight="700" text-anchor="middle">
+    <text class="val b1" x="165" y="294">421</text>
+    <text class="val b2" x="315" y="287">452</text>
+    <text class="val b3" x="465" y="199">835</text>
+    <text class="val b4" x="615" y="122">1,167</text>
+    <text class="val b5" x="765" y="127">1,148</text>
+  </g>
+
+  <!-- Distress threshold -->
+  <line x1="90" y1="169.2" x2="840" y2="169.2" stroke="#f87171" stroke-width="2" stroke-dasharray="6 5"/>
+  <text x="96" y="162" fill="#f87171" font-size="12" font-weight="700">1,000 bp · distress threshold</text>
+
+  <!-- X labels -->
+  <g fill="#94a3b8" font-size="12" text-anchor="middle">
+    <text x="165" y="420">Oct 2025</text>
+    <text x="315" y="420">Jun 2026</text>
+    <text x="465" y="420">late Sep 2026</text>
+    <text x="615" y="420">Oct 22, 2026</text>
+    <text x="765" y="420">Oct 26, 2026</text>
+  </g>
+  <text x="615" y="435" text-anchor="middle" fill="#f97316" font-size="11">12-month peak</text>
+  <text x="765" y="435" text-anchor="middle" fill="#94a3b8" font-size="11">&#8776; 62% implied 5-yr default odds</text>
+
+  <!-- Footnote -->
+  <text x="450" y="458" text-anchor="middle" fill="#64748b" font-size="10.5">Source: S&amp;P Global Market Intelligence (via Benzinga, BigGo, CNBC). Selected readings, not time-scaled. Implied odds assume 40% recovery.</text>
+</svg>
