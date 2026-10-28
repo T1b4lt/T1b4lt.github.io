@@ -1,7 +1,7 @@
 ---
 idx: 4
 title: "Quantization de LLMs: Descifrando la Sopa de Letras de los Modelos"
-author: "Guillermo"
+author: "Guillermo Segovia"
 pubDate: "7 de julio de 2026"
 pubDateLogical: "2026-07-07"
 tags: ["IA", "LLMs", "Quantization", "Inferencia"]

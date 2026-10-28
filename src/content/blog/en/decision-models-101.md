@@ -1,7 +1,7 @@
 ---
 idx: 6
 title: "Decision Models: When We Ask AI to Decide, Not to Write"
-author: "Guillermo"
+author: "Guillermo Segovia"
 pubDate: "October 28th, 2026"
 pubDateLogical: "2026-10-28"
 tags: ["AI", "LLMs", "Decision Models", "Calibration"]

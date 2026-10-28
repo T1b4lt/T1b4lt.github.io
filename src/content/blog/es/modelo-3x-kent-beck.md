@@ -1,7 +1,7 @@
 ---
 idx: 2
 title: "Modelo 3X de Kent Beck"
-author: "Guillermo"
+author: "Guillermo Segovia"
 pubDate: "9 de agosto de 2024"
 pubDateLogical: "2024-08-09"
 tags: ["Producto", "Framework"]

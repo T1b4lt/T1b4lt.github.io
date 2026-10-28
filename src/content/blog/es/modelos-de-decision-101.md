@@ -1,7 +1,7 @@
 ---
 idx: 6
 title: "Modelos de decisión: cuando a la IA no le pedimos que escriba, sino que decida"
-author: "Guillermo"
+author: "Guillermo Segovia"
 pubDate: "28 de octubre de 2026"
 pubDateLogical: "2026-10-28"
 tags: ["IA", "LLMs", "Modelos de decisión", "Calibración"]

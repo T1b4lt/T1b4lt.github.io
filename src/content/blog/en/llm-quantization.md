@@ -1,7 +1,7 @@
 ---
 idx: 4
 title: "LLM Quantization: Decoding the Alphabet Soup in Model Names"
-author: "Guillermo"
+author: "Guillermo Segovia"
 pubDate: "July 7th, 2026"
 pubDateLogical: "2026-07-07"
 tags: ["AI", "LLMs", "Quantization", "Inference"]

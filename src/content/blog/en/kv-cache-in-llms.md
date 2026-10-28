@@ -1,7 +1,7 @@
 ---
 idx: 3
 title: "KV Cache: The Hidden Memory Powering LLMs"
-author: "Guillermo"
+author: "Guillermo Segovia"
 pubDate: "July 3rd, 2026"
 pubDateLogical: "2026-07-03"
 tags: ["AI", "LLMs", "Transformers", "Inference"]

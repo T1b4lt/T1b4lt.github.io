@@ -1,7 +1,7 @@
 ---
 idx: 5
 title: "Stop Burning Tokens: Three Strategies for Coding Agents"
-author: "Guillermo"
+author: "Guillermo Segovia"
 pubDate: "July 15th, 2026"
 pubDateLogical: "2026-07-15"
 tags: ["AI", "Coding Agents", "Tokens", "Productivity"]

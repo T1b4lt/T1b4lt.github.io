@@ -1,7 +1,7 @@
 ---
 idx: 1
 title: "My work at Telefónica appears in the newspaper"
-author: "Guillermo"
+author: "Guillermo Segovia"
 pubDate: "August 2nd, 2024"
 pubDateLogical: "2024-08-02"
 tags: ["Telefónica", "AI", "Work"]

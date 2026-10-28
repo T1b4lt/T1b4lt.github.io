@@ -1,7 +1,7 @@
 ---
 idx: 1
 title: "Mi trabajo en Telefónica aparece en el periódico"
-author: "Guillermo"
+author: "Guillermo Segovia"
 pubDate: "2 de agosto de 2024"
 pubDateLogical: "2024-08-02"
 tags: ["Telefónica", "IA", "Trabajo"]

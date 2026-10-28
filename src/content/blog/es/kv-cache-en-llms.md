@@ -1,7 +1,7 @@
 ---
 idx: 3
 title: "KV Cache: La Memoria Oculta que Acelera los LLMs"
-author: "Guillermo"
+author: "Guillermo Segovia"
 pubDate: "3 de julio de 2026"
 pubDateLogical: "2026-07-03"
 tags: ["IA", "LLMs", "Transformers", "Inferencia"]

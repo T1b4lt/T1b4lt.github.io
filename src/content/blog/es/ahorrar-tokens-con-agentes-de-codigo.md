@@ -1,7 +1,7 @@
 ---
 idx: 5
 title: "Deja de quemar tokens: tres estrategias para agentes de código"
-author: "Guillermo"
+author: "Guillermo Segovia"
 pubDate: "15 de julio de 2026"
 pubDateLogical: "2026-07-15"
 tags: ["AI", "Coding Agents", "Tokens", "Productividad"]
