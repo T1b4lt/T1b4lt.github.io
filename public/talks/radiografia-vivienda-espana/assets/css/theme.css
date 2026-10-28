@@ -1,0 +1,1171 @@
+/* Deck theme on top of Reveal.js core (no Reveal theme is loaded).
+   Restyle a deck by editing the variables in :root (and Deck.colors in lib.js
+   for colours used from JS). Default preset: dark "innovation lab". */
+
+:root {
+  /* Warm editorial preset: paper white, serif display, thin rules, one strong accent */
+  --bg: #fbfaf7;
+  --bg-2: #f3f0e9;
+  --panel: #ffffff;
+  --panel-strong: rgba(17, 17, 17, 0.06);
+  --line: rgba(17, 17, 17, 0.14);
+  --line-strong: rgba(17, 17, 17, 0.32);
+  --text: #1c1b19;
+  --text-2: #45423d;
+  --muted: #7a756c;
+  --heading: #111111;
+
+  /* Accent (brick) = the data / what we show; accent-2 (blue) = context; warm = the claim being checked */
+  --accent: #b8321a;
+  --accent-2: #1f5fa0;
+  --warm: #7a756c;
+  --accent-rgb: 184, 50, 26;
+  --warm-rgb: 122, 117, 108;
+
+  /* Chart marks: categorical order validated on #fbfaf7 (brick, blue, green, ochre) + neutral grey */
+  --mark-a: #b8321a;
+  --mark-b: #1f5fa0;
+  --mark-c: #0f8a6a;
+  --mark-d: #b07d10;
+  --mark-n: #b9b3a8;
+
+  /* Status: always shipped with an icon + label, never colour alone */
+  --good: #2e7d32;
+  --warn: #a8660a;
+  --bad: #b3261e;
+
+  --bg-dot-a: 184, 50, 26;
+  --bg-dot-b: 31, 95, 160;
+
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+
+html,
+body {
+  background: var(--bg);
+}
+
+/* ---------- Background layers (remove from index.html for a flat style) ---------- */
+
+#bg-field,
+.bg-grid,
+.bg-glow {
+  position: fixed;
+  z-index: 0;
+  pointer-events: none;
+}
+
+#bg-field {
+  inset: 0;
+}
+
+.bg-grid {
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.05) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse at 50% 40%, black 30%, transparent 80%);
+}
+
+.bg-glow {
+  inset: -20%;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(var(--accent-rgb), 0.1), transparent 40%),
+    radial-gradient(circle at 85% 80%, rgba(167, 139, 250, 0.1), transparent 45%);
+}
+
+.reveal-viewport {
+  background: transparent;
+}
+
+/* ---------- Reveal base ---------- */
+
+.reveal {
+  font-family: var(--font-body);
+  font-size: 30px;
+  font-weight: 400;
+  color: var(--text);
+  z-index: 1;
+}
+
+.reveal .slides {
+  text-align: left;
+}
+
+.reveal .slides section {
+  height: 100%;
+  padding: 64px 88px 56px;
+  box-sizing: border-box;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4 {
+  font-family: var(--font-display);
+  color: var(--heading);
+  margin: 0;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+}
+
+.reveal h1 {
+  font-size: 104px;
+  font-weight: 700;
+}
+
+.reveal h2 {
+  font-size: 54px;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.reveal h3 {
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.reveal p {
+  margin: 0 0 14px;
+  line-height: 1.45;
+}
+
+.reveal ul,
+.reveal ol {
+  margin: 0;
+  padding-left: 1.1em;
+}
+
+.reveal li {
+  margin: 0.32em 0;
+  line-height: 1.4;
+}
+
+.reveal li::marker {
+  color: var(--accent);
+}
+
+.reveal a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(var(--accent-rgb), 0.35);
+}
+
+/* Reveal's reset.css removes italics; restore them for titles and terms. */
+.reveal em {
+  font-style: italic;
+}
+
+.reveal strong {
+  color: var(--heading);
+  font-weight: 600;
+}
+
+.reveal code,
+.mono {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+}
+
+.reveal :not(pre) > code {
+  background: var(--panel-strong);
+  padding: 0.08em 0.36em;
+  border-radius: 6px;
+}
+
+.reveal .controls,
+.reveal .progress {
+  color: var(--accent);
+}
+
+.reveal .progress {
+  height: 3px;
+  background: rgba(17, 17, 17, 0.08);
+}
+
+/* Navigation arrows sit bottom-right (Reveal default); the n/M counter sits top-right. */
+.reveal .controls {
+  right: 12px;
+  bottom: 12px;
+}
+
+.reveal .slide-number {
+  top: 12px;
+  right: 16px;
+  bottom: auto;
+  left: auto;
+  background: transparent;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 14px;
+}
+
+/* Step markers drive animations; they never show anything themselves. */
+.reveal .fragment.step {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+/* ---------- Layout helpers ---------- */
+
+.kicker {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.kicker::before {
+  content: "";
+  width: 34px;
+  height: 2px;
+  background: currentColor;
+}
+
+.lede {
+  font-size: 30px;
+  color: var(--text-2);
+  max-width: 1250px;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.small {
+  font-size: 22px;
+}
+
+.tiny {
+  font-size: 17px;
+}
+
+.c-accent {
+  color: var(--accent);
+}
+
+.c-accent-2 {
+  color: var(--accent-2);
+}
+
+.c-warm {
+  color: var(--warm);
+}
+
+.grad {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2) 60%, #f0abfc);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.row {
+  display: flex;
+  gap: 32px;
+}
+
+.grid-2,
+.grid-3,
+.grid-4 {
+  display: grid;
+  gap: 32px;
+}
+
+.grid-2 {
+  grid-template-columns: 1fr 1fr;
+}
+
+.grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.stage {
+  position: relative;
+  width: 100%;
+}
+
+.stage svg {
+  display: block;
+  overflow: visible;
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 26px 28px;
+  position: relative;
+}
+
+.card h3 {
+  margin-bottom: 10px;
+}
+
+.card.glow {
+  border-color: rgba(var(--accent-rgb), 0.45);
+  border-top: 3px solid var(--accent);
+}
+
+.card.glow-warm {
+  border-color: rgba(var(--warm-rgb), 0.45);
+  border-top: 3px solid var(--warm);
+}
+
+.card.dim {
+  opacity: 0.72;
+  border-style: dashed;
+}
+
+.tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 16px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  color: var(--text-2);
+  margin-right: 8px;
+  white-space: nowrap;
+}
+
+.tag.accent {
+  border-color: rgba(var(--accent-rgb), 0.5);
+  color: var(--accent);
+}
+
+.tag.warm {
+  border-color: rgba(var(--warm-rgb), 0.5);
+  color: var(--warm);
+}
+
+/* One line at the bottom of the slide for sources and caveats. Keep it short. */
+.footnote {
+  position: absolute;
+  left: 88px;
+  right: 88px;
+  bottom: 26px;
+  font-size: 15px;
+  color: var(--muted);
+}
+
+.callout {
+  border-left: 3px solid var(--accent);
+  padding: 8px 0 8px 22px;
+  font-size: 28px;
+  line-height: 1.4;
+  color: var(--text);
+}
+
+.callout.warm {
+  border-color: var(--warm);
+}
+
+.big-num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 96px;
+  line-height: 1;
+  color: var(--accent);
+}
+
+/* ---------- Code / JSON ---------- */
+
+.code {
+  font-family: var(--font-mono);
+  font-size: 17px;
+  line-height: 1.5;
+  background: #f3f0e9;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 20px 24px;
+  white-space: pre;
+  color: #c9d5e6;
+  overflow: hidden;
+  position: relative;
+}
+
+.code .k {
+  color: #7dd3fc;
+}
+
+.code .s {
+  color: #fcd34d;
+}
+
+.code .n {
+  color: #f0abfc;
+}
+
+.code .p {
+  color: #64748b;
+}
+
+.code .hl {
+  background: rgba(var(--accent-rgb), 0.12);
+  border-radius: 4px;
+  box-shadow: 0 0 0 2px rgba(var(--accent-rgb), 0.12);
+}
+
+.code-title {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.code-title .dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
+}
+
+/* ---------- Bars (HTML) ---------- */
+
+.bars {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 10px 16px;
+  align-items: center;
+  font-size: 20px;
+}
+
+.bars .lbl {
+  font-family: var(--font-mono);
+  color: var(--text-2);
+}
+
+.bars .track {
+  height: 14px;
+  border-radius: 4px;
+  background: rgba(17, 17, 17, 0.06);
+  overflow: hidden;
+}
+
+.bars .fill {
+  height: 100%;
+  width: 0;
+  border-radius: 4px;
+  background: var(--mark-a);
+}
+
+.bars .fill.top {
+  background: var(--accent);
+}
+
+.bars .val {
+  font-family: var(--font-mono);
+  min-width: 3.2em;
+  text-align: right;
+}
+
+/* ---------- Tables ---------- */
+
+.reveal table.tbl {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  font-size: 21px;
+  margin: 0;
+}
+
+.reveal table.tbl th,
+.reveal table.tbl td {
+  border: none;
+  border-bottom: 1px solid var(--line);
+  padding: 11px 14px;
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.32;
+}
+
+.reveal table.tbl th {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.reveal table.tbl td:first-child {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--heading);
+}
+
+.reveal table.tbl td.hl {
+  background: rgba(var(--accent-rgb), 0.06);
+}
+
+/* ---------- Title and divider slides ---------- */
+
+.title-slide,
+.divider {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.title-slide h1 {
+  font-size: 128px;
+  line-height: 0.98;
+}
+
+.title-slide .sub {
+  font-size: 38px;
+  color: var(--text-2);
+  margin-top: 26px;
+  font-family: var(--font-display);
+}
+
+.title-slide .tags {
+  margin-top: 54px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.title-slide .tags .tag {
+  font-size: 19px;
+  padding: 7px 16px;
+}
+
+.divider .num {
+  font-family: var(--font-mono);
+  font-size: 22px;
+  color: var(--accent);
+  letter-spacing: 0.2em;
+}
+
+.divider h2 {
+  font-size: 92px;
+  margin-top: 18px;
+}
+
+.divider p {
+  font-size: 32px;
+  color: var(--text-2);
+  margin-top: 18px;
+  max-width: 1100px;
+}
+
+.replay-hint {
+  position: absolute;
+  right: 88px;
+  bottom: 24px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: rgba(125, 138, 160, 0.6);
+}
+
+/* Closing "takeaways" list */
+.takeaways {
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+  margin-top: 40px;
+}
+
+.takeaways .item {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  align-items: center;
+  font-size: 34px;
+  line-height: 1.35;
+  color: var(--text-2);
+}
+
+.takeaways .n {
+  font-family: var(--font-display);
+  font-size: 88px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+}
+
+/* ---------- Screenshots with annotation boxes ---------- */
+
+.shot {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+.shot img {
+  display: block;
+  width: 100%;
+  margin: 0;
+}
+
+.shot-label {
+  position: absolute;
+  left: 14px;
+  top: 12px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(6, 10, 19, 0.88);
+  border-radius: 999px;
+  padding: 4px 14px 4px 6px;
+}
+
+/* Position with left/top/width/height in % of the image */
+.shot-mark {
+  position: absolute;
+  border: 2px solid var(--accent);
+  border-radius: 10px;
+  box-shadow: 0 0 18px rgba(var(--accent-rgb), 0.45);
+  z-index: 2;
+}
+
+.shot-mark span {
+  position: absolute;
+  left: -2px;
+  top: -30px;
+  font-family: var(--font-mono);
+  font-size: 15px;
+  background: var(--accent);
+  color: #021015;
+  padding: 2px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.shot-mark.below span {
+  top: auto;
+  bottom: -30px;
+}
+
+.shot-mark.left span {
+  top: 4px;
+  left: auto;
+  right: calc(100% + 10px);
+}
+
+/* ---------- Interactive controls ---------- */
+
+.slider-row {
+  display: grid;
+  grid-template-columns: 170px 1fr 80px;
+  gap: 18px;
+  align-items: center;
+  font-size: 20px;
+  margin: 10px 0;
+}
+
+.slider-row .lbl {
+  font-family: var(--font-mono);
+  color: var(--text-2);
+}
+
+.slider-row output {
+  font-family: var(--font-mono);
+  text-align: right;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: rgba(148, 163, 184, 0.2);
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent);
+  border: 3px solid var(--bg);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid var(--bg);
+}
+
+.btn {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  color: var(--text-2);
+  background: var(--panel);
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  color: var(--accent);
+  border-color: var(--accent);
+  outline: none;
+}
+
+/* Chart tooltip */
+.viz-tip {
+  position: absolute;
+  pointer-events: none;
+  background: #ffffff;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-size: 16px;
+  font-family: var(--font-mono);
+  color: var(--text);
+  opacity: 0;
+  transition: opacity 0.12s;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+/* ---------- PDF export (index.html?print-pdf) ----------
+   Reveal's print layout resets the slide box and gradient text renders with a
+   visible box, so restore/replace them. */
+html.reveal-print .reveal .slides section {
+  padding: 64px 88px 56px !important;
+  box-sizing: border-box !important;
+  height: 900px !important;
+  min-height: 900px !important;
+}
+
+html.reveal-print .reveal .slides section.title-slide,
+html.reveal-print .reveal .slides section.divider {
+  display: flex !important;
+}
+
+html.reveal-print .grad {
+  background: none;
+  color: var(--accent);
+}
+
+html.reveal-print .replay-hint {
+  display: none;
+}
+
+@media print {
+  #bg-field,
+  .bg-grid,
+  .bg-glow {
+    display: none;
+  }
+}
+
+/* ======================================================================
+   Deck: Radiografía de la vivienda en España (warm editorial)
+   ====================================================================== */
+
+.reveal h1,
+.reveal h2 {
+  font-variation-settings: "opsz" 96;
+}
+
+.reveal h2 {
+  font-size: 50px;
+  max-width: 1380px;
+}
+
+.reveal h1 em,
+.reveal h2 em {
+  font-style: italic;
+}
+
+.title-slide h1 {
+  font-size: 112px;
+  font-weight: 600;
+}
+
+.title-slide .sub {
+  font-family: var(--font-body);
+  font-size: 32px;
+  max-width: 1150px;
+  line-height: 1.35;
+}
+
+.c-heading {
+  color: var(--heading);
+}
+
+.big-num {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.mini-title {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+
+.card {
+  box-shadow: 0 1px 0 rgba(17, 17, 17, 0.04);
+}
+
+.callout {
+  font-family: var(--font-display);
+  font-size: 30px;
+}
+
+.callout.warm {
+  border-color: var(--line-strong);
+  color: var(--text-2);
+}
+
+.reveal ul.tight li {
+  margin: 0.25em 0;
+}
+
+/* "Lo que dicen" quote cards */
+.claim {
+  border-top: 1px solid var(--line-strong);
+  padding-top: 18px;
+  position: relative;
+}
+
+.claim .who {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.claim .who::before {
+  content: "DICEN · ";
+  color: var(--text-2);
+}
+
+.claim p {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 30px;
+  line-height: 1.3;
+  margin: 14px 0 14px;
+  color: var(--heading);
+}
+
+.claim p strong {
+  font-weight: 600;
+  background: linear-gradient(transparent 62%, rgba(var(--accent-rgb), 0.16) 62%);
+}
+
+.claim .src {
+  font-size: 16px;
+  color: var(--muted);
+  line-height: 1.35;
+}
+
+.claim.compact p {
+  font-size: 27px;
+}
+
+/* Numbered message list (agenda) */
+.reveal ol.msg-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 26px;
+  border-top: 1px solid var(--line);
+}
+
+.reveal ol.msg-list li {
+  display: grid;
+  grid-template-columns: 70px 1fr auto;
+  align-items: center;
+  gap: 18px;
+  margin: 0;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.msg-list .n {
+  font-family: var(--font-display);
+  font-size: 44px;
+  font-weight: 600;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.msg-list .q {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 36px;
+  color: var(--heading);
+}
+
+/* Hero numbers with a caption */
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stat .big-num {
+  font-size: 84px;
+}
+
+.hero-pair {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hero-pair > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-pair .big-num {
+  font-size: 104px;
+}
+
+.hero-pair .arrow {
+  font-size: 40px;
+  color: var(--muted);
+  padding-left: 12px;
+}
+
+.stat-card .big-num {
+  font-size: 76px;
+  margin-bottom: 14px;
+}
+
+.stat-card .src {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 14px;
+  letter-spacing: 0.04em;
+}
+
+.note-box {
+  background: var(--bg-2);
+  border-left: 3px solid var(--accent-2);
+  padding: 16px 20px;
+  font-size: 21px;
+  line-height: 1.42;
+}
+
+/* HTML bars for this deck */
+.bars.wide {
+  grid-template-columns: 300px 1fr 120px;
+  gap: 16px 18px;
+  font-size: 21px;
+}
+
+.bars.wide .lbl {
+  font-family: var(--font-body);
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.bars.wide .track,
+.bars.city .track {
+  height: 22px;
+  background: rgba(17, 17, 17, 0.05);
+}
+
+.bars .fill {
+  background: var(--mark-a);
+}
+
+.bars .fill.b {
+  background: var(--mark-b);
+}
+
+.bars .fill.n {
+  background: var(--mark-n);
+}
+
+.bars .val {
+  font-size: 0.95em;
+}
+
+.bars.city {
+  grid-template-columns: 140px 1fr 90px;
+  gap: 10px 14px;
+  margin-top: 14px;
+  font-size: 19px;
+}
+
+.legend {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 18px;
+  font-size: 19px;
+  color: var(--text-2);
+}
+
+.legend i {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  margin-right: 10px;
+  vertical-align: -1px;
+}
+
+/* Verdict badges: icon + label, never colour alone */
+.verdict {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border: 1.5px solid currentColor;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+.verdict.v-bad {
+  color: var(--bad);
+  background: rgba(179, 38, 30, 0.06);
+}
+
+.verdict.v-warn {
+  color: var(--warn);
+  background: rgba(168, 102, 10, 0.07);
+}
+
+.verdict.v-exag {
+  color: #8a4b0f;
+  background: rgba(138, 75, 15, 0.07);
+}
+
+.verdict.v-open {
+  color: var(--accent-2);
+  background: rgba(31, 95, 160, 0.06);
+}
+
+.reveal table.verdicts td {
+  font-size: 21px;
+  vertical-align: middle;
+}
+
+.reveal table.verdicts td:first-child {
+  font-style: italic;
+  width: 30%;
+}
+
+.reveal table.verdicts td:last-child {
+  width: 1%;
+}
+
+.takeaways .item {
+  font-size: 32px;
+}
+
+.takeaways .n {
+  font-weight: 600;
+}
+
+.sources ul {
+  font-size: 21px;
+}
+
+.sources a {
+  border-bottom-color: rgba(var(--accent-rgb), 0.3);
+}
+
+/* SVG text defaults */
+.stage svg text {
+  font-family: var(--font-body);
+}
+
+/* Fill the canvas: larger type for text-led slides */
+.small {
+  font-size: 24px;
+}
+
+.bars.wide {
+  font-size: 24px;
+  gap: 24px 20px;
+}
+
+.bars.wide .track {
+  height: 30px;
+}
+
+.bars.city {
+  font-size: 21px;
+  gap: 14px 14px;
+}
+
+.card {
+  padding: 32px 34px;
+}
+
+.stat-card .big-num {
+  font-size: 92px;
+}
+
+.claim p {
+  font-size: 33px;
+}
+
+.note-box {
+  font-size: 23px;
+}
+
+.reveal table.verdicts td {
+  font-size: 24px;
+  padding: 20px 14px;
+}
+
+.takeaways {
+  gap: 52px;
+  margin-top: 56px;
+}
+
+.takeaways .item {
+  font-size: 36px;
+}
+
+.sources ul {
+  font-size: 25px;
+}
+
+.sources li {
+  margin: 0.55em 0;
+}

@@ -1,0 +1,716 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RL y post-training de LLMs · 101</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,600&family=Nunito:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
+    <link rel="stylesheet" href="assets/css/theme.css" />
+  </head>
+  <body>
+    <div class="bg-glow"></div>
+    <div class="bg-grain"></div>
+
+    <div class="reveal">
+      <div class="slides">
+        <!-- 1 · Portada -->
+        <section class="title-slide" data-anim="cover">
+          <div class="kicker">Charla 101 · ☕ con calma</div>
+          <h1>Aprendizaje por refuerzo<br />y <span class="grad">post-training</span> de LLMs</h1>
+          <p class="sub">De la galleta del perro a GRPO: cómo se enseña a un modelo qué respuesta preferimos</p>
+          <div class="tags">
+            <span class="tag accent">RL 101</span>
+            <span class="tag">RLHF · PPO</span>
+            <span class="tag">DPO</span>
+            <span class="tag sage">RLVR · GRPO</span>
+            <span class="tag warm">el resto del mapa</span>
+          </div>
+          <div class="replay-hint">← → navegar · R repetir animación · F pantalla completa</div>
+        </section>
+
+        <!-- 2 · Gancho -->
+        <section data-anim="hook">
+          <div class="kicker">El punto de partida</div>
+          <h2>El modelo base <em>completa</em> texto; el asistente <em>responde</em></h2>
+          <div class="grid-2" style="margin-top: 30px; gap: 40px">
+            <div class="chat">
+              <div class="who">Modelo base · sólo preentrenado</div>
+              <div class="bubble user">¿Cómo preparo un café de filtro?</div>
+              <div class="bubble bot" id="hook-base"></div>
+            </div>
+            <div class="chat" style="border-color: rgba(192, 88, 47, 0.45)">
+              <div class="who c-accent">Tras el post-training</div>
+              <div class="bubble user">¿Cómo preparo un café de filtro?</div>
+              <div class="bubble bot" id="hook-chat"></div>
+            </div>
+          </div>
+          <div class="callout" style="margin-top: 30px">El <strong>conocimiento</strong> viene sobre todo del preentrenamiento. El <strong>comportamiento</strong> (qué respuesta dar y cómo) se moldea en el post-training.</div>
+          <div class="footnote">Respuestas ilustrativas, escritas para el ejemplo.</div>
+        </section>
+
+        <!-- 3 · Dónde vive el post-training -->
+        <section data-anim="where">
+          <div class="kicker">El mapa</div>
+          <h2>El post-training es todo lo que pasa <em>después</em> de predecir la siguiente palabra</h2>
+          <div class="pipe" style="margin-top: 40px">
+            <div class="stg pre"><h3>Preentrenamiento</h3><p>Billones de tokens de texto. Objetivo: predecir el siguiente token.</p></div>
+            <div class="arr">→</div>
+            <div class="stg"><h3 class="c-accent-2">SFT</h3><p>Imitar demostraciones: «ante esta pregunta, esta respuesta».</p></div>
+            <div class="arr">→</div>
+            <div class="stg" style="border-color: rgba(192, 88, 47, 0.45)"><h3 class="c-accent">Preferencias y RL</h3><p>Generar, puntuar y reforzar lo que preferimos.</p></div>
+            <div class="arr">→</div>
+            <div class="stg"><h3>Destilar · evaluar</h3><p>Pasar lo aprendido a otros modelos, medir, iterar.</p></div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 0 46px; margin-top: 4px">
+            <div></div>
+            <div class="bracket" style="grid-column: 2 / 5">post-training</div>
+          </div>
+          <div class="grid-3" style="margin-top: 46px">
+            <div class="card"><h3><span class="c-accent">①</span> RL 101</h3><p class="small">Los conceptos mínimos: política, recompensa, ventaja, PPO.</p></div>
+            <div class="card glow"><h3><span class="c-accent">②</span> RL en LLMs</h3><p class="small">RLHF, DPO, RLVR y GRPO: la parte central de hoy.</p></div>
+            <div class="card"><h3><span class="c-accent">③</span> El resto</h3><p class="small">Otras técnicas, sólo para que te suenen.</p></div>
+          </div>
+          <div class="footnote">Esquema simplificado. El orden y el número de etapas varía según el laboratorio (ver <em>RLHF Book</em>, N. Lambert, cap. 3).</div>
+        </section>
+
+        <!-- 4 · Divisor RL -->
+        <section class="divider" data-anim="divider">
+          <div class="num">01</div>
+          <h2>RL en diez minutos</h2>
+          <p>Lo justo para entender el resto: un agente, un entorno y una galleta.</p>
+          <div class="deco">🐕</div>
+        </section>
+
+        <!-- 5 · Bucle agente-entorno (stepped) -->
+        <section data-anim="loop">
+          <div class="kicker">RL 101 · el bucle</div>
+          <h2>Un agente actúa, el entorno responde, y la recompensa enseña</h2>
+          <div class="stage" id="loop-stage" style="height: 440px; margin-top: 10px"></div>
+          <div id="loop-cap" class="callout" style="margin-top: 14px; min-height: 84px; font-size: 26px"></div>
+          <span class="fragment step" data-step="1"></span>
+          <span class="fragment step" data-step="2"></span>
+          <span class="fragment step" data-step="3"></span>
+          <div class="footnote">Marco clásico de Sutton &amp; Barto, <em>Reinforcement Learning: An Introduction</em> (2.ª ed., 2018), cap. 3.</div>
+        </section>
+
+        <!-- 6 · Vocabulario -->
+        <section data-anim="vocab">
+          <div class="kicker">RL 101 · vocabulario</div>
+          <h2>Cuatro palabras bastan para empezar</h2>
+          <div class="grid-4 vocab" style="margin-top: 34px">
+            <div class="card"><span class="sym">s</span><h3>Estado</h3><p>Lo que el agente observa ahora.</p><div class="eg">El perro ve tu mano levantada.</div></div>
+            <div class="card"><span class="sym">a</span><h3>Acción</h3><p>Lo que decide hacer.</p><div class="eg">Sentarse, saltar, ladrar.</div></div>
+            <div class="card"><span class="sym">r</span><h3>Recompensa</h3><p>Un número que dice «qué tal ha ido».</p><div class="eg">🍪 = +1, nada = 0.</div></div>
+            <div class="card glow"><span class="sym">π(a|s)</span><h3>Política</h3><p>La regla que elige acciones; puede ser una distribución.</p><div class="eg">Su «instinto»: lo que aprendemos.</div></div>
+          </div>
+          <div class="grid-2" style="margin-top: 30px; gap: 28px">
+            <div class="card dim"><h3 style="font-size: 24px">Episodio</h3><p class="small" style="margin: 0">Una secuencia completa de estados, acciones y recompensas: una partida, una sesión de adiestramiento.</p></div>
+            <div class="card dim"><h3 style="font-size: 24px">Objetivo</h3><p class="small" style="margin: 0">Encontrar la política que maximiza la <strong>recompensa acumulada esperada</strong>, no la de un solo paso.</p></div>
+          </div>
+          <div class="footnote">Notación de Sutton &amp; Barto (2018). En la parte de LLMs reutilizaremos exactamente estas cuatro palabras.</div>
+        </section>
+
+        <!-- 7 · Retorno y gamma (interactive) -->
+        <section data-anim="gamma">
+          <div class="kicker">RL 101 · retorno</div>
+          <h2>El retorno suma recompensas futuras, y γ decide cuánta paciencia tener</h2>
+          <div class="formula" style="margin-top: 18px">G = r₀ + <span class="c-accent">γ</span>·r₁ + <span class="c-accent">γ²</span>·r₂ + … + <span class="c-accent">γ⁷</span>·r₇</div>
+          <div class="stage" id="gamma-stage" style="height: 330px; margin-top: 20px"></div>
+          <div class="grid-2" style="grid-template-columns: 1.15fr 1fr; gap: 50px; align-items: center; margin-top: 4px">
+            <div>
+              <div class="slider-row"><span class="lbl">γ (descuento)</span><input type="range" id="gamma-in" min="0" max="100" value="50" /><output id="gamma-out" class="c-accent">0.50</output></div>
+              <div class="row" style="gap: 10px; margin-top: 6px">
+                <button class="btn" data-g="20">impaciente · 0,2</button>
+                <button class="btn" data-g="90">paciente · 0,9</button>
+                <button class="btn" data-g="100">LLMs · 1,0</button>
+              </div>
+            </div>
+            <p class="small" style="margin: 0">Con γ bajo, la gran recompensa del final apenas cuenta. En el post-training de LLMs se suele usar <strong>γ = 1</strong>: la recompensa llega al final de la respuesta y cuenta entera.</p>
+          </div>
+          <div class="footnote">Recompensas ilustrativas. γ = 1 es el valor habitual en RLHF/RLVR (p. ej. configuraciones por defecto de PPO en TRL); ver <em>RLHF Book</em>, cap. 6.</div>
+        </section>
+
+        <!-- 8 · Valor y ventaja (stepped) -->
+        <section data-anim="advantage">
+          <div class="kicker">RL 101 · valor y ventaja</div>
+          <h2>Lo que enseña no es la nota, sino la <em>sorpresa</em>: la ventaja</h2>
+          <div class="grid-2" style="grid-template-columns: 1.35fr 1fr; gap: 40px; margin-top: 16px; align-items: start">
+            <div class="stage" id="adv-stage" style="height: 470px"></div>
+            <div>
+              <div class="formula" style="font-size: 24px; text-align: left">V(s) = lo que <span class="c-accent-2">esperaba</span><br />A = G − V(s)<br /><span class="muted" style="font-size: 19px">ventaja = resultado − expectativa</span></div>
+              <div id="adv-cap" class="callout" style="margin-top: 24px; min-height: 200px; font-size: 25px"></div>
+            </div>
+          </div>
+          <span class="fragment step" data-step="1"></span>
+          <span class="fragment step" data-step="2"></span>
+          <span class="fragment step" data-step="3"></span>
+          <div class="footnote">Formalmente A(s,a) = Q(s,a) − V(s); con una muestra se estima con el retorno G. Notas de examen ilustrativas.</div>
+        </section>
+
+        <!-- 9 · Exploración vs explotación (interactive) -->
+        <section data-anim="temp">
+          <div class="kicker">RL 101 · explorar o explotar</div>
+          <h2>Para aprender hay que probar cosas: en un LLM, la temperatura regula cuánto</h2>
+          <div class="grid-2" style="grid-template-columns: 1.1fr 1fr; gap: 56px; margin-top: 26px; align-items: center">
+            <div>
+              <div class="mono muted" style="font-size: 20px; margin-bottom: 18px">«El café está muy ___»</div>
+              <div class="bars" id="temp-bars" style="font-size: 22px; gap: 16px 16px">
+                <span class="lbl">caliente</span><div class="track" style="height: 24px"><div class="fill top"></div></div><span class="val">0</span>
+                <span class="lbl">rico</span><div class="track" style="height: 24px"><div class="fill"></div></div><span class="val">0</span>
+                <span class="lbl">amargo</span><div class="track" style="height: 24px"><div class="fill"></div></div><span class="val">0</span>
+                <span class="lbl">frío</span><div class="track" style="height: 24px"><div class="fill"></div></div><span class="val">0</span>
+                <span class="lbl">azul</span><div class="track" style="height: 24px"><div class="fill"></div></div><span class="val">0</span>
+              </div>
+              <div class="slider-row" style="margin-top: 34px"><span class="lbl">temperatura T</span><input type="range" id="temp-in" min="10" max="300" value="100" /><output id="temp-out" class="c-accent">1.00</output></div>
+              <div class="row" style="gap: 10px">
+                <button class="btn" data-t="20">explotar · 0,2</button>
+                <button class="btn" data-t="100">equilibrio · 1,0</button>
+                <button class="btn" data-t="250">explorar · 2,5</button>
+              </div>
+            </div>
+            <div>
+              <div class="card" style="margin-bottom: 20px"><h3 class="c-accent" style="font-size: 26px">Explotar</h3><p class="small" style="margin: 0">Repetir lo que ya sabes que funciona. Seguro, pero no descubres nada.</p></div>
+              <div class="card" style="margin-bottom: 20px"><h3 class="c-accent-2" style="font-size: 26px">Explorar</h3><p class="small" style="margin: 0">Probar alternativas. Necesario para encontrar algo mejor.</p></div>
+              <p class="small muted" style="margin: 0">Si el modelo deja de explorar (<em>colapso de entropía</em>), todas sus muestras se parecen y el RL deja de aprender.</p>
+            </div>
+          </div>
+          <div class="footnote">Puntuaciones (logits) ilustrativas; probabilidad = softmax(logit / T).</div>
+        </section>
+
+        <!-- 10 · Policy gradient (stepped) -->
+        <section data-anim="pg">
+          <div class="kicker">RL 101 · policy gradient</div>
+          <h2>Policy gradient: sube la probabilidad de lo que salió mejor de lo esperado</h2>
+          <div class="formula" style="margin-top: 14px">∇J(θ) ≈ <span class="c-accent">∇ log π<sub>θ</sub>(a|s)</span> · <span class="c-accent-2">A</span> &nbsp;&nbsp;<span class="muted" style="font-size: 20px">«empuja hacia a, con fuerza proporcional a la ventaja»</span></div>
+          <div class="stage" id="pg-stage" style="height: 400px; margin-top: 18px"></div>
+          <div id="pg-cap" class="callout" style="margin-top: 8px; min-height: 80px; font-size: 25px"></div>
+          <span class="fragment step" data-step="1"></span>
+          <span class="fragment step" data-step="2"></span>
+          <span class="fragment step" data-step="3"></span>
+          <div class="footnote">REINFORCE: Williams (1992). Probabilidades ilustrativas; en la práctica el cambio por paso es pequeño (tasa de aprendizaje).</div>
+        </section>
+
+        <!-- 11 · Baseline y actor-critic -->
+        <section data-anim="actorcritic">
+          <div class="kicker">RL 101 · baseline y crítico</div>
+          <h2>¿Contra qué medimos «mejor de lo esperado»? Hace falta un <em>baseline</em></h2>
+          <div class="grid-3" style="margin-top: 34px">
+            <div class="card"><span class="ico">🎲</span><h3>Sin baseline</h3><p class="small" style="margin: 0">Usar la recompensa tal cual: todo lo que puntúa positivo se refuerza. Funciona, pero con mucho <strong>ruido</strong>.</p></div>
+            <div class="card glow-sage"><span class="ico">🧑‍⚖️</span><h3 class="c-accent-2">Actor-critic</h3><p class="small" style="margin: 0">Un segundo modelo, el <strong>crítico</strong>, aprende V(s) y la ventaja es G − V(s). Es lo que usa PPO.</p></div>
+            <div class="card glow"><span class="ico">👥</span><h3 class="c-accent">Baseline de grupo</h3><p class="small" style="margin: 0">Muestrear varias respuestas y usar su <strong>media</strong> como expectativa. Sin crítico. Lo veremos en GRPO y RLOO.</p></div>
+          </div>
+          <div class="callout" style="margin-top: 40px">Restar un baseline no cambia hacia dónde apunta el gradiente en promedio; sólo reduce el ruido. <strong>Guarda esta idea: es el corazón de GRPO.</strong></div>
+          <div class="footnote">Sutton &amp; Barto (2018), cap. 13 (REINFORCE con baseline, actor-critic).</div>
+        </section>
+
+        <!-- 12 · PPO (interactive) -->
+        <section data-anim="ppo">
+          <div class="kicker">RL 101 · PPO</div>
+          <h2>PPO: aprende de la última partida, pero sin cambiar de golpe</h2>
+          <div class="grid-2" style="grid-template-columns: 1.25fr 1fr; gap: 44px; margin-top: 16px; align-items: start">
+            <div>
+              <div class="stage" id="ppo-stage" style="height: 440px"><div class="viz-tip" id="ppo-tip"></div></div>
+              <div class="slider-row" style="margin-top: 12px"><span class="lbl">ε (clip)</span><input type="range" id="ppo-eps" min="5" max="50" value="20" /><output id="ppo-eps-out" class="c-accent">0.20</output></div>
+              <div class="row" style="gap: 10px">
+                <button class="btn" data-a="1">ventaja A &gt; 0</button>
+                <button class="btn" data-a="-1">ventaja A &lt; 0</button>
+              </div>
+            </div>
+            <div>
+              <div class="formula" style="font-size: 21px; text-align: left; white-space: normal">ρ = π<sub>nuevo</sub>(a|s) / π<sub>viejo</sub>(a|s)<br />L = min( ρ·A, clip(ρ, 1−ε, 1+ε)·A )</div>
+              <ul class="small" style="margin-top: 20px">
+                <li><strong>ρ</strong> mide cuánto ha cambiado la probabilidad de esa acción.</li>
+                <li>Si A &gt; 0, subirla compensa… <strong>hasta 1+ε</strong>. A partir de ahí, el objetivo se aplana y no hay incentivo para seguir.</li>
+                <li>Si A &lt; 0, igual por abajo: no castigar más allá de 1−ε.</li>
+                <li>Un <strong>crítico</strong> estima A (con GAE).</li>
+              </ul>
+            </div>
+          </div>
+          <div class="footnote">Schulman et al. (2017), <em>Proximal Policy Optimization Algorithms</em>; ε = 0,2 en el paper. Curva exacta del objetivo para una acción con |A| = 1.</div>
+        </section>
+
+        <!-- 13 · Divisor puente -->
+        <section class="divider" data-anim="divider">
+          <div class="num">02</div>
+          <h2>El LLM <em>es</em> una política</h2>
+          <p>Mismas cuatro palabras; cambia lo que significan.</p>
+          <div class="deco">📜</div>
+        </section>
+
+        <!-- 14 · Mapeo RL ↔ LLM -->
+        <section data-anim="map">
+          <div class="kicker">El puente</div>
+          <h2>Estado = el texto hasta ahora; acción = el siguiente token</h2>
+          <div class="grid-2" style="grid-template-columns: 1fr 1.05fr; gap: 44px; margin-top: 22px; align-items: start">
+            <table class="tbl map-tbl">
+              <thead><tr><th>RL</th><th></th><th>En un LLM</th></tr></thead>
+              <tbody>
+                <tr><td>Estado s</td><td>→</td><td>Prompt + tokens generados hasta ahora</td></tr>
+                <tr><td>Acción a</td><td>→</td><td>El siguiente token</td></tr>
+                <tr><td>Política π</td><td>→</td><td>El propio LLM (softmax sobre el vocabulario)</td></tr>
+                <tr><td>Episodio</td><td>→</td><td>Una respuesta completa (un <em>rollout</em>)</td></tr>
+                <tr class="hl"><td>Recompensa r</td><td>→</td><td>Un número al final: juez humano, reward model o verificador</td></tr>
+                <tr><td>Entorno</td><td>→</td><td>El conjunto de prompts (+ herramientas, en RL agéntico)</td></tr>
+              </tbody>
+            </table>
+            <div class="stage" id="map-stage" style="height: 520px"></div>
+          </div>
+          <div class="footnote">Formulación habitual; ver <em>RLHF Book</em> (N. Lambert), cap. 6. Muchas recetas tratan la respuesta entera como una única acción (un «bandit contextual»).</div>
+        </section>
+
+        <!-- 15 · Asignación de crédito (stepped) -->
+        <section data-anim="credit">
+          <div class="kicker">El puente · crédito</div>
+          <h2>La recompensa llega al final: ¿qué tokens se la merecen?</h2>
+          <div class="stage" id="credit-stage" style="height: 400px; margin-top: 20px"></div>
+          <div id="credit-cap" class="callout" style="margin-top: 14px; min-height: 90px; font-size: 25px"></div>
+          <span class="fragment step" data-step="1"></span>
+          <span class="fragment step" data-step="2"></span>
+          <div class="footnote">PRM: Lightman et al. (2023), <em>Let's Verify Step by Step</em>. GRPO con supervisión de resultado: Shao et al. (2024), sec. 4.1.</div>
+        </section>
+
+        <!-- 16 · SFT vs RL -->
+        <section data-anim="sftrl">
+          <div class="kicker">El puente · por qué RL</div>
+          <h2>SFT copia la receta del chef; RL cocina y alguien prueba el plato</h2>
+          <div class="grid-2" style="margin-top: 32px; gap: 36px">
+            <div class="card glow-warm">
+              <span class="ico">📖</span>
+              <h3 class="c-warm">SFT · imitar</h3>
+              <ul class="small">
+                <li>Aprende de <strong>demostraciones</strong> ajenas, token a token.</li>
+                <li>Su techo es la calidad de los ejemplos.</li>
+                <li>Nunca ve sus propios errores.</li>
+                <li>Ideal para enseñar <strong>formato</strong> y estilo.</li>
+              </ul>
+            </div>
+            <div class="card glow">
+              <span class="ico">🍳</span>
+              <h3 class="c-accent">RL · practicar con feedback</h3>
+              <ul class="small">
+                <li>Aprende de <strong>sus propias muestras</strong> (on-policy).</li>
+                <li>Puede superar a los ejemplos.</li>
+                <li>Sólo necesita una <strong>puntuación</strong>, no la respuesta ideal.</li>
+                <li>A cambio, depende de que esa puntuación sea fiable.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="callout" style="margin-top: 32px">Juzgar es más fácil que escribir: no sabes escribir el poema perfecto, pero sí elegir el mejor de dos. <strong>Por eso funciona el RL.</strong></div>
+          <div class="footnote">Argumento clásico de Christiano et al. (2017) y Ouyang et al. (2022).</div>
+        </section>
+
+        <!-- 17 · Divisor RLHF -->
+        <section class="divider" data-anim="divider">
+          <div class="num">03</div>
+          <h2>RLHF: aprender de preferencias humanas</h2>
+          <p>La receta que convirtió a GPT-3 en un asistente, y su atajo, DPO.</p>
+          <div class="deco">⚖️</div>
+        </section>
+
+        <!-- 18 · Receta RLHF (stepped) -->
+        <section data-anim="rlhf">
+          <div class="kicker">RLHF · la receta clásica</div>
+          <h2>InstructGPT en tres pasos: imitar, aprender a juzgar, optimizar</h2>
+          <div class="grid-3" id="rlhf-cards" style="margin-top: 26px; gap: 26px">
+            <div class="card glow-warm">
+              <div class="mono c-warm" style="font-size: 16px">PASO 1 · SFT</div>
+              <h3 style="margin-top: 6px">Imitar</h3>
+              <p class="small">Personas escriben respuestas ideales; el modelo base aprende a imitarlas.</p>
+              <div class="tag warm">demostraciones → modelo SFT</div>
+            </div>
+            <div class="card glow-sage">
+              <div class="mono c-accent-2" style="font-size: 16px">PASO 2 · REWARD MODEL</div>
+              <h3 style="margin-top: 6px">Aprender a juzgar</h3>
+              <p class="small">Para un prompt, el modelo genera varias respuestas y las personas las <strong>ordenan</strong>: D &gt; C &gt; A = B. Un modelo aprende a puntuar.</p>
+              <div class="tag sage">rankings → r(x, y)</div>
+            </div>
+            <div class="card glow">
+              <div class="mono c-accent" style="font-size: 16px">PASO 3 · PPO</div>
+              <h3 style="margin-top: 6px">Optimizar</h3>
+              <p class="small">La política genera, el RM puntúa y PPO actualiza, con una penalización <strong>KL</strong> para no alejarse del modelo SFT.</p>
+              <div class="tag accent">R = r(x,y) − β·KL</div>
+            </div>
+          </div>
+          <div id="rlhf-cap" class="callout" style="margin-top: 30px; min-height: 90px; font-size: 26px"></div>
+          <span class="fragment step" data-step="1"></span>
+          <span class="fragment step" data-step="2"></span>
+          <span class="fragment step" data-step="3"></span>
+          <div class="footnote">Ouyang et al. (2022), <em>Training language models to follow instructions with human feedback</em>, fig. 2 y abstract.</div>
+        </section>
+
+        <!-- 19 · Reward model -->
+        <section data-anim="rm">
+          <div class="kicker">RLHF · el reward model</div>
+          <h2>El reward model aprende a puntuar a partir de comparaciones</h2>
+          <div class="grid-2" style="grid-template-columns: 1fr 1fr; gap: 44px; margin-top: 24px; align-items: start">
+            <div>
+              <div class="chat" style="font-size: 21px">
+                <div class="who">Prompt</div>
+                <div class="bubble user">Explícale la fotosíntesis a un niño de 6 años.</div>
+                <div class="who ok-c">✓ Elegida · y<sub>w</sub></div>
+                <div class="bubble" style="border: 1px solid rgba(79, 138, 91, 0.4)">Las plantas «comen» luz: con sol, agua y aire fabrican su comida y nos regalan oxígeno.</div>
+                <div class="who ko-c">✗ Rechazada · y<sub>l</sub></div>
+                <div class="bubble" style="border: 1px solid rgba(162, 59, 59, 0.3); margin-bottom: 0">Proceso fotoquímico en el que el CO₂ se reduce mediante el ciclo de Calvin…</div>
+              </div>
+            </div>
+            <div>
+              <div class="formula" style="font-size: 22px">P(y<sub>w</sub> ≻ y<sub>l</sub>) = σ( r(x,y<sub>w</sub>) − r(x,y<sub>l</sub>) )</div>
+              <ul class="small" style="margin-top: 22px">
+                <li>Modelo de <strong>Bradley-Terry</strong>: sólo importa la diferencia de puntuaciones.</li>
+                <li>Pérdida: <code>−log σ(r<sub>w</sub> − r<sub>l</sub>)</code>. Empuja la elegida arriba y la rechazada abajo.</li>
+                <li>Suele ser el propio LLM con una «cabeza» que devuelve un número.</li>
+              </ul>
+              <div class="callout warm" style="margin-top: 22px; font-size: 24px">El RM es un juez <strong>aprendido</strong>: un proxy de lo que preferimos, con sus propios sesgos (verbosidad, adulación).</div>
+            </div>
+          </div>
+          <div class="footnote">Ouyang et al. (2022), sec. 3.5; Bradley &amp; Terry (1952). Ejemplo de par ilustrativo; ver <span class="mono">examples/dpo-preference-pair.json</span>.</div>
+        </section>
+
+        <!-- 20 · KL (interactive) -->
+        <section data-anim="kl">
+          <div class="kicker">RLHF · la correa</div>
+          <h2>La penalización KL es una correa: deja que el modelo mejore sin perderse</h2>
+          <div class="grid-2" style="grid-template-columns: 1.45fr 1fr; gap: 40px; margin-top: 14px; align-items: start">
+            <div>
+              <div class="stage" id="kl-stage" style="height: 460px"><div class="viz-tip" id="kl-tip"></div></div>
+              <div class="slider-row" style="margin-top: 8px"><span class="lbl">β (correa)</span><input type="range" id="kl-beta" min="0" max="100" value="60" /><output id="kl-beta-out" class="c-accent">1.00</output></div>
+            </div>
+            <div>
+              <div class="formula" style="font-size: 21px; white-space: normal">max E[ r(x,y) ] − <span class="c-accent">β</span>·KL( π ‖ π<sub>ref</sub> )</div>
+              <div class="row" style="gap: 10px; margin-top: 18px; flex-wrap: wrap">
+                <button class="btn" data-b="95">correa corta</button>
+                <button class="btn" data-b="60">equilibrio</button>
+                <button class="btn" data-b="8">sin correa</button>
+              </div>
+              <div class="card" style="margin-top: 20px; padding: 18px 22px">
+                <div class="mono small" id="kl-stats" style="font-size: 19px; line-height: 1.7"></div>
+              </div>
+              <p class="small" style="margin-top: 18px">Sin correa, la política se va a la <strong class="c-warm">zona rara</strong> donde el reward model puntúa alto por error.</p>
+            </div>
+          </div>
+          <div class="footnote">Política óptima exacta del objetivo con KL: π* ∝ π<sub>ref</sub>·exp(r/β) (Rafailov et al., 2023, ec. 4). Recompensa y distribuciones ilustrativas.</div>
+        </section>
+
+        <!-- 21 · Los 4 modelos -->
+        <section data-anim="fourmodels">
+          <div class="kicker">RLHF · el coste</div>
+          <h2>PPO-RLHF mantiene cuatro modelos grandes a la vez</h2>
+          <div class="grid-4" style="margin-top: 34px">
+            <div class="card glow"><span class="ico">🔥</span><h3>Política</h3><p class="small">El LLM que entrenamos. Genera y se actualiza.</p><span class="tag accent">entrena</span></div>
+            <div class="card"><span class="ico">🧊</span><h3>Referencia</h3><p class="small">Copia congelada del modelo SFT, para medir la KL.</p><span class="tag">congelado</span></div>
+            <div class="card"><span class="ico">🧑‍⚖️</span><h3>Reward model</h3><p class="small">Puntúa cada respuesta completa.</p><span class="tag">congelado</span></div>
+            <div class="card glow-sage"><span class="ico">🔮</span><h3>Crítico</h3><p class="small">Estima V(s) token a token para calcular la ventaja.</p><span class="tag sage">entrena</span></div>
+          </div>
+          <div class="grid-2" style="margin-top: 34px; gap: 28px">
+            <div class="callout sage" style="font-size: 25px"><strong>DPO</strong> saca del bucle al reward model y al crítico, y no genera durante el entrenamiento.</div>
+            <div class="callout" style="font-size: 25px"><strong>GRPO / RLOO</strong> quitan el crítico: la media de un grupo de respuestas hace de baseline.</div>
+          </div>
+          <div class="footnote">Ouyang et al. (2022); Shao et al. (2024) motivan GRPO por el coste de memoria del crítico.</div>
+        </section>
+
+        <!-- 22 · Reward hacking (chart) -->
+        <section data-anim="goodhart">
+          <div class="kicker">RLHF · el riesgo</div>
+          <h2>Optimiza demasiado un juez imperfecto y aprenderás a engañarlo</h2>
+          <div class="grid-2" style="grid-template-columns: 1.5fr 1fr; gap: 40px; margin-top: 14px; align-items: center">
+            <div class="stage" id="gh-stage" style="height: 520px"><div class="viz-tip" id="gh-tip"></div></div>
+            <div>
+              <div class="callout warm" style="font-size: 26px"><em>«Cuando una medida se convierte en objetivo, deja de ser una buena medida.»</em><br /><span class="small muted">Ley de Goodhart</span></div>
+              <ul class="small" style="margin-top: 22px">
+                <li>La puntuación del reward model sigue subiendo…</li>
+                <li>…pero la calidad real primero sube y luego <strong>baja</strong>.</li>
+                <li>Síntomas típicos: respuestas más largas, más halagos, formato que «gusta».</li>
+                <li>Defensas: KL, mejores RMs, verificadores, evaluar con jueces distintos.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="footnote">Forma cualitativa según Gao et al. (2022), <em>Scaling Laws for Reward Model Overoptimization</em>. Curvas ilustrativas, no datos del paper.</div>
+        </section>
+
+        <!-- 23 · DPO -->
+        <section data-anim="dpo">
+          <div class="kicker">Alineamiento directo · DPO</div>
+          <h2>DPO: el mismo objetivo que RLHF, convertido en una pérdida de clasificación</h2>
+          <div class="formula" style="margin-top: 14px; font-size: 23px">L<sub>DPO</sub> = −log σ( β·[ log <span class="c-accent">π<sub>θ</sub>(y<sub>w</sub>|x)</span>/π<sub>ref</sub>(y<sub>w</sub>|x) − log <span class="c-blue">π<sub>θ</sub>(y<sub>l</sub>|x)</span>/π<sub>ref</sub>(y<sub>l</sub>|x) ] )</div>
+          <div class="grid-2" style="grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 26px; align-items: start">
+            <div>
+              <div class="pipe" style="margin-bottom: 18px">
+                <div class="stg pre" style="padding: 14px 16px"><p><strong>RLHF</strong>: pares → RM → generar → puntuar → PPO</p></div>
+              </div>
+              <div class="pipe">
+                <div class="stg" style="padding: 14px 16px; border-color: rgba(192, 88, 47, 0.45)"><p><strong class="c-accent">DPO</strong>: pares → una pérdida → listo</p></div>
+              </div>
+              <ul class="small" style="margin-top: 22px">
+                <li>Truco: la recompensa se puede escribir con la propia política, <code>r = β·log π/π<sub>ref</sub></code>. «Tu modelo es, en secreto, un reward model».</li>
+                <li>Sin RM, sin crítico, sin muestrear: <strong>barato y estable</strong>.</li>
+              </ul>
+            </div>
+            <div>
+              <div class="code-title"><span class="dot"></span>Un par de preferencia</div>
+              <div class="code" id="dpo-json" data-json style="font-size: 16px">{
+  "prompt": "Explícale la fotosíntesis a un niño",
+  "chosen": "Las plantas «comen» luz: con sol, agua…",
+  "rejected": "Proceso fotoquímico en el que el CO₂…"
+}</div>
+              <p class="tiny muted" style="margin-top: 12px">Formato de dataset de preferencias (prompt / chosen / rejected) de TRL.</p>
+            </div>
+          </div>
+          <div class="footnote">Rafailov et al. (2023), <em>Direct Preference Optimization: Your Language Model is Secretly a Reward Model</em>, ec. 7.</div>
+        </section>
+
+        <!-- 24 · Online vs offline -->
+        <section data-anim="onoff">
+          <div class="kicker">Alineamiento directo · online vs offline</div>
+          <h2>¿Aprender de datos ya recogidos o de lo que el modelo genera ahora?</h2>
+          <div class="grid-3" style="grid-template-columns: 1fr 0.8fr 1fr; margin-top: 32px; align-items: stretch">
+            <div class="card glow-sage">
+              <h3 class="c-accent-2">Offline</h3>
+              <p class="small">Pares fijos, recogidos antes.</p>
+              <ul class="small"><li><span class="stat-ico ok-c">✓</span> Simple, barato, estable</li><li><span class="stat-ico ko-c">✗</span> No explora; los datos envejecen respecto al modelo</li></ul>
+              <div style="margin-top: 12px"><span class="tag sage">DPO</span><span class="tag sage">KTO</span><span class="tag sage">ORPO</span><span class="tag sage">SimPO</span></div>
+            </div>
+            <div class="card dim" style="display: flex; flex-direction: column; justify-content: center; text-align: center">
+              <h3 style="font-size: 24px">Punto medio</h3>
+              <p class="small" style="margin: 0">DPO <em>online</em> o iterativo: regenerar pares con el modelo actual cada cierto tiempo.</p>
+            </div>
+            <div class="card glow">
+              <h3 class="c-accent">Online</h3>
+              <p class="small">El modelo genera, se puntúa y aprende en el bucle.</p>
+              <ul class="small"><li><span class="stat-ico ok-c">✓</span> Explora, aprende de sus errores</li><li><span class="stat-ico ko-c">✗</span> Más caro e inestable</li></ul>
+              <div style="margin-top: 12px"><span class="tag accent">PPO</span><span class="tag accent">GRPO</span><span class="tag accent">RLOO</span></div>
+            </div>
+          </div>
+          <div class="callout" style="margin-top: 34px">No es una religión: muchas recetas combinan ambos. <strong>Tülu 3</strong> (Ai2) encadena SFT → DPO → RLVR.</div>
+          <div class="footnote">Lambert et al. (2024), <em>Tülu 3</em>; KTO: Ethayarajh et al. (2024); ORPO: Hong et al. (2024); SimPO: Meng et al. (2024).</div>
+        </section>
+
+        <!-- 25 · Divisor RLVR -->
+        <section class="divider" data-anim="divider">
+          <div class="num">04</div>
+          <h2>RLVR y la era del razonamiento</h2>
+          <p>Cuando la respuesta se puede comprobar, no hace falta un juez aprendido.</p>
+          <div class="deco">🧮</div>
+        </section>
+
+        <!-- 26 · RLVR -->
+        <section data-anim="rlvr">
+          <div class="kicker">RLVR · recompensas verificables</div>
+          <h2>RLVR cambia el juez por una comprobación: correcto vale 1, incorrecto vale 0</h2>
+          <div class="grid-2" style="grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 22px; align-items: start">
+            <div style="display: flex; flex-direction: column; gap: 16px">
+              <div class="card" style="padding: 18px 22px"><h3 style="font-size: 24px">🔢 Matemáticas</h3><p class="small" style="margin: 0">¿La respuesta final coincide con la solución? <span class="mono c-accent">408 == 408</span></p></div>
+              <div class="card" style="padding: 18px 22px"><h3 style="font-size: 24px">🧪 Código</h3><p class="small" style="margin: 0">¿Pasan los tests unitarios en un sandbox?</p></div>
+              <div class="card" style="padding: 18px 22px"><h3 style="font-size: 24px">📏 Instrucciones</h3><p class="small" style="margin: 0">«Responde en exactamente 3 viñetas»: se puede contar.</p></div>
+              <div class="card" style="padding: 18px 22px"><h3 style="font-size: 24px">🏷️ Formato</h3><p class="small" style="margin: 0">¿Razona dentro de <code>&lt;think&gt;</code> y responde después?</p></div>
+            </div>
+            <div>
+              <div class="code-title"><span class="dot"></span>Una muestra RLVR</div>
+              <div class="code" id="rlvr-json" data-json>{
+  "prompt": "¿Cuánto es 17 × 24?",
+  "completion": "<think>17×24 = 17×20 + 17×4 = 340 + 68</think> 408",
+  "ground_truth": "408",
+  "verifier": "exact_match(final_answer)",
+  "reward": 1.0
+}</div>
+              <div class="callout sage" style="margin-top: 22px; font-size: 24px">Más difícil de engañar que un RM… pero <strong>sólo funciona donde hay algo que comprobar</strong>.</div>
+            </div>
+          </div>
+          <div class="footnote">Término acuñado en Tülu 3 (Lambert et al., 2024): recompensa α si es verificablemente correcta, 0 si no. Muestra ilustrativa: <span class="mono">examples/</span>.</div>
+        </section>
+
+        <!-- 27 · GRPO (stepped) -->
+        <section data-anim="grpo">
+          <div class="kicker">GRPO · paso a paso</div>
+          <h2>GRPO: el grupo de respuestas es su propio baseline</h2>
+          <div class="stage" id="grpo-stage" style="height: 500px; margin-top: 6px"></div>
+          <div id="grpo-cap" class="callout" style="margin-top: 8px; min-height: 80px; font-size: 25px"></div>
+          <span class="fragment step" data-step="1"></span>
+          <span class="fragment step" data-step="2"></span>
+          <span class="fragment step" data-step="3"></span>
+          <span class="fragment step" data-step="4"></span>
+          <div class="footnote">Shao et al. (2024), <em>DeepSeekMath</em>: Â = (r − media)/std dentro del grupo (G = 64 en el paper; aquí 8, como el valor por defecto de TRL).</div>
+        </section>
+
+        <!-- 28 · GRPO interactivo -->
+        <section data-anim="grpolive">
+          <div class="kicker">GRPO · pruébalo</div>
+          <h2>Haz clic en las respuestas: si todas aciertan o todas fallan, no se aprende nada</h2>
+          <div class="sample-grid" id="gl-grid" style="margin-top: 24px"></div>
+          <div class="grid-2" style="grid-template-columns: 1fr 1.2fr; gap: 40px; margin-top: 26px; align-items: center">
+            <div>
+              <div class="mono" id="gl-stats" style="font-size: 22px; line-height: 1.6"></div>
+              <div class="row" style="gap: 10px; margin-top: 12px; flex-wrap: wrap">
+                <button class="btn" data-p="10000000">1 de 8</button>
+                <button class="btn" data-p="11110000">mitad</button>
+                <button class="btn" data-p="11111110">7 de 8</button>
+                <button class="btn" data-p="11111111">todas bien</button>
+                <button class="btn" data-p="00000000">todas mal</button>
+              </div>
+            </div>
+            <div class="callout" id="gl-msg" style="font-size: 24px; min-height: 110px"></div>
+          </div>
+          <div class="footnote">Cálculo exacto de Â = (r − media)/(std + 1e-4), como en la implementación de TRL. Por eso DAPO descarta los grupos «todo 0» o «todo 1» (dynamic sampling).</div>
+        </section>
+
+        <!-- 29 · DeepSeek-R1 -->
+        <section data-anim="r1">
+          <div class="kicker">El caso que lo popularizó</div>
+          <h2>DeepSeek-R1-Zero: RL sobre el modelo base, sin SFT previo, y emerge el razonamiento</h2>
+          <div class="grid-2" style="grid-template-columns: 1.15fr 1fr; gap: 44px; margin-top: 20px; align-items: start">
+            <div>
+              <div class="mono muted" style="font-size: 17px; margin-bottom: 6px">AIME 2024 · R1-Zero · % de aciertos</div>
+              <div class="stage" id="r1-stage" style="height: 360px"><div class="viz-tip" id="r1-tip"></div></div>
+            </div>
+            <div>
+              <ul class="small">
+                <li><strong>Algoritmo:</strong> GRPO.</li>
+                <li><strong>Recompensa:</strong> reglas, no un RM neuronal: <em>exactitud</em> de la respuesta + <em>formato</em> (razonar dentro de <code>&lt;think&gt;</code>).</li>
+                <li><strong>Emerge:</strong> respuestas más largas, autoverificación, el famoso <em>«aha moment»</em>.</li>
+                <li><strong>Pero:</strong> poca legibilidad y mezcla de idiomas. <strong>R1</strong> añade un SFT de arranque (<em>cold start</em>) y varias rondas de RL y SFT.</li>
+              </ul>
+              <div class="callout" style="margin-top: 18px; font-size: 24px">Evitaron reward models neuronales para razonamiento por miedo al <strong>reward hacking</strong>.</div>
+            </div>
+          </div>
+          <div class="footnote">DeepSeek-AI (2025), <em>DeepSeek-R1</em>, arXiv 2501.12948; publicado en <em>Nature</em> 645, 633–638. Cifras del abstract.</div>
+        </section>
+
+        <!-- 30 · Variantes -->
+        <section data-anim="variants">
+          <div class="kicker">2025–2026 · la familia GRPO</div>
+          <h2>Tras R1 llegó una oleada de retoques a GRPO; todos atacan problemas concretos</h2>
+          <table class="tbl" style="margin-top: 20px">
+            <thead><tr><th>Método</th><th>Qué cambia</th><th>Problema que ataca</th></tr></thead>
+            <tbody>
+              <tr><td>RLOO <span class="tiny muted">2024</span></td><td>Baseline = media de las <em>otras</em> respuestas</td><td>Crítico caro (alternativa a PPO)</td></tr>
+              <tr><td>DAPO <span class="tiny muted">ByteDance · 2025</span></td><td>Clip asimétrico (<em>clip-higher</em>), descarta grupos sin señal, pérdida por token</td><td>Colapso de entropía, cadenas largas</td></tr>
+              <tr><td>Dr. GRPO <span class="tiny muted">2025</span></td><td>Quita normalizaciones por longitud y por std</td><td>Sesgo hacia respuestas largas</td></tr>
+              <tr><td>GSPO <span class="tiny muted">Qwen · 2025</span></td><td>Ratio y clipping a nivel de secuencia</td><td>Inestabilidad (sobre todo en MoE)</td></tr>
+              <tr><td>CISPO <span class="tiny muted">MiniMax · 2025</span></td><td>Recorta los pesos de importancia, no el gradiente del token</td><td>Tokens raros que el clip silenciaba</td></tr>
+            </tbody>
+          </table>
+          <div class="callout sage" style="margin-top: 26px; font-size: 24px">Señal de madurez: en TRL, el <code>GRPOTrainer</code> usa hoy por defecto <code>loss_type="dapo"</code>, <code>beta=0.0</code> (sin KL) y 8 generaciones por prompt.</div>
+          <div class="footnote">Papers: DAPO 2503.14476 · Dr. GRPO 2503.20783 · GSPO 2507.18071 · RLOO 2402.14740. Docs de TRL consultadas el 2026-10-05.</div>
+        </section>
+
+        <!-- 31 · Tendencias 2026 -->
+        <section data-anim="agentic">
+          <div class="kicker">Hacia dónde va · 2026</div>
+          <h2>Hoy el RL sale del examen de matemáticas: entornos, herramientas y rúbricas</h2>
+          <div class="grid-3" style="margin-top: 34px">
+            <div class="card"><span class="ico">🧩</span><h3>Recompensas híbridas</h3><p class="small" style="margin: 0">Reglas y tests donde se puede; reward models y <strong>rúbricas con LLM-as-judge</strong> donde no.</p></div>
+            <div class="card glow"><span class="ico">🛠️</span><h3 class="c-accent">RL agéntico</h3><p class="small" style="margin: 0">Episodios de varios turnos en un <strong>sandbox</strong> con herramientas; la recompensa llega por el resultado final. Vuelve a ser RL «de verdad», con varios pasos.</p></div>
+            <div class="card"><span class="ico">🫗</span><h3>RL → destilar</h3><p class="small" style="margin: 0">Entrenar expertos por dominio con RL y fusionarlos en un modelo con <strong>on-policy distillation</strong>.</p></div>
+          </div>
+          <div class="callout warm" style="margin-top: 36px; font-size: 25px">Estos son patrones reportados por varios laboratorios en sus informes técnicos, no una receta estándar.</div>
+          <div class="footnote">Fuente secundaria: S. Paniego, <em>How frontier models train on outcomes in 2026</em>, Hugging Face blog (2026-08-10), que recopila Qwen3, GLM-5, Kimi K2, DeepSeek-V4, etc.</div>
+        </section>
+
+        <!-- 32 · Otras técnicas -->
+        <section data-anim="others">
+          <div class="kicker">El resto del mapa · para que te suenen</div>
+          <h2>Otras técnicas de post-training que conviene reconocer</h2>
+          <div class="others" style="margin-top: 28px">
+            <div class="card"><h3>SFT / instruction tuning</h3><p>Imitar demostraciones. El primer paso casi siempre.</p><span class="tag warm">imitación</span></div>
+            <div class="card"><h3>Rejection sampling</h3><p>Generar N, quedarse con las mejores (best-of-N) y hacer SFT con ellas.</p><span class="tag">filtrado</span></div>
+            <div class="card"><h3>Destilación</h3><p>Un modelo grande genera datos o probabilidades que imita uno pequeño.</p><span class="tag">profesor → alumno</span></div>
+            <div class="card"><h3>On-policy distillation</h3><p>El alumno genera y el profesor corrige token a token.</p><span class="tag">profesor → alumno</span></div>
+            <div class="card"><h3>RLAIF · Constitutional AI</h3><p>Las preferencias las da una IA siguiendo principios escritos.</p><span class="tag accent">RL</span></div>
+            <div class="card"><h3>KTO · ORPO · SimPO</h3><p>Primos de DPO: sin pares, sin referencia o normalizados por longitud.</p><span class="tag sage">preferencias</span></div>
+            <div class="card"><h3>Process reward models</h3><p>Puntuar cada paso del razonamiento, no sólo el resultado.</p><span class="tag accent">RL</span></div>
+            <div class="card"><h3>LoRA · merging</h3><p>Cómo entrenar barato (pocas matrices) y cómo combinar modelos afinados.</p><span class="tag">ingeniería</span></div>
+          </div>
+          <div class="footnote">Llama 2 (2023) · GKD, Agarwal et al. (2023) · Constitutional AI, Bai et al. (2022) · Lightman et al. (2023) · LoRA, Hu et al. (2021) · Model soups (2022).</div>
+        </section>
+
+        <!-- 33 · Receta típica -->
+        <section data-anim="recipe">
+          <div class="kicker">Juntándolo todo</div>
+          <h2>Una receta moderna mezcla casi todo lo que hemos visto</h2>
+          <div class="pipe" style="margin-top: 40px">
+            <div class="stg pre"><h3>Base</h3><p>Modelo preentrenado.</p></div>
+            <div class="arr">→</div>
+            <div class="stg"><h3 class="c-warm">SFT</h3><p>Instrucciones, formato, <em>cold start</em> de razonamiento.</p></div>
+            <div class="arr">→</div>
+            <div class="stg"><h3 class="c-accent-2">Preferencias</h3><p>DPO, o RM + PPO, para tono y utilidad.</p></div>
+            <div class="arr">→</div>
+            <div class="stg" style="border-color: rgba(192, 88, 47, 0.45)"><h3 class="c-accent">RL con verificadores</h3><p>GRPO y familia en mates, código, agentes.</p></div>
+            <div class="arr">→</div>
+            <div class="stg"><h3>Destilar · fusionar</h3><p>Pasar todo a uno o varios modelos finales.</p></div>
+          </div>
+          <div class="grid-2" style="margin-top: 50px; gap: 30px">
+            <div class="card"><div class="mono muted" style="font-size: 15px">TÜLU 3 · Ai2 · 2024</div><p style="margin: 8px 0 0; font-size: 26px">SFT → DPO → RLVR</p></div>
+            <div class="card"><div class="mono muted" style="font-size: 15px">DEEPSEEK-R1 · 2025</div><p style="margin: 8px 0 0; font-size: 26px">SFT cold start → RL → rejection sampling + SFT → RL</p></div>
+          </div>
+          <div class="footnote">Esquema general; cada laboratorio lo ordena y repite a su manera. Recetas de Lambert et al. (2024) y DeepSeek-AI (2025).</div>
+        </section>
+
+        <!-- 34 · Problemas abiertos -->
+        <section data-anim="open">
+          <div class="kicker">Lo que aún no está resuelto</div>
+          <h2>Tres problemas que siguen abiertos</h2>
+          <div class="grid-3" style="margin-top: 34px">
+            <div class="card glow-warm"><span class="ico">🎭</span><h3>Reward hacking</h3><p class="small" style="margin: 0">También con verificadores: tests débiles, formatos explotables, jueces con sesgos. Optimizar la métrica, no la intención.</p></div>
+            <div class="card"><span class="ico">🌫️</span><h3>Diversidad y entropía</h3><p class="small" style="margin: 0">El RL tiende a estrechar las respuestas. Debate abierto: ¿RLVR enseña capacidades nuevas o afila las que ya tenía el modelo base?</p></div>
+            <div class="card"><span class="ico">⏳</span><h3>Coste</h3><p class="small" style="margin: 0">Generar los <em>rollouts</em> domina el tiempo de cómputo, y más con razonamientos largos y agentes.</p></div>
+          </div>
+          <div class="callout" style="margin-top: 40px">La pregunta de fondo no es «¿qué algoritmo?», sino <strong>«¿qué recompensa mide de verdad lo que queremos?»</strong></div>
+          <div class="footnote">Ver <em>RLHF Book</em> (Lambert), caps. de regularización y sobreoptimización; DAPO (2025) sobre colapso de entropía.</div>
+        </section>
+
+        <!-- 35 · Takeaways -->
+        <section data-anim="takeaways">
+          <div class="kicker">Para llevarse</div>
+          <h2>Tres ideas</h2>
+          <div class="takeaways">
+            <div class="item"><span class="n">1</span><div><strong>El LLM es una política.</strong> Post-training con RL = generar, puntuar y reforzar lo que salió mejor de lo esperado.</div></div>
+            <div class="item"><span class="n">2</span><div><strong>Cambia la recompensa y el baseline.</strong> Humanos → RM (RLHF), reglas (RLVR), rúbricas; crítico (PPO), grupo (GRPO) o implícito (DPO).</div></div>
+            <div class="item"><span class="n">3</span><div><strong>La correa importa.</strong> KL, clipping y buenos verificadores frente al reward hacking.</div></div>
+          </div>
+        </section>
+
+        <!-- 36 · Fuentes -->
+        <section data-anim="sources">
+          <div class="kicker">Fuentes</div>
+          <h2>Para seguir leyendo</h2>
+          <div class="grid-2" style="margin-top: 22px; font-size: 19px; gap: 40px">
+            <ul>
+              <li>Sutton &amp; Barto, <a href="http://incompleteideas.net/book/the-book-2nd.html"><em>Reinforcement Learning: An Introduction</em></a> (2018)</li>
+              <li>N. Lambert, <a href="https://rlhfbook.com"><em>RLHF Book</em></a> (online, act. 2026-09)</li>
+              <li>Schulman et al., <a href="https://arxiv.org/abs/1707.06347">PPO</a> (2017)</li>
+              <li>Ouyang et al., <a href="https://arxiv.org/abs/2203.02155">InstructGPT</a> (2022)</li>
+              <li>Gao et al., <a href="https://arxiv.org/abs/2210.10760">RM overoptimization</a> (2022)</li>
+              <li>Rafailov et al., <a href="https://arxiv.org/abs/2305.18290">DPO</a> (2023)</li>
+              <li>Bai et al., <a href="https://arxiv.org/abs/2212.08073">Constitutional AI</a> (2022)</li>
+            </ul>
+            <ul>
+              <li>Shao et al., <a href="https://arxiv.org/abs/2402.03300">DeepSeekMath · GRPO</a> (2024)</li>
+              <li>Lambert et al., <a href="https://arxiv.org/abs/2411.15124">Tülu 3 · RLVR</a> (2024)</li>
+              <li>DeepSeek-AI, <a href="https://arxiv.org/abs/2501.12948">DeepSeek-R1</a> (2025)</li>
+              <li><a href="https://arxiv.org/abs/2503.14476">DAPO</a> · <a href="https://arxiv.org/abs/2503.20783">Dr. GRPO</a> · <a href="https://arxiv.org/abs/2507.18071">GSPO</a> · <a href="https://arxiv.org/abs/2402.14740">RLOO</a></li>
+              <li>Hugging Face, <a href="https://huggingface.co/docs/trl/main/en/grpo_trainer">TRL GRPOTrainer</a></li>
+              <li>S. Paniego, <a href="https://huggingface.co/blog/sergiopaniego/agentic-rl-2026">RL en modelos frontera, 2026</a></li>
+              <li>Documentación completa: <span class="mono">research/sources.md</span></li>
+            </ul>
+          </div>
+          <div class="footnote">Consultado el 2026-10-05. Las cifras son las publicadas por cada autor.</div>
+        </section>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="assets/js/lib.js"></script>
+    <script src="assets/js/anims-rl.js"></script>
+    <script src="assets/js/anims-rlhf.js"></script>
+    <script src="assets/js/anims-rlvr.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>

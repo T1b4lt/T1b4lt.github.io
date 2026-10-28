@@ -32,7 +32,12 @@ Routing is filesystem-based under `src/pages/`. English is the default locale wi
 | `/es/`            | `src/pages/es/index.astro`             |
 | `/es/blog`        | `src/pages/es/blog.astro`              |
 | `/es/blog/<slug>` | `src/pages/es/blog/[slug].astro`       |
+| `/talks`          | `src/pages/talks.astro`                |
+| `/es/talks`       | `src/pages/es/talks.astro`             |
+| `/talks/<slug>/`  | `public/talks/<slug>/index.html`       |
 | `/404`            | `src/pages/404.astro`                  |
+
+Talks (`/talks/<slug>/`) are self-contained HTML slide decks copied verbatim from `public/`. They are not Astro routes, are not translated, and are shared by both locales: the two listing pages read the same `talks` collection (`src/content/talks/<slug>.md`, metadata only) and link to the same deck URL. Since the sitemap integration only sees Astro routes, `astro.config.mjs` adds each `public/talks/*` folder via `customPages`.
 
 This is configured in `astro.config.mjs`:
 

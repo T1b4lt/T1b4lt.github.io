@@ -1,0 +1,669 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Modelos de decisión 101</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
+    <link rel="stylesheet" href="assets/css/theme.css" />
+  </head>
+  <body>
+    <div class="bg-glow"></div>
+    <div class="bg-grid"></div>
+    <canvas id="bg-field"></canvas>
+
+    <div class="reveal">
+      <div class="slides">
+        <!-- 1 · Portada -->
+        <section class="title-slide" data-anim="cover">
+          <div class="kicker">Decision models 101</div>
+          <h1>Modelos de<br /><span class="grad">decisión</span></h1>
+          <p class="sub">Cuando a la IA no le pedimos que escriba, sino que decida</p>
+          <div class="names">
+            <span class="tag cyan">System One models</span>
+            <span class="tag">Jev</span>
+            <span class="tag">Kev</span>
+            <span class="tag">Laya</span>
+            <span class="tag">CLM</span>
+            <span class="tag">OpenAI Decisions API</span>
+          </div>
+          <div class="replay-hint">← → navegar · R repetir animación · F pantalla completa</div>
+        </section>
+
+        <!-- 2 · Un LLM escribe, el software decide -->
+        <section data-anim="chat-vs-code">
+          <div class="kicker">El punto de partida</div>
+          <h2>Un LLM escribe. El software necesita <span class="c-cyan">decidir</span>.</h2>
+          <div class="stage grid-2" style="margin-top: 34px; align-items: start">
+            <div class="card" id="cv-chat" style="min-height: 520px">
+              <div class="code-title"><span class="dot" style="background: var(--orange); box-shadow: 0 0 10px var(--orange)"></span>Chat con un LLM</div>
+              <div class="cv-msg cv-user">
+                «¡Ayuda! Mis pagos llevan 3 días fallando.»<br /><span class="muted small">¿A qué equipo envío este ticket: facturación, técnico o ventas?</span>
+              </div>
+              <div class="cv-msg cv-bot"><span id="cv-typed"></span><span class="cv-caret">▍</span></div>
+            </div>
+            <div>
+              <div class="card" style="padding: 22px 26px">
+                <div class="code-title"><span class="dot"></span>Tu código</div>
+                <div class="code" style="font-size: 21px; border: none; background: transparent; padding: 0"><span class="k">team</span> = <span id="cv-slot" class="s">???</span>
+<span class="p">if</span> team == <span class="s">"billing"</span>:
+    send_to_billing(ticket)</div>
+              </div>
+              <div id="cv-problems" style="margin-top: 26px">
+                <div class="cv-problem">✗ Hay que <strong>interpretar texto libre</strong></div>
+                <div class="cv-problem">✗ ¿«Probablemente» es un 60 % o un 95 %?</div>
+                <div class="cv-problem">✗ Mañana la misma pregunta puede dar otra redacción</div>
+              </div>
+              <div id="cv-answer" class="card glow-cyan" style="margin-top: 26px; opacity: 0">
+                <div class="code-title"><span class="dot"></span>Modelo de decisión</div>
+                <div class="code" style="border: none; background: transparent; padding: 0; font-size: 19px">{ <span class="k">"choice"</span>: <span class="s">"billing"</span>,
+  <span class="k">"probabilities"</span>: { <span class="k">"billing"</span>: <span class="n">0.87</span>, <span class="k">"technical"</span>: <span class="n">0.13</span>, <span class="k">"sales"</span>: <span class="n">0</span> } }</div>
+              </div>
+            </div>
+          </div>
+          <span class="fragment step" data-step="1"></span>
+        </section>
+
+        <!-- 3 · Sistema 1 y Sistema 2 -->
+        <section data-anim="systems">
+          <div class="kicker">La idea de fondo</div>
+          <h2>Pensar rápido, pensar despacio</h2>
+          <p class="lede">El nombre <em>System One</em> viene del Sistema 1 que popularizó Daniel Kahneman en <em>Pensar rápido, pensar despacio</em>: rápido e intuitivo, frente al Sistema 2, lento y deliberado.</p>
+          <div class="grid-2 stage" style="margin-top: 30px">
+            <div class="card glow-orange sys-card">
+              <div class="sys-icon" id="sys2-icon"></div>
+              <span class="tag orange">Sistema 2 · lento</span>
+              <h3 style="margin-top: 16px">LLMs y modelos de razonamiento</h3>
+              <ul class="small">
+                <li>Escriben, explican, planifican, programan</li>
+                <li>Generan la respuesta palabra a palabra</li>
+                <li>Segundos por respuesta</li>
+              </ul>
+            </div>
+            <div class="card glow-cyan sys-card">
+              <div class="sys-icon" id="sys1-icon"></div>
+              <span class="tag cyan">Sistema 1 · rápido</span>
+              <h3 style="margin-top: 16px">Modelos de decisión</h3>
+              <ul class="small">
+                <li>Un juicio concreto con la información delante</li>
+                <li>Eligen entre respuestas que tú defines</li>
+                <li>Decenas o cientos de milisegundos</li>
+              </ul>
+            </div>
+          </div>
+          <div class="grid-2" style="margin-top: 26px">
+            <div class="callout small sys-q">✓ <strong>Buena pregunta:</strong> «¿Este mensaje transmite urgencia?»</div>
+            <div class="callout orange small sys-q">✗ <strong>Mala pregunta:</strong> «Analiza el mensaje y decide qué hacer».</div>
+          </div>
+          <div class="footnote">Origen del nombre y ejemplos de preguntas: documentación de TypeSafe («System One» y «Primitives»). Kahneman, <em>Thinking, Fast and Slow</em> (2011).</div>
+        </section>
+
+        <!-- 4 · Línea temporal -->
+        <section data-anim="timeline">
+          <div class="kicker">Septiembre de 2026</div>
+          <h2>Dos semanas que crearon una categoría</h2>
+          <div class="stage" id="tl-stage" style="height: 470px; margin-top: 20px"></div>
+          <div class="grid-3 tl-phases" style="margin-top: 6px">
+            <div class="small"><strong class="c-orange">1 · El pionero cerrado.</strong> Jev define la categoría y la API, pero no publica cómo está hecho.</div>
+            <div class="small"><strong class="c-cyan">2 · La respuesta abierta.</strong> En días aparecen alternativas con pesos y receta públicos: nuestra ventana al interior.</div>
+            <div class="small"><strong class="c-violet">3 · La confirmación.</strong> OpenAI lanza su propia Decisions API: la idea va en serio.</div>
+          </div>
+          <div class="footnote">Fechas aproximadas: publicación del blog de TypeSafe, creación de los repositorios de GitHub y Hugging Face, y DevDay de OpenAI.</div>
+        </section>
+
+        <!-- 5 · El contrato -->
+        <section data-anim="contract">
+          <div class="kicker">Qué es</div>
+          <h2>Un contrato muy simple</h2>
+          <div class="stage" id="ct-stage" style="height: 300px; margin-top: 10px"></div>
+          <div class="grid-3 ct-cols" style="margin-top: 12px">
+            <div class="card">
+              <h3 class="c-violet">Estado</h3>
+              <p class="small">El contexto: un ticket, un pedido, un correo, la escena de un juego… En texto o JSON.</p>
+            </div>
+            <div class="card">
+              <h3 class="c-cyan">Preguntas</h3>
+              <p class="small">Tipo, instrucciones y <strong>las respuestas posibles</strong>. Las defines tú: el modelo no puede salirse de ellas.</p>
+            </div>
+            <div class="card">
+              <h3>Respuestas</h3>
+              <p class="small">La opción elegida, <strong>la probabilidad de cada opción</strong> y una confianza. Listo para usar en código.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 6 · Los tres tipos de pregunta -->
+        <section data-anim="primitives">
+          <div class="kicker">Qué es · los tres tipos de pregunta</div>
+          <h2>Choice, Score y Noul</h2>
+          <p class="lede small" style="font-size: 24px">Estado: <span class="mono c-violet">"Help! My payouts have been failing for 3 days."</span> Las tres preguntas viajan en la misma petición.</p>
+          <div class="grid-3 stage" style="margin-top: 26px">
+            <div class="card prim-card">
+              <span class="tag cyan">choice</span>
+              <h3 style="margin: 16px 0 6px">Elegir una opción</h3>
+              <p class="small muted">«¿Qué equipo debe atenderlo?»</p>
+              <div class="pbars" id="pr-choice" style="margin-top: 22px">
+                <span class="lbl">billing</span><div class="track"><div class="fill top" data-v="0.87"></div></div><span class="val">0.87</span>
+                <span class="lbl">technical</span><div class="track"><div class="fill" data-v="0.13"></div></div><span class="val">0.13</span>
+                <span class="lbl">sales</span><div class="track"><div class="fill" data-v="0"></div></div><span class="val">0.00</span>
+              </div>
+              <p class="tiny muted" style="margin-top: 18px">Responde <span class="mono">choice: "billing"</span> y la probabilidad de cada opción.</p>
+            </div>
+            <div class="card prim-card">
+              <span class="tag cyan">score</span>
+              <h3 style="margin: 16px 0 6px">Situar en una escala</h3>
+              <p class="small muted">«¿Cómo de frustrado está el cliente?»</p>
+              <svg id="pr-score" viewBox="0 0 400 150" width="100%" style="margin-top: 40px"></svg>
+              <p class="tiny muted" style="margin-top: 8px">Responde <span class="mono">score: 1.04</span>: puede caer entre niveles.</p>
+            </div>
+            <div class="card prim-card">
+              <span class="tag cyan">noul</span>
+              <h3 style="margin: 16px 0 6px">Sí o no, con probabilidad</h3>
+              <p class="small muted">«¿Transmite urgencia?»</p>
+              <svg id="pr-noul" viewBox="0 0 400 170" width="100%" style="margin-top: 6px"></svg>
+              <p class="tiny muted" style="margin-top: 4px">Responde <span class="mono">noul: 0.95</span>: la probabilidad de «sí».</p>
+            </div>
+          </div>
+          <div class="footnote">Valores reales de la respuesta de <span class="mono">jev-1.13.0</span> en la documentación pública del modelo (Cloudflare Workers AI). «Noul» es el nombre que TypeSafe da a las preguntas de sí/no.</div>
+        </section>
+
+        <!-- 7 · Petición y respuesta reales -->
+        <section data-anim="api">
+          <div class="kicker">Qué es · la API casi estándar</div>
+          <h2>Una petición, todas las respuestas</h2>
+          <div class="stage" style="display: grid; grid-template-columns: 1fr 150px 1fr; gap: 0; margin-top: 18px; align-items: start">
+            <div>
+              <div class="code-title"><span class="dot" style="background: var(--violet); box-shadow: 0 0 10px var(--violet)"></span>Petición · POST /v1/systemone</div>
+              <div class="code json-anim" id="api-req" data-json style="font-size: 15px; line-height: 1.42">{
+  "model": "jev-latest",
+  "state": "Help! My payouts have been failing for 3 days.",
+  "questions": {
+    "is_urgent": {
+      "type": "noul",
+      "instructions": "Does this convey urgency?"
+    },
+    "department": {
+      "type": "choice",
+      "instructions": "Which team should handle this?",
+      "criteria": {
+        "billing": "Payments, invoicing, refunds",
+        "technical": "Bugs, outages, integrations",
+        "sales": "Pricing, upgrades, new accounts"
+      }
+    },
+    "frustration": {
+      "type": "score",
+      "instructions": "How frustrated is the customer?",
+      "criteria": ["Calm", "Frustrated", "Very angry"]
+    }
+  }
+}</div>
+            </div>
+            <div class="api-mid" style="height: 640px; position: relative">
+              <svg id="api-wire" viewBox="0 0 150 640" width="150" height="640"></svg>
+            </div>
+            <div>
+              <div class="code-title"><span class="dot"></span>Respuesta</div>
+              <div class="code json-anim" id="api-res" data-json style="font-size: 15px; line-height: 1.42">{
+  "model": "jev-1.13.0",
+  "answers": {
+    "is_urgent": { "type": "noul", "noul": 0.95 },
+    "department": {
+      "type": "choice",
+      "choice": "billing",
+      "confidence": 0.8,
+      "probabilities": { "billing": 0.87, "sales": 0, "technical": 0.13 }
+    },
+    "frustration": {
+      "type": "score",
+      "score": 1.04,
+      "confidence": 0.94,
+      "probabilities": { "0": 0, "1": 0.96, "2": 0.04 }
+    }
+  },
+  "usage": { "input_tokens": 426, "output_tokens": 73 }
+}</div>
+              <p class="tiny muted" style="margin-top: 14px">Kev, Laya y CLM aceptan los mismos <span class="mono">state</span> y <span class="mono">questions</span>; cambian el nombre del modelo y, en algún despliegue, la ruta. OpenAI usa la misma idea con otros nombres de campo.</p>
+            </div>
+          </div>
+          <div class="footnote">Ejemplo de la documentación pública de Jev en Cloudflare Workers AI (resumido: se omiten los <span class="mono">criteria</span> de la noul y el campo <span class="mono">legend</span> de la respuesta).</div>
+        </section>
+
+        <!-- 8 · Generar frente a decidir -->
+        <section data-anim="generation">
+          <div class="kicker">Por dentro · la diferencia clave</div>
+          <h2>Generar palabra a palabra frente a decidir de una vez</h2>
+          <div class="stage" id="gen-stage" style="height: 600px; margin-top: 20px"></div>
+          <span class="fragment step" data-step="1"></span>
+        </section>
+
+        <!-- 9 · Arquitectura -->
+        <section data-anim="architecture">
+          <div class="kicker">Por dentro · la arquitectura común</div>
+          <h2>Del texto a una decisión con probabilidades</h2>
+          <div class="stage" id="arch-stage" style="height: 560px; margin-top: 8px"></div>
+          <div id="arch-caption" class="callout" style="margin-top: 6px; min-height: 92px; font-size: 25px"></div>
+          <span class="fragment step" data-step="1"></span>
+          <span class="fragment step" data-step="2"></span>
+          <span class="fragment step" data-step="3"></span>
+          <span class="fragment step" data-step="4"></span>
+          <span class="fragment step" data-step="5"></span>
+          <span class="fragment step" data-step="6"></span>
+        </section>
+
+        <!-- 10 · Un estado, muchas preguntas -->
+        <section data-anim="fanout">
+          <div class="kicker">Por dentro · leer una vez, preguntar muchas</div>
+          <h2>Un estado, muchas preguntas en paralelo</h2>
+          <div class="grid-2" style="grid-template-columns: 1.35fr 1fr; align-items: center">
+            <div class="stage" id="fan-stage" style="height: 640px"></div>
+            <div>
+              <div class="fan-stat"><div class="big-num" id="fan-reads">1</div><div class="muted">vez se lee el estado</div></div>
+              <div class="fan-stat" style="margin-top: 26px"><div class="big-num" id="fan-qs" style="color: var(--violet); text-shadow: 0 0 30px rgba(167, 139, 250, 0.35)">0</div><div class="muted">preguntas respondidas a la vez</div></div>
+              <p class="small" style="margin-top: 34px">Cada pregunta ve el estado y a sí misma, pero <strong>no ve las demás</strong>: no se contaminan entre sí.</p>
+              <p class="small muted">Por eso conviene preguntar «de más» (<em>speculative fan-out</em>) y que tu código use solo lo que necesite.</p>
+            </div>
+          </div>
+          <div class="footnote">TypeSafe documenta 13 preguntas en una llamada: 12,2 veces más barato y 10 veces más rápido que una llamada por pregunta. Respuestas ilustrativas, salvo urgencia, equipo y frustración (ejemplo de Jev).</div>
+        </section>
+
+        <!-- 11 · Tres sabores -->
+        <section data-anim="flavors">
+          <div class="kicker">Por dentro · lo que enseñan los modelos abiertos</div>
+          <h2>Una idea, tres formas de construirla</h2>
+          <div class="grid-4 stage" style="margin-top: 26px">
+            <div class="card fl-card">
+              <span class="tag cyan">Kev</span>
+              <svg class="fl-svg" id="fl-kev" viewBox="0 0 300 200" width="100%"></svg>
+              <h3 style="font-size: 25px">LLM congelado + adaptador</h3>
+              <p class="tiny" style="margin-top: 8px">Un LLM Qwen (0.8B–27B) se queda tal cual. Se le añade un pequeño adaptador (LoRA) y un cabezal que compara la pregunta con cada opción.</p>
+            </div>
+            <div class="card fl-card">
+              <span class="tag cyan">Laya</span>
+              <svg class="fl-svg" id="fl-laya" viewBox="0 0 300 200" width="100%"></svg>
+              <h3 style="font-size: 25px">Encoder compacto</h3>
+              <p class="tiny" style="margin-top: 8px">Un modelo tipo BERT (~0,3–0,4B) lee estado y pregunta a la vez, en ambas direcciones. Un cabezal por tipo de pregunta. ~33 ms.</p>
+            </div>
+            <div class="card fl-card">
+              <span class="tag cyan">CLM</span>
+              <svg class="fl-svg" id="fl-clm" viewBox="0 0 300 200" width="100%"></svg>
+              <h3 style="font-size: 25px">Contrastivo</h3>
+              <p class="tiny" style="margin-top: 8px">Estado y opciones se convierten en puntos de un mismo espacio. Gana la opción más cercana al estado. Las opciones se pueden precalcular.</p>
+            </div>
+            <div class="card fl-card dim">
+              <span class="tag orange">Jev · OpenAI</span>
+              <svg class="fl-svg" id="fl-box" viewBox="0 0 300 200" width="100%"></svg>
+              <h3 style="font-size: 25px">Caja negra</h3>
+              <p class="tiny" style="margin-top: 8px"><strong>Suponemos</strong> algo parecido: un modelo base grande, post-entrenado para decidir y calibrado. No han publicado arquitectura ni tamaño.</p>
+            </div>
+          </div>
+          <div class="callout" style="margin-top: 30px; font-size: 25px">Denominador común: un modelo de lenguaje preentrenado hace de <strong>lector</strong> y un cabezal pequeño <strong>puntúa las opciones</strong> en lugar de generar texto.</div>
+        </section>
+
+        <!-- 12 · La receta de entrenamiento -->
+        <section data-anim="recipe">
+          <div class="kicker">Cómo se entrena</div>
+          <h2>La receta, en tres pasos</h2>
+          <div class="stage" id="rc-stage" style="height: 110px; margin-top: 18px"></div>
+          <div class="grid-3" style="margin-top: 8px">
+            <div class="card rc-card">
+              <div class="rc-num">01</div>
+              <h3>Aprender a leer</h3>
+              <p class="small">Se parte de un modelo de lenguaje <strong>ya preentrenado</strong> con enormes cantidades de texto. Ya entiende el idioma y sabe cosas del mundo.</p>
+              <p class="tiny muted">Kev y CLM: Qwen · Laya: ModernBERT y mmBERT · Jev y OpenAI: no publicado (OpenAI dice usar GPT-6 Luna).</p>
+            </div>
+            <div class="card rc-card">
+              <div class="rc-num">02</div>
+              <h3>Aprender a decidir</h3>
+              <p class="small">Se le enseñan miles o millones de ejemplos de <strong>(estado, pregunta, respuesta correcta)</strong> procedentes de datasets públicos y datos sintéticos.</p>
+              <p class="tiny muted">Kev: ~12.600 ejemplos · CLM: ~60 M + 30 M + 1 M en tres fases · Jev: datos 100 % sintéticos, según una entrevista a su creador.</p>
+            </div>
+            <div class="card rc-card glow-cyan">
+              <div class="rc-num">03</div>
+              <h3>Aprender a ser honesto</h3>
+              <p class="small">Se ajusta para que sus <strong>probabilidades digan la verdad</strong>: si dice 80 %, que acierte el 80 % de las veces.</p>
+              <p class="tiny muted">Jev y Laya: RLCD (refuerzo con reglas de puntuación «propias») · Kev: <em>temperature scaling</em> sobre datos reservados.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 13 · RLHF, RLVR, RLCD -->
+        <section data-anim="rl3">
+          <div class="kicker">Cómo se entrena · qué se premia</div>
+          <h2>Tres formas de post-entrenar un modelo</h2>
+          <table class="tbl rl-table" style="margin-top: 26px; font-size: 24px">
+            <thead>
+              <tr><th></th><th>RLHF</th><th>RLVR</th><th style="color: var(--cyan)">RLCD</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Se premia…</td><td>que la respuesta <strong>le guste a una persona</strong></td><td>que la respuesta sea <strong>verificablemente correcta</strong></td><td class="rl-hl">que la <strong>probabilidad declarada coincida con la realidad</strong></td></tr>
+              <tr><td>Produce</td><td>Chatbots (InstructGPT, ChatGPT)</td><td>Modelos de razonamiento</td><td class="rl-hl">Modelos de decisión</td></tr>
+              <tr><td>Efecto secundario</td><td>Sicofancia y <strong>exceso de confianza</strong>: sonar seguro puntúa mejor</td><td>Lentos y caros: razonan antes de responder</td><td class="rl-hl">No generan texto: solo deciden</td></tr>
+              <tr><td>Analogía</td><td>El alumno que dice lo que el profesor quiere oír</td><td>El alumno que resuelve el problema paso a paso</td><td class="rl-hl">El hombre del tiempo cuyos «70 %» llueven 7 de cada 10 veces</td></tr>
+            </tbody>
+          </table>
+          <div class="callout" style="margin-top: 44px">RLCD (<em>Reinforcement Learning for Calibrated Decisions</em>): el nombre lo puso TypeSafe con Jev. Su receta exacta no es pública; Laya publica una versión abierta.</div>
+          <div class="footnote">Fuentes: «AI primer» de TypeSafe y README de Laya (recompensas con <em>proper scoring rules</em> y policy gradient al estilo GRPO).</div>
+        </section>
+
+        <!-- 14 · La apuesta honesta -->
+        <section data-anim="honest-bet">
+          <div class="kicker">Calibración · el truco matemático</div>
+          <h2>La apuesta honesta</h2>
+          <div class="grid-2" style="grid-template-columns: 1fr 1.25fr; gap: 48px; margin-top: 12px">
+            <div>
+              <p class="small">Eres el hombre del tiempo y sabes que mañana llueve con una probabilidad real del <strong id="hb-q-txt">70 %</strong>. Te penalizan con la <strong>regla de Brier</strong>:</p>
+              <div class="code" style="font-size: 18px; margin: 10px 0 20px">si llueve:     (1 − p)²
+si no llueve:  p²</div>
+              <div class="slider-row"><span class="lbl">Prob. real</span><input type="range" id="hb-q" min="5" max="95" value="70" /><output id="hb-q-out">70 %</output></div>
+              <div class="slider-row"><span class="lbl">Lo que dices</span><input type="range" id="hb-p" min="0" max="100" value="100" /><output id="hb-p-out" class="c-cyan">100 %</output></div>
+              <div class="row" style="margin-top: 18px; gap: 10px">
+                <button class="btn" data-p="100">Exagerar (100 %)</button>
+                <button class="btn" data-p="50">Ir a lo seguro (50 %)</button>
+                <button class="btn" data-p="q">Decir la verdad</button>
+              </div>
+              <p class="small" style="margin-top: 26px">Penalización media: <strong id="hb-loss" class="c-cyan mono">0.300</strong> <span class="muted">(mínimo posible: <span id="hb-min" class="mono">0.210</span>)</span></p>
+            </div>
+            <div class="stage" style="position: relative">
+              <svg id="hb-chart" viewBox="0 0 760 520" width="100%"></svg>
+              <div class="viz-tip" id="hb-tip"></div>
+            </div>
+          </div>
+          <div class="callout" style="margin-top: 14px; font-size: 25px">Con una regla <strong>estrictamente propia</strong>, la penalización solo es mínima diciendo la verdad. Si el modelo se entrena así, <strong>mentir nunca le compensa</strong>.</div>
+        </section>
+
+        <!-- 15 · Temperature scaling -->
+        <section data-anim="temperature">
+          <div class="kicker">Calibración · el ajuste fino</div>
+          <h2>El termostato de la confianza</h2>
+          <div class="grid-2" style="grid-template-columns: 1.1fr 1fr; gap: 56px; margin-top: 18px; align-items: center">
+            <div>
+              <div class="pbars" id="tp-bars" style="font-size: 24px; gap: 18px 18px">
+                <span class="lbl">billing</span><div class="track" style="height: 26px"><div class="fill top"></div></div><span class="val">0</span>
+                <span class="lbl">technical</span><div class="track" style="height: 26px"><div class="fill"></div></div><span class="val">0</span>
+                <span class="lbl">sales</span><div class="track" style="height: 26px"><div class="fill"></div></div><span class="val">0</span>
+              </div>
+              <div class="slider-row" style="margin-top: 40px; grid-template-columns: 200px 1fr 90px"><span class="lbl">Temperatura</span><input type="range" id="tp-t" min="50" max="400" value="100" /><output id="tp-t-out" class="c-cyan">1.00</output></div>
+              <div class="row" style="gap: 10px; margin-top: 10px">
+                <button class="btn" data-t="100">T = 1 (en bruto)</button>
+                <button class="btn" data-t="235">T = 2,35 (Kev-0.8B)</button>
+              </div>
+            </div>
+            <div>
+              <p>El modelo puntúa las opciones y una función (softmax) convierte esas puntuaciones en probabilidades.</p>
+              <p>Dividir las puntuaciones entre una <strong>temperatura</strong> T &gt; 1 las suaviza: el modelo deja de estar «demasiado seguro».</p>
+              <p class="callout" style="font-size: 24px">El orden no cambia: <strong>no cambia qué opción gana</strong>, solo cuánta seguridad expresa.</p>
+              <p class="small muted">Cada modelo de Kev trae su temperatura, ajustada con datos reservados (entre 1,32 y 2,41).</p>
+            </div>
+          </div>
+          <div class="footnote">Puntuaciones ilustrativas. Temperaturas según el README de Kev.</div>
+        </section>
+
+        <!-- 16 · Qué es estar calibrado -->
+        <section data-anim="reliability">
+          <div class="kicker">Calibración · cómo se mide</div>
+          <h2>Si dice 80 %, acierta el 80 %</h2>
+          <div class="grid-2" style="grid-template-columns: 1.3fr 1fr; gap: 44px; margin-top: 6px; align-items: start">
+            <div class="stage" style="position: relative">
+              <svg id="rl-chart" viewBox="0 0 820 600" width="100%"></svg>
+              <div class="viz-tip" id="rl-tip"></div>
+            </div>
+            <div>
+              <p class="small">Se agrupan miles de respuestas según la confianza declarada y se mira <strong>cuántas acertaron</strong> en cada grupo.</p>
+              <p class="small">Un modelo calibrado cae sobre la diagonal. La distancia media a ella es el <strong>ECE</strong> (<em>Expected Calibration Error</em>).</p>
+              <div class="card" style="margin-top: 22px; padding: 18px 22px">
+                <div class="tiny muted mono" style="letter-spacing: 0.08em">DATOS PUBLICADOS · CALIBRACIÓN ANTES → DESPUÉS</div>
+                <table class="tbl" style="margin-top: 6px; font-size: 18px">
+                  <tr><td>Kev-9B</td><td>ECE 0,103 → <strong class="c-cyan">0,041</strong></td></tr>
+                  <tr><td></td><td>Errores con p ≥ 0,9: 8,2&nbsp;% → <strong class="c-cyan">2,4&nbsp;%</strong> · Jev: 3,7&nbsp;%</td></tr>
+                  <tr><td>Laya typed</td><td>ECE 0,213 → <strong class="c-cyan">0,081</strong></td></tr>
+                </table>
+              </div>
+              <p class="tiny muted" style="margin-top: 14px">Ojo: la calibración es una propiedad de <strong>grupos de respuestas</strong>. No garantiza que una respuesta concreta sea correcta.</p>
+            </div>
+          </div>
+          <div class="footnote">Gráfico con datos ilustrativos (sintéticos). Cifras de la tabla: READMEs de Kev (fuentes no vistas en el entrenamiento) y de Laya.</div>
+        </section>
+
+        <!-- 17 · Confianza interactiva -->
+        <section data-anim="confidence">
+          <div class="kicker">Calibración · de probabilidades a confianza</div>
+          <h2>Un número para decidir si actuar</h2>
+          <div class="grid-2" style="grid-template-columns: 1.15fr 1fr; gap: 56px; margin-top: 22px; align-items: start">
+            <div>
+              <div class="slider-row"><span class="lbl">billing</span><input type="range" id="cf-0" min="0" max="100" value="80" /><output id="cf-0-out">80 %</output></div>
+              <div class="slider-row"><span class="lbl">technical</span><input type="range" id="cf-1" min="0" max="100" value="15" /><output id="cf-1-out">15 %</output></div>
+              <div class="slider-row"><span class="lbl">sales</span><input type="range" id="cf-2" min="0" max="100" value="5" /><output id="cf-2-out">5 %</output></div>
+              <svg id="cf-chart" viewBox="0 0 700 260" width="100%" style="margin-top: 16px"></svg>
+              <div class="row" style="gap: 10px; margin-top: 10px">
+                <button class="btn" data-preset="90,6,4">Clara ganadora</button>
+                <button class="btn" data-preset="40,33,27">Repartida</button>
+                <button class="btn" data-preset="34,33,33">Empate</button>
+              </div>
+            </div>
+            <div>
+              <div class="muted small">Confianza</div>
+              <div class="big-num" id="cf-val" style="font-size: 130px">0.70</div>
+              <div class="code" style="font-size: 19px; margin-top: 18px">confianza = (p_max − 1/n) / (1 − 1/n)</div>
+              <p class="small" style="margin-top: 18px">Es 1 si toda la probabilidad está en una opción y 0 si está repartida por igual. Así el modelo puede decir <strong>«no estoy seguro»</strong>.</p>
+              <div id="cf-lane" class="card" style="margin-top: 10px; padding: 16px 22px; font-size: 22px"></div>
+            </div>
+          </div>
+          <div class="footnote">Fórmula de TypeSafe para preguntas <span class="mono">choice</span>. Para <span class="mono">noul</span> se puede usar |2p − 1|. Los umbrales del recuadro son ilustrativos.</div>
+        </section>
+
+        <!-- 18 · Frente a un LLM -->
+        <section data-anim="vs-llm">
+          <div class="kicker">Ventajas · frente a un LLM</div>
+          <h2>¿Por qué no usar un LLM y pedirle JSON?</h2>
+          <table class="tbl vs-table" style="margin-top: 22px; font-size: 23px">
+            <thead><tr><th></th><th style="color: var(--orange)">LLM con JSON mode</th><th style="color: var(--cyan)">Modelo de decisión</th></tr></thead>
+            <tbody>
+              <tr><td>Salida</td><td>Texto con forma de JSON: hay que validarlo</td><td><strong>Un valor del conjunto que tú defines</strong>: imposible salirse</td></tr>
+              <tr><td>Probabilidades</td><td>No expuestas o poco fiables; tiende a sonar seguro</td><td><strong>Calibradas</strong>, en cada respuesta y para cada opción</td></tr>
+              <tr><td>Repetibilidad</td><td>Muestreo aleatorio: la misma pregunta puede variar</td><td><strong>Sin muestreo</strong>: misma entrada, mismas probabilidades*</td></tr>
+              <tr><td>Velocidad</td><td>De uno a varios segundos</td><td><strong>Decenas a cientos de ms</strong> (Jev: 70–500 ms; OpenAI: ~150 ms frente a ~1,6 s)</td></tr>
+              <tr><td>Coste</td><td>Pagas la entrada y cada token generado</td><td>Casi todo es entrada (Jev: la salida es gratis)</td></tr>
+              <tr><td>Varias preguntas</td><td>Una tras otra, o mezcladas en un mismo prompt</td><td><strong>En paralelo y aisladas</strong>, sobre una sola lectura del estado</td></tr>
+            </tbody>
+          </table>
+          <div class="footnote">* Salvo pequeñas variaciones numéricas (por ejemplo, en bf16) o un cambio de versión detrás de un alias como <span class="mono">jev-latest</span>. Latencias según TypeSafe y la prensa de DevDay 2026.</div>
+        </section>
+
+        <!-- 19 · Frente a un clasificador clásico -->
+        <section data-anim="vs-classifier">
+          <div class="kicker">Ventajas · frente a un clasificador clásico</div>
+          <h2>Lo mejor de los dos mundos</h2>
+          <div class="stage" id="vc-stage" style="height: 120px; margin-top: 10px"></div>
+          <div class="grid-3" style="margin-top: 10px; grid-template-columns: 1fr 1.25fr 1fr">
+            <div class="card vc-card">
+              <h3 class="muted">Clasificador clásico</h3>
+              <ul class="tiny" style="margin-top: 8px">
+                <li><strong>Un modelo por tarea</strong>: recoger datos, etiquetar, entrenar y desplegar</li>
+                <li>¿Una categoría nueva? Volver a entrenar</li>
+                <li>Rápido y barato, pero no generaliza fuera de su tarea</li>
+              </ul>
+            </div>
+            <div class="card glow-cyan vc-card">
+              <h3 class="c-cyan">Modelo de decisión</h3>
+              <ul class="tiny" style="margin-top: 8px">
+                <li><strong>Un modelo para muchas tareas</strong>: la pregunta y las opciones van en la petición</li>
+                <li>¿Una categoría nueva? Se añade una línea al JSON</li>
+                <li><strong>Generaliza</strong> a tareas que no ha visto (<em>zero-shot</em>)</li>
+                <li>Los abiertos son menos potentes, pero <strong>se pueden afinar</strong> con tus datos</li>
+              </ul>
+            </div>
+            <div class="card vc-card">
+              <h3 class="muted">LLM</h3>
+              <ul class="tiny" style="margin-top: 8px">
+                <li>Lo hace casi todo, sin entrenar</li>
+                <li>Más lento y caro, y sin probabilidades fiables</li>
+              </ul>
+            </div>
+          </div>
+          <div class="grid-2" style="margin-top: 22px; gap: 28px">
+            <div class="callout small" style="font-size: 21px"><strong>Afinar compensa.</strong> Con 5.219 reclamaciones reales etiquetadas, una pasada de entrenamiento llevó a Kev-4B del 0,804 al 0,904 de acierto. Un ajuste de ejemplo tarda unos 15 minutos en una GPU H100, según su autor.</div>
+            <div class="callout orange small" style="font-size: 21px"><strong>Jev no se afina</strong>: los mismos pesos sirven a todos los clientes. Se adapta a tu caso con el estado, las instrucciones y los criterios de cada pregunta.</div>
+          </div>
+        </section>
+
+        <!-- 20 · Enrutado por confianza -->
+        <section data-anim="routing">
+          <div class="kicker">En la práctica · el patrón estrella</div>
+          <h2>La confianza decide el camino</h2>
+          <div class="stage" id="rt-stage" style="height: 560px; margin-top: 10px"></div>
+          <div class="callout" style="margin-top: 4px; font-size: 24px">El umbral depende del riesgo: mostrar un saldo no es lo mismo que aprobar una transferencia. <strong>Ese criterio lo pone tu código, no el modelo.</strong></div>
+        </section>
+
+        <!-- 21 · Un ejemplo vivo -->
+        <section data-anim="game">
+          <div class="kicker">Un ejemplo vivo</div>
+          <h2>Un modelo de decisión jugando al dinosaurio de Chrome</h2>
+          <p class="small muted" style="margin-bottom: 14px">A cada momento se describe la escena en texto y se pregunta: <span class="mono c-cyan">choice</span> entre <span class="mono">jump</span>, <span class="mono">duck</span> y <span class="mono">nothing</span>.</p>
+          <div class="game-shot" id="gm-a">
+            <div class="game-label"><span class="tag cyan">Kev-9B</span><span class="small" id="gm-a-txt">Seguro de sí mismo</span></div>
+            <img src="assets/img/juego-kev9b.png" alt="Captura del juego con Kev-9B: la escena, el estado en texto enviado al modelo, el historial de decisiones y las probabilidades de cada acción" />
+          </div>
+          <div class="game-shot" id="gm-b" style="margin-top: 18px">
+            <div class="game-label" style="left: 36%"><span class="tag orange">Kev-0.8B</span><span class="small">Dudando… y diciéndolo</span></div>
+            <img src="assets/img/juego-kev0_8b.png" alt="Captura del juego con Kev-0.8B: probabilidades casi repartidas entre saltar y no hacer nada" />
+          </div>
+          <div class="footnote">Capturas de una demo interna con modelos Kev servidos en remoto (2 de octubre de 2026), sin entrenar para este juego.</div>
+        </section>
+
+        <!-- 22 · Mapa de modelos -->
+        <section data-anim="map">
+          <div class="kicker">El mapa</div>
+          <h2>Quién es quién</h2>
+          <table class="tbl map-table" style="margin-top: 18px; font-size: 21px">
+            <thead><tr><th>Modelo</th><th>Quién</th><th>Acceso</th><th>Por dentro</th><th>Calibración</th><th>¿Afinable?</th></tr></thead>
+            <tbody>
+              <tr class="closed"><td>Jev</td><td>TypeSafe</td><td>API de pago</td><td>No publicado</td><td>RLCD</td><td>No (estado e instrucciones)</td></tr>
+              <tr><td>Kev</td><td>Open source · jaredpalmer/kev</td><td>Abierto · Apache-2.0</td><td>Qwen congelado + LoRA + pointer head · 0.8B–27B</td><td>Temperatura ajustada</td><td>Sí</td></tr>
+              <tr><td>Laya</td><td>Open source · NandhaKishorM/laya</td><td>Abierto · Apache-2.0</td><td>Encoder ModernBERT o mmBERT · ~0,3–0,4B</td><td>RLCD + temperatura</td><td>Sí</td></tr>
+              <tr><td>CLM</td><td>Open source · Contrastive-LM</td><td>Abierto · Apache-2.0</td><td>Qwen3-8B congelado + 2 proyecciones (InfoNCE)</td><td>Contrastiva</td><td>Sí (cabezales)</td></tr>
+              <tr class="closed"><td>Decisions API</td><td>OpenAI</td><td>API · preview limitada</td><td>Versión especializada de GPT-6 Luna</td><td>No publicado</td><td>No anunciado</td></tr>
+            </tbody>
+          </table>
+          <div class="footnote">Según la documentación de cada proyecto, consultada el 2 de octubre de 2026. Las cifras de rendimiento no son comparables entre sí: cada uno se evalúa con sus propios benchmarks.</div>
+        </section>
+
+        <!-- 23 · Cuándo sí, cuándo no -->
+        <section data-anim="when">
+          <div class="kicker">En la práctica</div>
+          <h2>Cuándo usarlos y cuándo no</h2>
+          <div class="grid-3" style="margin-top: 26px">
+            <div class="card glow-cyan when-card">
+              <h3 class="c-cyan">✓ Encajan bien</h3>
+              <ul class="small" style="margin-top: 10px">
+                <li>Clasificar y enrutar tickets, correos y casos</li>
+                <li>Triaje y priorización</li>
+                <li>Guardrails a la entrada y salida de un LLM</li>
+                <li>Elegir el siguiente paso o la herramienta de un agente</li>
+                <li>Comprobar si un documento dice algo</li>
+              </ul>
+            </div>
+            <div class="card glow-orange when-card">
+              <h3 class="c-orange">✗ No son para esto</h3>
+              <ul class="small" style="margin-top: 10px">
+                <li>Redactar, resumir o explicar</li>
+                <li>Razonar en muchos pasos</li>
+                <li>Preguntas abiertas o mal acotadas</li>
+                <li>Decisiones críticas sin supervisión humana</li>
+              </ul>
+            </div>
+            <div class="card when-card">
+              <h3 class="c-violet">⚠ Con cuidado</h3>
+              <ul class="small" style="margin-top: 10px">
+                <li>El <strong>orden de las opciones</strong> puede influir</li>
+                <li>Rinden mejor en <strong>inglés</strong></li>
+                <li>Contextos muy largos o muchas opciones</li>
+                <li><strong>Mide con tus datos</strong> antes de fijar umbrales</li>
+              </ul>
+            </div>
+          </div>
+          <div class="callout when-card" style="margin-top: 34px; font-size: 26px">Pista: si una persona experta lo decidiría <strong>en un segundo</strong> con la información delante, es buen candidato. Si tendría que pensarlo un rato, divide la pregunta o usa un LLM.</div>
+        </section>
+
+        <!-- 24 · Patrones -->
+        <section data-anim="patterns">
+          <div class="kicker">En la práctica · patrones de uso</div>
+          <h2>Cómo se combinan con el resto del sistema</h2>
+          <div class="grid-2 stage" style="margin-top: 22px; gap: 26px">
+            <div class="card pt-card">
+              <h3><span class="c-cyan mono">01</span> Fan-out especulativo</h3>
+              <p class="small">Hacer de golpe todas las preguntas que <em>podrían</em> hacer falta. Cuesta casi lo mismo que hacer una.</p>
+            </div>
+            <div class="card pt-card">
+              <h3><span class="c-cyan mono">02</span> Enrutado por confianza</h3>
+              <p class="small">La respuesta dice <em>qué</em>; la confianza, <em>si actuar</em>: automatizar, confirmar o escalar.</p>
+            </div>
+            <div class="card pt-card">
+              <h3><span class="c-cyan mono">03</span> Puntuación compuesta</h3>
+              <p class="small">Partir un juicio complejo en preguntas atómicas y combinarlas en código con los pesos que tú controlas.</p>
+            </div>
+            <div class="card pt-card">
+              <h3><span class="c-cyan mono">04</span> Cascada Sistema 1 → Sistema 2</h3>
+              <p class="small">El modelo de decisión resuelve lo fácil y rápido; lo dudoso pasa a un LLM razonador o a una persona.</p>
+            </div>
+          </div>
+          <div class="callout" style="margin-top: 26px; font-size: 24px">Regla de oro: <strong>el código manda</strong>. El modelo aporta sentido común en puntos concretos; el flujo, las reglas y los permisos siguen en el software.</div>
+        </section>
+
+        <!-- 25 · Para llevarse -->
+        <section data-anim="takeaways">
+          <div class="kicker">Para llevarse</div>
+          <h2>Tres ideas</h2>
+          <div class="tk-list" style="margin-top: 40px">
+            <div class="tk-item"><span class="tk-n">1</span><div><strong>No escriben, deciden.</strong> Leen como un LLM, pero responden eligiendo entre opciones que tú defines, en una sola pasada.</div></div>
+            <div class="tk-item"><span class="tk-n">2</span><div><strong>Dicen cuánto saben.</strong> Sus probabilidades están entrenadas para ser honestas, y eso permite automatizar con umbrales.</div></div>
+            <div class="tk-item"><span class="tk-n">3</span><div><strong>Entre el clasificador y el LLM.</strong> Generalizan sin entrenar para cada caso y, en abierto, se pueden afinar al tuyo.</div></div>
+          </div>
+        </section>
+
+        <!-- 26 · Fuentes -->
+        <section data-anim="sources">
+          <div class="kicker">Fuentes</div>
+          <h2>Para seguir leyendo</h2>
+          <div class="grid-2 tiny" style="margin-top: 22px; gap: 10px 48px; font-size: 19px">
+            <ul>
+              <li><a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev">TypeSafe · Introducing System One models &amp; Jev</a></li>
+              <li><a href="https://docs.typesafe.ai/concepts/system-one.md">TypeSafe · System One (origen del nombre)</a></li>
+              <li><a href="https://docs.typesafe.ai/introduction/machine-learning-primer.md">TypeSafe · AI primer (RLHF, RLVR, RLCD)</a></li>
+              <li><a href="https://docs.typesafe.ai/confidence.md">TypeSafe · Confidence</a></li>
+              <li><a href="https://docs.typesafe.ai/models.md">TypeSafe · Models</a></li>
+              <li><a href="https://developers.cloudflare.com/ai/models/typesafe/jev/">Cloudflare Workers AI · Jev (ejemplos JSON)</a></li>
+              <li><a href="https://systemonemodels.org/guides/rlcd-explained/">RLCD explained: qué se sabe y qué no</a></li>
+            </ul>
+            <ul>
+              <li><a href="https://github.com/jaredpalmer/kev">jaredpalmer/kev</a></li>
+              <li><a href="https://github.com/NandhaKishorM/laya">NandhaKishorM/laya</a></li>
+              <li><a href="https://huggingface.co/Contrastive-LM/CLM-v0.1-8B">Contrastive-LM/CLM-v0.1-8B</a></li>
+              <li><a href="https://huggingface.co/blog/sora-2/what-is-openai-decisions-api-a-practical-guide">What is OpenAI Decisions API: a practical guide</a></li>
+              <li><a href="https://the-decoder.com/openai-expands-codex-and-its-api-at-devday-with-security-scans-a-decisions-api-and-ultrafast/">The Decoder · DevDay 2026 y la Decisions API</a></li>
+              <li>Documentación de esta presentación: <span class="mono">research/</span></li>
+            </ul>
+          </div>
+          <div class="footnote">Consultadas el 2 de octubre de 2026. Las cifras citadas son las publicadas por cada autor; no se han reproducido de forma independiente.</div>
+        </section>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="assets/js/lib.js"></script>
+    <script src="assets/js/anims-intro.js"></script>
+    <script src="assets/js/anims-inside.js"></script>
+    <script src="assets/js/anims-training.js"></script>
+    <script src="assets/js/anims-practice.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>

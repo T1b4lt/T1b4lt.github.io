@@ -1,0 +1,40 @@
+---
+import Layout from "../layouts/Layout.astro";
+import TalkCard from "../components/TalkCard.astro";
+import { useTranslations, getTalks } from "../i18n/utils";
+
+const lang = "en";
+const t = useTranslations(lang);
+const talks = await getTalks();
+---
+
+<Layout
+  title={`${t("talks.title")} | Guillermo Segovia`}
+  description={t("talks.subtitle")}
+>
+  <div class="max-w-5xl mx-auto px-5 py-16">
+    <h1
+      class="text-4xl lg:text-5xl text-near-black dark:text-ivory"
+      style="font-family: var(--font-serif);"
+    >
+      {t("talks.title")}
+    </h1>
+    <p class="text-olive-gray dark:text-warm-silver mt-4">
+      {t("talks.subtitle")}
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
+      {
+        talks.map((talk) => (
+          <TalkCard
+            title={talk.data.title}
+            description={talk.data.description}
+            tags={talk.data.tags}
+            href={`/talks/${talk.id}/`}
+            langLabel={t(`talks.lang.${talk.data.lang}`)}
+          />
+        ))
+      }
+    </div>
+  </div>
+</Layout>

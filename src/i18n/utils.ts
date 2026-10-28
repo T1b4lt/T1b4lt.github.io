@@ -124,3 +124,8 @@ export async function getOSSByLang(lang: Lang) {
     .filter(({ id }) => id.startsWith(`${lang}/`))
     .sort((a, b) => a.data.order - b.data.order);
 }
+
+export async function getTalks() {
+  const talks = await getCollection("talks");
+  return talks.sort((a, b) => a.data.order - b.data.order);
+}

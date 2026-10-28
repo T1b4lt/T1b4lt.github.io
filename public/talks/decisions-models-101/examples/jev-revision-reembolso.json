@@ -1,0 +1,53 @@
+{
+  "_source": "Documentación pública de Jev en Cloudflare Workers AI (https://developers.cloudflare.com/ai/models/typesafe/jev/), consultada el 2026-10-02. Petición adaptada al cuerpo de POST https://api.typesafe.ai/v1/systemone.",
+  "request": {
+    "model": "jev-latest",
+    "state": {
+      "ticket": {
+        "subject": "Duplicate charge",
+        "message": "I was charged twice for order A-104. Please refund the duplicate."
+      },
+      "order": {
+        "id": "A-104",
+        "charges": [
+          {
+            "amount_usd": 49,
+            "status": "captured"
+          },
+          {
+            "amount_usd": 49,
+            "status": "captured"
+          }
+        ]
+      },
+      "refund_policy": "Duplicate charges are eligible for a refund."
+    },
+    "questions": {
+      "refund_requested": {
+        "type": "noul",
+        "instructions": "Does `ticket.message` request a refund?"
+      },
+      "policy_supports_refund": {
+        "type": "noul",
+        "instructions": "Does `refund_policy` support the refund requested in `ticket.message`, given `order.charges`?"
+      }
+    }
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "answers": {
+      "refund_requested": {
+        "type": "noul",
+        "noul": 0.99
+      },
+      "policy_supports_refund": {
+        "type": "noul",
+        "noul": 0.98
+      }
+    },
+    "usage": {
+      "input_tokens": 422,
+      "output_tokens": 41
+    }
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "_descripcion": "Citas literales usadas en la presentación, en su idioma original, con su fuente. Consultadas el 2026-10-08.",
+  "citas": [
+    {
+      "id": "greenspan-1996",
+      "texto": "But how do we know when irrational exuberance has unduly escalated asset values, which then become subject to unexpected and prolonged contractions as they have in Japan over the past decade?",
+      "autor": "Alan Greenspan",
+      "_source": "Federal Reserve, «The Challenge of Central Banking in a Democratic Society», Francis Boyer Lecture, AEI, 5-dic-1996",
+      "diapositiva": "Dot-com"
+    },
+    {
+      "id": "bagehot-1873",
+      "texto": "All people are most credulous when they are most happy; and when much money has just been made, when some people are really making it, when most people think they are making it, there is a happy opportunity for ingenious mendacity.",
+      "autor": "Walter Bagehot",
+      "_source": "Lombard Street (1873), vía research/teoria-burbujas.md",
+      "diapositiva": "Cinco actos (euforia)"
+    },
+    {
+      "id": "kindleberger",
+      "texto": "There is nothing so disturbing to one's well-being and judgment as to see a friend get rich.",
+      "autor": "Charles P. Kindleberger",
+      "_source": "Manias, Panics and Crashes (página según edición); atribución ampliamente reproducida",
+      "diapositiva": "Cinco actos (boom)"
+    },
+    {
+      "id": "odlyzko-2010",
+      "texto": "the basic intuition about the power of the new technology was sound. It just took longer to be realized than hoped for",
+      "autor": "Andrew Odlyzko",
+      "_source": "Odlyzko, «Collective hallucinations and inefficient markets: The British Railway Mania of the 1840s» (2010)",
+      "diapositiva": "Las vías se quedaron"
+    },
+    {
+      "id": "bronte-1849",
+      "texto": "The original price of Shares in this Railway was £50. At one time they rose to 120; and for some years gave a dividend of 10 per cent; they are now down at 20…",
+      "autor": "Charlotte Brontë",
+      "_source": "Carta de finales de 1849, citada en Odlyzko (2010)",
+      "diapositiva": "Railway Mania"
+    },
+    {
+      "id": "coffman-odlyzko-2001",
+      "texto": "the general consensus has been that Internet traffic is doubling every three or four months. Yet no real evidence of that astronomical rate of growth was ever presented",
+      "autor": "K. G. Coffman y A. M. Odlyzko",
+      "_source": "«Growth of the Internet», AT&T Labs, julio de 2001",
+      "diapositiva": "Telecom y fibra"
+    },
+    {
+      "id": "minsky-ponzi",
+      "texto": "A unit that Ponzi finances lowers the margin of safety that it offers the holders of its debts.",
+      "autor": "Hyman Minsky",
+      "_source": "«The Financial Instability Hypothesis», Levy Institute Working Paper 74 (1992)",
+      "diapositiva": "Minsky"
+    },
+    {
+      "id": "boe-2025",
+      "texto": "The risk of a sharp market correction has increased.",
+      "autor": "Bank of England, Financial Policy Committee",
+      "_source": "Financial Policy Committee record, 8-oct-2025",
+      "diapositiva": "Notas (FAQ)"
+    },
+    {
+      "id": "bis-2026",
+      "texto": "These arrangements amount to 'shadow borrowing': obligations that are economically akin to debt but largely reside outside corporate balance sheets.",
+      "autor": "BIS",
+      "_source": "BIS Quarterly Review, 16-mar-2026",
+      "diapositiva": "SPV"
+    },
+    {
+      "id": "newton-atribuida",
+      "texto": "I can calculate the motions of the heavenly bodies, but not the madness of people.",
+      "autor": "Isaac Newton (atribuida)",
+      "_source": "Segunda mano: Lord Radnor vía Joseph Spence (1756). No es una cita documentada directamente.",
+      "diapositiva": "Tulipanes y Mares del Sur"
+    }
+  ]
+}

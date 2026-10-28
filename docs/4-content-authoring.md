@@ -62,3 +62,22 @@ npm run build        # catches schema errors and broken references
 ```
 
 Schema violations (missing or mistyped frontmatter fields) fail the build with a precise error pointing at the offending file. The CI lint gate enforces formatting, linting, and type checking before the build runs.
+
+## Adding a talk
+
+Talks are self-contained HTML slide decks shown as-is (no translation, no layout).
+
+1. Copy the deck to `public/talks/<slug>/` with its entry point at `index.html`. All asset paths inside the deck must be **relative** (`assets/…`, not `/assets/…`) because the deck is served from `/talks/<slug>/`.
+2. Create `src/content/talks/<slug>.md` — the filename must match the folder name:
+
+```yaml
+---
+title: "Talk title"
+description: "One-sentence summary shown on the card."
+tags: ["IA", "101"]
+lang: "es" # Language of the deck; shown as a badge on the card
+order: 7 # Ascending sort key in the listing
+---
+```
+
+The talk appears on both `/talks` and `/es/talks`, and in the sitemap automatically.

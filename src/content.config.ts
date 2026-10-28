@@ -38,4 +38,17 @@ const oss = defineCollection({
   }),
 });
 
-export const collections = { blog, projects, oss };
+// Talks are self-contained HTML decks under public/talks/<slug>/, served as-is
+// (not translated). The filename must match the folder name in public/talks/.
+const talks = defineCollection({
+  loader: glob({ pattern: "*.md", base: "./src/content/talks" }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    tags: z.array(z.string()),
+    lang: z.enum(["es", "en"]),
+    order: z.number(),
+  }),
+});
+
+export const collections = { blog, projects, oss, talks };

@@ -1,0 +1,10 @@
+{
+  "_source": "Ejemplo ilustrativo escrito para la charla. Ventaja de grupo según Shao et al. (2024), DeepSeekMath, sec. 4.1: A = (r - mean) / std. Calculado con std insesgada y epsilon 1e-4, como en TRL GRPOTrainer (consultado 2026-10-05).",
+  "prompt": "17 × 24 = ?",
+  "group_size": 8,
+  "completions": ["408", "398", "408", "418", "392", "408", "358", "400"],
+  "rewards": [1, 0, 1, 0, 0, 1, 0, 0],
+  "mean": 0.375,
+  "std": 0.5175,
+  "advantages": [1.21, -0.72, 1.21, -0.72, -0.72, 1.21, -0.72, -0.72]
+}

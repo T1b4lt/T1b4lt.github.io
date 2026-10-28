@@ -1,0 +1,43 @@
+{
+  "_source": "Demo interna: partida del juego del dinosaurio contra Kev-9B servido en remoto (POST /v1/systemone), 2026-10-02, decisión 28. Respuesta tal cual la devolvió el servidor.",
+  "request": {
+    "model": "kev-latest",
+    "state": {
+      "dinosaur": "running on the ground",
+      "game speed": "slow",
+      "next obstacle": "a large cactus, very close (4 frames away)",
+      "obstacle after that": "a small cactus, far (53 frames away)"
+    },
+    "questions": {
+      "action": {
+        "type": "choice",
+        "instructions": "You control the dinosaur in the Chrome dinosaur game. It runs to the right automatically. Choose the action for this exact moment so the dinosaur does not hit the next obstacle.",
+        "criteria": {
+          "nothing": "Keep running. Right when no obstacle is close, or while already in the air.",
+          "jump": "Jump now. Right when a cactus or a low-flying bird is close ahead.",
+          "duck": "Duck now. Right when a bird at head height is close ahead."
+        }
+      }
+    }
+  },
+  "response": {
+    "model": "kev-latest",
+    "answers": {
+      "action": {
+        "type": "choice",
+        "choice": "jump",
+        "confidence": 0.9688,
+        "probabilities": {
+          "nothing": 0.0111,
+          "jump": 0.9792,
+          "duck": 0.0096
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 144,
+      "output_tokens": 63
+    },
+    "latency_ms": 31.7
+  }
+}
