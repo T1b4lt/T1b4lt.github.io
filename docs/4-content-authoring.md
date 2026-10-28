@@ -30,7 +30,7 @@ tags: ["astro", "blog"]
 
 - `idx` — a number that (a) determines listing order (higher = shown first) and (b) must match across translations so `getPostTranslations` can link them. It does _not_ appear in URLs.
 - `pubDate` — shown in the post header; localize it to the target language.
-- `pubDateLogical` — ISO date (`YYYY-MM-DD`), validated at build time with a regex. Posts with a `pubDateLogical` in the future are hidden from listings until that date.
+- `pubDateLogical` — ISO date (`YYYY-MM-DD`), validated at build time with a regex. Posts with a `pubDateLogical` in the future are hidden from listings until that date (client-side, no rebuild needed).
 
 ## 3. Body
 
@@ -44,12 +44,12 @@ Each post in `src/content/blog/es/` should have a counterpart in `src/content/bl
 
 ## 5. Scheduling
 
-To schedule a post for the future, set `pubDateLogical` to that future date (`YYYY-MM-DD`). The post stays hidden from listings until a build runs on or after that date.
+To schedule a post for the future, set `pubDateLogical` to that future date (`YYYY-MM-DD`). The post stays hidden from listings until that date, in the visitor's local time; no rebuild is needed (see [2-architecture.md → Scheduled publishing](./2-architecture.md#scheduled-publishing)).
 
 Two implications:
 
 - **Commit ahead of time.** You can merge a post weeks before it should appear.
-- **A build must happen.** GitHub Actions only builds on push. If nothing else gets pushed around the publish date, trigger the workflow manually (`Actions` tab → `Deploy to GitHub Pages` → `Run workflow`) or add a scheduled `workflow_dispatch` trigger.
+- **It is not secret.** The post page is deployed immediately and reachable by its URL (and listed in the sitemap) before its date. Only the listings hide it.
 
 ## 6. Verify locally
 

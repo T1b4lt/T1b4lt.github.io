@@ -1,0 +1,31 @@
+<script>
+  // The site is static, so the build only knows the build date. This shows the
+  // posts whose pubDateLogical has arrived in the visitor's local time and hides
+  // the rest, honoring the optional data-limit of each list.
+  function localToday(): string {
+    const d = new Date();
+    const pad = (n: number) => String(n).padStart(2, "0");
+    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+  }
+
+  function showPublishedPosts() {
+    const today = localToday();
+    document
+      .querySelectorAll<HTMLElement>("[data-post-list]")
+      .forEach((list) => {
+        const limit = Number(list.dataset.limit) || Infinity;
+        let shown = 0;
+        list
+          .querySelectorAll<HTMLElement>("[data-pub-date]")
+          .forEach((item) => {
+            const visible =
+              (item.dataset.pubDate ?? "") <= today && shown < limit;
+            item.hidden = !visible;
+            if (visible) shown++;
+          });
+      });
+  }
+
+  showPublishedPosts();
+  document.addEventListener("astro:after-swap", showPublishedPosts);
+</script>

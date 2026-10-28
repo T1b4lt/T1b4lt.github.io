@@ -12,7 +12,11 @@ Non-obvious choices made in this project, and the reasoning behind each.
 
 **Decision.** Posts have two date fields — `pubDate` (display string) and `pubDateLogical` (ISO `YYYY-MM-DD`).
 
-**Why.** `pubDate` is free-form text for the byline (so it can be localized: "8 de abril de 2026" vs "April 8, 2026"). `pubDateLogical` is a machine-comparable date used to filter future posts in `PostList.astro`, enabling scheduled publishing without parsing localized strings.
+**Why.** `pubDate` is free-form text for the byline (so it can be localized: "8 de abril de 2026" vs "April 8, 2026"). `pubDateLogical` is a machine-comparable date used to hide future posts in listings, enabling scheduled publishing without parsing localized strings.
+
+**Decision.** Scheduled posts are hidden client-side (`ScheduledPosts.astro`), not filtered at build time.
+
+**Why.** A build-time filter freezes listings at the build date, so a scheduled post would only appear after a manual or cron-triggered rebuild. Filtering in the browser makes it appear on its date with no rebuild. The trade-off is accepted: the post page is public by direct URL before its date, and listings need JavaScript to reflect the current date.
 
 ## Tailwind 4 via `@tailwindcss/vite` (no config file)
 

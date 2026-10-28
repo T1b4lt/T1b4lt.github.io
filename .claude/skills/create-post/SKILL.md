@@ -102,7 +102,7 @@ Propose and confirm:
 - Slugs: Spanish slug for ES, English slug for EN. Short, kebab-case, no accents, usually different between languages.
 - `tags`: 3–5, reusing the existing vocabulary, localized per language (`IA` / `AI`).
 - `author`: `"Guillermo Segovia"` (the name in `voice.md`, same as every existing post).
-- Publication date: the one the user gave in step 2 (confirm it). If it is in the future, remind the user that a scheduled post only appears after a build runs on or after that date (see `docs/4-content-authoring.md → Scheduling`).
+- Publication date: the one the user gave in step 2 (confirm it). If it is in the future, remind the user that the post appears in listings on that date without a rebuild, but its page is reachable by direct URL from the moment it is deployed (see `docs/4-content-authoring.md → Scheduling`).
   - `pubDate` ES: `"28 de octubre de 2026"`. EN: `"October 28th, 2026"`.
   - `pubDateLogical`: `"2026-10-28"` in both.
 

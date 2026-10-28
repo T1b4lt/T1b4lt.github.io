@@ -26,7 +26,7 @@
 | SEO metadata      | `canonical`, `hreflang`, Open Graph, Twitter Card in `Layout.astro`; `BlogPosting` JSON-LD in `PostLayout.astro` |
 | Sitemap / robots  | `@astrojs/sitemap` + `public/robots.txt`                                                                         |
 | 404 page          | `src/pages/404.astro`                                                                                            |
-| Scheduled posts   | `pubDateLogical` field, filtered via `filterFuturePosts()` in `src/i18n/utils.ts`                                |
+| Scheduled posts   | `pubDateLogical` field, hidden in the browser by `src/components/ScheduledPosts.astro` until that date           |
 
 ## Non-goals
 

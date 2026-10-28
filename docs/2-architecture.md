@@ -89,13 +89,16 @@ The frontmatter field **`idx`** is _not_ an identifier — it is a number used o
 
 - `getBlogEntriesByLang(lang)` — fetches and filters collection entries by language prefix.
 - `sortPostsByIdx(posts)` — sorts entries by `idx` descending.
-- `filterFuturePosts(posts)` — hides entries whose `pubDateLogical` is in the future.
-- `getFormattedPosts(lang)` — combines fetch + sort + filter + format into a single call used by blog index pages.
+- `getFormattedPosts(lang, limit?)` — combines fetch + sort + format into a single call used by the blog index and home pages. Every post is returned, with a `hidden` flag set when its `pubDateLogical` is after the build date or it falls beyond `limit`.
 - `getBlogStaticPaths(lang)` — generates `getStaticPaths()` return values for `[slug].astro` pages.
 
 ### Scheduled publishing
 
-`filterFuturePosts()` in `src/i18n/utils.ts` hides posts whose `pubDateLogical` is in the future. This lets you commit and deploy a post in advance and have it appear automatically on the intended date — no rebuild required _relative to the post itself_, but a build on/after that date will include it.
+Listings render **every** post. Each item carries `data-pub-date` (its `pubDateLogical`) and starts with the `hidden` attribute if it was not yet due at build time. The list container carries `data-post-list` and, on the home page, `data-limit="2"`.
+
+`src/components/ScheduledPosts.astro` ships a small script that, on page load, compares each item's `data-pub-date` with the visitor's local date and shows the due posts (up to `data-limit`), hiding the rest. A post therefore appears in listings on its date without a rebuild.
+
+This is a facade: the post page itself (`/blog/<slug>`) is built and deployed immediately, so it is reachable by direct URL and listed in the sitemap before its date. Without JavaScript, listings fall back to the build-time state.
 
 ## Theming / dark mode
 

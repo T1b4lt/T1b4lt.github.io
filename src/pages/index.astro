@@ -3,11 +3,12 @@ import Layout from "../layouts/Layout.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import { useTranslations, getFormattedPosts } from "../i18n/utils";
 import { getFeaturedProjects } from "../i18n/utils";
+import ScheduledPosts from "../components/ScheduledPosts.astro";
 
 const lang = "en";
 const t = useTranslations(lang);
 const featuredProjects = await getFeaturedProjects(lang);
-const latestPosts = (await getFormattedPosts(lang)).slice(0, 2);
+const latestPosts = await getFormattedPosts(lang, 2);
 ---
 
 <Layout
@@ -77,9 +78,14 @@ const latestPosts = (await getFormattedPosts(lang)).slice(0, 2);
           >
             {t("home.latestPosts")}
           </h2>
-          <div class="mt-8 space-y-6">
+          <div class="mt-8 space-y-6" data-post-list data-limit="2">
             {latestPosts.map((post) => (
-              <a href={post.url} class="block group">
+              <a
+                href={post.url}
+                class="block group"
+                hidden={post.hidden}
+                data-pub-date={post.frontmatter.pubDateLogical}
+              >
                 <article class="py-4 border-b border-border-cream dark:border-border-dark">
                   <h3
                     class="text-lg text-near-black dark:text-ivory group-hover:text-terracotta dark:group-hover:text-coral transition-colors"
@@ -113,4 +119,5 @@ const latestPosts = (await getFormattedPosts(lang)).slice(0, 2);
       )
     }
   </div>
+  <ScheduledPosts />
 </Layout>

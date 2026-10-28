@@ -5,6 +5,8 @@ import type { CollectionEntry } from "astro:content";
 export interface FormattedPost {
   url: string;
   frontmatter: CollectionEntry<"blog">["data"];
+  // Initial visibility as of build time; ScheduledPosts.astro re-evaluates it in the browser
+  hidden: boolean;
 }
 
 export function getLangFromUrl(url: URL): Lang {
@@ -73,29 +75,30 @@ export function sortPostsByIdx(
   return [...posts].sort((a, b) => b.data.idx - a.data.idx);
 }
 
-export function filterFuturePosts(
-  posts: CollectionEntry<"blog">[],
-): CollectionEntry<"blog">[] {
-  const today = new Date().toISOString().slice(0, 10);
-  return posts.filter((post) => post.data.pubDateLogical <= today);
-}
-
+// Future posts are rendered but hidden, so the browser can reveal them on their
+// pubDateLogical without a rebuild. `limit` caps how many posts are visible.
 function formatPostsForList(
   posts: CollectionEntry<"blog">[],
   lang: Lang,
+  limit: number,
 ): FormattedPost[] {
+  const today = new Date().toISOString().slice(0, 10);
+  let shown = 0;
   return posts.map((entry) => {
     const slug = entry.id.replace(`${lang}/`, "");
     const url = lang === "en" ? `/blog/${slug}` : `/${lang}/blog/${slug}`;
-    return { url, frontmatter: entry.data };
+    const visible = entry.data.pubDateLogical <= today && shown < limit;
+    if (visible) shown++;
+    return { url, frontmatter: entry.data, hidden: !visible };
   });
 }
 
-export async function getFormattedPosts(lang: Lang): Promise<FormattedPost[]> {
+export async function getFormattedPosts(
+  lang: Lang,
+  limit = Infinity,
+): Promise<FormattedPost[]> {
   const entries = await getBlogEntriesByLang(lang);
-  const sorted = sortPostsByIdx(entries);
-  const filtered = filterFuturePosts(sorted);
-  return formatPostsForList(filtered, lang);
+  return formatPostsForList(sortPostsByIdx(entries), lang, limit);
 }
 
 export async function getBlogStaticPaths(lang: Lang) {
