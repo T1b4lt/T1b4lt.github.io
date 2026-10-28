@@ -37,7 +37,8 @@ const { posts } = Astro.props;
             </h2>
             <div class="flex flex-wrap items-center gap-3 mt-2">
               <span class="text-sm text-stone-gray dark:text-warm-silver">
-                {post.frontmatter.pubDate}
+                {post.frontmatter.pubDate} · {post.readingTime}{" "}
+                {t("post.readingTime")}
               </span>
               <div class="flex flex-wrap gap-1.5">
                 {post.frontmatter.tags.map((tag) => (

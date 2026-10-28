@@ -2,7 +2,11 @@
 import { render } from "astro:content";
 import type { InferGetStaticPropsType } from "astro";
 import PostLayout from "../../layouts/PostLayout.astro";
-import { getBlogStaticPaths, getPostTranslations } from "../../i18n/utils";
+import {
+  getBlogStaticPaths,
+  getPostTranslations,
+  getReadingTime,
+} from "../../i18n/utils";
 
 export async function getStaticPaths() {
   return getBlogStaticPaths("en");
@@ -15,6 +19,10 @@ const { Content } = await render(entry);
 const translations = await getPostTranslations(entry.data.idx, "en");
 ---
 
-<PostLayout frontmatter={entry.data} translations={translations}>
+<PostLayout
+  frontmatter={entry.data}
+  translations={translations}
+  readingTime={getReadingTime(entry.body)}
+>
   <Content />
 </PostLayout>

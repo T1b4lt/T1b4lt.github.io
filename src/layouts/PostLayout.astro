@@ -12,12 +12,13 @@ import {
 interface Props {
   frontmatter: CollectionEntry<"blog">["data"];
   translations?: Record<string, string>;
+  readingTime: number;
 }
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-const { frontmatter, translations } = Astro.props;
+const { frontmatter, translations, readingTime } = Astro.props;
 const subtitle =
   t("post.by") +
   " " +
@@ -25,7 +26,11 @@ const subtitle =
   " " +
   t("post.on") +
   " " +
-  frontmatter.pubDate;
+  frontmatter.pubDate +
+  " · " +
+  readingTime +
+  " " +
+  t("post.readingTime");
 
 const canonicalPath = getAlternatePath(Astro.url.pathname, lang, translations);
 const canonicalUrl = new URL(canonicalPath, Astro.site);
@@ -40,6 +45,7 @@ const jsonLd = {
   },
   datePublished: frontmatter.pubDateLogical,
   url: canonicalUrl.href,
+  timeRequired: `PT${readingTime}M`,
   inLanguage: lang,
   keywords: frontmatter.tags,
 };

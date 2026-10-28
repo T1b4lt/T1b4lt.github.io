@@ -5,8 +5,23 @@ import type { CollectionEntry } from "astro:content";
 export interface FormattedPost {
   url: string;
   frontmatter: CollectionEntry<"blog">["data"];
+  readingTime: number;
   // Initial visibility as of build time; ScheduledPosts.astro re-evaluates it in the browser
   hidden: boolean;
+}
+
+const WORDS_PER_MINUTE = 230;
+
+// Estimated minutes to read a Markdown body. Strips markup that is not read
+// aloud (HTML tags, link/image URLs, fences) before counting words.
+export function getReadingTime(body = ""): number {
+  const text = body
+    .replace(/<[^>]+>/g, " ")
+    .replace(/!?\[([^\]]*)\]\([^)]*\)/g, "$1")
+    .replace(/```[^\n]*/g, " ")
+    .replace(/[#>*_`~|-]+/g, " ");
+  const words = text.split(/\s+/).filter(Boolean).length;
+  return Math.max(1, Math.round(words / WORDS_PER_MINUTE));
 }
 
 export function getLangFromUrl(url: URL): Lang {
@@ -89,7 +104,12 @@ function formatPostsForList(
     const url = lang === "en" ? `/blog/${slug}` : `/${lang}/blog/${slug}`;
     const visible = entry.data.pubDateLogical <= today && shown < limit;
     if (visible) shown++;
-    return { url, frontmatter: entry.data, hidden: !visible };
+    return {
+      url,
+      frontmatter: entry.data,
+      readingTime: getReadingTime(entry.body),
+      hidden: !visible,
+    };
   });
 }
 
