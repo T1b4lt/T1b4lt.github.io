@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440" font-family="system-ui, -apple-system, sans-serif">
+  <!-- Background -->
+  <rect width="900" height="440" rx="16" fill="#1a1a2e"/>
+
+  <!-- Title -->
+  <text x="450" y="35" text-anchor="middle" fill="#e2e8f0" font-size="18" font-weight="700">The honest bet</text>
+  <text x="450" y="55" text-anchor="middle" fill="#94a3b8" font-size="12">expected Brier penalty when the real chance of rain is 70%: 0.7 &#183; (1 &#8722; p)&#178; + 0.3 &#183; p&#178;</text>
+
+  <!-- Grid -->
+  <g stroke="#334155" stroke-width="1">
+    <line x1="80" y1="100" x2="820" y2="100"/>
+    <line x1="80" y1="152" x2="820" y2="152"/>
+    <line x1="80" y1="204" x2="820" y2="204"/>
+    <line x1="80" y1="256" x2="820" y2="256"/>
+    <line x1="80" y1="308" x2="820" y2="308"/>
+  </g>
+
+  <!-- Axes -->
+  <line x1="80" y1="360" x2="820" y2="360" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="80" y1="90" x2="80" y2="360" stroke="#64748b" stroke-width="1.5"/>
+  <g fill="#94a3b8" font-size="11" text-anchor="end">
+    <text x="72" y="104">0.7</text>
+    <text x="72" y="156">0.6</text>
+    <text x="72" y="208">0.5</text>
+    <text x="72" y="260">0.4</text>
+    <text x="72" y="312">0.3</text>
+    <text x="72" y="364">0.2</text>
+  </g>
+  <g fill="#94a3b8" font-size="11" text-anchor="middle">
+    <text x="80" y="378">0%</text>
+    <text x="265" y="378">25%</text>
+    <text x="450" y="378">50%</text>
+    <text x="635" y="378">75%</text>
+    <text x="820" y="378">100%</text>
+  </g>
+  <text x="450" y="405" text-anchor="middle" fill="#94a3b8" font-size="12" font-style="italic">probability you announce (p) &#8594;</text>
+  <text x="30" y="230" text-anchor="middle" fill="#94a3b8" font-size="12" font-style="italic" transform="rotate(-90 30 230)">expected penalty &#8594;</text>
+
+  <!-- Truth marker -->
+  <line x1="598" y1="90" x2="598" y2="360" stroke="#22d3ee" stroke-width="1" stroke-dasharray="4 4" opacity="0.6"/>
+
+  <!-- Curve (exact parabola as a quadratic Bezier) -->
+  <path d="M80,100 Q450,464 820,308" fill="none" stroke="#a78bfa" stroke-width="3"/>
+
+  <!-- Points -->
+  <circle cx="450" cy="334" r="7" fill="#fbbf24"/>
+  <text x="438" y="352" text-anchor="end" fill="#fbbf24" font-size="12" font-weight="700">hedge (50%) &#8594; 0.25</text>
+
+  <circle cx="598" cy="354.8" r="8" fill="#22d3ee"/>
+  <text x="606" y="250" fill="#22d3ee" font-size="12" font-weight="700">tell the truth (70%) &#8594; 0.21</text>
+  <text x="606" y="266" fill="#22d3ee" font-size="11">the only minimum</text>
+
+  <circle cx="820" cy="308" r="7" fill="#f97316"/>
+  <text x="812" y="292" text-anchor="end" fill="#f97316" font-size="12" font-weight="700">exaggerate (100%) &#8594; 0.30</text>
+</svg>
