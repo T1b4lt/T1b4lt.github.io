@@ -1,0 +1,618 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Burbujas tecnológicas 101</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap"
+    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
+    <link rel="stylesheet" href="assets/css/theme.css" />
+  </head>
+  <body>
+    <div class="bg-ticker"></div>
+
+    <div class="reveal">
+      <div class="slides">
+        <!-- ============ BLOQUE 1 · GANCHO ============ -->
+
+        <!-- 1 · Portada -->
+        <section class="title-slide" data-anim="cover">
+          <div class="stage cover-stage" id="cover-stage"></div>
+          <div class="cover-text">
+            <div class="kicker">Economía y tecnología · 101</div>
+            <h1>Burbujas<br /><span class="grad">tecnológicas</span> 101</h1>
+            <p class="sub">Del ferrocarril a la IA: por qué todos se suben al barco<br />y solo unos pocos llegan a puerto</p>
+            <div class="tags">
+              <span class="tag accent">Ferrocarril</span>
+              <span class="tag">Años 20</span>
+              <span class="tag">Dot-com y telecom</span>
+              <span class="tag warm">IA y semiconductores</span>
+            </div>
+          </div>
+          <div class="replay-hint">← → navegar · R repetir animación · F pantalla completa · datos a 8-oct-2026</div>
+        </section>
+
+        <!-- 2 · Gancho -->
+        <section data-anim="hook">
+          <div class="kicker">La paradoja</div>
+          <h2>Todos tenían razón sobre la tecnología.<br />Casi todos perdieron dinero.</h2>
+          <div class="grid-3 hook-grid">
+            <div class="card hook-card">
+              <div class="era">Reino Unido · 1845 → 1849</div>
+              <div class="big-num c-warm"><span class="cnt" data-to="-64">0</span>%</div>
+              <p class="small">Índice de acciones ferroviarias</p>
+              <p class="tiny survived">✓ La red pasó de 2.441 a 10.433 millas en 1860</p>
+            </div>
+            <div class="card hook-card">
+              <div class="era">EE. UU. · sep-1929 → may-1932</div>
+              <div class="big-num c-warm"><span class="cnt" data-to="-98">0</span>%</div>
+              <p class="small">Acción de RCA, la «tecnológica» de la radio</p>
+              <p class="tiny survived">✓ La radio llegó a casi todos los hogares</p>
+            </div>
+            <div class="card hook-card">
+              <div class="era">EE. UU. · mar-2000 → oct-2002</div>
+              <div class="big-num c-warm"><span class="cnt" data-to="-78">0</span>%</div>
+              <p class="small">Índice Nasdaq Composite</p>
+              <p class="tiny survived">✓ Internet cambió el mundo… quince años después</p>
+            </div>
+          </div>
+          <div class="callout" style="margin-top: 34px">La tecnología gana casi siempre. La pregunta es <strong>quién paga la factura del camino</strong>.</div>
+          <div class="footnote">Fuentes: Odlyzko (2010) índice ferroviario jul-1845→oct-1849; Global Financial Data vía research/historia/anos-20.md (RCA); Nasdaq 5.048,62 → 1.114,11.</div>
+        </section>
+
+        <!-- 3 · Hoy -->
+        <section data-anim="today">
+          <div class="kicker">Octubre de 2026</div>
+          <h2>Hoy el barco se llama IA</h2>
+          <div class="grid-4 today-grid">
+            <div class="card stat">
+              <div class="stat-v"><span class="cnt" data-to="852">0</span><small> mil M$</small></div>
+              <div class="stat-l">Valoración de OpenAI tras su ronda de 122.000 M$</div>
+              <div class="stat-d">31-mar-2026</div>
+            </div>
+            <div class="card stat">
+              <div class="stat-v">~<span class="cnt" data-to="5.8" data-dec="1">0</span><small> billones $</small></div>
+              <div class="stat-l">Valor en bolsa de NVIDIA (&gt; 8 % del S&amp;P 500)</div>
+              <div class="stat-d">6-oct-2026</div>
+            </div>
+            <div class="card stat">
+              <div class="stat-v">~<span class="cnt" data-to="730">0</span><small> mil M$</small></div>
+              <div class="stat-l">Inversión prevista en 2026 de Microsoft, Alphabet, Amazon y Meta</div>
+              <div class="stat-d">guías 2026 · 720–745 mil M$</div>
+            </div>
+            <div class="card stat glow-warm">
+              <div class="stat-v c-warm">~<span class="cnt" data-to="450">0</span><small> mil M$</small></div>
+              <div class="stat-l">Deuda ligada a la IA emitida en 2026, más del doble que en todo 2025</div>
+              <div class="stat-d">a principios de sept-2026</div>
+            </div>
+          </div>
+          <div class="callout warm" style="margin-top: 40px">
+            ¿Ferrocarril de 1845 o internet de 1999? Hoy no vamos a adivinar el futuro:<br />vamos a aprender a <strong>leer el patrón</strong>.
+          </div>
+          <div class="footnote">«Billón» = 10¹² (español). Fuentes: OpenAI (mar-2026); cotización NVIDIA 6-oct-2026; guías de resultados T2-2026; Morgan Stanley vía Banco de Inglaterra FPC (30-sep-2026).</div>
+        </section>
+
+        <!-- ============ BLOQUE 2 · QUÉ ES UNA BURBUJA ============ -->
+
+        <section class="divider" data-anim="divider">
+          <div class="num">01 · MECÁNICA</div>
+          <h2>¿Qué es una burbuja?</h2>
+          <p>Cinco ideas para reconocerla: precio, fases, deuda, tipos de deudor y el gran ciclo tecnológico.</p>
+        </section>
+
+        <!-- 4 · Definición -->
+        <section data-anim="balloon">
+          <div class="kicker">Definición</div>
+          <h2>Una burbuja es un precio que solo se sostiene<br />si mañana alguien paga más</h2>
+          <div class="stage" id="bl-stage" style="height: 440px; margin-top: 6px"></div>
+          <div id="bl-caption" class="callout" style="margin-top: 8px; min-height: 84px; font-size: 26px"></div>
+          <span class="fragment step" data-step="1"></span>
+          <span class="fragment step" data-step="2"></span>
+          <div class="footnote">Curvas ilustrativas. «Valor fundamental» = lo que justifican los beneficios futuros razonables.</div>
+        </section>
+
+        <!-- 5 · Fases Minsky/Kindleberger -->
+        <section data-anim="stages">
+          <div class="kicker">El guion · Minsky y Kindleberger</div>
+          <h2>Todas las manías siguen cinco actos</h2>
+          <div class="stage" id="st-stage" style="height: 430px; margin-top: 4px"></div>
+          <div id="st-caption" class="callout" style="margin-top: 8px; min-height: 92px; font-size: 25px"></div>
+          <span class="fragment step" data-step="1"></span>
+          <span class="fragment step" data-step="2"></span>
+          <span class="fragment step" data-step="3"></span>
+          <span class="fragment step" data-step="4"></span>
+          <span class="fragment step" data-step="5"></span>
+          <div class="footnote">Kindleberger, <em>Manias, Panics and Crashes</em> (1978), sobre el modelo de Minsky. Curva ilustrativa.</div>
+        </section>
+
+        <!-- 6 · Apalancamiento (interactiva) -->
+        <section data-anim="leverage">
+          <div class="kicker">Pruébalo · apalancamiento</div>
+          <h2>La deuda convierte una caída en una ruina</h2>
+          <div class="grid-2 lev-grid">
+            <div>
+              <div class="stage" id="lev-stage" style="height: 400px"></div>
+            </div>
+            <div class="lev-panel">
+              <div class="slider-row"><span class="lbl">Deuda</span><input type="range" id="lev-d" min="0" max="95" value="0" /><output id="lev-d-out" class="c-accent">0 %</output></div>
+              <div class="slider-row"><span class="lbl">Caída precio</span><input type="range" id="lev-p" min="0" max="50" value="20" /><output id="lev-p-out" class="c-warm">20 %</output></div>
+              <div class="row" style="gap: 10px; margin: 6px 0 26px; flex-wrap: wrap">
+                <button class="btn" data-d="0">Sin deuda</button>
+                <button class="btn" data-d="50">Mitad prestado</button>
+                <button class="btn" data-d="90">Margen de 1929 (90 %)</button>
+              </div>
+              <div class="lev-out">
+                <div class="tiny muted mono">TU CAPITAL PROPIO</div>
+                <div class="big-num" id="lev-res">−20 %</div>
+                <div class="small" id="lev-msg">Pierdes lo mismo que el activo.</div>
+              </div>
+            </div>
+          </div>
+          <div class="footnote">Valores ilustrativos: pérdida del capital = caída ÷ (1 − deuda). En 1929 era habitual comprar acciones poniendo un ~10 % (White, NBER 2006).</div>
+        </section>
+
+        <!-- 7 · Minsky: tipos de deudor -->
+        <section data-anim="minsky">
+          <div class="kicker">Hyman Minsky · hipótesis de inestabilidad financiera</div>
+          <h2>La estabilidad fabrica inestabilidad</h2>
+          <p class="lede">Cuanto más dura el boom, más deudores pasan de la izquierda a la derecha.</p>
+          <div class="grid-3" style="margin-top: 26px">
+            <div class="card mk-card" style="--c: var(--accent-2)">
+              <div class="mk-tag">Cubierta · <em>hedge</em></div>
+              <h3>Los ingresos pagan intereses y principal</h3>
+              <p class="small">Puede aguantar una mala racha.</p>
+              <p class="tiny muted">Ej.: empresa que invierte con su propia caja.</p>
+            </div>
+            <div class="card mk-card" style="--c: var(--accent)">
+              <div class="mk-tag">Especulativa</div>
+              <h3>Los ingresos pagan intereses; el principal se refinancia</h3>
+              <p class="small">Depende de que el mercado siga abierto.</p>
+              <p class="tiny muted">Ej.: utilities de los años 20, holdings piramidales.</p>
+            </div>
+            <div class="card mk-card" style="--c: var(--warm)">
+              <div class="mk-tag">Ponzi</div>
+              <h3>Ni siquiera los intereses: necesita más deuda o vender</h3>
+              <p class="small">Solo funciona si el precio sigue subiendo.</p>
+              <p class="tiny muted">Ej.: George Hudson pagando dividendos con capital (1840s).</p>
+            </div>
+          </div>
+          <div class="mk-bar"><div class="mk-fill"></div><span class="mk-l">boom temprano</span><span class="mk-r">euforia →</span></div>
+          <div class="footnote">Minsky, Working Paper 74 (1992). «Ponzi» es el término técnico de Minsky, no una acusación de fraude.</div>
+        </section>
+
+        <!-- 8 · Perez -->
+        <section data-anim="perez">
+          <div class="kicker">Carlota Perez · revoluciones tecnológicas</div>
+          <h2>La burbuja financia la infraestructura;<br />el crash la abarata para otros</h2>
+          <div class="stage" id="pz-stage" style="height: 470px; margin-top: 10px"></div>
+          <div class="footnote">Perez, <em>Technological Revolutions and Financial Capital</em> (2002) y capítulo de 2014. Curva esquemática; años = «big bang» de cada oleada.</div>
+        </section>
+
+        <!-- ============ BLOQUE 3 · HISTORIA ============ -->
+
+        <section class="divider" data-anim="divider">
+          <div class="num">02 · HISTORIA</div>
+          <h2>El patrón, en cinco escenas</h2>
+          <p>De los tulipanes holandeses a la fibra óptica: misma película, distinto decorado.</p>
+        </section>
+
+        <!-- 9 · Tulipanes y Mares del Sur -->
+        <section data-anim="southsea">
+          <div class="kicker">1637 · 1720</div>
+          <h2>Tulipanes: más mito que crisis.<br />Mares del Sur: el primer manual.</h2>
+          <div class="grid-2" style="margin-top: 22px; gap: 40px">
+            <div class="card">
+              <div class="mk-tag" style="--c: var(--muted)">Tulipanes · 1637</div>
+              <div class="stage" id="tu-stage" style="height: 170px"></div>
+              <p class="small">Bulbo <em>Witte Croonen</em>: <strong>64 → 1.668 → 37,5</strong> florines en semanas.</p>
+              <p class="tiny muted">Pero solo ~350 operadores y ninguna quiebra documentada: el relato de Mackay (1841) exageró.</p>
+            </div>
+            <div class="card glow">
+              <div class="mk-tag" style="--c: var(--accent)">Compañía de los Mares del Sur · 1720</div>
+              <div class="stage" id="ss-stage" style="height: 170px"></div>
+              <p class="small">Acción: <strong>~£130 → ~£1.050 → ~£175</strong> en un año.</p>
+              <p class="tiny">La compañía <strong>prestaba dinero para comprar sus propias acciones</strong>, pagaderas a plazos: la primera financiación circular.</p>
+            </div>
+          </div>
+          <div class="quote-line">«Puedo calcular el movimiento de los astros, pero no la locura de la gente». <span class="muted">— atribuida a Isaac Newton, que perdió ~£10.000 en 1720</span></div>
+          <div class="footnote">Garber (1989); Goldgar (2007); Frehen, Goetzmann y Rouwenhorst; Odlyzko (2020). La cita de Newton es de segunda mano (Spence, 1756).</div>
+        </section>
+
+        <!-- 10 · Railway Mania -->
+        <section data-anim="railway">
+          <div class="kicker">Reino Unido · 1844–1850</div>
+          <h2>Railway Mania: el Parlamento aprobó vías<br />como si no hubiera mañana</h2>
+          <div class="grid-2 rw-grid">
+            <div>
+              <div class="chart-title">Millas de vía autorizadas por el Parlamento</div>
+              <div class="stage" id="rw-stage" style="height: 420px"></div>
+              <div class="viz-tip" id="rw-tip"></div>
+            </div>
+            <div class="rw-facts">
+              <div class="fact"><span class="fv c-accent">7,3 %</span><span class="fl">del PIB británico invertido en ferrocarril en 1847</span></div>
+              <div class="fact"><span class="fv c-warm">−64 %</span><span class="fl">índice de acciones ferroviarias, jul-1845 → oct-1849</span></div>
+              <div class="fact"><span class="fv">£1 de £20</span><span class="fl">depósito inicial por acción; el resto se exigía después en <em>calls</em></span></div>
+              <div class="quote-card">«El precio original era de £50. Llegaron a 120 […]; ahora están a 20».<span>— Charlotte Brontë, sobre sus acciones de Hudson, 1849</span></div>
+            </div>
+          </div>
+          <div class="footnote">Odlyzko, «Collective hallucinations and inefficient markets» (2010): millas autorizadas, inversión y índice. 1848–49 no mostrados en la serie fuente.</div>
+        </section>
+
+        <!-- 11 · Las vías se quedaron -->
+        <section data-anim="tracks">
+          <div class="kicker">La paradoja ferroviaria</div>
+          <h2>Las vías se quedaron. Los inversores, no.</h2>
+          <div class="stage" id="tr-stage" style="height: 300px; margin-top: 10px"></div>
+          <div class="grid-3" style="margin-top: 14px">
+            <div class="card tr-card"><div class="fv c-warm">~⅓</div><p class="small">del capital invertido en la manía británica se perdió</p></div>
+            <div class="card tr-card"><div class="fv c-warm">89 de 364</div><p class="small">ferrocarriles de EE. UU. quebraron tras el pánico de 1873</p></div>
+            <div class="card tr-card"><div class="fv c-warm">27.000 mi</div><p class="small">de vía en EE. UU. pasaron a manos de los tribunales solo en 1893</p></div>
+          </div>
+          <div class="quote-line">«La intuición básica era correcta. Solo tardó más». <span class="muted">— Andrew Odlyzko</span></div>
+          <div class="footnote">Odlyzko (2010); Daggett, <em>Railroad Reorganization</em> (1908); quiebras de 1873 según research/historia/ferrocarril.md.</div>
+        </section>
+
+        <!-- 12 · Años 20 -->
+        <section data-anim="twenties">
+          <div class="kicker">EE. UU. · 1908–1932</div>
+          <h2>Años 20: el coche y la radio ganaron.<br />Casi todos sus fabricantes, no.</h2>
+          <div class="grid-2 tw-grid">
+            <div>
+              <div class="chart-title" id="tw-title">Fabricantes de automóviles en EE. UU. · 1908: <span class="c-accent">253</span></div>
+              <div class="stage" id="tw-stage" style="height: 400px"></div>
+            </div>
+            <div class="rw-facts">
+              <div class="fact"><span class="fv c-accent-2">3</span><span class="fl">Ford, GM y Chrysler hacían ~80 % de los coches en 1929</span></div>
+              <div class="fact"><span class="fv c-warm">−98 %</span><span class="fl">RCA, de 114,75 $ a 2,63 $ (1929 → 1932)</span></div>
+              <div class="fact"><span class="fv c-warm">−89 %</span><span class="fl">Dow Jones hasta jul-1932; no recuperó el pico hasta 1954</span></div>
+              <div class="fact"><span class="fv">10 %</span><span class="fl">de entrada para comprar acciones; el resto, crédito de bancos, <strong>empresas y extranjeros</strong></span></div>
+            </div>
+          </div>
+          <div class="footnote">EBSCO (253 → 44 fabricantes); Global Financial Data (RCA, ajustado por split); White, NBER (2006): préstamos a brókers 8.550 M$ el 1-oct-1929.</div>
+        </section>
+
+        <!-- 13 · Dot-com -->
+        <section data-anim="dotcom">
+          <div class="kicker">EE. UU. · 1995–2015</div>
+          <h2>Dot-com: internet cambió el mundo…<br />quince años después del crash</h2>
+          <div class="grid-2 dc-grid">
+            <div>
+              <div class="chart-title">Nasdaq Composite · puntos reales, trazado esquemático</div>
+              <div class="stage" id="dc-stage" style="height: 400px"></div>
+            </div>
+            <div>
+              <div class="chart-title">OPV: subida media el primer día</div>
+              <div class="bars ipo-bars" id="dc-bars">
+                <span class="lbl">1980–2025</span><div class="track"><div class="fill" data-v="0.27"></div></div><span class="val">19 %</span>
+                <span class="lbl">1999</span><div class="track"><div class="fill top" data-v="1"></div></div><span class="val">71 %</span>
+                <span class="lbl">2000</span><div class="track"><div class="fill top" data-v="0.79"></div></div><span class="val">56 %</span>
+              </div>
+              <p class="small" style="margin-top: 26px"><strong>76 %</strong> de las OPV de 1999 y <strong>81 %</strong> de las de 2000 perdían dinero.</p>
+              <p class="tiny muted">Ojo: el 70 % de las OPV de 2011–2025 también. Perder dinero no basta para diagnosticar burbuja.</p>
+              <div class="quote-card" style="margin-top: 18px">«¿Cómo sabemos cuándo la exuberancia irracional ha inflado indebidamente el valor de los activos?»<span>— Alan Greenspan, 5-dic-1996: más de tres años antes del pico</span></div>
+            </div>
+          </div>
+          <div class="footnote">Nasdaq; Jay Ritter, «IPO Statistics» (ed. oct-2026); Reserva Federal (discurso de Greenspan).</div>
+        </section>
+
+        <!-- 14 · Telecom y fibra (stepped) -->
+        <section data-anim="fiber">
+          <div class="kicker">Telecom · 1997–2002 · la analogía más cercana</div>
+          <h2>Se tendió fibra para un tráfico<br />que nunca llegó a ese ritmo</h2>
+          <div class="grid-2 fb-grid">
+            <div>
+              <div class="stage" id="fb-stage" style="height: 400px"></div>
+            </div>
+            <div class="rw-facts" id="fb-facts">
+              <div class="fact"><span class="fv">97 → 50</span><span class="fl">mil M$ de capex telecom, 2000 → 2002</span></div>
+              <div class="fact"><span class="fv c-warm">107 mil M$</span><span class="fl">activos de WorldCom: la mayor quiebra de EE. UU. hasta 2008</span></div>
+              <div class="fact"><span class="fv c-warm">52–55 %</span><span class="fl">de los impagos de bonos basura en 2001–02 fueron de telecom</span></div>
+              <div class="fact"><span class="fv c-warm">16 %</span><span class="fl">lo que recuperaron de media los bonistas</span></div>
+            </div>
+          </div>
+          <div id="fb-caption" class="callout" style="margin-top: 10px; min-height: 78px; font-size: 24px"></div>
+          <span class="fragment step" data-step="1"></span>
+          <span class="fragment step" data-step="2"></span>
+          <div class="footnote">Coffman y Odlyzko (2001); RHK (capex); SEC (WorldCom); Altman, NYU (impagos). Curvas calculadas a partir de las tasas declaradas; escala logarítmica.</div>
+        </section>
+
+        <!-- 15 · Cisco vs NVIDIA -->
+        <section data-anim="cisco">
+          <div class="kicker">Picos y palas</div>
+          <h2>Cisco en 2000 y NVIDIA en 2026:<br />se parecen, pero no son lo mismo</h2>
+          <table class="tbl cs-tbl">
+            <thead><tr><th></th><th>Cisco · mar-2000</th><th>NVIDIA · oct-2026</th><th>Lectura</th></tr></thead>
+            <tbody>
+              <tr><td>Valor en bolsa</td><td>~555 mil M$ · n.º 1 mundial</td><td>~5,8 billones $ · &gt; 8 % del S&amp;P 500</td><td><span class="pill warn">⚠ similar</span></td></tr>
+              <tr><td>Tamaño vs PIB EE. UU.</td><td>~5,5 %</td><td>~15 % (a 5 billones, oct-2025)</td><td><span class="pill warn">⚠ mayor hoy</span></td></tr>
+              <tr><td>Precio / beneficio</td><td>~200x (histórico)</td><td>~17x (estimado)</td><td><span class="pill good">✓ distinto</span></td></tr>
+              <tr><td>Beneficio</td><td>modesto frente al precio</td><td>59,7 mil M$ en un trimestre · margen bruto 75 %</td><td><span class="pill good">✓ distinto</span></td></tr>
+              <tr><td>Clientes</td><td>startups telecom con deuda</td><td>3 clientes ≈ 44 % de los ingresos</td><td><span class="pill warn">⚠ concentrado</span></td></tr>
+              <tr><td>Después</td><td>−90 %; 25 años para volver a su precio</td><td>?</td><td></td></tr>
+            </tbody>
+          </table>
+          <div class="footnote">T. Rowe Price (nov-2025); NVIDIA T2 FY27; Cisco: fuentes secundarias. Los PER no son homogéneos: Cisco histórico vs NVIDIA a 12 meses vista.</div>
+        </section>
+
+        <!-- 16 · Quién quedó a flote -->
+        <section data-anim="boats">
+          <div class="kicker">Supervivientes</div>
+          <h2>De cada flota, muy pocos llegan a puerto</h2>
+          <div class="stage" id="bt-stage" style="height: 470px; margin-top: 4px"></div>
+          <div class="callout" style="margin-top: 6px; font-size: 25px">Sobreviven los que tienen <strong class="c-accent-2">caja propia</strong>, los que llegan <strong class="c-accent-2">después del crash</strong> y compran infraestructura barata, y los que tienen <strong class="c-accent-2">escala</strong>.</div>
+          <div class="footnote">Barcos ilustrativos; supervivientes reales. Tras 2002, Google compró fibra oscura barata y el ancho de banda barato hizo posible YouTube.</div>
+        </section>
+
+        <!-- ============ BLOQUE 4 · HOY ============ -->
+
+        <section class="divider" data-anim="divider">
+          <div class="num">03 · HOY</div>
+          <h2>Los ingredientes, en 2026</h2>
+          <p>Inversión, ingresos, circularidad, deuda, cajas opacas y chips que caducan.</p>
+        </section>
+
+        <!-- 17 · Receta -->
+        <section data-anim="recipe">
+          <div class="kicker">La receta</div>
+          <h2>Siete ingredientes clásicos… y su versión actual</h2>
+          <table class="tbl rc-tbl">
+            <thead><tr><th>Ingrediente</th><th>Antes</th><th>Ahora</th></tr></thead>
+            <tbody>
+              <tr><td>Inversión masiva</td><td>Ferrocarril RU 1847: 7,3 % del PIB</td><td>Capex IA ~1,2–2 % del PIB de EE. UU. (2025)</td></tr>
+              <tr><td>Previsiones exponenciales</td><td>«El tráfico se duplica cada 100 días»</td><td>Cómputo comprometido ≫ ingresos</td></tr>
+              <tr><td>El proveedor financia al cliente</td><td>Lucent: 8.100 M$ (~24 % de ingresos)</td><td>NVIDIA invierte en y avala a sus clientes</td></tr>
+              <tr><td>Deuda creciente</td><td>Telecom: más de la mitad de los impagos de 2001–02</td><td>~450 mil M$ de deuda IA en 2026</td></tr>
+              <tr><td>Estructuras opacas</td><td>Holdings piramidales de los años 20</td><td>SPV fuera de balance</td></tr>
+              <tr><td>Concentración</td><td>Pocos clientes de fibra</td><td>OpenAI ≈ 50 % de la cartera de Oracle</td></tr>
+              <tr><td>Activos que caducan</td><td>Equipos ópticos</td><td>GPU: vida contable de 5–6 años</td></tr>
+            </tbody>
+          </table>
+          <div class="footnote">Detalle y fuentes de cada fila en research/README.md.</div>
+        </section>
+
+        <!-- 18 · Capex / PIB -->
+        <section data-anim="capexgdp">
+          <div class="kicker">Ingrediente 1 · inversión</div>
+          <h2>La IA ya invierte más que telecom en 2000,<br />aunque menos que el ferrocarril</h2>
+          <div class="grid-2 cg-grid">
+            <div>
+              <div class="chart-title">Inversión en el pico, % del PIB · rango de estimaciones</div>
+              <div class="stage" id="cg-stage" style="height: 400px"></div>
+              <div class="viz-tip" id="cg-tip"></div>
+            </div>
+            <div>
+              <div class="chart-title">¿Qué parte de la inversión cubren los ingresos?</div>
+              <div class="stage" id="cv-stage" style="height: 400px"></div>
+            </div>
+          </div>
+          <div class="footnote">Estimaciones no homogéneas: Odlyzko (RU, 1847); Kedrosky y Azhar/Exponential View (2025). Cobertura de ingresos: Azhar (2025). Orden de magnitud.</div>
+        </section>
+
+        <!-- 19 · Hueco de ingresos -->
+        <section data-anim="gap">
+          <div class="kicker">Ingrediente 2 · previsiones</div>
+          <h2>El hueco: compromisos que corren<br />mucho más que los ingresos</h2>
+          <div class="stage" id="gp-stage" style="height: 430px; margin-top: 10px"></div>
+          <div class="callout warm" style="margin-top: 10px; font-size: 26px">Bain estima que el sector necesitará <strong>6 billones $</strong> de ingresos anuales en 2031 para justificar la inversión; calcula un hueco de <strong>4,2 billones $</strong>.</div>
+          <div class="footnote">FT (19-sep-2026), documento interno de OpenAI: proyecciones. Bain &amp; Co., Technology Report (sep-2026).</div>
+        </section>
+
+        <!-- 20 · Financiación circular (stepped) -->
+        <section data-anim="circular">
+          <div class="kicker">Ingrediente 3 · circularidad</div>
+          <h2>El dinero que da vueltas</h2>
+          <div class="stage" id="cc-stage" style="height: 470px"></div>
+          <div id="cc-caption" class="callout" style="margin-top: 4px; min-height: 84px; font-size: 25px"></div>
+          <span class="fragment step" data-step="1"></span>
+          <span class="fragment step" data-step="2"></span>
+          <span class="fragment step" data-step="3"></span>
+          <div class="footnote">Fuentes: research/ia-financiacion-circular.md (WSJ, Bloomberg, CoreWeave, Oracle, NVIDIA). Diagrama simplificado; importes a oct-2026.</div>
+        </section>
+
+        <!-- 21 · Vendor financing -->
+        <section data-anim="vendor">
+          <div class="kicker">Ya lo vimos</div>
+          <h2>Cuando el proveedor presta a sus clientes</h2>
+          <div class="grid-2 vd-grid">
+            <div class="card">
+              <div class="mk-tag" style="--c: var(--muted)">2000 · <em>vendor financing</em> telecom</div>
+              <div class="bars vd-bars">
+                <span class="lbl">Lucent</span><div class="track"><div class="fill" data-v="1"></div></div><span class="val">8,1</span>
+                <span class="lbl">Nortel</span><div class="track"><div class="fill" data-v="0.38"></div></div><span class="val">3,1</span>
+                <span class="lbl">Cisco</span><div class="track"><div class="fill" data-v="0.30"></div></div><span class="val">2,4</span>
+              </div>
+              <p class="tiny muted" style="margin: 8px 0 18px">mil M$ comprometidos para financiar a clientes</p>
+              <p class="small">Clientes: operadoras nuevas con deuda. Cuando quebraron, <strong>Lucent y Nortel cayeron ~99 %</strong>.</p>
+            </div>
+            <div class="card glow">
+              <div class="mk-tag" style="--c: var(--accent)">2025–26 · NVIDIA y sus clientes</div>
+              <ul class="small vd-list">
+                <li><strong>30 mil M$</strong> en acciones de OpenAI (mar-2026)</li>
+                <li>Garantías de hasta <strong>105 mil M$</strong> para el campus de OpenAI en Ohio</li>
+                <li>Accionista de CoreWeave y comprador de su capacidad no vendida (<strong>6,3 mil M$</strong>)</li>
+                <li>~2 mil M$ en el vehículo de xAI que compra sus GPU</li>
+              </ul>
+              <p class="small" style="margin-top: 14px">Diferencia: muchos clientes de NVIDIA <strong>son las empresas más rentables del mundo</strong>.</p>
+            </div>
+          </div>
+          <div class="footnote">Telecom: research/historia/telecom-fibra.md. NVIDIA: comunicados y prensa (WSJ, Bloomberg), research/actores/nvidia.md.</div>
+        </section>
+
+        <!-- 22 · De caja a deuda -->
+        <section data-anim="debt">
+          <div class="kicker">Ingrediente 4 · deuda</div>
+          <h2>De pagar con caja a pagar con deuda</h2>
+          <div class="grid-3 db-grid">
+            <div>
+              <div class="chart-title">% del capex financiado con deuda nueva</div>
+              <div class="stage" id="db1" style="height: 360px"></div>
+            </div>
+            <div>
+              <div class="chart-title">Megabonos de big tech, mil M$/año</div>
+              <div class="stage" id="db2" style="height: 360px"></div>
+            </div>
+            <div>
+              <div class="chart-title">Demanda en las emisiones (veces la oferta)</div>
+              <div class="stage" id="db3" style="height: 360px"></div>
+            </div>
+          </div>
+          <div class="callout" style="margin-top: 16px; font-size: 25px">Más deuda y menos apetito: los compradores de bonos ya <strong>piden más</strong> por prestar.</div>
+          <div class="footnote">FactSet (jul-2026): 12 m a jun-2026 · Bloomberg y prensa (2026 hasta el 10-ago) · Apollo vía Fortune (feb → jul-2026).</div>
+        </section>
+
+        <!-- 23 · SPV (stepped) -->
+        <section data-anim="spv">
+          <div class="kicker">Ingrediente 5 · estructuras opacas</div>
+          <h2>Qué es un SPV: la deuda que no sale en el balance</h2>
+          <div class="stage" id="sp-stage" style="height: 470px"></div>
+          <div id="sp-caption" class="callout" style="margin-top: 4px; min-height: 84px; font-size: 25px"></div>
+          <span class="fragment step" data-step="1"></span>
+          <span class="fragment step" data-step="2"></span>
+          <span class="fragment step" data-step="3"></span>
+          <span class="fragment step" data-step="4"></span>
+          <div class="footnote">Meta Hyperion (Luisiana), oct-2025: Beignet Investor LLC. Bonos de 27.300 M$ a 2049 al 6,58 %. Fuentes en research/spv-y-private-credit.md.</div>
+        </section>
+
+        <!-- 24 · Reloj de las GPU (interactiva) -->
+        <section data-anim="gpu">
+          <div class="kicker">Pruébalo · ingrediente 6 · activos que caducan</div>
+          <h2>¿Cuánto dura una GPU? La respuesta cambia el beneficio</h2>
+          <div class="grid-2 gpu-grid">
+            <div>
+              <div class="stage" id="gpu-stage" style="height: 380px"></div>
+              <div class="slider-row"><span class="lbl">Vida útil</span><input type="range" id="gpu-y" min="20" max="60" value="60" /><output id="gpu-y-out" class="c-accent">6,0 años</output></div>
+              <div class="row" style="gap: 10px; flex-wrap: wrap">
+                <button class="btn" data-y="60">Contable hoy (6)</button>
+                <button class="btn" data-y="50">Amazon 2025 (5)</button>
+                <button class="btn" data-y="30">Escéptico (3)</button>
+              </div>
+            </div>
+            <div class="rw-facts">
+              <div class="fact"><span class="fv">5,5–6</span><span class="fl">años de vida contable de los servidores en los hiperescaladores</span></div>
+              <div class="fact"><span class="fv c-warm">−60/75 %</span><span class="fl">precio de alquiler de una H100, inicio de 2024 → 2026 (orden de magnitud)</span></div>
+              <div class="fact"><span class="fv">~1 año</span><span class="fl">entre generaciones de chips de NVIDIA</span></div>
+              <div class="fact"><span class="fv c-warm">176 mil M$</span><span class="fl">amortización infravalorada en 2026–28, según Michael Burry (opinión)</span></div>
+            </div>
+          </div>
+          <div class="footnote">Simulación ilustrativa: flota de 100, ingresos 40 y otros costes 10 al año. Datos: research/depreciacion-gpus.md (alquileres: agregadores, fuente débil).</div>
+        </section>
+
+        <!-- 25 · Señales de tensión -->
+        <section data-anim="stress">
+          <div class="kicker">2026 · lo que ya ha pasado</div>
+          <h2>Grietas visibles, sin estallido (todavía)</h2>
+          <div class="grid-3 st-grid">
+            <div class="card sig"><div class="sig-i warn">⚠</div><div class="sig-v">BBB−</div><div class="sig-l">S&amp;P rebaja a Oracle al último escalón antes del «bono basura»</div><div class="sig-d">9-jul-2026</div></div>
+            <div class="card sig"><div class="sig-i warn">⚠</div><div class="sig-v">−21 %</div><div class="sig-l">Semiconductores (SOX) en julio: peor mes desde 2008</div><div class="sig-d">jul-2026</div></div>
+            <div class="card sig"><div class="sig-i warn">⚠</div><div class="sig-v">187 → ~86 $</div><div class="sig-l">CoreWeave; sus intereses (640 M$/trimestre) superan su beneficio operativo ajustado</div><div class="sig-d">T2-2026 · 7-oct-2026</div></div>
+            <div class="card sig"><div class="sig-i warn">⚠</div><div class="sig-v">5 %</div><div class="sig-l">Blue Owl limita reembolsos tras solicitudes del 39 % en su fondo tecnológico</div><div class="sig-d">abr y oct-2026</div></div>
+            <div class="card sig ok"><div class="sig-i good">✓</div><div class="sig-v">7.819</div><div class="sig-l">S&amp;P 500 en máximos históricos (+14 % en el año)</div><div class="sig-d">6-oct-2026</div></div>
+            <div class="card sig ok"><div class="sig-i good">✓</div><div class="sig-v">0</div><div class="sig-l">impagos relevantes de deuda ligada a la IA encontrados</div><div class="sig-d">a 8-oct-2026</div></div>
+          </div>
+          <div class="footnote">S&amp;P Global; Banco de Inglaterra FPC (30-sep-2026); CoreWeave T2-2026; prensa financiera. Detalle en research/credito-y-deuda-ia.md.</div>
+        </section>
+
+        <!-- ============ BLOQUE 5 · CIERRE ============ -->
+
+        <section class="divider" data-anim="divider">
+          <div class="num">04 · ¿Y AHORA QUÉ?</div>
+          <h2>Distinto… o igual que siempre</h2>
+          <p>Los argumentos honestos de los dos lados, y qué mirar a partir de mañana.</p>
+        </section>
+
+        <!-- 26 · Por qué podría ser distinto -->
+        <section data-anim="different">
+          <div class="kicker">Contraargumentos</div>
+          <h2>Por qué esta vez <em>podría</em> ser distinto</h2>
+          <div class="grid-2 df-grid">
+            <div>
+              <div class="df-h c-accent-2">✓ Distinto de 2000</div>
+              <div class="df-item"><strong>Quien más gasta, más gana.</strong> Microsoft, Alphabet, Amazon y Meta financian la mayor parte con su flujo de caja.</div>
+              <div class="df-item"><strong>Beneficios reales.</strong> NVIDIA ganó 59,7 mil M$ en un trimestre y cotiza a ~17x beneficios.</div>
+              <div class="df-item"><strong>Ingresos que crecen de verdad.</strong> Anthropic &gt; 65 mil M$ y OpenAI &gt; 40 mil M$ anualizados (2026).</div>
+              <div class="df-item"><strong>El mercado ya disciplina.</strong> El acuerdo de 100 mil M$ NVIDIA–OpenAI se quedó en 30.</div>
+            </div>
+            <div>
+              <div class="df-h c-accent">⚠ Igual que siempre</div>
+              <div class="df-item"><strong>La deuda sube.</strong> 32 % del capex con deuda nueva, frente al 9 % de 2024.</div>
+              <div class="df-item"><strong>Concentración.</strong> Muchos contratos dependen de dos o tres laboratorios con pérdidas.</div>
+              <div class="df-item"><strong>Activos efímeros.</strong> Las vías duraron un siglo; una GPU, quizá cinco años.</div>
+              <div class="df-item"><strong>Proyecciones heroicas.</strong> Ingresos ×10 en cuatro años para cuadrar las cuentas.</div>
+            </div>
+          </div>
+          <div class="footnote">research/contraargumentos.md; FactSet (jul-2026); NVIDIA T2 FY27; FT (19-sep-2026) para el objetivo de ingresos de OpenAI (36 → 350 mil M$).</div>
+        </section>
+
+        <!-- 27 · Salpicadero -->
+        <section data-anim="dashboard">
+          <div class="kicker">Para casa</div>
+          <h2>Seis indicadores para vigilar sin ser experto</h2>
+          <div class="grid-3 dsh-grid">
+            <div class="card dsh"><div class="dsh-h">Coste de asegurar la deuda</div><div class="dsh-v">CDS de Oracle <span class="arrow up">↑</span></div><div class="dsh-d">~128 pb (dic-2025) → ~227 pb (sep-2026) ⚠</div></div>
+            <div class="card dsh"><div class="dsh-h">Apetito por los bonos</div><div class="dsh-v">5x → &lt;2x <span class="arrow down">↓</span></div><div class="dsh-d">veces que se cubren las emisiones (feb → jul-2026)</div></div>
+            <div class="card dsh"><div class="dsh-h">Precio de alquilar una GPU</div><div class="dsh-v">−60/75 % <span class="arrow down">↓</span></div><div class="dsh-d">H100, 2024 → 2026: ¿exceso de oferta o progreso?</div></div>
+            <div class="card dsh"><div class="dsh-h">Ingresos frente a inversión</div><div class="dsh-v">~15 % <span class="arrow">→</span></div><div class="dsh-d">cobertura de la inversión por ingresos de IA (2025, Azhar)</div></div>
+            <div class="card dsh"><div class="dsh-h">Dependencia de un cliente</div><div class="dsh-v">≈ 50 %</div><div class="dsh-d">de la cartera de Oracle es OpenAI</div></div>
+            <div class="card dsh"><div class="dsh-h">Capex pagado con deuda</div><div class="dsh-v">9 % → 32 % <span class="arrow up">↑</span></div><div class="dsh-d">FY24 → 12 m a jun-2026 (FactSet)</div></div>
+          </div>
+          <div class="callout" style="margin-top: 22px; font-size: 25px">Las burbujas no estallan cuando la gente deja de creer: estallan cuando <strong>se acaba el crédito</strong>.</div>
+          <div class="footnote">⚠ CDS de Oracle: fuente secundaria única. El resto, en research/credito-y-deuda-ia.md y research/comparativas-capex.md.</div>
+        </section>
+
+        <!-- 28 · Takeaways -->
+        <section data-anim="takeaways">
+          <div class="kicker">Tres ideas</div>
+          <h2>Si te llevas solo tres cosas</h2>
+          <div class="takeaways">
+            <div class="item"><span class="n">1</span><div><strong>La tecnología puede ser real y la burbuja también.</strong> El ferrocarril e internet cambiaron el mundo y arruinaron a sus primeros inversores.</div></div>
+            <div class="item"><span class="n">2</span><div><strong>La financiación decide quién sobrevive.</strong> Deuda, circularidad y activos que caducan convierten una corrección en una crisis.</div></div>
+            <div class="item"><span class="n">3</span><div><strong>Mira el crédito, no los titulares.</strong> Diferenciales, apetito por los bonos y alquileres de GPU avisan antes que las portadas.</div></div>
+          </div>
+          <div class="closing">La tecnología gana. La financiación decide quién lo ve.</div>
+        </section>
+
+        <!-- 29 · Fuentes -->
+        <section data-anim="sources">
+          <div class="kicker">Fuentes</div>
+          <h2>Para seguir leyendo</h2>
+          <div class="grid-2 src-grid">
+            <ul>
+              <li>Odlyzko, «<a href="https://www-users.cse.umn.edu/~odlyzko/doc/hallucinations.pdf">Collective hallucinations and inefficient markets</a>» (2010)</li>
+              <li>Perez, <em>Technological Revolutions and Financial Capital</em> (2002)</li>
+              <li>Kindleberger y Aliber, <em>Manias, Panics and Crashes</em></li>
+              <li>Minsky, «<a href="https://www.levyinstitute.org/pubs/wp74.pdf">The Financial Instability Hypothesis</a>» (WP 74, 1992)</li>
+              <li>White, «Bubbles and Busts: the 1990s in the Mirror of the 1920s» (NBER, 2006)</li>
+              <li>Coffman y Odlyzko, «Growth of the Internet» (AT&amp;T Labs, 2001)</li>
+              <li>Ritter, «<a href="https://site.warrington.ufl.edu/ritter/ipo-data/">IPO Statistics</a>» (ed. oct-2026)</li>
+            </ul>
+            <ul>
+              <li>Banco de Inglaterra, Financial Policy Committee (oct-2025 y sep-2026)</li>
+              <li>BIS, informe trimestral (mar-2026) · FMI, GFSR (abr-2026)</li>
+              <li>FactSet, capex de hiperescaladores (jul-2026)</li>
+              <li>Bain &amp; Co., Technology Report (sep-2025 y sep-2026)</li>
+              <li>Kedrosky (2025) · Azhar, Exponential View (2025)</li>
+              <li>Resultados de NVIDIA, Oracle, CoreWeave; prensa: FT, WSJ, Bloomberg</li>
+              <li>Toda la documentación: <span class="mono">research/</span> · <span class="mono">research/sources.md</span></li>
+            </ul>
+          </div>
+          <div class="footnote">Consultadas el 8-oct-2026. Cifras de 2026 de prensa marcadas como fuente única en research/. Esto no es asesoramiento de inversión.</div>
+        </section>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="assets/js/lib.js"></script>
+    <script src="assets/js/anims-mecanica.js"></script>
+    <script src="assets/js/anims-historia.js"></script>
+    <script src="assets/js/anims-hoy.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>

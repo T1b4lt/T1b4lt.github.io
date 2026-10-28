@@ -1,0 +1,644 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Viaje a 2027 · Tendencias de IA</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
+    <link rel="stylesheet" href="assets/css/theme.css" />
+  </head>
+  <body>
+    <div class="bg-grid"></div>
+
+    <div class="reveal">
+      <div class="slides">
+        <!-- ============================================================ 0 · EMBARQUE -->
+
+        <!-- 1 · Cover -->
+        <section class="title-slide" data-anim="cover">
+          <div class="kicker">Briefing de viaje · oct 2026 → 2027</div>
+          <h1>Viaje a<br /><span class="yr"><span class="d">2</span><span class="d">0</span><span class="d">2</span><span class="d flip" id="cv-last">7</span></span></h1>
+          <p class="sub">Las tendencias de IA del año que viene, leídas en las señales de hoy: laboratorios, chips, robots, startups y producto.</p>
+          <div class="tags">
+            <span class="tag accent">Laboratorios</span>
+            <span class="tag yellow">Mercado y chips</span>
+            <span class="tag pink">Robótica</span>
+            <span class="tag green">Startups · YC · VC</span>
+            <span class="tag">Producto y sociedad</span>
+          </div>
+          <div class="ticket" id="cv-ticket">
+            <div class="t-head"><span>BOARDING PASS</span><span>VUELO AI-2027</span></div>
+            <div class="t-body">
+              <div><div class="lbl">ORIGEN</div><div class="city">OCT<br />26</div></div>
+              <div class="plane" style="font-size: 44px">✈</div>
+              <div style="text-align: right"><div class="lbl">DESTINO</div><div class="city">DIC<br />27</div></div>
+            </div>
+            <div class="t-foot"><span>PUERTA · SEÑALES</span><span>ASIENTO · 1A</span><span>CLASE · EVIDENCIA</span></div>
+          </div>
+          <div class="marquee" id="cv-marquee" style="bottom: 0">
+            <div class="track">
+              <span>ChatGPT · 1.200 M usuarios/semana</span><span class="b">■</span>
+              <span>NVIDIA Data Center · $89.000 M en un trimestre</span><span class="b">■</span>
+              <span>Waymo · 500.000 viajes/semana</span><span class="b">■</span>
+              <span>64 % del capital riesgo → IA</span><span class="b">■</span>
+              <span>Google · 75 % del código nuevo lo escribe IA</span><span class="b">■</span>
+              <span>METR · tareas de ≥16 h</span><span class="b">■</span>
+              <span>Capex 2027 · &gt; $1 billón</span><span class="b">■</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2 · Hook -->
+        <section data-anim="hook">
+          <div class="kicker">Antes de despegar</div>
+          <h2>Seis números de octubre de 2026 que ya dibujan 2027</h2>
+          <div class="grid-3" style="margin-top: 30px; gap: 30px 30px">
+            <div class="stat c-y"><div class="v" data-to="1200" data-suf=" M">0</div><div class="l">personas usan ChatGPT <strong>cada semana</strong></div><div class="s">OpenAI · 7-oct-2026</div></div>
+            <div class="stat c-b"><div class="v" data-to="89" data-pre="$" data-suf=".000 M">0</div><div class="l">ingresos de NVIDIA Data Center en <strong>un trimestre</strong> (+117 %)</div><div class="s">NVIDIA Q2 FY27 · 26-ago-2026</div></div>
+            <div class="stat"><div class="v" data-to="75" data-suf=" %">0</div><div class="l">del código nuevo de Google lo <strong>genera la IA</strong></div><div class="s">Sundar Pichai · abr-2026</div></div>
+            <div class="stat c-p"><div class="v" data-to="64" data-suf=" %">0</div><div class="l">del capital riesgo global del trimestre <strong>fue a IA</strong></div><div class="s">Crunchbase Q3-2026</div></div>
+            <div class="stat c-g"><div class="v" data-to="500" data-suf=".000">0</div><div class="l">viajes de pago <strong>sin conductor</strong> por semana (Waymo)</div><div class="s">Alphabet · abr-2026</div></div>
+            <div class="stat c-l"><div class="v" data-to="16" data-pre="≥" data-suf=" h">0</div><div class="l">duración de las tareas que un modelo completa al 50 %</div><div class="s">METR · may-2026</div></div>
+          </div>
+          <div class="footnote">Fuentes primarias citadas en cada tarjeta · detalle en research/sources.md</div>
+        </section>
+
+        <!-- 3 · Método -->
+        <section data-anim="method">
+          <div class="kicker">Cómo leer el viaje</div>
+          <h2>Cada predicción viaja con su señal, su tendencia y su confianza</h2>
+          <div class="stp" id="me-stp" style="margin-top: 36px">
+            <div class="col sig"><span class="lab">① Señal · hecho</span><br />Waymo pasa de <strong>50.000</strong> a <strong>500.000</strong> viajes de pago por semana en dos años.</div>
+            <div class="arr">→</div>
+            <div class="col tr"><span class="lab">② Tendencia</span><br />Crece abriendo ciudades nuevas (Denver, Las Vegas, Tokio…), con la flota como límite.</div>
+            <div class="arr">→</div>
+            <div class="col pr"><span class="lab">③ Predicción 2027</span><br /><strong>0,75–1,2 M</strong> de viajes por semana a finales de 2027.<div style="margin-top: 12px"><span class="conf media">Confianza media</span></div></div>
+          </div>
+          <div class="grid-3" id="me-legend" style="margin-top: 46px">
+            <div class="card"><span class="conf alta">Alta</span><p class="small" style="margin-top: 12px">Varias señales primarias apuntan en la misma dirección. Fallaría solo con un shock.</p></div>
+            <div class="card"><span class="conf media">Media</span><p class="small" style="margin-top: 12px">La dirección es clara, pero la magnitud o la fecha dependen de un evento abierto.</p></div>
+            <div class="card"><span class="conf esp">Especulativa</span><p class="small" style="margin-top: 12px">Una apuesta razonada con pocas señales, o con señales contradictorias.</p></div>
+          </div>
+          <span class="fragment step" data-step="1"></span>
+          <span class="fragment step" data-step="2"></span>
+          <span class="fragment step" data-step="3"></span>
+          <div class="footnote">Hechos con fuente y fecha · estimaciones de terceros atribuidas · predicciones propias etiquetadas por confianza</div>
+        </section>
+
+        <!-- 4 · Agenda -->
+        <section data-anim="agenda">
+          <div class="kicker">Itinerario</div>
+          <h2>Cinco escalas antes de aterrizar en 2027</h2>
+          <div class="agenda">
+            <div class="stop"><div class="n" style="background: var(--accent); color: #fff">01</div><div><h3>Laboratorios</h3><p>Ritmo exponencial, benchmarks que caducan e IA que hace IA</p></div></div>
+            <div class="stop"><div class="n" style="background: var(--yellow)">02</div><div><h3>Mercado y chips</h3><p>El billón del capex y sus cuellos de botella</p></div></div>
+            <div class="stop"><div class="n" style="background: var(--accent-2); color: #fff">03</div><div><h3>Robótica</h3><p>Humanoides, robotaxis y cerebros para robots</p></div></div>
+            <div class="stop"><div class="n" style="background: var(--green)">04</div><div><h3>Startups</h3><p>Y Combinator, capital riesgo y dónde estará el boom</p></div></div>
+            <div class="stop"><div class="n" style="background: var(--lilac)">05</div><div><h3>Producto y sociedad</h3><p>Agentes, comercio, empleo y calendario</p></div></div>
+            <div class="stop" style="background: var(--ink); color: #fff"><div class="n" style="background: var(--warm)">✈</div><div><h3 style="color: #fff">Llegadas</h3><p style="color: #ddd">El panel con las 10 predicciones</p></div></div>
+          </div>
+        </section>
+
+        <!-- ============================================================ 01 · LABORATORIOS -->
+
+        <section class="divider" data-anim="divider" data-color="accent">
+          <div class="num">01</div>
+          <h2>Laboratorios</h2>
+          <p>Qué podrían presentar OpenAI, Anthropic, Google, Meta, xAI y China, y por qué el ritmo ya es otro.</p>
+        </section>
+
+        <!-- METR interactive -->
+        <section data-anim="metr">
+          <div class="kicker k-blue">01 · Laboratorios</div>
+          <h2>Cada ~4 meses se duplica la duración de las tareas que completa la IA</h2>
+          <div class="grid-2" style="grid-template-columns: 1fr 400px; gap: 40px; margin-top: 14px; align-items: start">
+            <div class="stage" id="mt-stage" style="height: 560px"><div class="viz-tip" id="mt-tip"></div></div>
+            <div>
+              <div class="card c-y" style="padding: 18px 22px">
+                <div class="mono" style="font-size: 15px; letter-spacing: 0.1em">PROYECCIÓN A DIC-2027</div>
+                <div class="big-num" id="mt-h" style="font-size: 84px; margin-top: 6px">0 h</div>
+                <div class="small" id="mt-w" style="margin-top: 4px">≈ 0 semanas laborales</div>
+              </div>
+              <div style="margin-top: 26px">
+                <div class="mono" style="font-size: 16px; margin-bottom: 8px">Tiempo de duplicación</div>
+                <div class="slider-row" style="grid-template-columns: 1fr 96px; margin: 0"><input type="range" id="mt-d" min="30" max="80" value="65" /><output id="mt-d-out" class="mono">6,5 m</output></div>
+              </div>
+              <div class="row" style="gap: 12px; margin-top: 16px; flex-wrap: wrap">
+                <button class="btn" data-d="35">Desde 2024 · 3,5 m</button>
+                <button class="btn" data-d="65">Largo plazo · 6,5 m</button>
+              </div>
+              <p class="tiny" style="margin-top: 22px; line-height: 1.4">Horizonte al 50 %: cuánto tarda <em>un humano</em> en hacer la tarea que el modelo completa la mitad de las veces.</p>
+            </div>
+          </div>
+          <div class="footnote">METR TH1.1 (ene-2026) y Frontier Risk Report (may-2026). Proyección = extrapolación propia. METR: «&gt;16 h, no fiable».</div>
+        </section>
+
+        <!-- Benchmarks graveyard -->
+        <section data-anim="bench">
+          <div class="kicker k-blue">01 · Laboratorios</div>
+          <h2>Los exámenes de la IA caducan en meses, no en años</h2>
+          <div class="stage" id="bn-stage" style="height: 500px; margin-top: 18px"></div>
+          <div class="callout" style="margin-top: 6px; font-size: 24px">2027 se medirá con <strong>problemas abiertos y tareas de días</strong>: la IA ya resolvió 5 de los 68 problemas de Erdős de FrontierMath.</div>
+          <div class="footnote">ARC Prize (sep–oct-2026), Epoch AI, Vals AI, BenchLM. ARC-AGI-3: 62,7 % (Astra) con el harness estándar y 97–99 % con el del proveedor.</div>
+        </section>
+
+        <!-- AI building AI (stepped) -->
+        <section data-anim="rsi">
+          <div class="kicker k-blue">01 · Laboratorios</div>
+          <h2>La IA ya empieza a construir la siguiente IA</h2>
+          <div class="grid-2" style="grid-template-columns: 640px 1fr; gap: 40px; margin-top: 10px; align-items: start">
+            <div class="stage" id="rs-stage" style="height: 520px"></div>
+            <div style="display: flex; flex-direction: column; gap: 22px; padding-top: 10px">
+              <div class="stat c-b" id="rs-c1"><div class="v" style="font-size: 54px">3,1 : 1</div><div class="l"><strong>OpenAI:</strong> jornadas de agente por cada jornada humana en research. «Research intern» alcanzado (sep-2026). Objetivo: investigador automatizado en <strong>mar-2028</strong>.</div></div>
+              <div class="stat c-y" id="rs-c2"><div class="v" style="font-size: 54px">&lt;1 % → 26 %</div><div class="l"><strong>Anthropic:</strong> parte del I+D de modelos liderada por Claude, de febrero a agosto de 2026.</div></div>
+              <div class="callout plain" id="rs-c3" style="font-size: 21px">«Since roughly this summer, AI has been advancing drastically faster, driven primarily by AI's growing ability to build the next generation of AI.» <span class="muted">· Dario Amodei, sep-2026</span></div>
+            </div>
+          </div>
+          <div id="rs-cap" class="mono" style="position: absolute; left: 88px; bottom: 54px; width: 640px; height: 60px; font-size: 18px"></div>
+          <span class="fragment step" data-step="1"></span>
+          <span class="fragment step" data-step="2"></span>
+          <span class="fragment step" data-step="3"></span>
+          <div class="footnote">OpenAI «Research acceleration» (6-sep-2026) · State of AI 2026, citando a Anthropic · darioamodei.com «We Must Pace the Frontier»</div>
+        </section>
+
+        <!-- Pacing (stepped) -->
+        <section data-anim="pacing">
+          <div class="kicker k-blue">01 · Laboratorios</div>
+          <h2>2027: los mejores modelos llegarán primero a usuarios verificados</h2>
+          <div class="stage" id="pc-stage" style="height: 470px; margin-top: 10px"></div>
+          <div id="pc-cap" class="callout plain" style="min-height: 84px; font-size: 23px; margin-top: 8px"></div>
+          <span class="fragment step" data-step="1"></span>
+          <span class="fragment step" data-step="2"></span>
+          <span class="fragment step" data-step="3"></span>
+          <div class="footnote">CNBC (28-sep-2026) · OpenAI «Pacing model development» (18-ago) · Anthropic Glasswing · Reuters (13-oct-2026)</div>
+        </section>
+
+        <!-- Labs grid -->
+        <section data-anim="labs">
+          <div class="kicker k-blue">01 · Laboratorios</div>
+          <h2>Qué podrían presentar los laboratorios en 2027</h2>
+          <div class="labgrid" style="margin-top: 22px">
+            <div class="lab"><div class="nm">OpenAI</div><div class="md">GPT-6 Astra · Sol · 1.200 M WAU</div><div class="nx">→ Dispositivo con Jony Ive (no antes de feb-27), «investigador» automatizado parcial, ronda a ~$1,4 billones</div><div style="margin-top: 10px"><span class="conf media">Media</span></div></div>
+            <div class="lab" style="background: var(--yellow)"><div class="nm">Anthropic</div><div class="md" style="color: #3a3000">Opus 5.5 · Mythos restringido · $65.000 M run-rate</div><div class="nx">→ Salida a bolsa (S-1 filtrado), varios GW de TPU, «country of geniuses ~2027»</div><div style="margin-top: 10px"><span class="conf media">Media</span></div></div>
+            <div class="lab"><div class="nm">Google DeepMind</div><div class="md">Gemini 4 Argon · Genie 3 · TPU v7</div><div class="nx">→ TPU 8 en 2 nm, sucesor de Genie, Gemini Robotics en fábricas</div><div style="margin-top: 10px"><span class="conf media">Media</span></div></div>
+            <div class="lab" style="background: var(--lilac)"><div class="nm">Meta MSL</div><div class="md" style="color: #2c2450">Muse Spark/Wonder · Prometheus</div><div class="nx">→ VR Glasses ($1.299, primavera), pesos abiertos de gama media, Hyperion</div><div style="margin-top: 10px"><span class="conf media">Media</span></div></div>
+            <div class="lab" style="background: var(--accent-2); color: #fff"><div class="nm">China abierta</div><div class="md" style="color: #fff">DeepSeek V4 · Qwen 3.8 Max · Kimi K3</div><div class="nx">→ Modelos abiertos de 1–3T a ~4 meses de la frontera, sobre Huawei Ascend. IPO de Moonshot y DeepSeek</div><div style="margin-top: 10px"><span class="conf alta">Alta</span></div></div>
+            <div class="lab"><div class="nm">xAI / SpaceX</div><div class="md">Grok 4.7 · Colossus 2</div><div class="nx">→ Grok 5 (~6T parámetros) tras varios retrasos; ¿fusión con Tesla?</div><div style="margin-top: 10px"><span class="conf esp">Especulativa</span></div></div>
+            <div class="lab"><div class="nm">Microsoft AI</div><div class="md">MAI-Thinking-1 · Maia 200</div><div class="nx">→ Modelos propios de frontera «humanist», menos dependencia de OpenAI</div><div style="margin-top: 10px"><span class="conf media">Media</span></div></div>
+            <div class="lab" style="background: var(--green)"><div class="nm">Mistral</div><div class="md" style="color: #053">Large 4 · €21.000 M · DC propio</div><div class="nx">→ Campeón «soberano» europeo, pero con una escala de compute mucho menor</div><div style="margin-top: 10px"><span class="conf media">Media</span></div></div>
+          </div>
+          <div class="footnote">Blogs oficiales, Reuters, CNBC, Fortune, Epoch (abierto vs cerrado ≈ 4 meses) · ver research/01-laboratorios.md</div>
+        </section>
+
+        <!-- Predictions · labs -->
+        <section data-anim="preds">
+          <div class="kicker k-blue">01 · Predicciones</div>
+          <h2>Laboratorios en 2027: cuatro apuestas</h2>
+          <div class="grid-2" style="margin-top: 22px; gap: 28px 34px">
+            <div class="pred"><div class="top"><span class="id">L1</span><span class="conf alta">Alta</span></div><h3>El lanzamiento escalonado se vuelve norma: primero ciberdefensores y verificados, luego el público</h3><div class="ev"><b>SEÑAL</b> GPT-6.1 Astra cancelado · Mythos solo en Glasswing · Argon vía Fairwind<br /><b>TENDENCIA</b> «pacing» apoyado por Amodei, Altman, Musk y Nadella</div></div>
+            <div class="pred"><div class="top"><span class="id">L2</span><span class="conf media">Media</span></div><h3>El horizonte de tareas pasa de horas a semanas, y aparecen benchmarks nuevos para medirlo</h3><div class="ev"><b>SEÑAL</b> Mythos ≥16 h satura la suite de METR · ARC-AGI-3 cae en 3 meses<br /><b>TENDENCIA</b> se duplica cada 3,5–6,5 meses</div></div>
+            <div class="pred"><div class="top"><span class="id">L3</span><span class="conf media">Media</span></div><h3>Algún laboratorio anuncia un «investigador de IA automatizado» parcial</h3><div class="ev"><b>SEÑAL</b> «Research intern» de OpenAI · 26 % del I+D liderado por Claude<br /><b>TENDENCIA</b> la IA automatiza su propio desarrollo</div></div>
+            <div class="pred"><div class="top"><span class="id">L4</span><span class="conf alta">Alta</span></div><h3>China domina los modelos abiertos a escala de 1–3T, unos 4 meses por detrás de la frontera</h3><div class="ev"><b>SEÑAL</b> Kimi K3, Qwen 3.8 Max abierto, DeepSeek V4 con licencia MIT<br /><b>TENDENCIA</b> brecha estable de 3–6 meses (Epoch)</div></div>
+          </div>
+          <div class="footnote">Predicciones propias a partir de research/01 y research/05 · confianza según el número y la calidad de las señales</div>
+        </section>
+
+        <!-- ============================================================ 02 · MERCADO -->
+
+        <section class="divider" data-anim="divider" data-color="yellow">
+          <div class="num">02</div>
+          <h2>Mercado y chips</h2>
+          <p>Un billón de dólares en centros de datos… y un freno que no es el chip.</p>
+        </section>
+
+        <!-- Capex -->
+        <section data-anim="capex">
+          <div class="kicker">02 · Mercado</div>
+          <h2>La inversión en IA de las grandes tecnológicas cruza el billón en 2027</h2>
+          <div class="grid-2" style="grid-template-columns: 1fr 420px; gap: 36px; margin-top: 10px; align-items: start">
+            <div class="stage" id="cx-stage" style="height: 590px"><div class="viz-tip" id="cx-tip"></div></div>
+            <div style="display: flex; flex-direction: column; gap: 20px; padding-top: 18px">
+              <div class="card cx-q" style="padding: 16px 20px"><p class="small" style="margin: 0">«We will still not have enough capacity… I believe this dynamic will also be true in <strong>2027</strong>.»</p><div class="mono tiny muted" style="margin-top: 6px">Andy Jassy, Amazon · jul-2026</div></div>
+              <div class="card cx-q" style="padding: 16px 20px"><p class="small" style="margin: 0">«We continue to expect our CapEx to <strong>increase significantly</strong> in 2027.»</p><div class="mono tiny muted" style="margin-top: 6px">Alphabet · Q2-2026</div></div>
+              <div class="card c-p cx-q" style="padding: 16px 20px"><div class="big-num" style="font-size: 58px; color: #fff">$1,57</div><p class="small" style="margin: 4px 0 0">de inversión adicional por cada $1 de caja adicional en 2027</p><div class="mono tiny" style="margin-top: 6px">Reuters/LSEG · 22-jul-2026</div></div>
+            </div>
+          </div>
+          <div class="footnote">Big-4 (MSFT, GOOGL, AMZN, META). Platformonomics, Goldman (25-sep), consenso Bloomberg. Morgan Stanley ⚠ incluye neoclouds y leasing.</div>
+        </section>
+
+        <!-- NVIDIA -->
+        <section data-anim="nvda">
+          <div class="kicker">02 · Mercado</div>
+          <h2>NVIDIA: la demanda crece más deprisa que la fábrica</h2>
+          <div class="grid-2" style="grid-template-columns: 1fr 400px; gap: 36px; margin-top: 10px; align-items: start">
+            <div class="stage" id="nv-stage" style="height: 590px"><div class="viz-tip" id="nv-tip"></div></div>
+            <div style="display: flex; flex-direction: column; gap: 18px; padding-top: 14px">
+              <div class="stat c-y nv-s"><div class="v" style="font-size: 56px">$1 billón</div><div class="l">en pedidos de Blackwell y Rubin <strong>hasta 2027</strong></div><div class="s">Jensen Huang · GTC, 16-mar-2026</div></div>
+              <div class="nv-s" style="border: var(--border); box-shadow: var(--shadow-sm); background: var(--bg-2); padding: 14px 18px">
+                <div class="mono" style="font-size: 14px; letter-spacing: 0.1em; margin-bottom: 10px">HOJA DE RUTA</div>
+                <div class="nv-road"><span class="tag">Blackwell Ultra · 2025-26</span><span class="tag accent">Vera Rubin · 2026</span><span class="tag yellow">Rubin Ultra · 2S 2027</span><span class="tag pink">Feynman · 2028</span></div>
+              </div>
+              <div class="stat c-p nv-s"><div class="v" style="font-size: 56px">$0</div><div class="l">de Data Center de China en la guía del Q3</div><div class="s">NVIDIA · 26-ago-2026</div></div>
+            </div>
+          </div>
+          <div class="footnote">NVIDIA, informes trimestrales FY25–FY27 (los años fiscales acaban en enero). La barra rayada es la guía de ingresos TOTALES del Q3 FY27.</div>
+        </section>
+
+        <!-- Bottlenecks (stepped) -->
+        <section data-anim="bottle">
+          <div class="kicker">02 · Mercado</div>
+          <h2>El freno de 2027 no es el chip: es la memoria, la energía y la deuda</h2>
+          <div class="stage" id="bt-stage" style="height: 440px; margin-top: 10px"></div>
+          <div id="bt-cap" class="callout plain" style="min-height: 76px; font-size: 22px; margin-top: 4px"></div>
+          <span class="fragment step" data-step="1"></span>
+          <span class="fragment step" data-step="2"></span>
+          <span class="fragment step" data-step="3"></span>
+          <div class="footnote">Micron FQ4'26 · TSMC Q3-2026 · Epoch/BlockWest ⚠ · Goldman (19-oct-2026) · Reuters/NYT sobre CoreWeave (oct-2026)</div>
+        </section>
+
+        <!-- Scenarios (interactive) -->
+        <section data-anim="scen">
+          <div class="kicker">02 · Mercado</div>
+          <h2>2027 en tres escenarios: el riesgo está en la deuda</h2>
+          <div class="grid-2" style="grid-template-columns: 1fr 1fr; gap: 44px; margin-top: 18px">
+            <div>
+              <div class="row" style="gap: 14px">
+                <button class="btn sc-b" data-s="0">Base · 55 %</button>
+                <button class="btn sc-b" data-s="1">Optimista · 20 %</button>
+                <button class="btn sc-b" data-s="2">Pesimista · 25 %</button>
+              </div>
+              <div class="bars" id="sc-bars" style="margin-top: 32px; font-size: 21px; gap: 22px 16px; grid-template-columns: 200px 1fr 150px">
+                <span class="lbl">Capex hyperscalers</span><div class="track" style="height: 34px"><div class="fill"></div></div><span class="val">0</span>
+                <span class="lbl">Mercado semis</span><div class="track" style="height: 34px"><div class="fill y"></div></div><span class="val">0</span>
+                <span class="lbl">NVIDIA (crecim.)</span><div class="track" style="height: 34px"><div class="fill g"></div></div><span class="val">0</span>
+                <span class="lbl">Probabilidad</span><div class="track" style="height: 34px"><div class="fill top"></div></div><span class="val">0</span>
+              </div>
+              <div class="card" id="sc-txt" style="margin-top: 30px; min-height: 120px; font-size: 22px; line-height: 1.38"></div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 20px">
+              <div class="card c-g sc-side"><h3>Lo que lo sostiene</h3><ul class="small" style="margin-top: 6px"><li>OpenAI y Anthropic: ~$105.000 M anualizados (State of AI)</li><li>Micron: HBM de 2027 casi agotada</li><li>Gartner: gasto en IA de $3,64 billones en 2027</li></ul></div>
+              <div class="card glow-warm sc-side"><h3>Lo que lo puede romper</h3><ul class="small" style="margin-top: 6px"><li>CoreWeave: CDS de ~1.000 pb</li><li>~$420.000 M de deuda de hyperscalers en 2027 (Goldman)</li><li>Gartner: GenAI en el «valle de la desilusión»</li></ul></div>
+            </div>
+          </div>
+          <div class="footnote">Rangos de Goldman, Morgan Stanley ⚠, Gartner y WSTS. Probabilidades y valores medios = JUICIO PROPIO e ilustrativo.</div>
+        </section>
+
+        <!-- Predictions · market -->
+        <section data-anim="preds">
+          <div class="kicker">02 · Predicciones</div>
+          <h2>Mercado y chips en 2027: cuatro apuestas</h2>
+          <div class="grid-2" style="margin-top: 22px; gap: 28px 34px">
+            <div class="pred"><div class="top"><span class="id">M1</span><span class="conf alta">Alta</span></div><h3>El capex de los hyperscalers supera $1 billón (rango de $1,1–1,4 billones), pero crece más despacio</h3><div class="ev"><b>SEÑAL</b> guía de 2026 revisada al alza 3 veces · «2027 será mayor» (Alphabet, MSFT, AMZN)<br /><b>TENDENCIA</b> de +94 % a ~+50 % (Goldman)</div></div>
+            <div class="pred"><div class="top"><span class="id">M2</span><span class="conf alta">Alta</span></div><h3>La memoria sigue escasa todo el año, con márgenes récord. El giro del ciclo, en 2028</h3><div class="ev"><b>SEÑAL</b> Micron: HBM de 2027 vendida, margen bruto ~86 % · Gartner: memoria &gt; $1 billón<br /><b>TENDENCIA</b> el HBM absorbe capacidad de DRAM</div></div>
+            <div class="pred"><div class="top"><span class="id">M3</span><span class="conf alta">Alta</span></div><h3>La energía retrasa los GW anunciados; el gas y la generación in situ hacen de puente</h3><div class="ev"><b>SEÑAL</b> solo funciona el 29 % de lo planificado · 86 proyectos retrasados o cancelados<br /><b>TENDENCIA</b> la nuclear nueva llega después de 2030</div></div>
+            <div class="pred"><div class="top"><span class="id">M4</span><span class="conf media">Media</span></div><h3>La primera grieta llega por el crédito: neoclouds y vehículos de deuda, no los hyperscalers</h3><div class="ev"><b>SEÑAL</b> CDS de CoreWeave · Oracle con demanda de bonistas · avales de NVIDIA<br /><b>TENDENCIA</b> el gasto depende del mercado de deuda</div></div>
+          </div>
+          <div class="footnote">Predicciones propias · research/02-mercado-y-semiconductores.md</div>
+        </section>
+
+        <!-- ============================================================ 03 · ROBÓTICA -->
+
+        <section class="divider" data-anim="divider" data-color="pink">
+          <div class="num">03</div>
+          <h2>Robótica y<br />physical AI</h2>
+          <p>La IA sale de la pantalla: humanoides, robotaxis y un cerebro para muchos cuerpos.</p>
+        </section>
+
+        <!-- Humanoids -->
+        <section data-anim="humanoids">
+          <div class="kicker k-pink">03 · Robótica</div>
+          <h2>Humanoides: China los fabrica, Occidente los prueba en pilotos</h2>
+          <div class="grid-2" style="grid-template-columns: 520px 1fr; gap: 50px; margin-top: 16px; align-items: start">
+            <div>
+              <div class="stage" id="hu-waffle" style="height: 430px; width: 430px"></div>
+              <div class="small" style="margin-top: 10px"><span class="hl-p">■ &gt;97 %</span> de los ~19.100 humanoides enviados en el 1S-2026 los fabricaron proveedores chinos</div>
+            </div>
+            <div>
+              <div class="stage" id="hu-price" style="height: 300px"></div>
+              <div class="hu-chips" style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px">
+                <span class="tag pink">Unitree: IPO +460 % el día 1</span>
+                <span class="tag">AgiBot: 10.000 acumulados</span>
+                <span class="tag accent">Figure 03 → BMW (jun-26)</span>
+                <span class="tag yellow">Atlas → Hyundai + DeepMind</span>
+                <span class="tag">1X NEO: $20.000, sin entregas verificadas</span>
+                <span class="tag warm">Optimus: solo uso interno</span>
+              </div>
+            </div>
+          </div>
+          <div class="footnote">SAG (1S-2026; Yicai da ~25.000) · prospecto de Unitree · Reuters · Figure/BMW · Boston Dynamics · Tesla Q2-2026</div>
+        </section>
+
+        <!-- Waymo -->
+        <section data-anim="waymo">
+          <div class="kicker k-pink">03 · Robótica</div>
+          <h2>Robotaxis: Waymo multiplica por 10 en dos años; el resto va lejos</h2>
+          <div class="grid-2" style="grid-template-columns: 1fr 380px; gap: 36px; margin-top: 10px; align-items: start">
+            <div class="stage" id="wy-stage" style="height: 590px"><div class="viz-tip" id="wy-tip"></div></div>
+            <div style="display: flex; flex-direction: column; gap: 18px; padding-top: 16px">
+              <div class="stat c-g wy-s"><div class="v" style="font-size: 50px">$126.000 M</div><div class="l">valoración de Waymo (feb-2026); 15 M de viajes en 2025</div></div>
+              <div class="stat wy-s"><div class="v" style="font-size: 56px">~300</div><div class="l">Cybercabs de Tesla en Austin. Waymo opera ya en más de 10 metros</div></div>
+              <div class="stat c-y wy-s"><div class="v" style="font-size: 56px">23 M</div><div class="l">viajes acumulados de Baidu Apollo Go (China)</div></div>
+            </div>
+          </div>
+          <div class="footnote">Waymo, Alphabet, TechCrunch, Baidu, TeslaNorth ⚠ · la banda de 2027 es una predicción propia (confianza media)</div>
+        </section>
+
+        <!-- Robot brains -->
+        <section data-anim="brains">
+          <div class="kicker k-pink">03 · Robótica</div>
+          <h2>Un cerebro, muchos cuerpos: los modelos para robots se vuelven plataforma</h2>
+          <div class="grid-2" style="grid-template-columns: 1fr 400px; gap: 36px; margin-top: 6px; align-items: start">
+            <div class="stage" id="br-stage" style="height: 590px"></div>
+            <div style="display: flex; flex-direction: column; gap: 20px; padding-top: 20px">
+              <div class="stat c-p br-s"><div class="v">&lt;200</div><div class="l">ejemplos para adaptar Gemini Robotics 2 a un cuerpo nuevo</div><div class="s">Google DeepMind · 30-jul-2026</div></div>
+              <div class="stat br-s"><div class="v" style="font-size: 54px">13 h</div><div class="l">seguidas haciendo espresso y doblando ropa (π*0.6 con RL sobre experiencia real)</div><div class="s">Physical Intelligence · arXiv 2511.14759</div></div>
+              <div class="stat c-y br-s"><div class="v" style="font-size: 54px">$8.200 M</div><div class="l">AMD compra World Labs: los <em>world models</em> como simulador</div><div class="s">sep-2026 ⚠</div></div>
+            </div>
+          </div>
+          <div class="footnote">Gemini Robotics 2, π0.7, NVIDIA GR00T · valoraciones: Figure $39.000 M, Skild &gt;$14.000 M, Physical Intelligence ~$11.000 M</div>
+        </section>
+
+        <!-- Predictions · robotics -->
+        <section data-anim="preds">
+          <div class="kicker k-pink">03 · Predicciones</div>
+          <h2>Robótica en 2027: cuatro apuestas</h2>
+          <div class="grid-2" style="margin-top: 22px; gap: 28px 34px">
+            <div class="pred"><div class="top"><span class="id">R1</span><span class="conf media">Media</span></div><h3>Se envían 50.000–80.000 humanoides en el mundo, más del 85 % chinos, y el más barato baja de $5.000</h3><div class="ev"><b>SEÑAL</b> 19.100 en el 1S-26 (+272 %) · Unitree R1 por ~$5.000<br /><b>TENDENCIA</b> precio medio −72 % en 2 años</div></div>
+            <div class="pred"><div class="top"><span class="id">R2</span><span class="conf alta">Alta</span></div><h3>Ningún fabricante occidental entrega más de ~5.000 humanoides: siguen siendo pilotos</h3><div class="ev"><b>SEÑAL</b> UBTech rinde «la mitad que un humano» · Optimus solo en uso interno<br /><b>TENDENCIA</b> decenas o cientos de unidades por cliente</div></div>
+            <div class="pred"><div class="top"><span class="id">R3</span><span class="conf media">Media</span></div><h3>Waymo llega a 0,75–1,2 M de viajes por semana; Tesla no pasa del 5 % de ese volumen</h3><div class="ev"><b>SEÑAL</b> 500.000/semana estancado desde abril · Tokio y nuevas ciudades<br /><b>TENDENCIA</b> crece por ciudades, con la flota como límite</div></div>
+            <div class="pred"><div class="top"><span class="id">R4</span><span class="conf media">Media</span></div><h3>Al menos 2 fabricantes ponen en producción un «cerebro» de terceros (Gemini, π)</h3><div class="ev"><b>SEÑAL</b> Apptronik y Atlas con Gemini · GR00T como referencia<br /><b>TENDENCIA</b> modelo generalista con adaptación barata</div></div>
+          </div>
+          <div class="footnote">Predicciones propias · research/03-robotica-physical-ai.md · IFR prevé ~655.000 robots industriales en 2026</div>
+        </section>
+
+        <!-- ============================================================ 04 · STARTUPS -->
+
+        <section class="divider" data-anim="divider" data-color="green">
+          <div class="num">04</div>
+          <h2>Startups, YC<br />y capital riesgo</h2>
+          <p>Lo que se mueve hoy en Silicon Valley y lo que puede explotar dentro de unos meses.</p>
+        </section>
+
+        <!-- VC concentration -->
+        <section data-anim="vc">
+          <div class="kicker k-green">04 · Startups</div>
+          <h2>Dos de cada tres dólares de capital riesgo ya van a la IA</h2>
+          <div class="grid-2" style="grid-template-columns: 1fr 400px; gap: 36px; margin-top: 10px; align-items: start">
+            <div class="stage" id="vc-stage" style="height: 590px"><div class="viz-tip" id="vc-tip"></div></div>
+            <div style="display: flex; flex-direction: column; gap: 18px; padding-top: 14px">
+              <div class="stat c-y vc-s"><div class="v">27</div><div class="l">rondas de <strong>$1.000 M o más</strong> en un solo trimestre (récord, Q3-26)</div></div>
+              <div class="stat c-b vc-s"><div class="v">82,7 %</div><div class="l">del dinero invertido en EE. UU. en 2026 fue a IA (PitchBook)</div></div>
+              <div class="stat vc-s"><div class="v">43 %</div><div class="l">del capital riesgo global del 1S fue a <strong>solo dos empresas</strong>: OpenAI y Anthropic</div></div>
+            </div>
+          </div>
+          <div class="footnote">Crunchbase Q3-2026 y 1S-2026 · PitchBook-NVCA Q3-2026 · Q1-2026: cuota estimada por agregadores ⚠</div>
+        </section>
+
+        <!-- YC (stepped) -->
+        <section data-anim="yc">
+          <div class="kicker k-green">04 · Startups · Y Combinator</div>
+          <h2>Lo que pide Y Combinator: la IA baja al mundo físico</h2>
+          <div class="stage" id="yc-stage" style="height: 300px; margin-top: 6px"></div>
+          <div class="grid-2" id="yc-metrics" style="grid-template-columns: 1fr 460px; gap: 36px; margin-top: 12px; align-items: center">
+            <div class="bars" id="yc-bars" style="font-size: 20px; gap: 14px 16px; grid-template-columns: 290px 1fr 150px">
+              <span class="lbl">Hard tech en el batch</span><div class="track" style="height: 26px"><div class="fill o" data-a="8" data-b="20" data-max="30"></div></div><span class="val">8 → 20 %</span>
+              <span class="lbl">Startups «full-stack»</span><div class="track" style="height: 26px"><div class="fill" data-a="10" data-b="25" data-max="30"></div></div><span class="val">10 → 25 %</span>
+              <span class="lbl">Fundador en solitario</span><div class="track" style="height: 26px"><div class="fill top" data-a="5" data-b="19" data-max="30"></div></div><span class="val">5 → 19 %</span>
+              <span class="lbl">MRR mediano en Demo Day</span><div class="track" style="height: 26px"><div class="fill g" data-a="8" data-b="20" data-max="30"></div></div><span class="val">$8K → $20K</span>
+            </div>
+            <div class="callout" style="font-size: 22px">«AI is moving into the physical world… rebuilding the systems that power the real world.» <span class="mono tiny">· RFS Fall 2026, con una petición del Secretary of the Army de EE. UU.</span></div>
+          </div>
+          <span class="fragment step" data-step="1"></span>
+          <div class="footnote">ycombinator.com/rfs · «State of Startups 2026» (Lightcone, 17-sep-2026) vía transcripción ⚠ · cambios en 12 meses</div>
+        </section>
+
+        <!-- ARR race -->
+        <section data-anim="arr">
+          <div class="kicker k-green">04 · Startups</div>
+          <h2>De cero a miles de millones en meses: la nueva velocidad del ARR</h2>
+          <div class="stage" id="ar-stage" style="height: 470px; margin-top: 14px"></div>
+          <div class="grid-2" style="margin-top: 14px; gap: 30px">
+            <div class="callout" style="font-size: 22px">SpaceX compró Cursor por <strong>$60.000 M</strong> (ago-2026). Harvey, Legora y Sierra se valoraron a <strong>50–100×</strong> su ARR.</div>
+            <div class="callout warm" style="font-size: 22px">⚠ Son run-rates <strong>declarados, no auditados</strong>. OpenAI rebajó el suyo de $70.000 M a ~$50.000 M al cambiar cómo los contaba.</div>
+          </div>
+          <div class="footnote">Anthropic, CNBC, TechCrunch, Reuters, SEC 8-K (SpaceX), Tunguz, Axios · escala logarítmica</div>
+        </section>
+
+        <!-- Boom radar -->
+        <section data-anim="radar">
+          <div class="kicker k-green">04 · Predicciones · ¿Dónde estará el boom?</div>
+          <h2>El radar de 2027: dónde coinciden YC, el dinero y la tracción</h2>
+          <table class="tbl" id="rd-tbl" style="margin-top: 18px; font-size: 19px">
+            <thead><tr><th>Categoría</th><th>RFS de YC</th><th>Megarrondas</th><th>Tracción</th><th>Demanda de labs/hyperscalers</th><th>2027</th><th>Ejemplo de señal</th></tr></thead>
+            <tbody>
+              <tr><td>Energía y compute</td><td data-v="2"></td><td data-v="2"></td><td data-v="2"></td><td data-v="2"></td><td><span class="conf alta">Alta</span></td><td class="tiny">Compute at Sea · Crusoe y Nscale &gt;$3.000 M</td></tr>
+              <tr><td>Defensa y autonomía</td><td data-v="2"></td><td data-v="2"></td><td data-v="1"></td><td data-v="0"></td><td><span class="conf alta">Alta</span></td><td class="tiny">RFS del Ejército · Anduril $61.000 M</td></tr>
+              <tr><td>Robótica / physical AI</td><td data-v="2"></td><td data-v="2"></td><td data-v="1"></td><td data-v="1"></td><td><span class="conf alta">Alta</span></td><td class="tiny">Hard tech 20 % de YC · Figure, Skild, PI</td></tr>
+              <tr><td>Datos y entornos de RL</td><td data-v="1"></td><td data-v="1"></td><td data-v="2"></td><td data-v="2"></td><td><span class="conf alta">Alta</span></td><td class="tiny">&gt;12 startups de YC venden &gt;$10 M/año a labs</td></tr>
+              <tr><td>Servicios AI-native</td><td data-v="2"></td><td data-v="1"></td><td data-v="2"></td><td data-v="0"></td><td><span class="conf media">Media</span></td><td class="tiny">«Build an AI law firm» · Harvey, Sierra</td></tr>
+              <tr><td>Infra para agentes</td><td data-v="2"></td><td data-v="1"></td><td data-v="0"></td><td data-v="1"></td><td><span class="conf media">Media</span></td><td class="tiny">Proving You're Human · x402 · MCP</td></tr>
+              <tr><td>IA para la ciencia</td><td data-v="1"></td><td data-v="1"></td><td data-v="0"></td><td data-v="1"></td><td><span class="conf media">Media</span></td><td class="tiny">Periodic Labs · Genesis Mission $5.000 M</td></tr>
+              <tr><td>Consumo «multiplayer»</td><td data-v="2"></td><td data-v="0"></td><td data-v="0"></td><td data-v="1"></td><td><span class="conf esp">Espec.</span></td><td class="tiny">«CONSUMER is going to be so back» · 5,5 % de S26</td></tr>
+            </tbody>
+          </table>
+          <div class="footnote">■■ señal fuerte · ■□ señal parcial · □□ sin señal. Valoración PROPIA sobre research/04-startups-yc-vc.md</div>
+        </section>
+
+        <!-- ============================================================ 05 · PRODUCTO -->
+
+        <section class="divider" data-anim="divider" data-color="lilac">
+          <div class="num">05</div>
+          <h2>Producto<br />y sociedad</h2>
+          <p>Del chat que responde al agente que trabaja, compra… y cambia el primer empleo.</p>
+        </section>
+
+        <!-- Code first -->
+        <section data-anim="code">
+          <div class="kicker k-lilac">05 · Producto</div>
+          <h2>El código es el primer trabajo que la IA ya hace a escala</h2>
+          <div class="grid-2" style="grid-template-columns: 1fr 520px; gap: 40px; margin-top: 10px; align-items: start">
+            <div class="stage" id="cd-stage" style="height: 590px"></div>
+            <div style="display: flex; flex-direction: column; gap: 18px; padding-top: 10px">
+              <div class="stat c-b cd-s"><div class="v" style="font-size: 54px">0,6 → 5 M</div><div class="l">personas que usan Codex cada semana (ene → jun-2026)</div></div>
+              <div class="stat c-y cd-s"><div class="v" style="font-size: 54px">$2.500 M</div><div class="l">run-rate de Claude Code (feb-2026), ×5 en 5 meses</div></div>
+              <div class="cd-s" style="border: var(--border); box-shadow: var(--shadow-sm); background: var(--bg-2); padding: 14px 18px">
+                <div class="mono" style="font-size: 14px; letter-spacing: 0.1em; margin-bottom: 10px">QUÉ AGENTE DE CÓDIGO SE USA · ENCUESTA ⚠</div>
+                <div class="bars" id="cd-share" style="font-size: 18px; gap: 8px 12px">
+                  <span class="lbl">Claude Code</span><div class="track"><div class="fill top" data-v="0.39"></div></div><span class="val">39 %</span>
+                  <span class="lbl">Copilot</span><div class="track"><div class="fill" data-v="0.21"></div></div><span class="val">21 %</span>
+                  <span class="lbl">Codex</span><div class="track"><div class="fill y" data-v="0.16"></div></div><span class="val">16 %</span>
+                  <span class="lbl">Cursor</span><div class="track"><div class="fill g" data-v="0.12"></div></div><span class="val">12 %</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="footnote">Pichai (oct-24, otoño-25, 22-abr-26) · Codex WAU ⚠ · Anthropic · la barra de 2027 es una predicción propia (P1)</div>
+        </section>
+
+        <!-- Agentic commerce -->
+        <section data-anim="commerce">
+          <div class="kicker k-lilac">05 · Producto</div>
+          <h2>Comercio agéntico: el hype va por delante del carrito</h2>
+          <div class="grid-3" style="grid-template-columns: 1fr 1fr 1.1fr; margin-top: 22px; gap: 30px; align-items: start">
+            <div class="card glow-warm co-c"><span class="sticker" style="background: var(--ink); font-size: 18px">Lo que falló</span><h3 style="margin-top: 18px">Instant Checkout, cerrado</h3><p class="small">OpenAI lo cerró el 4-mar-2026. Walmart: el chat convertía <strong>3 veces menos</strong> que mandar al usuario a su web.</p><p class="tiny mono" style="margin: 0">Stripe: «sobrevendido demasiado pronto»</p></div>
+            <div class="card c-g co-c"><span class="sticker" style="background: var(--ink); font-size: 18px">Lo que funciona</span><h3 style="margin-top: 18px">Anuncios y superapps</h3><p class="small"><strong>$1.000 M</strong> de run-rate en anuncios de ChatGPT en menos de 200 días.<br />Alipay AI Pay: <strong>120 M</strong> de transacciones en una semana.</p></div>
+            <div class="co-c">
+              <div class="stage" id="co-stage" style="height: 380px"></div>
+            </div>
+          </div>
+          <div class="callout blue" id="co-call" style="margin-top: 26px; font-size: 23px">2027 será el año de las <strong>reglas</strong> (disputas, identidad del agente, responsabilidad) más que el del volumen.</div>
+          <div class="footnote">Forrester (9-abr-2026) · OpenAI (31-ago-2026) · Alipay (feb-2026) · Air Street State of AI 2026 · a16z Big Ideas 2026</div>
+        </section>
+
+        <!-- Jobs -->
+        <section data-anim="jobs">
+          <div class="kicker k-lilac">05 · Sociedad</div>
+          <h2>El primer impacto laboral: menos puertas de entrada para los juniors</h2>
+          <div class="grid-2" style="grid-template-columns: 1fr 440px; gap: 36px; margin-top: 10px; align-items: start">
+            <div class="stage" id="jb-stage" style="height: 560px"></div>
+            <div style="display: flex; flex-direction: column; gap: 16px; padding-top: 0">
+              <div class="stat c-p jb-s"><div class="v" style="font-size: 56px">−19 %</div><div class="l">empleo de 22–25 años por debajo de la tendencia en las ocupaciones más expuestas a la IA</div><div class="s">Stanford «Canaries» · 12-ago-2026</div></div>
+              <div class="stat jb-s"><div class="v" style="font-size: 40px">Contratar ≠ despedir</div><div class="l">El ajuste llega por <strong>menos contrataciones</strong>, no por despidos. Es un dato descriptivo, no causal.</div></div>
+              <div class="stat c-y jb-s"><div class="v" style="font-size: 56px">53 %</div><div class="l">de la población ya usa IA generativa, a los 3 años (más rápido que el PC o internet)</div><div class="s">Stanford AI Index 2026</div></div>
+            </div>
+          </div>
+          <div class="footnote">Puntos finales reales (−11 % vs +10 % en niveles); la forma de la curva entre medias es ilustrativa</div>
+        </section>
+
+        <!-- Calendar 2027 -->
+        <section data-anim="cal">
+          <div class="kicker k-lilac">05 · Calendario</div>
+          <h2>Una parte del calendario de 2027 ya está escrita</h2>
+          <div class="stage" id="ca-stage" style="height: 560px; margin-top: 16px"></div>
+          <div class="row" style="gap: 14px; position: absolute; left: 88px; bottom: 54px; font-size: 17px">
+            <span class="tag" style="background: var(--lilac)">Regulación</span><span class="tag yellow">Lanzamientos</span><span class="tag pink">Dinero</span><span class="tag green">Robots</span>
+          </div>
+          <div class="footnote">Gibson Dunn / White &amp; Case (Digital Omnibus) · NVIDIA · Huawei · 9to5mac · Meta · Agility · 1X · Waymo · Bloomberg</div>
+        </section>
+
+        <!-- Predictions · product -->
+        <section data-anim="preds">
+          <div class="kicker k-lilac">05 · Predicciones</div>
+          <h2>Producto y sociedad en 2027: cuatro apuestas</h2>
+          <div class="grid-2" style="margin-top: 22px; gap: 28px 34px">
+            <div class="pred"><div class="top"><span class="id">P1</span><span class="conf alta">Alta</span></div><h3>La IA genera más del 80 % del código nuevo en las grandes tecnológicas. El debate pasa a la revisión y el coste</h3><div class="ev"><b>SEÑAL</b> Google: del 25 % al 75 % en 18 meses · Claude Code, Codex y Cursor<br /><b>TENDENCIA</b> el código es el primer mercado de agentes</div></div>
+            <div class="pred"><div class="top"><span class="id">P2</span><span class="conf alta">Alta</span></div><h3>MCP se convierte en la capa estándar de herramientas; la pelea pasa a la identidad y los pagos</h3><div class="ev"><b>SEÑAL</b> MCP y A2A en la Agentic AI Foundation · &gt;110 M de descargas al mes ⚠<br /><b>TENDENCIA</b> estándares neutrales, como HTTP en su día</div></div>
+            <div class="pred"><div class="top"><span class="id">P3</span><span class="conf media">Media</span></div><h3>Los asistentes ganan dinero con anuncios antes que con compras delegadas</h3><div class="ev"><b>SEÑAL</b> Ads: $1.000 M en &lt;200 días · Instant Checkout cerrado<br /><b>TENDENCIA</b> descubrir en el chat, pagar en la web del comercio</div></div>
+            <div class="pred"><div class="top"><span class="id">P4</span><span class="conf media">Media</span></div><h3>La brecha del empleo junior supera el 20 %, sin que lo note el paro agregado</h3><div class="ev"><b>SEÑAL</b> Canaries: de −15 % a −19 % en un año<br /><b>TENDENCIA</b> menos contrataciones de entrada</div></div>
+          </div>
+          <div class="footnote">Predicciones propias · research/06-producto-agentes-sociedad.md</div>
+        </section>
+
+        <!-- ============================================================ LLEGADAS -->
+
+        <!-- Departures board -->
+        <section data-anim="board">
+          <div class="kicker k-orange">Llegadas · Panel 2027</div>
+          <h2>Las 10 predicciones que nos llevamos a 2027</h2>
+          <div class="board" id="bd" style="margin-top: 16px">
+            <div class="bd-row bd-h"><span>Nº</span><span>DESTINO</span><span>CUÁNDO</span><span>CONFIANZA</span></div>
+            <div class="bd-row"><span>01</span><span data-t="CAPEX DE LA IA > $1 BILLÓN">.</span><span data-t="2027">.</span><span class="st a" data-t="ALTA">.</span></div>
+            <div class="bd-row"><span>02</span><span data-t="IA ESCRIBE > 80 % DEL CÓDIGO NUEVO">.</span><span data-t="2027">.</span><span class="st a" data-t="ALTA">.</span></div>
+            <div class="bd-row"><span>03</span><span data-t="MODELOS TOP: PRIMERO LOS VERIFICADOS">.</span><span data-t="TODO 2027">.</span><span class="st a" data-t="ALTA">.</span></div>
+            <div class="bd-row"><span>04</span><span data-t="FRENO: MEMORIA, ENERGÍA Y DEUDA">.</span><span data-t="TODO 2027">.</span><span class="st a" data-t="ALTA">.</span></div>
+            <div class="bd-row"><span>05</span><span data-t="IA SE LLEVA 65–80 % DEL VC">.</span><span data-t="2027">.</span><span class="st a" data-t="ALTA">.</span></div>
+            <div class="bd-row"><span>06</span><span data-t="TAREAS DE LA IA: DE HORAS A SEMANAS">.</span><span data-t="FIN 2027">.</span><span class="st m" data-t="MEDIA">.</span></div>
+            <div class="bd-row"><span>07</span><span data-t="IPO DE ANTHROPIC MARCA EL CICLO">.</span><span data-t="1S 2027">.</span><span class="st m" data-t="MEDIA">.</span></div>
+            <div class="bd-row"><span>08</span><span data-t="50–80 MIL HUMANOIDES, >85 % CHINOS">.</span><span data-t="2027">.</span><span class="st m" data-t="MEDIA">.</span></div>
+            <div class="bd-row"><span>09</span><span data-t="WAYMO: ~1 M VIAJES POR SEMANA">.</span><span data-t="FIN 2027">.</span><span class="st m" data-t="MEDIA">.</span></div>
+            <div class="bd-row"><span>10</span><span data-t="DISPOSITIVO DE OPENAI EN LA CALLE">.</span><span data-t="2027">.</span><span class="st e" data-t="ESPEC.">.</span></div>
+          </div>
+          <div class="footnote">Síntesis de las predicciones L1–L4, M1–M4, R1–R4, S y P1–P4 · research/README.md</div>
+        </section>
+
+        <!-- Takeaways -->
+        <section data-anim="takeaways">
+          <div class="kicker k-orange">Llegadas</div>
+          <h2>Cuatro ideas para aterrizar en 2027</h2>
+          <div class="takeaways">
+            <div class="item"><span class="n">1</span><div><strong>La capacidad ya no es el límite; poder medirla, sí.</strong> El horizonte de tareas se duplica cada ~4 meses y los benchmarks caducan.</div></div>
+            <div class="item"><span class="n">2</span><div><strong>El freno es físico y financiero.</strong> Memoria, energía y deuda, no los chips ni la demanda.</div></div>
+            <div class="item"><span class="n">3</span><div><strong>La IA baja a los átomos.</strong> Robots, defensa y energía: YC y el capital riesgo ya han girado.</div></div>
+            <div class="item"><span class="n">4</span><div><strong>Del chat al trabajador.</strong> Primero el código, luego los servicios completos; la confianza y las reglas marcan el ritmo.</div></div>
+          </div>
+          <div class="sticker" id="tk-q" style="position: absolute; right: 110px; top: 70px; font-size: 30px">¿Preguntas?</div>
+        </section>
+
+        <!-- Sources -->
+        <section data-anim="sources">
+          <div class="kicker">Fuentes</div>
+          <h2>Para seguir leyendo</h2>
+          <div class="src-cols">
+            <h4>Laboratorios</h4>
+            <ul>
+              <li><a href="https://openai.com/index/research-acceleration-view-inside-openai/">OpenAI · Research acceleration (sep-26)</a></li>
+              <li><a href="https://openai.com/index/gpt-6-for-everyone/">OpenAI · GPT-6 for everyone (oct-26)</a></li>
+              <li><a href="https://darioamodei.com/post/we-must-pace-the-frontier">Amodei · We Must Pace the Frontier</a></li>
+              <li><a href="https://www.anthropic.com/glasswing">Anthropic · Project Glasswing</a></li>
+              <li><a href="https://www.reuters.com/business/google-launches-flagship-ai-model-gemini-4-argon-developers-businesses-2026-10-13/">Reuters · Gemini 4 Argon</a></li>
+              <li><a href="https://engineering.fb.com/2026/10/19/data-center-engineering/inside-prometheus-meta-gigawatt-scale-supercluster/">Meta · Prometheus</a></li>
+            </ul>
+            <h4>Frontera</h4>
+            <ul>
+              <li><a href="https://metr.org/blog/2026-05-19-frontier-risk-report/">METR · Frontier Risk Report</a></li>
+              <li><a href="https://epoch.ai/trends">Epoch AI · Trends</a></li>
+              <li><a href="https://epoch.ai/publications/the-plunging-price-of-thought">Epoch · The plunging price of thought</a></li>
+              <li><a href="https://arcprize.org/blog/astra">ARC Prize · Astra</a></li>
+              <li><a href="https://hai.stanford.edu/ai-index/2026-ai-index-report">Stanford AI Index 2026</a></li>
+              <li><a href="https://www.stateof.ai/">State of AI Report 2026</a></li>
+            </ul>
+            <h4>Mercado</h4>
+            <ul>
+              <li><a href="https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-second-quarter-fiscal-2027">NVIDIA · Q2 FY27</a></li>
+              <li><a href="https://investors.micron.com/files/doc_financials/2026/q4/Q4-FY26-Prepared-Remarks.pdf">Micron · FQ4'26</a></li>
+              <li><a href="https://www.gartner.com/en/newsroom/press-releases/2026-09-16-gartner-forecasts-worldwide-ai-spending-to-grow-49-point-5-percent-in-2026">Gartner · Gasto en IA</a></li>
+              <li><a href="https://platformonomics.com/2026/07/follow-the-capex-q2-2026-scoreboard/">Platformonomics · Capex Q2-26</a></li>
+              <li><a href="https://www.goldmansachs.com/what-we-do/investment-banking/insights/articles/navigating-a-system-of-ai-bottlenecks">Goldman · AI bottlenecks</a></li>
+              <li><a href="https://www.reuters.com/legal/transactional/coreweave-shares-bonds-slide-further-ai-debt-fears-mount-2026-10-15">Reuters · CoreWeave</a></li>
+            </ul>
+            <h4>Robótica</h4>
+            <ul>
+              <li><a href="https://ifr.org">IFR · World Robotics 2026</a></li>
+              <li><a href="https://waymo.com/updates">Waymo · Updates</a></li>
+              <li><a href="https://figure.ai/news/f-03-at-bmw">Figure · F.03 en BMW</a></li>
+            </ul>
+            <h4>Startups y VC</h4>
+            <ul>
+              <li><a href="https://www.ycombinator.com/rfs">Y Combinator · Requests for Startups</a></li>
+              <li><a href="https://news.crunchbase.com/venture/q3-2026-global-startup-funding-ai-billion-dollar-rounds-exits-data">Crunchbase · Q3-2026</a></li>
+              <li><a href="https://pitchbook.com/news/reports/q3-2026-pitchbook-nvca-venture-monitor">PitchBook-NVCA · Q3-2026</a></li>
+              <li><a href="https://a16z.com/newsletter/big-ideas-2026-part-1/">a16z · Big Ideas 2026</a></li>
+              <li><a href="https://www.stateof.ai/2026-explore/predictions">Air Street · Predicciones 2027</a></li>
+            </ul>
+            <h4>Producto y sociedad</h4>
+            <ul>
+              <li><a href="https://digitaleconomy.stanford.edu/news/canariesaug26/">Stanford · Canaries (ago-26)</a></li>
+              <li><a href="https://www.forrester.com/blogs/agentic-payments-in-b2c-commerce-where-we-are-now/">Forrester · Pagos agénticos</a></li>
+              <li><a href="https://www.gibsondunn.com/eu-ai-act-omnibus-agreement-postponed-high-risk-deadlines-and-other-key-changes/">Gibson Dunn · AI Act Omnibus</a></li>
+            </ul>
+          </div>
+          <div class="footnote">Consultado el 20–21 de oct-2026 · ⚠ = fuente secundaria · lista completa en research/sources.md</div>
+        </section>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="assets/js/lib.js"></script>
+    <script src="assets/js/anims-intro.js"></script>
+    <script src="assets/js/anims-labs.js"></script>
+    <script src="assets/js/anims-market.js"></script>
+    <script src="assets/js/anims-robots.js"></script>
+    <script src="assets/js/anims-startups.js"></script>
+    <script src="assets/js/anims-product.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>

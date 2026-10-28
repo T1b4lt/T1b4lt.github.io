@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Radiografía de la vivienda en España</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Inter:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
+    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
+    <link rel="stylesheet" href="assets/css/theme.css" />
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <!-- ============ A · APERTURA ============ -->
+
+        <!-- 1 · Portada -->
+        <section class="title-slide" data-anim="cover">
+          <div class="kicker">Radiografía · Vivienda en España · 2026</div>
+          <h1>Lo que dicen,<br />y lo que dicen <em class="c-accent">los datos</em></h1>
+          <p class="sub">Cinco mensajes sobre vivienda que circulan en medios y redes, contrastados solo con fuentes oficiales.</p>
+          <div class="tags">
+            <span class="tag accent">INE</span>
+            <span class="tag accent">Banco de España</span>
+            <span class="tag accent">Catastro</span>
+            <span class="tag">Ministerios</span>
+            <span class="tag">Interior</span>
+          </div>
+          <div class="replay-hint">← → navegar · R repetir animación · F pantalla completa</div>
+        </section>
+
+        <!-- 2 · El truco del denominador (por pasos) -->
+        <section data-anim="denominador">
+          <div class="kicker">La clave de todo</div>
+          <h2>Casi ningún bulo inventa el dato: elige el denominador</h2>
+          <div class="stage" id="den-stage" style="height: 430px; margin-top: 14px"></div>
+          <div id="den-caption" class="callout" style="margin-top: 6px; min-height: 84px; font-size: 26px"></div>
+          <span class="fragment step" data-step="1"></span>
+          <span class="fragment step" data-step="2"></span>
+          <div class="footnote">INE, viviendas turísticas (may-2026) sobre Censo 2021 [cálculo propio]; Banco de España, Informe Anual 2025 (peso en el mercado del alquiler, 2025).</div>
+        </section>
+
+        <!-- 3 · Los cinco mensajes -->
+        <section data-anim="mensajes">
+          <div class="kicker">Lo que vamos a contrastar</div>
+          <h2>Cinco mensajes que circulan, uno a uno contra los datos</h2>
+          <ol class="msg-list">
+            <li><span class="n">1</span><span class="q">«Solo el 1&nbsp;% son grandes tenedores»</span><span class="tag">propiedad</span></li>
+            <li><span class="n">2</span><span class="q">«Los pisos turísticos ilegales no cambiarían nada»</span><span class="tag">turismo</span></li>
+            <li><span class="n">3</span><span class="q">«El único problema es que no se construye»</span><span class="tag">oferta</span></li>
+            <li><span class="n">4</span><span class="q">«Hay 3,8 millones de viviendas vacías»</span><span class="tag">parque</span></li>
+            <li><span class="n">5</span><span class="q">«La okupación es una epidemia»</span><span class="tag">seguridad</span></li>
+          </ol>
+          <p class="small muted" style="margin-top: 26px">Y una pregunta abierta, sin veredicto: ¿la Ley de Vivienda reduce la oferta de alquiler?</p>
+          <div class="footnote">Mensajes recogidos de prensa, patronales y redes (2024-2026). Recopilación en research/mensajes-en-medios.md.</div>
+        </section>
+
+        <!-- ============ B · RADIOGRAFÍA ============ -->
+
+        <!-- 4 · El parque -->
+        <section data-anim="parque">
+          <div class="kicker">Radiografía · El parque</div>
+          <h2>26,6 millones de viviendas: 7 de cada 10 son el hogar de alguien</h2>
+          <div class="stage" id="parque-stage" style="height: 500px; margin-top: 18px"></div>
+          <div class="footnote">INE, Censos de Población y Viviendas 2021 (1-ene-2021). «Vacía»: sin contrato eléctrico o con consumo inferior a 15 días de uso al año. Último recuento oficial (el censo es decenal).</div>
+        </section>
+
+        <!-- 5 · Tenencia -->
+        <section data-anim="tenencia">
+          <div class="kicker">Radiografía · Quién vive cómo</div>
+          <h2>España deja de ser un país de propietarios… y crecen los caseros</h2>
+          <div class="grid-2" style="grid-template-columns: 1.35fr 1fr; gap: 50px; margin-top: 14px; align-items: center">
+            <div class="stage" id="ten-stage" style="height: 520px"></div>
+            <div>
+              <div class="stat"><span class="big-num">×2,9</span><span class="small">hogares que alquilan viviendas a otros (caseros), de 3,4&nbsp;% a 9,8&nbsp;%</span></div>
+              <div class="stat" style="margin-top: 28px"><span class="big-num c-accent-2">+7,3&nbsp;pp</span><span class="small">hogares inquilinos, de 11,9&nbsp;% a 19,2&nbsp;%</span></div>
+              <p class="tiny muted" style="margin-top: 26px">Perfiles excluyentes: un hogar casero es el que alquila viviendas a otros, viva donde viva. Por eso «propietarios» no coincide con el 75,5&nbsp;% del Censo.</p>
+            </div>
+          </div>
+          <div class="footnote">Banco de España, Encuesta Financiera de las Familias 2008-2022; explotación del Ministerio de Derechos Sociales, Consumo y Agenda 2030 e IFS-CSIC (Informe 2, 2026).</div>
+        </section>
+
+        <!-- ============ C · MENSAJE 1 · GRANDES TENEDORES ============ -->
+
+        <!-- 6 · Lo que dicen -->
+        <section data-anim="dicen" class="dicen-slide">
+          <div class="kicker">Mensaje 1 · Propiedad</div>
+          <h2>«Solo el 1&nbsp;% son grandes tenedores: el problema no son ellos»</h2>
+          <div class="grid-3" style="margin-top: 30px">
+            <div class="claim">
+              <div class="who">Medio digital · 2018</div>
+              <p>«Los grandes tenedores de pisos […] tienen <strong>menos del 5&nbsp;%</strong> del parque»</p>
+              <div class="src">OKDiario, 12-oct-2018 · «estadísticas del sector», gran tenedor = más de 50 inmuebles</div>
+            </div>
+            <div class="claim">
+              <div class="who">Cifra que circula · 2024-2026</div>
+              <p>Los grandes tenedores son <strong>el 1&nbsp;% de los propietarios</strong>, así que «no son tantos»</p>
+              <div class="src">1,08&nbsp;% de los titulares con más de 10 inmuebles (citado por La Marea). No se localizó quién lo dijo primero</div>
+            </div>
+            <div class="claim">
+              <div class="who">Patronal de propietarios</div>
+              <p>«Nueve de cada diez caseros son <strong>pequeños propietarios</strong> particulares»</p>
+              <div class="src">Argumento habitual (ASVAL, asociaciones de propietarios), basado en datos del Banco de España</div>
+            </div>
+          </div>
+          <div class="callout warm" style="margin-top: 36px">La pregunta correcta no es <em>cuántos son</em>, sino <strong>cuántas viviendas tienen</strong>.</div>
+          <div class="footnote">Citas y paráfrasis recogidas en research/mensajes-en-medios.md (consultado 28-oct-2026).</div>
+        </section>
+
+        <!-- 7 · El desequilibrio (por pasos) -->
+        <section data-anim="desequilibrio">
+          <div class="kicker">Mensaje 1 · Los datos</div>
+          <h2>Son pocos titulares, pero cada uno pesa mucho más</h2>
+          <div class="stage" id="deseq-stage" style="height: 470px; margin-top: 6px"></div>
+          <div id="deseq-caption" class="callout" style="margin-top: 4px; min-height: 84px; font-size: 25px"></div>
+          <span class="fragment step" data-step="1"></span>
+          <span class="fragment step" data-step="2"></span>
+          <span class="fragment step" data-step="3"></span>
+          <div class="footnote">Catastro, titularidad de inmuebles urbanos de uso residencial, padrón 2026 (territorio común, sin País Vasco ni Navarra). Titular = contribuyente del IBI. Cálculo propio.</div>
+        </section>
+
+        <!-- 8 · 802 titulares -->
+        <section data-anim="megatenedores">
+          <div class="kicker">Mensaje 1 · Los datos</div>
+          <h2>802 titulares tienen medio millón de viviendas</h2>
+          <div class="grid-2" style="grid-template-columns: 0.9fr 1.3fr; gap: 60px; margin-top: 26px; align-items: start">
+            <div>
+              <div class="hero-pair">
+                <div><span class="big-num c-heading" id="mt-a">802</span><span class="small muted">titulares con más de 100 viviendas</span></div>
+                <div class="arrow">↓</div>
+                <div><span class="big-num" id="mt-b">500.981</span><span class="small muted">viviendas: el 2,1&nbsp;% del parque</span></div>
+              </div>
+              <p class="small" style="margin-top: 26px">Una media de <strong>~625 viviendas</strong> por titular. Equivale a <strong>6 años</strong> de viviendas terminadas al ritmo de 2025.</p>
+            </div>
+            <div>
+              <div class="mini-title">Quiénes son esos 802</div>
+              <div class="bars wide" id="mt-bars">
+                <span class="lbl">Sociedades privadas<br /><span class="tiny muted">625 titulares</span></span><div class="track"><div class="fill" data-v="0.521"></div></div><span class="val">260.983</span>
+                <span class="lbl">Entidades públicas<br /><span class="tiny muted">117 titulares</span></span><div class="track"><div class="fill b" data-v="0.423"></div></div><span class="val">211.812</span>
+                <span class="lbl">Otros (comunidades, herencias)<br /><span class="tiny muted">47 titulares</span></span><div class="track"><div class="fill n" data-v="0.052"></div></div><span class="val">25.812</span>
+                <span class="lbl">Personas físicas<br /><span class="tiny muted">13 titulares</span></span><div class="track"><div class="fill n" data-v="0.005"></div></div><span class="val">2.374</span>
+              </div>
+              <p class="tiny muted" style="margin-top: 18px">El Catastro cuenta por NIF: un grupo con muchas filiales aparece como muchos titulares pequeños. La concentración real de los grandes grupos es <em>mayor</em>.</p>
+            </div>
+          </div>
+          <div class="footnote">Catastro, padrón 2026, uso residencial, tramo «más de 100 inmuebles». Comparación con 80.792 viviendas terminadas en 2025 (Ministerio de Vivienda, vía prensa): cálculo propio.</div>
+        </section>
+
+        <!-- 9 · Escalera de concentración (por pasos) -->
+        <section data-anim="escalera">
+          <div class="kicker">Mensaje 1 · Los datos</div>
+          <h2>El «1&nbsp;%» de los titulares no tiene el 1&nbsp;% de las casas</h2>
+          <div class="stage" id="esc-stage" style="height: 560px; margin-top: 8px"></div>
+          <span class="fragment step" data-step="1"></span>
+          <span class="fragment step" data-step="2"></span>
+          <span class="fragment step" data-step="3"></span>
+          <div class="footnote">Catastro, padrón 2026, uso residencial. «El 1&nbsp;% con más viviendas»: rango estimado (los 38.904 titulares del tramo 2-5 que completan el 1&nbsp;% tienen entre 2 y 5 cada uno). Cálculo propio.</div>
+        </section>
+
+        <!-- 10 · ¿Y en el alquiler? -->
+        <section data-anim="alquiler">
+          <div class="kicker">Mensaje 1 · El mercado del alquiler</div>
+          <h2>Dos datos ciertos a la vez: casero particular no es casero de un piso</h2>
+          <div class="grid-2" style="margin-top: 26px; gap: 44px">
+            <div class="card">
+              <div class="mini-title">Banco de España · alquiler de mercado, 2021</div>
+              <div class="big-num" style="font-size: 84px">+90&nbsp;%</div>
+              <p class="small">de las viviendas en alquiler es de <strong>personas físicas</strong>. Las sociedades tienen el <strong>8&nbsp;%</strong> (11&nbsp;% en Cataluña, 10&nbsp;% en Madrid).</p>
+              <p class="small" style="margin-top: 10px">Las personas físicas con más de 10 viviendas: <strong>hasta el 7&nbsp;%</strong>.</p>
+            </div>
+            <div class="card glow">
+              <div class="mini-title">Ministerio de Derechos Sociales y CSIC · AEAT 2023</div>
+              <div class="big-num" style="font-size: 84px">52,8&nbsp;%</div>
+              <p class="small">del alquiler de particulares es de caseros con <strong>2 o más viviendas alquiladas</strong>. En las ciudades, más:</p>
+              <div class="bars city" id="alq-bars">
+                <span class="lbl">Las Palmas</span><div class="track"><div class="fill" data-v="0.649"></div></div><span class="val">64,9&nbsp;%</span>
+                <span class="lbl">Palma</span><div class="track"><div class="fill" data-v="0.631"></div></div><span class="val">63,1&nbsp;%</span>
+                <span class="lbl">Barcelona</span><div class="track"><div class="fill" data-v="0.608"></div></div><span class="val">60,8&nbsp;%</span>
+                <span class="lbl">Madrid</span><div class="track"><div class="fill" data-v="0.564"></div></div><span class="val">56,4&nbsp;%</span>
+              </div>
+            </div>
+          </div>
+          <div class="footnote">Banco de España, Documento Ocasional 2432 (2024), pp. 30-31. Ministerio de Derechos Sociales + IFS-CSIC, Informe 1 «Un mercado dominado por multiarrendadores» (2026).</div>
+        </section>
+
+        <!-- 11 · Por comunidades -->
+        <section data-anim="ccaa">
+          <div class="kicker">Mensaje 1 · El territorio</div>
+          <h2>La media nacional esconde que en Canarias se duplica</h2>
+          <div class="grid-2" style="grid-template-columns: 1.55fr 1fr; gap: 40px; margin-top: 6px; align-items: center">
+            <div class="stage" id="ccaa-stage" style="height: 600px"></div>
+            <div>
+              <p class="small">Porcentaje de las viviendas de cada comunidad que está en manos de titulares con <strong>más de 10</strong>.</p>
+              <div class="legend">
+                <span><i style="background: var(--mark-a)"></i>Privados (sociedades, particulares, otros)</span>
+                <span><i style="background: var(--mark-b)"></i>Entidades públicas</span>
+              </div>
+              <p class="tiny muted" style="margin-top: 22px">Extremadura o Asturias suben por el parque público; Canarias, Cataluña y Madrid, por el privado.</p>
+            </div>
+          </div>
+          <div class="footnote">Catastro, padrón 2026, uso residencial, por CCAA. Sin País Vasco, Navarra, Ceuta ni Melilla. Cálculo propio.</div>
+        </section>
+
+        <!-- ============ D · MENSAJE 2 · TURISMO ============ -->
+
+        <!-- 12 · Lo que dicen -->
+        <section data-anim="dicen" class="dicen-slide">
+          <div class="kicker">Mensaje 2 · Uso turístico</div>
+          <h2>«Los pisos turísticos son menos del 1&nbsp;%: quitar los ilegales no cambiaría nada»</h2>
+          <div class="grid-2" style="margin-top: 30px">
+            <div class="claim">
+              <div class="who">Diario nacional · 12-jun-2025</div>
+              <p>«El dato que tumba el mito del alquiler turístico de Moncloa: <strong>menos del 1&nbsp;% del parque</strong> se destina a esta modalidad»</p>
+              <div class="src">El Debate, con datos de una encuesta de Fotocasa Research (portal privado)</div>
+            </div>
+            <div class="claim">
+              <div class="who">Patronal de viviendas turísticas</div>
+              <p>«Definitivamente <strong>no es el causante</strong> de que no haya pisos para vivir»</p>
+              <div class="src">Presidente de Fevitur, entrevista en Alicante Plaza</div>
+            </div>
+          </div>
+          <div class="callout warm" style="margin-top: 36px">Dos preguntas: ¿cuántas hay de verdad, contando las ilegales? ¿Y cuánto pesan <strong>donde se concentran</strong>?</div>
+          <div class="footnote">Citas literales recogidas en research/mensajes-en-medios.md (consultado 28-oct-2026).</div>
+        </section>
+
+        <!-- 13 · Lo oficial -->
+        <section data-anim="oficial">
+          <div class="kicker">Mensaje 2 · Lo oficial</div>
+          <h2>341.001 viviendas turísticas anunciadas: el 1,3&nbsp;% del parque</h2>
+          <div class="grid-2" style="grid-template-columns: 0.9fr 1.3fr; gap: 60px; margin-top: 26px; align-items: start">
+            <div>
+              <div class="big-num" id="of-num">341.001</div>
+              <p class="small muted" style="margin-top: 8px">viviendas turísticas en plataformas, mayo 2026 (−10,7&nbsp;% en un año)</p>
+              <div class="note-box" style="margin-top: 30px">
+                <strong>Ojo con lo que mide.</strong> El INE rastrea Airbnb, Booking y Vrbo y elimina duplicados. Cuenta <em>anuncios</em>, con y sin licencia: no son «las legales». Tampoco capta el alquiler de temporada ni las habitaciones.
+              </div>
+            </div>
+            <div>
+              <div class="mini-title">Las cinco comunidades con más</div>
+              <div class="bars wide" id="of-bars">
+                <span class="lbl">Andalucía</span><div class="track"><div class="fill" data-v="1"></div></div><span class="val">90.649</span>
+                <span class="lbl">Cataluña</span><div class="track"><div class="fill" data-v="0.566"></div></div><span class="val">51.305</span>
+                <span class="lbl">C. Valenciana</span><div class="track"><div class="fill" data-v="0.566"></div></div><span class="val">51.268</span>
+                <span class="lbl">Canarias</span><div class="track"><div class="fill" data-v="0.533"></div></div><span class="val">48.356</span>
+                <span class="lbl">Baleares</span><div class="track"><div class="fill" data-v="0.235"></div></div><span class="val">21.304</span>
+              </div>
+              <p class="tiny muted" style="margin-top: 18px">Provincias: Málaga 45.176 · Alicante 32.148 · Las Palmas 26.998 · Tenerife 21.358.</p>
+            </div>
+          </div>
+          <div class="footnote">INE, estadística experimental «Medición del número de viviendas turísticas», mayo 2026 (vía Hosteltur, Forbes y Ara). 1,3&nbsp;% = 341.001 / 26,6 M del Censo 2021: cálculo propio.</div>
+        </section>
+
+        <!-- 14 · Lo extraoficial -->
+        <section data-anim="extraoficial">
+          <div class="kicker">Mensaje 2 · Lo extraoficial</div>
+          <h2>Los ilegales no son una anécdota: las sanciones lo dicen</h2>
+          <div class="grid-3" style="margin-top: 34px">
+            <div class="card glow stat-card">
+              <div class="big-num" id="ex-1">65.122</div>
+              <p class="small">anuncios de Airbnb <strong>sin licencia</strong> o con registro falso. Multa: <strong>64 M€</strong> (dic-2025). El TSJ de Madrid denegó suspenderla.</p>
+              <div class="src">Ministerio de Derechos Sociales, Consumo y Agenda 2030</div>
+            </div>
+            <div class="card glow stat-card">
+              <div class="big-num" id="ex-2">~93&nbsp;%</div>
+              <p class="small">de los ~16.100 pisos turísticos de <strong>Madrid capital</strong> no tenía licencia en el diagnóstico del plan municipal (Plan Reside).</p>
+              <div class="src">Ayuntamiento de Madrid, vía prensa</div>
+            </div>
+            <div class="card glow stat-card">
+              <div class="big-num" id="ex-3">86.275</div>
+              <p class="small">anuncios que Vivienda notificó a las plataformas para retirar con el Registro Único. El Supremo anuló el registro en mayo de 2026.</p>
+              <div class="src">Ministerio de Vivienda, vía prensa</div>
+            </div>
+          </div>
+          <div class="callout" style="margin-top: 34px">Si fueran irrelevantes, Consumo no habría impuesto <strong>una de sus mayores multas</strong> por ellos.</div>
+          <div class="footnote">Cifras de anuncios: un mismo piso puede tener varios. Ver research/uso-turistico.md para cortes y fechas.</div>
+        </section>
+
+        <!-- 15 · Peso en el alquiler por ciudad (por pasos) -->
+        <section data-anim="vutciudades">
+          <div class="kicker">Mensaje 2 · Donde se concentran</div>
+          <h2>En el centro de Málaga o Sevilla, casi 1 de cada 2 viviendas en alquiler es turística</h2>
+          <div class="stage" id="vut-stage" style="height: 520px; margin-top: 6px"></div>
+          <div id="vut-caption" class="callout" style="margin-top: 2px; min-height: 50px; font-size: 24px"></div>
+          <span class="fragment step" data-step="1"></span>
+          <div class="footnote">Banco de España, presentación del Informe Anual 2025 (18-jun-2026), con datos del INE y la AEAT. No incluye alquiler de temporada ni de habitaciones.</div>
+        </section>
+
+        <!-- 16 · ¿Cambiaría las cosas? -->
+        <section data-anim="cambiaria">
+          <div class="kicker">Mensaje 2 · ¿Cambiaría algo?</div>
+          <h2>Devolver los ilegales al mercado sería como construir otro año entero</h2>
+          <div class="grid-2" style="grid-template-columns: 1.3fr 1fr; gap: 54px; margin-top: 20px; align-items: start">
+            <div>
+              <div class="mini-title">Viviendas, comparadas</div>
+              <div class="bars wide" id="cam-bars">
+                <span class="lbl">Terminadas en toda España, 2025</span><div class="track"><div class="fill n" data-v="0.728"></div></div><span class="val">80.792</span>
+                <span class="lbl">Anuncios ilegales de una sola plataforma</span><div class="track"><div class="fill" data-v="0.587"></div></div><span class="val">65.122</span>
+                <span class="lbl">Ilegales detectadas por Vivienda</span><div class="track"><div class="fill" data-v="1"></div></div><span class="val">~111.000</span>
+              </div>
+              <p class="small" style="margin-top: 22px">Frente al déficit de <strong>~750.000</strong> viviendas (2021-2025), eso es entre el <strong>9&nbsp;% y el 15&nbsp;%</strong>, concentrado justo donde más falta.</p>
+            </div>
+            <div class="card">
+              <div class="mini-title">¿Y en los precios?</div>
+              <p class="small">En los barrios de Barcelona con más Airbnb: <strong>+7&nbsp;% en alquileres</strong> y <strong>+17&nbsp;% en precios de venta</strong>.</p>
+              <p class="tiny muted">García-López et al. (2020), citado por el Banco de España</p>
+              <p class="small" style="margin-top: 14px">El Banco de España: el uso turístico <strong>«reduce el stock disponible para uso residencial»</strong> en costa, islas y centros urbanos.</p>
+            </div>
+          </div>
+          <div class="callout warm" style="margin-top: 26px; font-size: 24px">Matiz honesto: no todos volverían al alquiler habitual (algunos son segundas residencias o habitaciones).</div>
+          <div class="footnote">Ministerio de Vivienda (terminadas 2025 e ilegales, vía prensa); Consumo (Airbnb); BdE, Informe Anual 2025 en breve y DO 2432. Porcentajes: cálculo propio.</div>
+        </section>
+
+        <!-- ============ E · OTROS MENSAJES ============ -->
+
+        <!-- 17 · Solo construir -->
+        <section data-anim="construir">
+          <div class="kicker">Mensaje 3 · Oferta</div>
+          <h2>Falta construir, sí. Pero no es lo único que falta</h2>
+          <div class="grid-2" style="grid-template-columns: 1fr 1.1fr; gap: 50px; margin-top: 20px; align-items: start">
+            <div>
+              <div class="claim compact">
+                <div class="who">Promotores y varios partidos</div>
+                <p>«El problema es la falta de oferta: hay que construir más»</p>
+              </div>
+              <div class="mini-title" style="margin-top: 26px">Lo que confirma el Banco de España</div>
+              <p class="small">Desde 2021 se han creado más hogares que viviendas: déficit de <strong>~750.000</strong>, el 3,9&nbsp;% de los hogares.</p>
+              <div class="mini-title" style="margin-top: 20px">Lo que el mensaje omite</div>
+              <ul class="small tight">
+                <li>El propio Banco de España señala la vivienda turística y las compras de no residentes como demanda que <strong>resta</strong> viviendas.</li>
+                <li>Vivienda social: <strong>~2,5&nbsp;%</strong> del parque, frente a ~9&nbsp;% de media en la UE.</li>
+              </ul>
+            </div>
+            <div>
+              <div class="mini-title">Déficit 2021-2025, en % de los hogares</div>
+              <div class="stage" id="cons-stage" style="height: 400px"></div>
+              <div class="verdict v-warn" style="margin-top: 10px">◐ Cierto, pero incompleto</div>
+            </div>
+          </div>
+          <div class="footnote">Banco de España, presentación del Informe Anual 2025 (diap. 29 y 28). Vivienda social: Eurostat y Gobierno, vía prensa (las definiciones varían entre países).</div>
+        </section>
+
+        <!-- 18 · Vacías -->
+        <section data-anim="vacias">
+          <div class="kicker">Mensaje 4 · Viviendas vacías</div>
+          <h2>Hay 3,8 millones de vacías, pero casi la mitad está en pueblos</h2>
+          <div class="grid-2" style="grid-template-columns: 1.35fr 1fr; gap: 50px; margin-top: 16px; align-items: center">
+            <div class="stage" id="vac-stage" style="height: 500px"></div>
+            <div>
+              <div class="stat"><span class="big-num">45&nbsp;%</span><span class="small">de las vacías está en municipios de menos de 10.000 habitantes, donde vive el 20&nbsp;% de la población</span></div>
+              <div class="stat" style="margin-top: 22px"><span class="big-num c-accent-2" style="font-size: 72px">403.073</span><span class="small">vacías en las ciudades de más de 250.000 habitantes: el 7,5&nbsp;% de su parque. No es cero</span></div>
+              <div class="verdict v-warn" style="margin-top: 22px">◐ Cierto, pero mal usado</div>
+            </div>
+          </div>
+          <div class="footnote">INE, Censos 2021, «Distribución de las viviendas vacías por tamaño de municipio». Vacía = sin contrato eléctrico o con consumo bajo: no significa «disponible».</div>
+        </section>
+
+        <!-- 19 · Okupación -->
+        <section data-anim="okupacion">
+          <div class="kicker">Mensaje 5 · Okupación</div>
+          <h2>La okupación existe, pero afecta a 6 de cada 10.000 viviendas</h2>
+          <div class="grid-2" style="grid-template-columns: 1fr 1fr; gap: 56px; margin-top: 18px; align-items: center">
+            <div>
+              <div class="stage" id="oku-stage" style="height: 520px"></div>
+            </div>
+            <div>
+              <div class="stat"><span class="big-num">14.875</span><span class="small">denuncias por usurpación y allanamiento en 2025 (16.426 en 2024)</span></div>
+              <p class="small" style="margin-top: 22px">≈ <strong>0,06&nbsp;%</strong> del parque. Y son <em>denuncias</em>: incluyen allanamientos de morada y no son ocupaciones activas.</p>
+              <p class="small" style="margin-top: 12px">Para comparar: <strong>24.540</strong> lanzamientos judiciales en 2025, 7 de cada 10 por impago de alquiler.</p>
+              <div class="verdict v-exag" style="margin-top: 22px">▲ Exagerado</div>
+            </div>
+          </div>
+          <div class="footnote">Ministerio del Interior, Portal Estadístico de Criminalidad (vía EFE); CGPJ, lanzamientos 2025 (vía prensa). 0,06&nbsp;% = denuncias / 26,6 M viviendas: cálculo propio.</div>
+        </section>
+
+        <!-- 20 · Ley de Vivienda -->
+        <section data-anim="ley">
+          <div class="kicker">Pregunta abierta · Ley de Vivienda</div>
+          <h2>¿Limitar precios reduce la oferta? La evidencia todavía no cierra el debate</h2>
+          <div class="grid-2" style="margin-top: 28px; gap: 40px">
+            <div class="card">
+              <div class="mini-title">Apunta a que los precios se contienen</div>
+              <p class="small"><strong>Generalitat (INCASÒL):</strong> en zonas tensionadas de Cataluña, el precio de los contratos nuevos bajó un 1,3&nbsp;%, frente a +9,5&nbsp;% en el resto.</p>
+              <p class="small" style="margin-top: 12px">317 municipios declarados tensionados (sep-2026), 271 en Cataluña.</p>
+            </div>
+            <div class="card">
+              <div class="mini-title">Apunta a que la oferta se reduce</div>
+              <p class="small"><strong>Banco de España:</strong> advierte de posibles «efectos no deseados» de los topes sobre la oferta.</p>
+              <p class="small" style="margin-top: 12px">Estudios de think tanks (Fedea) y portales privados (Idealista) estiman caídas de la oferta anunciada del 20-30&nbsp;%: <em>no oficiales</em>, y la oferta anunciada no es todo el mercado.</p>
+            </div>
+          </div>
+          <div class="verdict v-open" style="margin-top: 30px">? Debate abierto: sin evaluación oficial completa todavía</div>
+          <div class="footnote">INCASÒL, BdE y recuento de zonas tensionadas, vía prensa; Fedea e Idealista [no oficial]. Ver research/contexto-mercado.md, punto 7.</div>
+        </section>
+
+        <!-- ============ F · CIERRE ============ -->
+
+        <!-- 21 · Veredictos -->
+        <section data-anim="veredictos">
+          <div class="kicker">Resumen</div>
+          <h2>Cinco mensajes, cinco veredictos</h2>
+          <table class="tbl verdicts" style="margin-top: 20px">
+            <thead>
+              <tr><th>Mensaje</th><th>Lo que dicen los datos</th><th>Veredicto</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>«Solo el 1&nbsp;% son grandes tenedores»</td><td>Son el 0,16&nbsp;% de los titulares, pero tienen el 4,2&nbsp;% de las viviendas (26 veces su peso)</td><td><span class="verdict v-bad">✗ Engañoso</span></td></tr>
+              <tr><td>«Los turísticos ilegales no cambian nada»</td><td>Sobre el alquiler son el 10,8&nbsp;% (45&nbsp;% en centros turísticos); los ilegales suman más que un año de obra nueva</td><td><span class="verdict v-bad">✗ Engañoso</span></td></tr>
+              <tr><td>«Solo hay que construir»</td><td>El déficit de ~750.000 es real, pero el uso turístico y la poca vivienda social también cuentan</td><td><span class="verdict v-warn">◐ Incompleto</span></td></tr>
+              <tr><td>«Hay 3,8 M de vacías»</td><td>Cierto, pero el 45&nbsp;% está en municipios pequeños</td><td><span class="verdict v-warn">◐ Mal usado</span></td></tr>
+              <tr><td>«La okupación es una epidemia»</td><td>~15.000 denuncias al año: el 0,06&nbsp;% del parque</td><td><span class="verdict v-exag">▲ Exagerado</span></td></tr>
+            </tbody>
+          </table>
+          <div class="footnote">Detalle y fuentes en las diapositivas anteriores y en research/. Datos consultados el 28-oct-2026.</div>
+        </section>
+
+        <!-- 22 · Tres preguntas -->
+        <section data-anim="preguntas">
+          <div class="kicker">Para la próxima cifra</div>
+          <h2>Tres preguntas antes de compartir un porcentaje</h2>
+          <div class="takeaways">
+            <div class="item"><span class="n">1</span><div><strong>¿Sobre qué total?</strong> ¿Propietarios o viviendas? ¿El parque entero o el mercado del alquiler?</div></div>
+            <div class="item"><span class="n">2</span><div><strong>¿Dónde?</strong> Una media nacional diluye lo que pasa en Málaga, Canarias o el centro de Madrid.</div></div>
+            <div class="item"><span class="n">3</span><div><strong>¿Quién lo mide?</strong> El INE, el Banco de España o el Catastro no son una encuesta de un portal inmobiliario.</div></div>
+          </div>
+        </section>
+
+        <!-- 23 · Fuentes -->
+        <section data-anim="fuentes">
+          <div class="kicker">Fuentes</div>
+          <h2>Todo sale de fuentes oficiales, y se puede comprobar</h2>
+          <div class="grid-2 sources" style="margin-top: 18px">
+            <ul>
+              <li><a href="https://www.ine.es/prensa/censo_2021_jun.pdf">INE · Censos de Población y Viviendas 2021</a></li>
+              <li><a href="https://www.ine.es/experimental/viv_turistica/experimental_viv_turistica.htm">INE · Viviendas turísticas (estadística experimental)</a></li>
+              <li><a href="https://www.catastro.hacienda.gob.es/es-ES/estadisticas_3_1.html">Catastro · Estadísticas de titularidad, uso residencial</a></li>
+              <li><a href="https://www.bde.es/f/webbe/SES/Secciones/Publicaciones/PublicacionesSeriadas/DocumentosOcasionales/24/Fich/do2432.pdf">Banco de España · DO 2432, el mercado del alquiler (2024)</a></li>
+              <li><a href="https://www.bde.es/f/webbe/SES/Secciones/Publicaciones/PublicacionesAnuales/InformesAnuales/25/Fich/IIPP-2026-06-18-lopez-salido-es-or.pdf">Banco de España · Presentación del Informe Anual 2025</a></li>
+            </ul>
+            <ul>
+              <li><a href="https://www.dsca.gob.es/sites/default/files/prensa/Informe%201%20Multiarrendadores.pdf">Min. Derechos Sociales + CSIC · Informe 1, multiarrendadores</a></li>
+              <li><a href="https://www.dsca.gob.es//sites/default/files/prensa/Informe_2_concentracion_inmobiliaria.pdf">Min. Derechos Sociales + CSIC · Informe 2, concentración</a></li>
+              <li><a href="https://www.dsca.gob.es/en/comunicacion/notas-prensa/justicia-obliga-airbnb-pagar-64-millones-euros-previstos-multa-que-le">Consumo · Multa a Airbnb</a></li>
+              <li>Ministerio del Interior · Portal Estadístico de Criminalidad</li>
+              <li>Listado completo y datos: <span class="mono">research/sources.md</span>, <span class="mono">research/datos/</span></li>
+            </ul>
+          </div>
+          <div class="footnote">Consultado el 28-oct-2026. Las cifras marcadas «vía prensa» citan una fuente oficial que no se pudo abrir directamente.</div>
+        </section>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="assets/js/lib.js"></script>
+    <script src="assets/js/anims-intro.js"></script>
+    <script src="assets/js/anims-propiedad.js"></script>
+    <script src="assets/js/anims-turismo.js"></script>
+    <script src="assets/js/anims-otros.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>

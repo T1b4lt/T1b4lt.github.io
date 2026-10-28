@@ -7,6 +7,7 @@ const pathname = Astro.url.pathname;
 const isHome = pathname === "/" || pathname === "/es" || pathname === "/es/";
 const isBlog = pathname.includes("/blog");
 const isProjects = pathname.includes("/projects");
+const isTalks = pathname.includes("/talks");
 const isAbout = pathname.includes("/about");
 
 const prefix = lang === "en" ? "" : `/${lang}`;
@@ -16,6 +17,7 @@ const links = [
   { href: homeHref, label: t("nav.home"), active: isHome },
   { href: `${prefix}/blog`, label: t("nav.blog"), active: isBlog },
   { href: `${prefix}/projects`, label: t("nav.projects"), active: isProjects },
+  { href: `${prefix}/talks`, label: t("nav.talks"), active: isTalks },
   { href: `${prefix}/about`, label: t("nav.about"), active: isAbout },
 ];
 ---

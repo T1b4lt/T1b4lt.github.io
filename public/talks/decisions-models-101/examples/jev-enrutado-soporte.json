@@ -1,0 +1,39 @@
+{
+  "_source": "Documentación pública de Jev en Cloudflare Workers AI (https://developers.cloudflare.com/ai/models/typesafe/jev/), consultada el 2026-10-02. Petición adaptada al cuerpo de POST https://api.typesafe.ai/v1/systemone.",
+  "request": {
+    "model": "jev-latest",
+    "state": "I cannot log in after changing my password, and the reset email never arrives.",
+    "questions": {
+      "department": {
+        "type": "choice",
+        "instructions": "Which team should handle this support request?",
+        "criteria": {
+          "account": "Login, password, profile, or security issues",
+          "billing": "Charges, invoices, refunds, or subscriptions",
+          "technical": "Product bugs, outages, or integrations",
+          "other": "Requests that do not fit the other departments"
+        }
+      }
+    }
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "answers": {
+      "department": {
+        "type": "choice",
+        "choice": "account",
+        "confidence": 1,
+        "probabilities": {
+          "technical": 0,
+          "billing": 0,
+          "account": 1,
+          "other": 0
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 380,
+      "output_tokens": 45
+    }
+  }
+}

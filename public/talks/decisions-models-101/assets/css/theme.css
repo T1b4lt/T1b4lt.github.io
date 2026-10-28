@@ -1,0 +1,867 @@
+/* Decision models 101: dark "innovation lab" theme on top of Reveal.js core. */
+
+:root {
+  --bg: #060a13;
+  --bg-2: #0b1020;
+  --panel: rgba(148, 163, 184, 0.06);
+  --panel-strong: rgba(148, 163, 184, 0.1);
+  --line: rgba(148, 163, 184, 0.18);
+  --line-strong: rgba(148, 163, 184, 0.32);
+  --text: #e6edf7;
+  --text-2: #b6c2d4;
+  --muted: #7d8aa0;
+
+  /* Accent roles. Text/decoration accents are brighter; chart marks use the
+     validated pair (--mark-dm / --mark-llm) checked against --bg-2. */
+  --cyan: #22d3ee;
+  --orange: #fb923c;
+  --violet: #a78bfa;
+  --mark-dm: #14a3c7;
+  --mark-llm: #e8590c;
+
+  /* Status (routing lanes): always shipped with icon + label. */
+  --good: #4ade80;
+  --warn: #fbbf24;
+  --bad: #f87171;
+
+  --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+
+html,
+body {
+  background: var(--bg);
+}
+
+/* ---------- Background layers ---------- */
+
+#bg-field {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.bg-grid {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.05) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse at 50% 40%, black 30%, transparent 80%);
+}
+
+.bg-glow {
+  position: fixed;
+  inset: -20%;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(34, 211, 238, 0.1), transparent 40%),
+    radial-gradient(circle at 85% 80%, rgba(167, 139, 250, 0.1), transparent 45%);
+}
+
+.reveal-viewport {
+  background: transparent;
+}
+
+/* ---------- Reveal base ---------- */
+
+.reveal {
+  font-family: var(--font-body);
+  font-size: 30px;
+  font-weight: 400;
+  color: var(--text);
+  z-index: 1;
+}
+
+.reveal .slides {
+  text-align: left;
+}
+
+.reveal .slides section {
+  height: 100%;
+  padding: 64px 88px 56px;
+  box-sizing: border-box;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4 {
+  font-family: var(--font-display);
+  color: var(--text);
+  margin: 0;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+}
+
+.reveal h1 {
+  font-size: 104px;
+  font-weight: 700;
+}
+
+.reveal h2 {
+  font-size: 54px;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.reveal h3 {
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.reveal p {
+  margin: 0 0 14px;
+  line-height: 1.45;
+}
+
+.reveal ul {
+  margin: 0;
+  padding-left: 1.1em;
+}
+
+.reveal li {
+  margin: 0.32em 0;
+  line-height: 1.4;
+}
+
+.reveal li::marker {
+  color: var(--cyan);
+}
+
+.reveal a {
+  color: var(--cyan);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(34, 211, 238, 0.35);
+}
+
+.reveal em {
+  font-style: italic;
+}
+
+.reveal strong {
+  color: #fff;
+  font-weight: 600;
+}
+
+.reveal code,
+.mono {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+}
+
+.reveal :not(pre) > code {
+  background: var(--panel-strong);
+  padding: 0.08em 0.36em;
+  border-radius: 6px;
+  color: #d7e3f4;
+}
+
+.reveal .controls {
+  color: var(--cyan);
+}
+
+.reveal .progress {
+  height: 3px;
+  color: var(--cyan);
+  background: rgba(148, 163, 184, 0.12);
+}
+
+.reveal .slide-number {
+  background: transparent;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 14px;
+}
+
+/* Step markers drive animations; they never show anything themselves. */
+.reveal .fragment.step {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+/* ---------- Layout helpers ---------- */
+
+.kicker {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.kicker::before {
+  content: "";
+  width: 34px;
+  height: 2px;
+  background: currentColor;
+  box-shadow: 0 0 12px currentColor;
+}
+
+.lede {
+  font-size: 30px;
+  color: var(--text-2);
+  max-width: 1250px;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.small {
+  font-size: 22px;
+}
+
+.tiny {
+  font-size: 17px;
+}
+
+.c-cyan {
+  color: var(--cyan);
+}
+
+.c-orange {
+  color: var(--orange);
+}
+
+.c-violet {
+  color: var(--violet);
+}
+
+.grad {
+  background: linear-gradient(90deg, var(--cyan), var(--violet) 60%, #f0abfc);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.row {
+  display: flex;
+  gap: 32px;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.stage {
+  position: relative;
+  width: 100%;
+}
+
+.stage svg {
+  display: block;
+  overflow: visible;
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 26px 28px;
+  backdrop-filter: blur(6px);
+  position: relative;
+}
+
+.card h3 {
+  margin-bottom: 10px;
+}
+
+.card.glow-cyan {
+  border-color: rgba(34, 211, 238, 0.45);
+  box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.12), 0 0 40px rgba(34, 211, 238, 0.1);
+}
+
+.card.glow-orange {
+  border-color: rgba(251, 146, 60, 0.45);
+  box-shadow: 0 0 40px rgba(251, 146, 60, 0.08);
+}
+
+.card.dim {
+  opacity: 0.72;
+  border-style: dashed;
+}
+
+.tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 16px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  color: var(--text-2);
+  margin-right: 8px;
+  white-space: nowrap;
+}
+
+.tag.cyan {
+  border-color: rgba(34, 211, 238, 0.5);
+  color: var(--cyan);
+}
+
+.tag.orange {
+  border-color: rgba(251, 146, 60, 0.5);
+  color: var(--orange);
+}
+
+.tag.violet {
+  border-color: rgba(167, 139, 250, 0.5);
+  color: var(--violet);
+}
+
+.footnote {
+  position: absolute;
+  left: 88px;
+  right: 88px;
+  bottom: 26px;
+  font-size: 15px;
+  color: var(--muted);
+}
+
+.callout {
+  line-height: 1.4;
+  border-left: 3px solid var(--cyan);
+  padding: 8px 0 8px 22px;
+  font-size: 28px;
+  color: var(--text);
+}
+
+.callout.orange {
+  border-color: var(--orange);
+}
+
+/* ---------- Code / JSON ---------- */
+
+.code {
+  font-family: var(--font-mono);
+  font-size: 17px;
+  line-height: 1.5;
+  background: rgba(3, 7, 15, 0.75);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 20px 24px;
+  white-space: pre;
+  color: #c9d5e6;
+  overflow: hidden;
+  position: relative;
+}
+
+.code .k {
+  color: #7dd3fc;
+}
+
+.code .s {
+  color: #fcd34d;
+}
+
+.code .n {
+  color: #f0abfc;
+}
+
+.code .p {
+  color: #64748b;
+}
+
+.code .hl {
+  background: rgba(34, 211, 238, 0.12);
+  border-radius: 4px;
+  box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.12);
+}
+
+.code-title {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.code-title .dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan);
+}
+
+/* ---------- Probability bars (HTML) ---------- */
+
+.pbars {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 10px 16px;
+  align-items: center;
+  font-size: 20px;
+}
+
+.pbars .lbl {
+  font-family: var(--font-mono);
+  color: var(--text-2);
+}
+
+.pbars .track {
+  height: 14px;
+  border-radius: 4px;
+  background: rgba(148, 163, 184, 0.1);
+  overflow: hidden;
+}
+
+.pbars .fill {
+  height: 100%;
+  width: 0;
+  border-radius: 4px;
+  background: var(--mark-dm);
+}
+
+.pbars .fill.top {
+  background: var(--cyan);
+  box-shadow: 0 0 14px rgba(34, 211, 238, 0.6);
+}
+
+.pbars .val {
+  font-family: var(--font-mono);
+  color: var(--text);
+  min-width: 3.2em;
+  text-align: right;
+}
+
+/* ---------- Tables ---------- */
+
+.reveal table.tbl {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  font-size: 19px;
+  margin: 0;
+}
+
+.reveal table.tbl th,
+.reveal table.tbl td {
+  border: none;
+  border-bottom: 1px solid var(--line);
+  padding: 11px 14px;
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.32;
+}
+
+.reveal table.tbl th {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.reveal table.tbl td:first-child {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.reveal table.tbl tr.closed td {
+  background: rgba(251, 146, 60, 0.04);
+}
+
+/* ---------- Title slide ---------- */
+
+.title-slide {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.title-slide h1 {
+  font-size: 128px;
+  line-height: 0.98;
+}
+
+.title-slide .sub {
+  font-size: 38px;
+  color: var(--text-2);
+  margin-top: 26px;
+  font-family: var(--font-display);
+}
+
+.title-slide .names {
+  margin-top: 54px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.title-slide .names .tag {
+  font-size: 19px;
+  padding: 7px 16px;
+}
+
+/* Section divider */
+.divider {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.divider .num {
+  font-family: var(--font-mono);
+  font-size: 22px;
+  color: var(--cyan);
+  letter-spacing: 0.2em;
+}
+
+.divider h2 {
+  font-size: 92px;
+  margin-top: 18px;
+}
+
+.divider p {
+  font-size: 32px;
+  color: var(--text-2);
+  margin-top: 18px;
+  max-width: 1100px;
+}
+
+/* ---------- Interactive controls ---------- */
+
+.slider-row {
+  display: grid;
+  grid-template-columns: 170px 1fr 80px;
+  gap: 18px;
+  align-items: center;
+  font-size: 20px;
+  margin: 10px 0;
+}
+
+.slider-row .lbl {
+  font-family: var(--font-mono);
+  color: var(--text-2);
+}
+
+.slider-row output {
+  font-family: var(--font-mono);
+  text-align: right;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: rgba(148, 163, 184, 0.2);
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 12px var(--cyan);
+  border: 3px solid var(--bg);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 12px var(--cyan);
+  border: 3px solid var(--bg);
+}
+
+.btn {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  color: var(--text-2);
+  background: var(--panel);
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  color: var(--cyan);
+  border-color: var(--cyan);
+  outline: none;
+}
+
+.big-num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 96px;
+  line-height: 1;
+  color: var(--cyan);
+  text-shadow: 0 0 30px rgba(34, 211, 238, 0.35);
+}
+
+/* Chart tooltip */
+.viz-tip {
+  position: absolute;
+  pointer-events: none;
+  background: rgba(6, 10, 19, 0.95);
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-size: 16px;
+  font-family: var(--font-mono);
+  color: var(--text);
+  opacity: 0;
+  transition: opacity 0.12s;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+/* Replay hint */
+.replay-hint {
+  position: absolute;
+  right: 88px;
+  bottom: 24px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: rgba(125, 138, 160, 0.6);
+}
+
+/* PDF export (index.html?print-pdf): Reveal resets the slide box, so restore it. */
+html.reveal-print .reveal .slides section {
+  padding: 64px 88px 56px !important;
+  box-sizing: border-box !important;
+  height: 900px !important;
+  min-height: 900px !important;
+}
+
+html.reveal-print .reveal .slides section.title-slide,
+html.reveal-print .reveal .slides section.divider {
+  display: flex !important;
+}
+
+html.reveal-print .grad {
+  background: none;
+  color: var(--cyan);
+}
+
+html.reveal-print .replay-hint {
+  display: none;
+}
+
+@media print {
+  #bg-field,
+  .bg-grid,
+  .bg-glow {
+    display: none;
+  }
+}
+
+/* ---------- Slide-specific pieces ---------- */
+
+.cv-msg {
+  border-radius: 16px;
+  padding: 16px 20px;
+  margin-top: 18px;
+  font-size: 23px;
+  line-height: 1.45;
+}
+
+.cv-user {
+  background: rgba(167, 139, 250, 0.1);
+  border: 1px solid rgba(167, 139, 250, 0.3);
+  margin-left: 60px;
+}
+
+.cv-bot {
+  background: rgba(251, 146, 60, 0.07);
+  border: 1px solid rgba(251, 146, 60, 0.28);
+  margin-right: 40px;
+  min-height: 200px;
+  color: var(--text-2);
+}
+
+.cv-caret {
+  color: var(--orange);
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.cv-problem {
+  font-size: 23px;
+  color: var(--text-2);
+  margin: 10px 0;
+}
+
+.sys-card {
+  min-height: 270px;
+  padding-right: 200px;
+}
+
+.sys-icon {
+  position: absolute;
+  right: 26px;
+  top: 26px;
+  width: 160px;
+  height: 160px;
+}
+
+.tl-phases > div {
+  line-height: 1.4;
+}
+
+.fan-stat .muted {
+  font-size: 22px;
+}
+
+.rc-num {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  color: var(--cyan);
+  letter-spacing: 0.2em;
+  margin-bottom: 8px;
+}
+
+.rc-card {
+  min-height: 340px;
+}
+
+.rl-table td.rl-hl {
+  background: rgba(34, 211, 238, 0.06);
+  color: #e9fbff;
+}
+
+.game-shot {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+.game-shot img {
+  display: block;
+  width: 100%;
+  margin: 0;
+}
+
+.game-label {
+  position: absolute;
+  left: 14px;
+  top: 12px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(6, 10, 19, 0.88);
+  border-radius: 999px;
+  padding: 4px 14px 4px 6px;
+  color: var(--text);
+}
+
+.game-mark {
+  position: absolute;
+  border: 2px solid var(--cyan);
+  border-radius: 10px;
+  box-shadow: 0 0 18px rgba(34, 211, 238, 0.45);
+  z-index: 2;
+}
+
+.game-mark span {
+  position: absolute;
+  left: -2px;
+  top: -30px;
+  font-family: var(--font-mono);
+  font-size: 15px;
+  background: var(--cyan);
+  color: #021015;
+  padding: 2px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.game-mark.below span {
+  top: auto;
+  bottom: -30px;
+}
+
+.tk-list {
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+}
+
+.tk-item {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  align-items: center;
+  font-size: 34px;
+  line-height: 1.35;
+  color: var(--text-2);
+}
+
+.tk-n {
+  font-family: var(--font-display);
+  font-size: 88px;
+  font-weight: 700;
+  color: var(--cyan);
+  text-shadow: 0 0 30px rgba(34, 211, 238, 0.4);
+  line-height: 1;
+}
+
+.fl-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fl-card .tag {
+  align-self: flex-start;
+}
+
+.fl-svg {
+  margin: 10px 0 6px;
+}
+
+.game-mark.left span {
+  top: 4px;
+  left: auto;
+  right: calc(100% + 10px);
+}

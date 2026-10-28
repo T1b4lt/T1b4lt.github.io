@@ -1,0 +1,8 @@
+{
+  "_source": "Ejemplo ilustrativo escrito para la charla. Esquema de recompensa verificable según Tülu 3 (Lambert et al., 2024, arXiv 2411.15124): recompensa α si la respuesta es verificablemente correcta, 0 si no.",
+  "prompt": "¿Cuánto es 17 × 24?",
+  "completion": "<think>17×24 = 17×20 + 17×4 = 340 + 68</think> 408",
+  "ground_truth": "408",
+  "verifier": "exact_match(final_answer)",
+  "reward": 1.0
+}

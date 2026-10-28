@@ -2,3 +2,5 @@ dist/
 .astro/
 node_modules/
 package-lock.json
+# Talk decks are served verbatim
+public/talks/

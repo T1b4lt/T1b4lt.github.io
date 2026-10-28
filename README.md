@@ -50,7 +50,8 @@ Deployment is fully automated. On every push to `main`, two workflows run: `lint
 │   ├── favicon.svg
 │   ├── fonts/                # Roboto font files (self-hosted)
 │   ├── fontawesome/          # FontAwesome CSS + webfonts (self-hosted)
-│   └── images/
+│   ├── images/
+│   └── talks/<slug>/         # Self-contained HTML slide decks (served as-is)
 ├── src/
 │   ├── components/           # Reusable .astro components
 │   │   ├── DarkModeToggle.astro
@@ -60,9 +61,10 @@ Deployment is fully automated. On every push to `main`, two workflows run: `lint
 │   │   ├── NavBar.astro
 │   │   └── PostList.astro
 │   ├── content/
-│   │   └── blog/
-│   │       ├── en/           # English posts (Markdown)
-│   │       └── es/           # Spanish posts (Markdown)
+│   │   ├── blog/
+│   │   │   ├── en/           # English posts (Markdown)
+│   │   │   └── es/           # Spanish posts (Markdown)
+│   │   └── talks/            # Talk metadata (one .md per public/talks/<slug>)
 │   ├── content.config.ts     # Content collection schema (glob loader)
 │   ├── i18n/
 │   │   ├── ui.ts             # Translation strings
@@ -75,9 +77,11 @@ Deployment is fully automated. On every push to `main`, two workflows run: `lint
 │   │   ├── index.astro       # English home (default locale, no prefix)
 │   │   ├── blog.astro        # English blog index
 │   │   ├── blog/[slug].astro # English blog post
+│   │   ├── talks.astro       # Talks listing (EN)
 │   │   └── es/               # Spanish routes (/es/ prefix)
 │   │       ├── index.astro
 │   │       ├── blog.astro
+│   │       ├── talks.astro
 │   │       └── blog/[slug].astro
 │   ├── styles/global.css     # Tailwind entry + @font-face declarations
 │   └── env.d.ts

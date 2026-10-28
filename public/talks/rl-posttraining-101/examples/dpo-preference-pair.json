@@ -1,0 +1,6 @@
+{
+  "_source": "Ejemplo ilustrativo escrito para la charla. Formato de dataset de preferencias de Hugging Face TRL (prompt / chosen / rejected), https://huggingface.co/docs/trl/main/en/dataset_formats (consultado 2026-10-05).",
+  "prompt": "Explícale la fotosíntesis a un niño de 6 años.",
+  "chosen": "Las plantas «comen» luz: con sol, agua y aire fabrican su comida y nos regalan oxígeno.",
+  "rejected": "Proceso fotoquímico en el que el CO₂ se reduce mediante el ciclo de Calvin en el estroma del cloroplasto."
+}
