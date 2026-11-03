@@ -11,7 +11,7 @@ A 109-million-parameter text model that has **never seen an image** organizes me
 
 That is the headline result of _Proving and Improving the Platonic Representation Hypothesis with JEPAs_, a preprint published on October 29th, 2026 by Randall Balestriero (Brown) and Yann LeCun (NYU), both also affiliated with AMI Labs. The press has framed it as "LeCun's paper", but Balestriero is the first author. Behind the numbers sits a question AI has been asking for more than a decade: **are all models learning the same thing?**
 
-In this post I cover where that question comes from, what the paper proves, what it does not prove yet, and why it matters for the debate between scaling LLMs and building world models. It is the written version of my talk [Todos los modelos miran el mismo mundo](/talks/PRH-with-JEPA/) (slides in Spanish).
+In this post I cover where that question comes from, what the paper proves, what it does not prove yet, and why it matters for the debate between scaling LLMs and building world models. It is the written version of my talk [Todos los modelos miran el mismo mundo](/talks/prh-with-jepa/) (slides in Spanish).
 
 ## A map of the world inside every model
 
@@ -46,7 +46,7 @@ The paper's contribution is to pin down the variable that decides what a JEPA le
 
 An analogy: learning to recognize a person from photos taken on different days, versus from crops of a single photo. In the second case you also learn the T-shirt they happened to be wearing that day.
 
-![Diagram from the paper: a scene with a cone and a sphere produces two photos and two captions; two JEPAs trained on good views reach the same representation up to a rotation](/talks/PRH-with-JEPA/assets/img/fig1-mundo-vistas.png)
+![Diagram from the paper: a scene with a cone and a sphere produces two photos and two captions; two JEPAs trained on good views reach the same representation up to a rotation](/talks/prh-with-jepa/assets/img/fig1-mundo-vistas.png)
 
 With that distinction, the authors prove the **Platonic Representation Theorem**: two JEPAs trained separately, in any modality, using good views reach the same embedding at their optimum **up to a rotation**. It is exactly the rotation Mikolov found between languages in 2013, now proven and with conditions attached. A second theorem bounds the error when the views are not perfect: the worse they are, the larger the misalignment.
 
@@ -64,7 +64,7 @@ One important caveat: the link between next-token prediction and the third theor
 
 The experiments compare a 109-million-parameter text encoder trained three ways on the same corpus. The metric is the one from Huh et al.: for each caption, take its 10 nearest neighbors in the text space and the 10 of its image in the space of DINOv2, a vision model, and count how many overlap.
 
-![Figure 1 from the paper: alignment with DINOv2 versus training samples; the good-view JEPA reaches with 21.6 million samples what next-token achieves with 900 million](/talks/PRH-with-JEPA/assets/img/fig1-42x.png)
+![Figure 1 from the paper: alignment with DINOv2 versus training samples; the good-view JEPA reaches with 21.6 million samples what next-token achieves with 900 million](/talks/prh-with-jepa/assets/img/fig1-42x.png)
 
 With good views, the model reaches with 21.6 million samples the alignment that next-token prediction achieves with 900 million. With full training it hits 0.184, above LLMs that have read between 15 and 18 trillion tokens, compared with the JEPA's 116 billion:
 
@@ -111,7 +111,7 @@ My reading is that the paper does not announce the end of LLMs, which remain exc
 
 ## Further reading
 
-- [The talk slides](/talks/PRH-with-JEPA/) (in Spanish)
+- [The talk slides](/talks/prh-with-jepa/) (in Spanish)
 - ["Captions Without Pairs" demo on Hugging Face](https://huggingface.co/spaces/galilai-group/prh_demo)
 - [The paper's code: galilai-group/prh-proof](https://github.com/galilai-group/prh-proof)
 - [KV Cache: The Hidden Memory Powering LLMs](/blog/kv-cache-in-llms), to better understand how an LLM works under the hood
@@ -139,4 +139,4 @@ My reading is that the paper does not announce the end of LLMs, which remain exc
 - [Google DeepMind · Genie 4: a new generation of world simulation (Oct 27th, 2026)](https://deepmind.google/blog/genie-4-a-new-generation-of-world-simulation/)
 - [World Labs · Marble](https://www.worldlabs.ai/blog/marble-world-model)
 - [AICoder · LeCun and Balestriero JEPA Platonic Representation Theorem (Oct 29th, 2026)](https://aicoder.com/news/news-20261029-lecun-balestriero-jepa-platonic-representation-theorem-109m-text-jepa-beats-72b-llms-alignment)
-- [Talk · Todos los modelos miran el mismo mundo](/talks/PRH-with-JEPA/)
+- [Talk · Todos los modelos miran el mismo mundo](/talks/prh-with-jepa/)
