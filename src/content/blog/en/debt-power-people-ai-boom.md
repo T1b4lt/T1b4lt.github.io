@@ -2,8 +2,8 @@
 idx: 7
 title: "Debt, Power and People: The Three Bottlenecks of the AI Boom"
 author: "Guillermo Segovia"
-pubDate: "November 4th, 2026"
-pubDateLogical: "2026-11-04"
+pubDate: "November 6th, 2026"
+pubDateLogical: "2026-11-06"
 tags: ["AI", "Economy", "Infrastructure", "Jobs"]
 ---
 

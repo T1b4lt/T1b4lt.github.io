@@ -2,8 +2,8 @@
 idx: 7
 title: "Deuda, electricidad y personas: los tres cuellos de botella del boom de la IA"
 author: "Guillermo Segovia"
-pubDate: "4 de noviembre de 2026"
-pubDateLogical: "2026-11-04"
+pubDate: "6 de noviembre de 2026"
+pubDateLogical: "2026-11-06"
 tags: ["IA", "Economía", "Infraestructura", "Empleo"]
 ---
 
