@@ -4,5 +4,5 @@ description: "Simulador de trading para Polymarket. Simula apuestas sin dinero r
 tags: ["Python", "FastAPI", "React", "SQLAlchemy"]
 github: "https://github.com/T1b4lt/polymarket-paper-trading"
 featured: false
-order: 3
+order: 6
 ---

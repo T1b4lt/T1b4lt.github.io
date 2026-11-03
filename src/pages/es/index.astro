@@ -49,7 +49,7 @@ const latestPosts = await getFormattedPosts(lang, 2);
             {t("projects.latest")}
           </h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-            {featuredProjects.slice(0, 3).map((project) => (
+            {featuredProjects.slice(0, 4).map((project) => (
               <ProjectCard
                 title={project.data.title}
                 description={project.data.description}

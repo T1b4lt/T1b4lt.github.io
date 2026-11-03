@@ -4,6 +4,6 @@ description: "Personal portfolio and blog built with Astro 6, Tailwind CSS 4, an
 tags: ["Astro", "Tailwind CSS", "TypeScript"]
 github: "https://github.com/T1b4lt/T1b4lt.github.io"
 web: "https://t1b4lt.github.io"
-featured: true
-order: 1
+featured: false
+order: 8
 ---

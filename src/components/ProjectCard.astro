@@ -5,7 +5,7 @@ interface Props {
   title: string;
   description: string;
   tags: string[];
-  github: string;
+  github?: string;
   web?: string;
 }
 
@@ -34,14 +34,18 @@ const { title, description, tags, github, web } = Astro.props;
     }
   </div>
   <div class="flex space-x-4 mt-4">
-    <a
-      href={github}
-      target="_blank"
-      rel="noopener noreferrer"
-      class="text-olive-gray dark:text-warm-silver hover:text-terracotta dark:hover:text-coral transition-colors"
-    >
-      <Icon name="fa6-brands:github" class="w-5 h-5" aria-label="GitHub" />
-    </a>
+    {
+      github && (
+        <a
+          href={github}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-olive-gray dark:text-warm-silver hover:text-terracotta dark:hover:text-coral transition-colors"
+        >
+          <Icon name="fa6-brands:github" class="w-5 h-5" aria-label="GitHub" />
+        </a>
+      )
+    }
     {
       web && (
         <a
