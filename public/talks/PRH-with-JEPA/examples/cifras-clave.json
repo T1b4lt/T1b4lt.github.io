@@ -1,0 +1,15 @@
+{
+  "_source": "Balestriero & LeCun (2026), arXiv 2610.39302v1: Tabla 3, Fig. 1, §3.1, §4.2, §5.1, §5.2, Tabla 4. Cifras de los autores, sin replicación independiente.",
+  "alineacion_mutual_10nn_dinov2_wit": {
+    "good_view_jepa_109M": 0.184,
+    "next_token_109M_mismo_corpus": 0.111,
+    "bad_view_jepa_109M": 0.088,
+    "Qwen2.5-72B": 0.154,
+    "Llama-3-70B": 0.151,
+    "CLIP_B32_text": 0.124
+  },
+  "eficiencia_muestras": { "good_view_muestras": "21.6M", "next_token_muestras": "900M", "factor": 42 },
+  "fraccion_explicada_por_escena_rho_k32_flickr": { "good_view_jepa": 0.804, "bad_view_jepa": 0.655, "next_token": 0.608 },
+  "captioner_solo_rotacion": { "CIDEr_COCO": 0.838, "CIDEr_Flickr": 0.519 },
+  "alineacion_sin_pares_imagenet100_top5_zero_shot": { "good_view_jepa_109M": 64.4, "mejor_reportado_por_Schnaus_et_al": 56 }
+}

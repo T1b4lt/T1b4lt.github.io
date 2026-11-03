@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 380" font-family="system-ui, -apple-system, sans-serif">
+  <!-- Background -->
+  <rect width="900" height="380" rx="16" fill="#1a1a2e"/>
+
+  <!-- Title -->
+  <text x="450" y="38" text-anchor="middle" fill="#e2e8f0" font-size="18" font-weight="700">What the representation is spent on</text>
+  <text x="450" y="60" text-anchor="middle" fill="#94a3b8" font-size="12">fraction explained by the scene (&#961;, k=32, Flickr) &#183; Balestriero &amp; LeCun (2026), &#167;3.1</text>
+
+  <!-- Grid (0%, 25%, 50%, 75%, 100% over x 220..820) -->
+  <g stroke="#334155" stroke-width="1">
+    <line x1="220" y1="90" x2="220" y2="300"/>
+    <line x1="370" y1="90" x2="370" y2="300"/>
+    <line x1="520" y1="90" x2="520" y2="300"/>
+    <line x1="670" y1="90" x2="670" y2="300"/>
+    <line x1="820" y1="90" x2="820" y2="300"/>
+  </g>
+  <g fill="#94a3b8" font-size="11" text-anchor="middle">
+    <text x="220" y="318">0%</text>
+    <text x="370" y="318">25%</text>
+    <text x="520" y="318">50%</text>
+    <text x="670" y="318">75%</text>
+    <text x="820" y="318">100%</text>
+  </g>
+
+  <!-- Row labels -->
+  <g fill="#e2e8f0" font-size="13" font-weight="600" text-anchor="end">
+    <text x="205" y="128">good-view JEPA</text>
+    <text x="205" y="193">bad-view JEPA</text>
+    <text x="205" y="258">next-token</text>
+  </g>
+
+  <!-- Bars: scene part = value * 600, rest = nuisance -->
+  <!-- good view .804 -> 482.4 -->
+  <rect x="220" y="104" width="482.4" height="38" rx="4" fill="#22d3ee"/>
+  <rect x="702.4" y="104" width="117.6" height="38" rx="4" fill="#475569"/>
+  <text x="232" y="128" fill="#0f172a" font-size="13" font-weight="700">.804</text>
+
+  <!-- bad view .655 -> 393 -->
+  <rect x="220" y="169" width="393" height="38" rx="4" fill="#a78bfa"/>
+  <rect x="613" y="169" width="207" height="38" rx="4" fill="#475569"/>
+  <text x="232" y="193" fill="#0f172a" font-size="13" font-weight="700">.655</text>
+
+  <!-- next-token .608 -> 364.8 -->
+  <rect x="220" y="234" width="364.8" height="38" rx="4" fill="#f97316"/>
+  <rect x="584.8" y="234" width="235.2" height="38" rx="4" fill="#475569"/>
+  <text x="232" y="258" fill="#0f172a" font-size="13" font-weight="700">.608</text>
+
+  <!-- Legend -->
+  <rect x="250" y="340" width="14" height="14" rx="3" fill="#22d3ee"/>
+  <text x="272" y="352" fill="#94a3b8" font-size="12">the world (shared scene)</text>
+  <rect x="500" y="340" width="14" height="14" rx="3" fill="#475569"/>
+  <text x="522" y="352" fill="#94a3b8" font-size="12">modality nuisance (style, wording)</text>
+</svg>

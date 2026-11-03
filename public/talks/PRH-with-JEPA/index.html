@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>La Hipótesis Platónica, demostrada</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
+    <link rel="stylesheet" href="assets/css/theme.css" />
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <!-- 1 · Portada -->
+        <section class="title-slide" data-anim="cover">
+          <div class="kicker">Balestriero &amp; LeCun · arXiv 2610.39302 · oct 2026</div>
+          <h1>Todos los modelos<br />miran el <span class="grad">mismo mundo</span></h1>
+          <p class="sub">La Hipótesis Platónica pasa de intuición a teorema, y lo que eso significa para el futuro de la IA</p>
+          <div class="tags">
+            <span class="tag accent">Representaciones</span>
+            <span class="tag">JEPA</span>
+            <span class="tag">LLMs</span>
+            <span class="tag">World models</span>
+          </div>
+          <div class="stage" id="cover-stage" style="position: absolute; right: 100px; top: 560px; width: 300px; height: 300px"></div>
+          <div class="replay-hint">← → navegar · R repetir animación · F pantalla completa</div>
+        </section>
+
+        <!-- 2 · Gancho -->
+        <section data-anim="hook">
+          <div class="kicker">La pregunta</div>
+          <h2>Un modelo de texto pequeño «entiende» las imágenes mejor que los grandes LLM. ¿Cómo?</h2>
+          <div class="hook-nums">
+            <div class="card glow"><div class="big-num c-accent"><span id="hk-a">109</span>M</div><div class="lbl">parámetros: un <strong>text JEPA</strong> que nunca ha visto una imagen</div></div>
+            <div class="card"><div class="big-num"><span id="hk-b">72</span>B</div><div class="lbl">parámetros: <strong>Qwen2.5-72B</strong>, que se alinea <em>peor</em> con un modelo de visión</div></div>
+            <div class="card"><div class="big-num"><span id="hk-c">42</span>×</div><div class="lbl">menos muestras para llegar a la misma alineación que <strong>next-token prediction</strong></div></div>
+          </div>
+          <div class="callout hook-callout">Para entenderlo hay que volver a 2013… y a Platón.</div>
+          <div class="footnote">Fuente: Balestriero &amp; LeCun (2026), Tabla 3 y Fig. 1. «Alineación» = mutual 10-NN con DINOv2 en WIT-1024 (.184 vs .154). Cifras de los autores.</div>
+        </section>
+
+        <!-- 3 · Embeddings -->
+        <section data-anim="embeddings">
+          <div class="kicker">De dónde venimos · 1</div>
+          <h2>Un modelo guarda el mundo como puntos: lo parecido queda cerca</h2>
+          <div class="grid-2" style="grid-template-columns: 1.55fr 1fr; gap: 48px; margin-top: 18px; align-items: center">
+            <div class="stage" id="emb-stage" style="height: 560px"></div>
+            <div>
+              <div class="card emb-card"><h3>Embedding</h3><p class="small">Una lista de números (coordenadas) que el modelo asigna a cada palabra, imagen o frase.</p></div>
+              <div class="card emb-card" style="margin-top: 20px"><h3>Distancia = parecido</h3><p class="small">«perro» queda junto a «cachorro» y lejos de «autobús». Nadie se lo dice: lo aprende de los datos.</p></div>
+              <div class="card glow emb-card" style="margin-top: 20px"><h3 class="c-accent">La «representación»</h3><p class="small">Es el mapa entero. La pregunta de esta charla: ¿dos modelos distintos dibujan el mismo mapa?</p></div>
+            </div>
+          </div>
+          <div class="footnote">Diagrama ilustrativo en 2D; los modelos reales usan cientos o miles de dimensiones.</div>
+        </section>
+
+        <!-- 4 · Caverna -->
+        <section data-anim="cave">
+          <div class="kicker">De dónde venimos · 2</div>
+          <h2>Imágenes y textos son sombras distintas del mismo mundo</h2>
+          <div class="stage" id="cave-stage" style="height: 520px; margin-top: 6px"></div>
+          <div class="step-host" id="cave-cap" style="margin-top: 12px"></div>
+          <span class="fragment step" data-step="1"></span>
+          <span class="fragment step" data-step="2"></span>
+          <span class="fragment step" data-step="3"></span>
+          <div class="footnote">Metáfora de la caverna (Platón, <em>República</em> VII) tal como la usan Huh et al. (2024) y Balestriero &amp; LeCun (2026, Fig. 1).</div>
+        </section>
+
+        <!-- 5 · Rotación entre idiomas -->
+        <section data-anim="rotation">
+          <div class="kicker">De dónde venimos · 3 · 2013–2017</div>
+          <h2>Los mapas de dos idiomas encajan con solo girar uno de ellos</h2>
+          <div class="stage" id="rot-stage" style="height: 520px; margin-top: 6px"></div>
+          <div class="step-host" id="rot-cap" style="margin-top: 12px"></div>
+          <span class="fragment step" data-step="1"></span>
+          <span class="fragment step" data-step="2"></span>
+          <span class="fragment step" data-step="3"></span>
+          <div class="footnote">Mikolov, Le &amp; Sutskever (2013), arXiv 1309.4168; Conneau et al. (2017), «Word Translation Without Parallel Data». Puntos ilustrativos.</div>
+        </section>
+
+        <!-- 6 · CLIP -->
+        <section data-anim="clip">
+          <div class="kicker">De dónde venimos · 4 · 2021</div>
+          <h2>CLIP une imagen y texto a la fuerza: 400 millones de pares entrenados juntos</h2>
+          <div class="grid-2" style="grid-template-columns: 1fr 1fr; gap: 56px; margin-top: 20px; align-items: center">
+            <div class="stage" id="clip-stage" style="height: 520px"></div>
+            <div>
+              <div class="card clip-card"><h3>Cómo funciona</h3><p class="small">Un encoder de imagen y otro de texto se entrenan <strong>a la vez</strong>: cada foto debe quedar cerca de <em>su</em> pie de foto (la diagonal) y lejos de los demás.</p></div>
+              <div class="card glow-warm clip-card" style="margin-top: 22px"><h3>El precio</h3><p class="small">Hacen falta pares imagen–texto a escala de internet y un entrenamiento conjunto. La alineación se <em>impone</em>, no surge sola.</p></div>
+              <div class="callout clip-card" style="margin-top: 26px; font-size: 25px">Pregunta abierta: ¿y si entrenas cada modelo <strong>por separado</strong>, sin pares?</div>
+            </div>
+          </div>
+          <div class="footnote">Radford et al. (2021), «Learning Transferable Visual Models From Natural Language Supervision», arXiv 2103.00020.</div>
+        </section>
+
+        <!-- 7 · PRH -->
+        <section data-anim="prh">
+          <div class="kicker">De dónde venimos · 5 · 2024</div>
+          <h2>La Hipótesis Platónica: al escalar, los modelos convergen solos</h2>
+          <div class="grid-2" style="grid-template-columns: 0.9fr 1.25fr; gap: 50px; margin-top: 18px; align-items: start">
+            <div>
+              <p class="quote prh-q">…are converging to a shared statistical model of reality in their representation spaces.</p>
+              <div class="quote-src prh-q">Huh, Cheung, Wang &amp; Isola · The Platonic Representation Hypothesis · 2024</div>
+              <div class="card prh-q" style="margin-top: 30px"><h3>La evidencia</h3><p class="small" style="margin: 0">Cuanto mejor es un LLM, más se parecen sus «vecindarios» a los de un modelo de visión. Pero el máximo medido fue ≈ <strong>0,16 sobre 1</strong>.</p></div>
+            </div>
+            <div>
+              <div class="stage" id="prh-stage" style="height: 470px"></div>
+              <div class="step-host" id="prh-cap" style="margin-top: 8px; font-size: 23px"></div>
+            </div>
+          </div>
+          <span class="fragment step" data-step="1"></span>
+          <span class="fragment step" data-step="2"></span>
+          <div class="footnote">Huh et al. (2024), arXiv 2405.07987: métrica mutual k-NN; evidencia en el benchmark WIT. Diagrama ilustrativo.</div>
+        </section>
+
+        <!-- 8 · Era una observación -->
+        <section data-anim="observation">
+          <div class="kicker">De dónde venimos · 6</div>
+          <h2>Pero era una observación: sin prueba, sin receta y en discusión</h2>
+          <div class="grid-3" style="margin-top: 36px">
+            <div class="card obs-card"><div class="lbl-tag">Sin prueba</div><h3>Correlación, no ley</h3><p class="small">Solo había pruebas en modelos idealizados (contrastivos ideales, redes lineales profundas).</p></div>
+            <div class="card obs-card"><div class="lbl-tag">Sin receta</div><h3>Una sola palanca: escalar</h3><p class="small">Si la convergencia «llega con la escala», lo único que se podía hacer era más parámetros y más datos.</p></div>
+            <div class="card obs-card"><div class="lbl-tag">En discusión</div><h3>¿Cuánto converge de verdad?</h3><p class="small">En 2026, críticas: los vecindarios locales sí coinciden, la geometría global mucho menos.</p></div>
+          </div>
+          <div class="callout obs-card" style="margin-top: 40px">Mientras tanto, la industria ya apostaba por escalar: <strong>scaling laws</strong> (2020), <strong>Chinchilla</strong> (2022)… y LLMs cada vez más grandes.</div>
+          <div class="footnote">Ziyin &amp; Chuang (2025) 2507.01098; Gröger, Wen &amp; Brbić (2026) 2602.14486; You et al. (2026) 2609.27252; Kaplan et al. (2020); Hoffmann et al. (2022).</div>
+        </section>
+
+        <!-- 9 · Línea temporal -->
+        <section data-anim="timeline">
+          <div class="kicker">De dónde venimos · resumen</div>
+          <h2>Trece años de la misma pregunta: ¿convergen los modelos?</h2>
+          <div class="stage" id="tl-stage" style="height: 600px; margin-top: 10px"></div>
+          <div class="footnote">Fechas de arXiv de cada trabajo. Detalle y enlaces en research/temas/de-donde-venimos.md.</div>
+        </section>
+
+        <!-- 10 · Dos formas de aprender -->
+        <section data-anim="twoways">
+          <div class="kicker">El mundo JEPA · 1</div>
+          <h2>Dos formas de aprender: predecir el dato o predecir su significado</h2>
+          <div class="stage" id="tw-stage" style="height: 530px; margin-top: 4px"></div>
+          <div class="step-host" id="tw-cap" style="margin-top: 10px"></div>
+          <span class="fragment step" data-step="1"></span>
+          <span class="fragment step" data-step="2"></span>
+          <span class="fragment step" data-step="3"></span>
+          <div class="footnote">JEPA = Joint-Embedding Predictive Architecture. LeCun (2022), «A Path Towards Autonomous Machine Intelligence». Esquema simplificado.</div>
+        </section>
+
+        <!-- 11 · LeCun y JEPA -->
+        <section data-anim="lecun">
+          <div class="kicker">El mundo JEPA · 2</div>
+          <h2>LeCun lleva desde 2022 apostando por JEPA frente a los LLM</h2>
+          <div class="grid-2" style="grid-template-columns: 1.15fr 1fr; gap: 56px; margin-top: 24px; align-items: start">
+            <table class="tbl lc-tbl">
+              <tr><th>Año</th><th>Hito</th></tr>
+              <tr><td>2022</td><td>Position paper: world models que predicen en espacio de representaciones</td></tr>
+              <tr><td>2023</td><td><strong>I-JEPA</strong>: aprende de imágenes prediciendo regiones ocultas en el espacio latente</td></tr>
+              <tr><td>2024–25</td><td><strong>V-JEPA / V-JEPA 2</strong>: vídeo; un brazo robótico planifica con &lt; 62 h de vídeo de robot</td></tr>
+              <tr><td>2025</td><td><strong>LeJEPA</strong> (Balestriero &amp; LeCun): JEPA con base teórica y sin trucos</td></tr>
+              <tr><td>2026</td><td>LeCun funda <strong>AMI Labs</strong>; sale el paper que hoy nos ocupa</td></tr>
+            </table>
+            <div>
+              <div class="card lc-card"><div class="lbl-tag opinion">Opinión de LeCun</div><p class="small" style="margin: 0">Un niño de 4 años ha recibido ~<strong>10<sup>15</sup> bytes</strong> por la vista; un LLM entrena con ~2·10<sup>13</sup> bytes de texto, que costaría «170,000 years» leer. El lenguaje no basta para entender el mundo.</p></div>
+              <div class="card lc-card" style="margin-top: 22px"><div class="lbl-tag opinion">Opinión de LeCun</div><p class="small" style="margin: 0">Los LLM autorregresivos acumulan errores al generar token a token: «Auto-Regressive LLMs are doomed».</p></div>
+            </div>
+          </div>
+          <div class="footnote">arXiv 2301.08243, 2404.08471, 2506.09985, 2511.08544; Lex Fridman #416 (transcripción); seminario NYU sep 2025 (vía ppc.land). Estimaciones de orden de magnitud.</div>
+        </section>
+
+        <!-- 12 · Buenas y malas vistas -->
+        <section data-anim="views">
+          <div class="kicker">Qué aporta el paper · 1</div>
+          <h2>La clave está en qué le dices al modelo que es «lo mismo»</h2>
+          <div class="stage" id="vw-stage" style="height: 520px; margin-top: 4px"></div>
+          <div class="step-host" id="vw-cap" style="margin-top: 12px"></div>
+          <span class="fragment step" data-step="1"></span>
+          <span class="fragment step" data-step="2"></span>
+          <span class="fragment step" data-step="3"></span>
+          <div class="footnote">Balestriero &amp; LeCun (2026), §2.3 y Fig. 3: <em>good views</em> vs <em>bad views</em>. Ejemplos de captions adaptados de la Fig. 3.</div>
+        </section>
+
+        <!-- 13 · El teorema -->
+        <section data-anim="theorem">
+          <div class="kicker">Qué aporta el paper · 2</div>
+          <h2>El teorema: con buenas vistas, modelos separados aprenden el mismo mapa (salvo una rotación)</h2>
+          <div class="stage" id="th-stage" style="height: 480px; margin-top: 0"></div>
+          <div class="step-host" id="th-cap" style="margin-top: 10px"></div>
+          <span class="fragment step" data-step="1"></span>
+          <span class="fragment step" data-step="2"></span>
+          <span class="fragment step" data-step="3"></span>
+          <div class="footnote">Teorema 1 (Platonic Representation Theorem) y Teorema 2 (cota de desalineación). Supuestos: mundo finito idealizado, óptimos de población. Diagrama ilustrativo.</div>
+        </section>
+
+        <!-- 14 · Next-token = bad views -->
+        <section data-anim="nexttoken">
+          <div class="kicker">Qué aporta el paper · 3</div>
+          <h2>El giro: next-token prediction es una JEPA con malas vistas</h2>
+          <div class="stage" id="nt-stage" style="height: 500px; margin-top: 4px"></div>
+          <div class="step-host" id="nt-cap" style="margin-top: 10px"></div>
+          <span class="fragment step" data-step="1"></span>
+          <span class="fragment step" data-step="2"></span>
+          <span class="fragment step" data-step="3"></span>
+          <div class="footnote">Proposición 4 y Teorema 3. Fracción de la representación explicada por la escena (ρ, k=32, Flickr): .804 / .655 / .608, §3.1.</div>
+        </section>
+
+        <!-- 15 · 42x -->
+        <section data-anim="evidence">
+          <div class="kicker">Qué aporta el paper · 4</div>
+          <h2>La evidencia: la misma alineación con 42 veces menos muestras</h2>
+          <div class="grid-2" style="grid-template-columns: 640px 1fr; gap: 56px; margin-top: 16px; align-items: start">
+            <div>
+              <div class="shot" id="ev-shot">
+                <img src="assets/img/fig1-42x.png" alt="Figura 1 derecha del paper: alineación con DINOv2 frente a muestras de entrenamiento" />
+                <div class="shot-mark" style="left: 21%; top: 54%; width: 70%; height: 7%"><span>1</span></div>
+                <div class="shot-mark" style="left: 80%; top: 24%; width: 16%; height: 9%"><span>2</span></div>
+                <div class="shot-mark" style="left: 18%; top: 37.5%; width: 80%; height: 5.5%"><span style="left: auto; right: -14px">3</span></div>
+              </div>
+              <div class="shot-cap">Figura 1 (derecha) del paper, sin modificar. Eje Y: alineación con DINOv2 (WIT).</div>
+            </div>
+            <ul class="legend-list" style="margin-top: 10px">
+              <li class="ev-li"><span class="n">1</span><div><strong>21,6M vs 900M muestras.</strong> Con buenas vistas, el text JEPA alcanza la alineación de next-token entrenado en el mismo corpus.</div></li>
+              <li class="ev-li"><span class="n">2</span><div><strong>.184 con 109M parámetros.</strong> Por encima de Qwen2.5-72B (.154), Llama-3-70B (.151) y el text encoder de CLIP (.124).</div></li>
+              <li class="ev-li"><span class="n">3</span><div><strong>Los LLM de 70B</strong> entrenaron con 15–18 billones de tokens; el JEPA leyó 116.000 millones.</div></li>
+              <li class="ev-li" style="font-size: 19px; color: var(--muted)"><span></span><div>Comparación controlada (mismos datos y modelo) solo entre JEPA y next-token propios; los LLM se evalúan tal cual.</div></li>
+            </ul>
+          </div>
+          <div class="footnote">Balestriero &amp; LeCun (2026), Fig. 1, §4.2–4.3, Tabla 3. Métrica: mutual 10-NN con DINOv2 ViT-B en WIT-1024. Sin replicación independiente.</div>
+        </section>
+
+        <!-- 16 · Aplicaciones -->
+        <section data-anim="apps">
+          <div class="kicker">Qué aporta el paper · 5</div>
+          <h2>Una rotación basta para conectar modelos que nunca se vieron</h2>
+          <div class="shot ap-el" style="margin-top: 16px; width: 1180px">
+            <img src="assets/img/fig10-captions.png" alt="Figura 10 del paper: pies de foto generados para imágenes de COCO" />
+          </div>
+          <div class="shot-cap ap-el">Fig. 10: en negro, pies de foto generados; en gris, uno humano. Imágenes de COCO test.</div>
+          <div class="grid-2" style="margin-top: 22px; gap: 28px">
+            <div class="card glow ap-el"><h3 style="font-size: 26px">Captioner «sin entrenar con pares»</h3><p class="small" style="margin: 0">Visión congelada + decodificador de texto. Lo único ajustado con pares imagen–texto es <strong>una rotación</strong>: CIDEr .838 en COCO.</p></div>
+            <div class="card ap-el"><h3 style="font-size: 26px">Alineación sin ningún par</h3><p class="small" style="margin: 0">La rotación se encuentra solo con la forma de las nubes: <strong>64,4 %</strong> top-5 en ImageNet-100, frente al 56 % mejor reportado con LLMs de hasta 8B.</p></div>
+          </div>
+          <div class="footnote">Balestriero &amp; LeCun (2026), §5.1, §5.2, Tabla 4 (método de Schnaus et al., CVPR 2025). Demo: huggingface.co/spaces/galilai-group/prh_demo</div>
+        </section>
+
+        <!-- 17 · Letra pequeña -->
+        <section data-anim="caveats">
+          <div class="kicker">Qué aporta el paper · letra pequeña</div>
+          <h2>Lo que el paper no demuestra (todavía)</h2>
+          <div class="grid-2" style="margin-top: 30px; gap: 24px 28px">
+            <div class="card cv-card"><h3 style="font-size: 27px">Un mundo idealizado</h3><p class="small" style="margin: 0">El teorema supone un mundo finito, observaciones sin pérdida y modelos en su óptimo. Las modalidades reales pierden información.</p></div>
+            <div class="card cv-card"><h3 style="font-size: 27px">Buenas vistas «prestadas»</h3><p class="small" style="margin: 0">En web, las buenas vistas son pies de foto generados por LLaVA, que ya lleva CLIP dentro. Sin ellas: .060 frente a .107.</p></div>
+            <div class="card cv-card"><h3 style="font-size: 27px">Alinear no es razonar</h3><p class="small" style="margin: 0">Mejora la alineación con visión, no la conversación, el código ni el razonamiento. Y los márgenes son modestos: .184 frente a .154.</p></div>
+            <div class="card cv-card"><h3 style="font-size: 27px">Sin replicación</h3><p class="small" style="margin: 0">Preprint de octubre de 2026, sin revisión por pares, firmado por los propios proponentes de JEPA. El código es público.</p></div>
+          </div>
+          <div class="footnote">Balestriero &amp; LeCun (2026), §7 «Known limitations» y §4.3. Código: github.com/galilai-group/prh-proof (MIT).</div>
+        </section>
+
+        <!-- 18 · Cambia la palanca -->
+        <section data-anim="lever">
+          <div class="kicker">Hacia dónde nos lleva · 1</div>
+          <h2>Cambia la palanca: de «más escala» a «mejores vistas»</h2>
+          <div class="compare-2">
+            <div class="card glow-warm lv-l"><div class="lbl-tag">Hasta ahora</div><h3>Escalar</h3><ul><li>Más parámetros y más tokens</li><li>Objetivo: predecir el siguiente token</li><li>La alineación con el mundo llega «de regalo», y cara</li></ul></div>
+            <div class="arrow lv-a">→</div>
+            <div class="card glow lv-r"><div class="lbl-tag hecho">Lo que propone el paper</div><h3 class="c-accent">Diseñar las vistas</h3><ul><li>Decidir qué datos cuentan como la misma escena</li><li>Modelos pequeños y separados por modalidad</li><li>Unidos después con una simple rotación</li></ul></div>
+          </div>
+          <p class="quote lv-q" style="margin-top: 40px; font-size: 28px">Positive views, and not scale alone, are thus the lever to build platonic representations.</p>
+          <div class="quote-src lv-q">Balestriero &amp; LeCun, 2026 · abstract</div>
+          <div class="footnote">«not scale alone»: el paper no dice que la escala no importe, sino que no es la única ni la mejor palanca para alinear.</div>
+        </section>
+
+        <!-- 19 · La apuesta de LeCun -->
+        <section data-anim="bet">
+          <div class="kicker">Hacia dónde nos lleva · 2</div>
+          <h2>La apuesta de LeCun: world models que aprenden del mundo, no del texto</h2>
+          <div class="grid-3" style="margin-top: 30px">
+            <div class="card bt-card"><div class="lbl-tag hecho">Hecho</div><h3 style="font-size: 27px">AMI Labs</h3><p class="small" style="margin: 0">Fundada por LeCun (Executive Chairman) con Alexandre LeBrun como CEO. Sede en París; hubs en Nueva York, Montreal y Singapur.</p></div>
+            <div class="card bt-card"><div class="lbl-tag prensa">Prensa</div><h3 style="font-size: 27px">1.030 M$ de seed</h3><p class="small" style="margin: 0">Ronda anunciada en marzo de 2026 con una valoración de 3.500 M$ pre-money, según la prensa. Todavía sin producto público.</p></div>
+            <div class="card bt-card"><div class="lbl-tag opinion">Su tesis</div><h3 style="font-size: 27px">Empezar por el mundo</h3><p class="small" style="margin: 0">«real intelligence does not start in language. It starts in the world.» Vídeo, audio y acciones, no solo texto.</p></div>
+          </div>
+          <div class="callout bt-card" style="margin-top: 36px">Este paper le da un argumento teórico: si next-token es una JEPA con malas vistas, aprender de <strong>varias observaciones del mismo mundo</strong> es la ruta más eficiente.</div>
+          <div class="footnote">amilabs.xyz (consultada 2026-11-03); TechCrunch (19-12-2025, 23-01-2026); Tech.eu (10-03-2026). Cifras de ronda: solo prensa.</div>
+        </section>
+
+        <!-- 20 · Otras apuestas -->
+        <section data-anim="others">
+          <div class="kicker">Hacia dónde nos lleva · 3</div>
+          <h2>No es la única apuesta por los world models, pero sí la única que no genera píxeles</h2>
+          <div class="grid-3" style="margin-top: 34px">
+            <div class="card glow ot-card"><div class="lbl-tag hecho">No generativo</div><h3 class="c-accent" style="font-size: 28px">JEPA · AMI Labs</h3><p class="small" style="margin: 0">Predice en el espacio de representaciones. V-JEPA 2 ya planifica movimientos de un brazo robótico sin recompensas.</p></div>
+            <div class="card ot-card"><div class="lbl-tag">Generativo</div><h3 style="font-size: 28px">Genie 4 · DeepMind</h3><p class="small" style="margin: 0">Simula mundos interactivos en tiempo real, con audio nativo y cambios por texto sobre la marcha. Preview de investigación, 27 de octubre de 2026.</p></div>
+            <div class="card ot-card"><div class="lbl-tag">Generativo</div><h3 style="font-size: 28px">Marble · World Labs</h3><p class="small" style="margin: 0">El equipo de Fei-Fei Li genera mundos 3D exportables a partir de texto, imagen o vídeo. Noviembre de 2025.</p></div>
+          </div>
+          <div class="callout ot-card" style="margin-top: 38px">El sector coincide en el diagnóstico, que el mundo físico importa, pero no en el método.</div>
+          <div class="footnote">arXiv 2506.09985 (V-JEPA 2); blog de DeepMind sobre Genie 4 (27-10-2026); blog de World Labs sobre Marble (12-11-2025).</div>
+        </section>
+
+        <!-- 21 · Recepción -->
+        <section data-anim="reception">
+          <div class="kicker">Hacia dónde nos lleva · 4</div>
+          <h2>La comunidad: entusiasmo en los titulares, cautela en la letra pequeña</h2>
+          <div class="grid-2" style="margin-top: 30px; gap: 28px">
+            <div class="card rc-card"><div class="lbl-tag">Randall Balestriero, en X</div><p class="quote" style="font-size: 28px; margin: 0">The Platonic Representation Hypothesis is now a Theorem.</p></div>
+            <div class="card rc-card"><div class="lbl-tag">Titular de TLDR</div><p class="quote" style="font-size: 28px; margin: 0">JEPA Theory Validated: Platonic Representation Hypothesis Proven</p></div>
+            <div class="card rc-card"><div class="lbl-tag">AICoder</div><p class="quote" style="font-size: 28px; margin: 0">There is no independent reproduction yet.</p></div>
+            <div class="card rc-card"><div class="lbl-tag">AICoder</div><p class="quote" style="font-size: 28px; margin: 0">generating good views for text automatically is still an open problem.</p></div>
+          </div>
+          <div class="callout rc-card" style="margin-top: 32px; font-size: 24px">A 3 de noviembre la cobertura es escasa y casi toda secundaria: agregadores y newsletters. No encontramos debate técnico en Hacker News ni en Reddit.</div>
+          <div class="footnote">Fuentes de prensa y redes en research/temas/recepcion-y-noticias.md. Las publicaciones de X se leyeron vía agregadores (Digg).</div>
+        </section>
+
+        <!-- 22 · Qué vigilar -->
+        <section data-anim="watch">
+          <div class="kicker">Hacia dónde nos lleva · 5</div>
+          <h2>Qué vigilar en los próximos meses</h2>
+          <div class="watch-list">
+            <div class="card wt-card"><h3>Replicación</h3><p>Que otros grupos reproduzcan el 42× y el .184. El repositorio incluye una guía para reproducir cada número.</p></div>
+            <div class="card wt-card"><h3>Buenas vistas sin trampa</h3><p>Generar automáticamente «otra observación de la misma escena» para texto, sin un captioner que ya conoce imágenes.</p></div>
+            <div class="card wt-card"><h3>Más modalidades</h3><p>El paper propone extenderlo a audio, vídeo y acciones: el terreno de los world models.</p></div>
+            <div class="card wt-card"><h3>AMI Labs</h3><p>Sus primeros modelos dirán si la teoría escala más allá de benchmarks de alineación.</p></div>
+          </div>
+          <div class="footnote">Balestriero &amp; LeCun (2026), §7 Conclusión; github.com/galilai-group/prh-proof (docs/reproduce.md).</div>
+        </section>
+
+        <!-- 23 · Takeaways -->
+        <section data-anim="takeaways">
+          <div class="kicker">Para llevarse</div>
+          <h2>Tres ideas</h2>
+          <div class="takeaways">
+            <div class="item"><span class="n">1</span><div><strong>De intuición a teorema.</strong> Que modelos distintos converjan al mismo «mapa del mundo» ya está demostrado para las JEPA, bajo supuestos idealizados.</div></div>
+            <div class="item"><span class="n">2</span><div><strong>La palanca son las vistas, no solo la escala.</strong> Next-token prediction aprende de «malas vistas» y por eso necesita muchísimos más datos para alinearse.</div></div>
+            <div class="item"><span class="n">3</span><div><strong>Un argumento para los world models.</strong> Respalda la apuesta de LeCun por aprender de muchas observaciones del mismo mundo. Falta replicarlo.</div></div>
+          </div>
+        </section>
+
+        <!-- 24 · Fuentes -->
+        <section data-anim="sources">
+          <div class="kicker">Fuentes</div>
+          <h2>Para seguir leyendo</h2>
+          <div class="sources-cols">
+            <div>
+              <h4>El paper</h4>
+              <ul>
+                <li><a href="https://arxiv.org/abs/2610.39302">Balestriero &amp; LeCun (2026), Proving and Improving the PRH with JEPAs</a></li>
+                <li><a href="https://github.com/galilai-group/prh-proof">Código: galilai-group/prh-proof</a> · <a href="https://huggingface.co/spaces/galilai-group/prh_demo">Demo en Hugging Face</a></li>
+              </ul>
+              <h4>De dónde venimos</h4>
+              <ul>
+                <li><a href="https://arxiv.org/abs/1309.4168">Mikolov et al. (2013), Exploiting Similarities among Languages</a></li>
+                <li><a href="https://arxiv.org/abs/1710.04087">Conneau et al. (2017), Word Translation Without Parallel Data</a></li>
+                <li><a href="https://arxiv.org/abs/2103.00020">Radford et al. (2021), CLIP</a></li>
+                <li><a href="https://arxiv.org/abs/2405.07987">Huh et al. (2024), The Platonic Representation Hypothesis</a></li>
+                <li><a href="https://arxiv.org/abs/2602.14486">Gröger et al. (2026), An Aristotelian View</a> · <a href="https://arxiv.org/abs/2609.27252">You et al. (2026)</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4>JEPA y LeCun</h4>
+              <ul>
+                <li><a href="https://openreview.net/forum?id=BZ5a1r-kVsf">LeCun (2022), A Path Towards Autonomous Machine Intelligence</a></li>
+                <li><a href="https://arxiv.org/abs/2301.08243">I-JEPA (2023)</a> · <a href="https://arxiv.org/abs/2506.09985">V-JEPA 2 (2025)</a> · <a href="https://arxiv.org/abs/2511.08544">LeJEPA (2025)</a></li>
+                <li><a href="https://amilabs.xyz">AMI Labs</a> · <a href="https://lexfridman.com/yann-lecun-3-transcript/">Lex Fridman #416</a></li>
+              </ul>
+              <h4>Recepción y contexto</h4>
+              <ul>
+                <li><a href="https://aicoder.com/news/news-20261029-lecun-balestriero-jepa-platonic-representation-theorem-109m-text-jepa-beats-72b-llms-alignment">AICoder (oct 2026)</a> · <a href="https://que.com/lecun-jepa-theorem-shows-a-109m-model-can-out-align-72b-language-models/">QUE.com</a></li>
+                <li><a href="https://deepmind.google/blog/genie-4-a-new-generation-of-world-simulation/">Genie 4</a> · <a href="https://www.worldlabs.ai/blog/marble-world-model">World Labs Marble</a></li>
+                <li>Todo el material: <span class="mono">research/</span> (sources.md)</li>
+              </ul>
+            </div>
+          </div>
+          <div class="footnote">Fuentes consultadas el 2026-11-03. Las cifras son las publicadas por cada autor.</div>
+        </section>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="assets/js/lib.js"></script>
+    <script src="assets/js/anims-origen.js"></script>
+    <script src="assets/js/anims-jepa.js"></script>
+    <script src="assets/js/anims-futuro.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>
