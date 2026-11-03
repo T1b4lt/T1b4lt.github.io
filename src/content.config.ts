@@ -41,13 +41,7 @@ const oss = defineCollection({
 // Talks are self-contained HTML decks under public/talks/<slug>/, served as-is
 // (not translated). The filename must match the folder name in public/talks/.
 const talks = defineCollection({
-  // Keep the filename's case in the id: the default slugger lowercases it,
-  // which breaks links to folders like public/talks/PRH-with-JEPA/.
-  loader: glob({
-    pattern: "*.md",
-    base: "./src/content/talks",
-    generateId: ({ entry }) => entry.replace(/\.md$/, ""),
-  }),
+  loader: glob({ pattern: "*.md", base: "./src/content/talks" }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
