@@ -10,7 +10,9 @@
      labels "s0", "s1", … at the END of each step. → advances one step,
      ← rewinds quickly. Without labels, the timeline simply plays on entry.
    - Everything a slide creates is rebuilt from scratch on every entry, and
-     gsap.context reverts inline styles on exit, so animations always restart
+     gsap.context reverts inline styles once the outgoing slide has finished
+     its transition (it is frozen, not reset, while it fades out), so
+     animations always restart
      cleanly ("R" replays the current slide).
    - ?print-pdf renders every timeline in its final state (Deck.isPrint lets
      animations skip live loops and show static values instead). */
@@ -24,13 +26,42 @@
     return slide.querySelectorAll(".fragment.step.visible").length;
   }
 
-  function stop() {
+  function kill(c) {
+    if (!c || c.dead) return;
+    c.dead = true;
+    clearTimeout(c.timer);
+    if (c.stepTween) c.stepTween.kill();
+    c.ac.abort();
+    if (c.api.tl) c.api.tl.kill();
+    if (c.api.destroy) c.api.destroy();
+    c.ctx.revert();
+  }
+
+  // Leaving a slide: freeze its animation where it is and revert it only once
+  // the slide transition has finished, so the outgoing slide never flashes its
+  // initial (pre-animation) state while it fades out.
+  const RETIRE_DELAY = 900;
+  const retiring = [];
+  function stop(next) {
     if (!current) return;
-    current.ac.abort();
-    if (current.api.tl) current.api.tl.kill();
-    if (current.api.destroy) current.api.destroy();
-    current.ctx.revert();
+    const c = current;
     current = null;
+    if (!next || next === c.slide) {
+      kill(c);
+      return;
+    }
+    if (c.api.tl) c.api.tl.pause();
+    c.timer = setTimeout(() => kill(c), RETIRE_DELAY);
+    retiring.push(c);
+  }
+  function flushRetiring(slide) {
+    // Re-entering a slide that is still waiting to be reverted: revert it now.
+    for (let i = retiring.length - 1; i >= 0; i--) {
+      if (retiring[i].dead || retiring[i].slide === slide) {
+        kill(retiring[i]);
+        retiring.splice(i, 1);
+      }
+    }
   }
 
   function build(slide) {
@@ -65,7 +96,8 @@
   }
 
   function start(slide) {
-    stop();
+    stop(slide);
+    flushRetiring(slide);
     if (!slide) return;
     current = build(slide);
     if (!current) return;
